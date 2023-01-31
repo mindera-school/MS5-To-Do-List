@@ -18,4 +18,4 @@ Create a simple To Do List
 
 ### Example
 
-https://x04fll.csb.app/
+https://x04fll.csb.app
