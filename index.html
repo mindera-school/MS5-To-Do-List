@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>ToDoList</title>
+</head>
+<body>
+    <main id="main">
+        <h1>To Do List</h1>
+        <form action="" id="form">
+            <span id="inputContainer">
+                <input id="input" type="text" placeholder="Task name ex: Meeting">
+                <input id="date" placeholder="Date ex: January 12th" type="text" >
+                <input id="tag" placeholder="Tag ex: #work" type="text">
+            </span>
+            <span id="buttonsContainer">
+                <button id="subButton"><img src="https://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/sign-add-icon.png" alt=""></button>
+                <button id="deleteBtn"><img src="https://cdn-icons-png.flaticon.com/512/216/216760.png" alt=""></button>
+                <button id="seeMoreBtn"><img src="https://cdn4.iconfinder.com/data/icons/web-ui-color/128/Menu_green-512.png" alt=""></Option></button>
+            </span>
+        </form>
+        <div id="seeMoreDiv">
+            <div id="upperButtons">
+                <button id="addRandomPos">Add Randomly</button>
+                <button id="addFirst">Add First</button>
+            </div>
+
+            <div id="midButtons">
+                <button id="removeFirst">Remove First</button>
+                <button id="removeLast">Remove Last</button>
+                <button id="removeRandom">Remove Random</button>
+                <button id="removeDuplicates">Remove Duplicates</button>
+                <button id="removeOdd">Remove Odd</button>
+            </div>
+
+            <div id="lowerBtnContainer">
+                <button id="randomize">Randomize</button>
+                <button id="alphabetically">Sort Alphabetically</button>
+                <button id="alphabeticallyRvrs">Sort AlphaReverse</button>
+            </div>
+        </div>
+        <ul id="list">
+        </ul>
+    </main>
+</body>
+<script src="./newScript.js"></script>
+</html>
