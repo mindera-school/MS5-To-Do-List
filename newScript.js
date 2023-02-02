@@ -153,13 +153,14 @@ function refreshLocalStorage(updatedList){
 
 seeMoreBtn.addEventListener("click", (e) => {
   e.preventDefault();
-  if (dateInput.style.display === "none") {
-    dateInput.style.display = "flex";
-    tagInput.style.display = "flex"
-  } else {
-    dateInput.style.display = "none";
-    tagInput.style.display = "none"
-  }
+ if(dateInput.getAttribute("id") === "date-appear"){
+  dateInput.setAttribute("id","date-disappear");
+  setTimeout(()=>{tagInput.setAttribute("id","tag-disappear")},100);
+  setTimeout(()=>{
+    tagInput.setAttribute("id","tag");
+    dateInput.setAttribute("id","date");
+  },400);
+ }
 
   if (seeMoreDiv.style.display === "block") {
     seeMoreDiv.style.display = "none"
@@ -202,13 +203,25 @@ deleteAll.addEventListener("click", (e) => {
 function createOnPg(task,date,tag, index) {
   const item = document.createElement("li");
   const deleteBtn = document.createElement("button");
+  const markDoneBtn = document.createElement("button");
   item.innerHTML = "Task name: "+task+" | Date: "+date+" | #"+tag;
   item.addEventListener("click", (e) => reWriteLi(e, index));
-  const icon = document.createElement("img");
-  icon.src = "https://cdn-icons-png.flaticon.com/512/1828/1828843.png";
-  deleteBtn.appendChild(icon);
+  const iconDelete = document.createElement("img");
+  const iconMarkDone = document.createElement("img");
+  iconDelete.src = "./icons/trash.svg";
+  iconMarkDone.src = "./icons/check.svg";
+  deleteBtn.appendChild(iconDelete);
+  markDoneBtn.appendChild(iconMarkDone);
   list.appendChild(item);
   item.appendChild(deleteBtn);
+  item.appendChild(markDoneBtn);
+  markDoneBtn.addEventListener("click", ()=>{
+    if(item.style.textDecoration==="line-through"){
+      item.style.textDecoration = "none";
+    }else{
+      item.style.textDecoration = "line-through";
+    }
+  });
   deleteBtn.addEventListener("click", () => {
     item.setAttribute("class","disappearLi");
     setTimeout(()=>{
@@ -287,3 +300,6 @@ function compareTaskNameRvrs(x,y){
   }
   return 0;
 };
+
+  
+
