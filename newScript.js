@@ -1,3 +1,4 @@
+const main = document.getElementsByTagName("main")[0];
 const form = document.getElementById("form");
 const subBtn = document.getElementById("subButton");
 const deleteAll = document.getElementById("deleteBtn");
@@ -20,7 +21,6 @@ const alphaRvrsBtn = document.getElementById("alphabeticallyRvrs");
 
 
 let list = document.getElementById("list");
-const main = document.getElementById("main");
 let listToDo = JSON.parse(localStorage.getItem("list"));
 
 
@@ -29,10 +29,10 @@ if (listToDo?.length === 0 || !listToDo) {
   listToDo = [];
 }
 
-function updatePage(){
-  list.innerHTML= null;
+function updatePage() {
+  list.innerHTML = null;
   for (let i = 0; i < listToDo.length; i++) {
-    createOnPg(listToDo[i].taskName,listToDo[i].date, listToDo[i].tag);
+    createOnPg(listToDo[i].taskName, listToDo[i].date, listToDo[i].tag);
   }
   refreshLocalStorage(listToDo);
 }
@@ -43,23 +43,23 @@ form.addEventListener("submit", (e) => {
 
 input.addEventListener("focus", () => {
   dateInput.setAttribute("id", "date-appear");
-  setTimeout(()=>{tagInput.setAttribute("id", "tag-appear")},300);
+  setTimeout(() => { tagInput.setAttribute("id", "tag-appear") }, 300);
 });
 
-removeOdd.addEventListener("click",()=>{
+removeOdd.addEventListener("click", () => {
   for (let i = 0; i < listToDo.length; i++) {
-    if(i%2 ===0){
-      listToDo.splice(i,1);
+    if (i % 2 === 0) {
+      listToDo.splice(i, 1);
     }
   }
   updatePage();
 })
 
-removeDup.addEventListener("click",()=>{
+removeDup.addEventListener("click", () => {
   const tempSet = new Set();
   const tempArray = [];
   for (let i = 0; i < listToDo.length; i++) {
-    if(!tempSet.has(listToDo[i].taskName)){
+    if (!tempSet.has(listToDo[i].taskName)) {
       tempArray.push(listToDo[i]);
     }
     tempSet.add(listToDo[i].taskName);
@@ -68,35 +68,35 @@ removeDup.addEventListener("click",()=>{
   updatePage();
 });
 
-removeRandom.addEventListener("click",()=>{
-  const random = Math.round(Math.random()* listToDo.length-1);
-  listToDo.splice(random,1);
+removeRandom.addEventListener("click", () => {
+  const random = Math.round(Math.random() * listToDo.length - 1);
+  listToDo.splice(random, 1);
   updatePage();
 });
 
-removeLast.addEventListener("click",()=>{
+removeLast.addEventListener("click", () => {
   listToDo.pop();
   updatePage();
 });
 
-removeFirst.addEventListener("click",()=>{
-  listToDo.splice(0,1);
+removeFirst.addEventListener("click", () => {
+  listToDo.splice(0, 1);
   updatePage();
 });
 
-addRandom.addEventListener("click",()=>{
-  const randomNum = Math.round(Math.random() * listToDo.length -1);
-  const newItem ={
+addRandom.addEventListener("click", () => {
+  const randomNum = Math.round(Math.random() * listToDo.length - 1);
+  const newItem = {
     taskName: input.value,
     date: dateInput.value,
     tag: tagInput.value
   }
-  listToDo.splice(randomNum,0,newItem);
+  listToDo.splice(randomNum, 0, newItem);
   updatePage();
 });
 
-addFirstBtn.addEventListener("click",()=>{
-  const newItem ={
+addFirstBtn.addEventListener("click", () => {
+  const newItem = {
     taskName: input.value,
     date: dateInput.value,
     tag: tagInput.value
@@ -105,15 +105,15 @@ addFirstBtn.addEventListener("click",()=>{
   updatePage();
 });
 
-randomize.addEventListener("click", ()=> {
+randomize.addEventListener("click", () => {
   listToDo.sort(() => Math.random() - 0.5);
   updatePage();
 });
 
-alphaBtn.addEventListener("click", ()=>{
+alphaBtn.addEventListener("click", () => {
   listToDo.sort((a, b) => {
     const taskA = a.taskName.toUpperCase();
-    const taskB = b.taskName.toUpperCase(); 
+    const taskB = b.taskName.toUpperCase();
     if (taskA > taskB) {
       return 1;
     }
@@ -125,10 +125,10 @@ alphaBtn.addEventListener("click", ()=>{
   updatePage();
 });
 
-alphaRvrsBtn.addEventListener("click", ()=>{
+alphaRvrsBtn.addEventListener("click", () => {
   listToDo.sort((a, b) => {
     const taskA = a.taskName.toUpperCase();
-    const taskB = b.taskName.toUpperCase(); 
+    const taskB = b.taskName.toUpperCase();
     if (taskA > taskB) {
       return -1;
     }
@@ -137,30 +137,30 @@ alphaRvrsBtn.addEventListener("click", ()=>{
     }
     return 0;
   });
-  
+
   updatePage();
 });
 
 window.addEventListener("load", () => {
   for (let i = 0; i < listToDo.length; i++) {
-    createOnPg(listToDo[i].taskName,listToDo[i].date, listToDo[i].tag);
+    createOnPg(listToDo[i].taskName, listToDo[i].date, listToDo[i].tag);
   }
 });
 
-function refreshLocalStorage(updatedList){
+function refreshLocalStorage(updatedList) {
   localStorage.setItem("list", JSON.stringify(updatedList));
 };
 
 seeMoreBtn.addEventListener("click", (e) => {
   e.preventDefault();
- if(dateInput.getAttribute("id") === "date-appear"){
-  dateInput.setAttribute("id","date-disappear");
-  setTimeout(()=>{tagInput.setAttribute("id","tag-disappear")},100);
-  setTimeout(()=>{
-    tagInput.setAttribute("id","tag");
-    dateInput.setAttribute("id","date");
-  },400);
- }
+  if (dateInput.getAttribute("id") === "date-appear") {
+    dateInput.setAttribute("id", "date-disappear");
+    setTimeout(() => { tagInput.setAttribute("id", "tag-disappear") }, 100);
+    setTimeout(() => {
+      tagInput.setAttribute("id", "tag");
+      dateInput.setAttribute("id", "date");
+    }, 400);
+  }
 
   if (seeMoreDiv.style.display === "block") {
     seeMoreDiv.style.display = "none"
@@ -174,22 +174,22 @@ subBtn.addEventListener("click", () => {
     window.alert("You're adding an empty task!");
     return
   }
-  addItem(input.value,dateInput.value,tagInput.value);
+  addItem(input.value, dateInput.value, tagInput.value);
   input.value = null;
   dateInput.value = null;
   tagInput.value = null;
-  dateInput.setAttribute("id","date-disappear");
-  setTimeout(()=>{tagInput.setAttribute("id","tag-disappear")},150)
+  dateInput.setAttribute("id", "date-disappear");
+  setTimeout(() => { tagInput.setAttribute("id", "tag-disappear") }, 150)
   setTimeout(() => {
-    tagInput.setAttribute("id","tag");
-    dateInput.setAttribute("id","date");
-  },500);
-  
+    tagInput.setAttribute("id", "tag");
+    dateInput.setAttribute("id", "date");
+  }, 500);
+
 });
 
 deleteAll.addEventListener("click", (e) => {
-  list.setAttribute("id","list-disappear");
-  setTimeout(()=>{
+  list.setAttribute("id", "list-disappear");
+  setTimeout(() => {
     e.preventDefault();
     listToDo = [];
     refreshLocalStorage(listToDo);
@@ -197,109 +197,99 @@ deleteAll.addEventListener("click", (e) => {
     const newList = document.createElement("ul");
     newList.setAttribute("id", "list");
     main.appendChild(newList);
-  },300);
+  }, 300);
 });
 
-function createOnPg(task,date,tag, index) {
+function createOnPg(task, date, tag, index) {
   const item = document.createElement("li");
   const deleteBtn = document.createElement("button");
   const markDoneBtn = document.createElement("button");
-  item.innerHTML = "Task name: "+task+" | Date: "+date+" | #"+tag;
-  item.addEventListener("click", (e) => reWriteLi(e, index));
+  item.innerHTML = "Task name: " + task + " | Date: " + date + " | ";
+  item.addEventListener("click", (e) => {
+    rewriterCall(e, index);
+  });
   const iconDelete = document.createElement("img");
   const iconMarkDone = document.createElement("img");
+  const spanForTag = document.createElement("span")
+  spanForTag.innerHTML = "#"+tag;
   iconDelete.src = "./icons/trash.svg";
   iconMarkDone.src = "./icons/check.svg";
   deleteBtn.appendChild(iconDelete);
   markDoneBtn.appendChild(iconMarkDone);
   list.appendChild(item);
+  item.appendChild(spanForTag)
   item.appendChild(deleteBtn);
   item.appendChild(markDoneBtn);
-  markDoneBtn.addEventListener("click", ()=>{
-    if(item.style.textDecoration==="line-through"){
+  markDoneBtn.addEventListener("click", () => {
+    if (item.style.textDecoration === "line-through") {
       item.style.textDecoration = "none";
-    }else{
+    } else {
       item.style.textDecoration = "line-through";
     }
   });
   deleteBtn.addEventListener("click", () => {
-    item.setAttribute("class","disappearLi");
-    setTimeout(()=>{
+    item.setAttribute("class", "disappearLi");
+    setTimeout(() => {
       const parent = deleteBtn.parentNode;
       parent.remove();
       listToDo.splice(index, 1);
       refreshLocalStorage(listToDo);
-    },400)
+    }, 400)
   });
-  item.setAttribute("class","appearLi");
+  item.setAttribute("class", "appearLi");
 };
 
-function addItem(value,date,tag) {
-  const newItem ={
+function addItem(value, date, tag) {
+  const newItem = {
     taskName: value,
     date: date,
     tag: tag
-};
+  };
   const index = listToDo.push(newItem) - 1;
-  createOnPg(value,date,tag, index);
+  createOnPg(value, date, tag, index);
   refreshLocalStorage(listToDo);
 };
 
-function reWriteLi(e, index) {
-  const thisLi = e.target;
+function rewriterCall(e,index) {
+  const changesForm = document.getElementsByClassName("editForm")[0];
+  changesForm.setAttribute("class","editForm-active");
+  
+  const formTitle = document.createElement("h3");
   const tempForm = document.createElement("form");
   const tempTaskIn = document.createElement("input");
   const tempDateIn = document.createElement("input");
   const tempTagIn = document.createElement("input");
   const savebtn = document.createElement("button");
+
+  formTitle.innerHTML = "Edit Task"
   savebtn.innerHTML = "Save Changes";
 
   tempTaskIn.placeholder = "Taskname";
   tempDateIn.placeholder = "Date";
   tempTagIn.placeholder = "Tag"
 
+  tempForm.appendChild(formTitle);
   tempForm.appendChild(tempTaskIn);
   tempForm.appendChild(tempDateIn);
   tempForm.appendChild(tempTagIn);
   tempForm.appendChild(savebtn);
-  thisLi.appendChild(tempForm);
-  savebtn.addEventListener("click",(e)=>{
+  changesForm.appendChild(tempForm);
+
+  savebtn.addEventListener("click", (e) => {
     tempForm.remove();
     e.preventDefault();
-    const updatedItem ={
+    const updatedItem = {
       taskName: tempTaskIn.value,
       date: tempDateIn.value,
       tag: tempTagIn.value
     }
-    listToDo.splice(index,1,updatedItem);
+    listToDo.splice(index, 1, updatedItem);
+    changesForm.setAttribute("class","editForm");
     updatePage();
   })
+
 };
 
 
-function compareTaskName(x,y){
-    const taskX = x.taskName.toUpperCase();
-    const taskY = y.taskName.toUpperCase();
-    if (taskX > taskY) {
-      return 1;
-    }
-    if (taskX < taskY) {
-      return -1;
-    }
-    return 0;
-};
 
-function compareTaskNameRvrs(x,y){
-  const taskX = x.taskName.toUpperCase();
-  const taskY = y.taskName.toUpperCase();
-  if (taskX > taskY) {
-    return -1;
-  }
-  if (taskX < taskY) {
-    return 1;
-  }
-  return 0;
-};
-
-  
 
