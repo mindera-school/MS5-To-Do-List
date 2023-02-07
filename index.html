@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style2.css" />
+  </head>
+  <body>
+    <main>
+      <div id="bg">
+        <h1>To do list</h1>
+        <form id="menu">
+          <div id="container">
+            <div id="head1">
+              <input id="value" placeholder="Title" type="text" />
+              <button id="add">Add</button>
+              <button id="plus">+</button>
+              <div id="box">
+                <button id="delete">Delete All</button>
+                <button id="addFirst">Add First</button>
+                <button id="addRandom">Add Random</button>
+                <br />
+                <button id="sortAlphabetically">sortAlphabetically</button>
+                <button id="sortDate">sortDate</button>
+              </div>
+            </div>
+            <div id="head2">
+              <input
+                type="textarea"
+                placeholder="Description"
+                id="description"
+              />
+              <input type="date" id="date" />
+            </div>
+          </div>
+        </form>
+        <div id="line"></div>
+        <div id="tasks">
+          <ul id="list"></ul>
+        </div>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
