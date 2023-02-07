@@ -1,5 +1,5 @@
 body {
-  background-image: url("Subtle-Light-Tile-Pattern-Vol2.jpg");
+  background-image: url("./Images/Subtle-Light-Tile-Pattern-Vol2.jpg");
   background-size: 350px;
   background-repeat: repeat;
 }
@@ -7,7 +7,7 @@ body {
 input[type="text"],
 input[type="textarea"] {
   width: 300px;
-  background-image: url("./NicePng_ebay-icon-png_507765.png");
+  background-image: url("./Images/NicePng_ebay-icon-png_507765.png");
   background-size: 15px;
   background-repeat: no-repeat;
   background-position: left center;
@@ -76,7 +76,7 @@ input {
 }
 
 #head1 {
-  width: 74%;
+  width: 48%;
   display: flex;
   align-items: center;
   justify-content: space-between;
