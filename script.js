@@ -43,7 +43,11 @@ taskInputForm.addEventListener("submit", (e) => {
 
 taskNameInput.addEventListener("focus", () => {
   dateInput.setAttribute("id", "date-appear");
-  setTimeout(() => { tagInput.setAttribute("id", "tag-appear") }, 300);
+  dateInput.disabled = false;
+  setTimeout(() => { 
+    tagInput.setAttribute("id", "tag-appear");
+    tagInput.disabled = false; 
+  }, 300);
 });
 
 removeOddBtn.addEventListener("click", () => {
@@ -179,7 +183,11 @@ subBtn.addEventListener("click", () => {
   dateInput.value = null;
   tagInput.value = null;
   dateInput.setAttribute("id", "date-disappear");
-  setTimeout(() => { tagInput.setAttribute("id", "tag-disappear") }, 150)
+  dateInput.disabled = true;
+  setTimeout(() => {
+     tagInput.setAttribute("id", "tag-disappear");
+     tagInput.disabled = true; 
+    }, 150)
   setTimeout(() => {
     tagInput.setAttribute("id", "tag");
     dateInput.setAttribute("id", "date");
