@@ -9,7 +9,7 @@
   }
 }
 
-@keyframes appear {
+@keyframes appearTask {
   0% {
     opacity: 0;
     color: green;
@@ -34,7 +34,7 @@
   }
 }
 
-@keyframes disappear {
+@keyframes disappearTask {
   0% {
     opacity: 1;
     transform: translate(0px, 0);
@@ -289,6 +289,7 @@ li {
   list-style-type: none;
 }
 
+
 li span{
     background: rgb(141, 200, 175);
     border-radius: 10px;
@@ -305,11 +306,11 @@ li::before {
 }
 
 .appearLi {
-  animation: appear 0.5s ease 0s 1 normal;
+  animation: appearTask 0.5s ease 0s 1 normal;
 }
 
 .disappearLi {
-  animation: disappear 0.5s ease 0s 1 normal;
+  animation: disappearTask 0.5s ease 0s 1 normal;
 }
 
 li img {
@@ -335,14 +336,6 @@ li form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-li form button {
-  border: 3px white solid;
-  color: white;
-  border-radius: 5px;
-  padding: 3px;
-  width: 8%;
 }
 
 ul button {

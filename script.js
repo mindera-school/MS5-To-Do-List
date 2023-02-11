@@ -1,22 +1,22 @@
 const main = document.getElementsByTagName("main")[0];
-const form = document.getElementById("form");
-const subBtn = document.getElementById("subButton");
+const taskInputForm = document.getElementById("taskAddForm");
+const subBtn = document.getElementById("subBtn");
 const deleteAll = document.getElementById("deleteBtn");
 const seeMoreBtn = document.getElementById("seeMoreBtn");
 const seeMoreDiv = document.getElementById("seeMoreDiv");
-const input = document.getElementById("input");
+const taskNameInput = document.getElementById("input");
 const dateInput = document.getElementById("date");
 const tagInput = document.getElementById("tag");
 const addFirstBtn = document.getElementById("addFirst");
-const addRandom = document.getElementById("addRandomPos");
-const removeFirst = document.getElementById("removeFirst");
-const removeLast = document.getElementById("removeLast");
-const removeRandom = document.getElementById("removeRandom");
-const removeDup = document.getElementById("removeDuplicates");
-const removeOdd = document.getElementById("removeOdd");
-const randomize = document.getElementById("randomize");
-const alphaBtn = document.getElementById("alphabetically");
-const alphaRvrsBtn = document.getElementById("alphabeticallyRvrs");
+const addRandomBtn = document.getElementById("addRandomPos");
+const removeFirstBtn = document.getElementById("removeFirst");
+const removeLastBtn = document.getElementById("removeLast");
+const removeRandomBtn = document.getElementById("removeRandom");
+const removeDupBtn = document.getElementById("removeDuplicates");
+const removeOddBtn = document.getElementById("removeOdd");
+const randomizeBtn = document.getElementById("randomize");
+const alphaBtnOrderBtn = document.getElementById("alphabetically");
+const alphaRvrsOrderBtn = document.getElementById("alphabeticallyRvrs");
 
 
 
@@ -37,16 +37,16 @@ function updatePage() {
   refreshLocalStorage(listToDo);
 }
 
-form.addEventListener("submit", (e) => {
+taskInputForm.addEventListener("submit", (e) => {
   e.preventDefault();
 });
 
-input.addEventListener("focus", () => {
+taskNameInput.addEventListener("focus", () => {
   dateInput.setAttribute("id", "date-appear");
   setTimeout(() => { tagInput.setAttribute("id", "tag-appear") }, 300);
 });
 
-removeOdd.addEventListener("click", () => {
+removeOddBtn.addEventListener("click", () => {
   for (let i = 0; i < listToDo.length; i++) {
     if (i % 2 === 0) {
       listToDo.splice(i, 1);
@@ -55,7 +55,7 @@ removeOdd.addEventListener("click", () => {
   updatePage();
 })
 
-removeDup.addEventListener("click", () => {
+removeDupBtn.addEventListener("click", () => {
   const tempSet = new Set();
   const tempArray = [];
   for (let i = 0; i < listToDo.length; i++) {
@@ -68,26 +68,26 @@ removeDup.addEventListener("click", () => {
   updatePage();
 });
 
-removeRandom.addEventListener("click", () => {
+removeRandomBtn.addEventListener("click", () => {
   const random = Math.round(Math.random() * listToDo.length - 1);
   listToDo.splice(random, 1);
   updatePage();
 });
 
-removeLast.addEventListener("click", () => {
+removeLastBtn.addEventListener("click", () => {
   listToDo.pop();
   updatePage();
 });
 
-removeFirst.addEventListener("click", () => {
-  listToDo.splice(0, 1);
+removeFirstBtn.addEventListener("click", () => {
+  listToDo.shift();
   updatePage();
 });
 
-addRandom.addEventListener("click", () => {
+addRandomBtn.addEventListener("click", () => {
   const randomNum = Math.round(Math.random() * listToDo.length - 1);
   const newItem = {
-    taskName: input.value,
+    taskName: taskNameInput.value,
     date: dateInput.value,
     tag: tagInput.value
   }
@@ -97,7 +97,7 @@ addRandom.addEventListener("click", () => {
 
 addFirstBtn.addEventListener("click", () => {
   const newItem = {
-    taskName: input.value,
+    taskName: taskNameInput.value,
     date: dateInput.value,
     tag: tagInput.value
   }
@@ -105,12 +105,12 @@ addFirstBtn.addEventListener("click", () => {
   updatePage();
 });
 
-randomize.addEventListener("click", () => {
+randomizeBtn.addEventListener("click", () => {
   listToDo.sort(() => Math.random() - 0.5);
   updatePage();
 });
 
-alphaBtn.addEventListener("click", () => {
+alphaBtnOrderBtn.addEventListener("click", () => {
   listToDo.sort((a, b) => {
     const taskA = a.taskName.toUpperCase();
     const taskB = b.taskName.toUpperCase();
@@ -125,7 +125,7 @@ alphaBtn.addEventListener("click", () => {
   updatePage();
 });
 
-alphaRvrsBtn.addEventListener("click", () => {
+alphaRvrsOrderBtn.addEventListener("click", () => {
   listToDo.sort((a, b) => {
     const taskA = a.taskName.toUpperCase();
     const taskB = b.taskName.toUpperCase();
@@ -170,12 +170,12 @@ seeMoreBtn.addEventListener("click", (e) => {
 });
 
 subBtn.addEventListener("click", () => {
-  if (!input.value) {
+  if (!taskNameInput.value) {
     window.alert("You're adding an empty task!");
     return
   }
-  addItem(input.value, dateInput.value, tagInput.value);
-  input.value = null;
+  addItem(taskNameInput.value, dateInput.value, tagInput.value);
+  taskNameInput.value = null;
   dateInput.value = null;
   tagInput.value = null;
   dateInput.setAttribute("id", "date-disappear");
@@ -202,22 +202,28 @@ deleteAll.addEventListener("click", (e) => {
 
 function createOnPg(task, date, tag, index) {
   const item = document.createElement("li");
+  const editBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const markDoneBtn = document.createElement("button");
   item.innerHTML = "Task name: " + task + " | Date: " + date + " | ";
-  item.addEventListener("click", (e) => {
+  editBtn.addEventListener("click", (e) => {
     rewriterCall(e, index);
   });
+  const iconEdit = document.createElement("img");
   const iconDelete = document.createElement("img");
   const iconMarkDone = document.createElement("img");
-  const spanForTag = document.createElement("span")
+  const spanForTag = document.createElement("span");
   spanForTag.innerHTML = "#"+tag;
+
+  iconEdit.src = "./icons/edit.svg"
   iconDelete.src = "./icons/trash.svg";
   iconMarkDone.src = "./icons/check.svg";
+  editBtn.appendChild(iconEdit);
   deleteBtn.appendChild(iconDelete);
   markDoneBtn.appendChild(iconMarkDone);
   list.appendChild(item);
-  item.appendChild(spanForTag)
+  item.appendChild(spanForTag);
+  item.appendChild(editBtn);
   item.appendChild(deleteBtn);
   item.appendChild(markDoneBtn);
   markDoneBtn.addEventListener("click", () => {
@@ -266,7 +272,7 @@ function rewriterCall(e,index) {
 
   tempTaskIn.placeholder = "Taskname";
   tempDateIn.placeholder = "Date";
-  tempTagIn.placeholder = "Tag"
+  tempTagIn.placeholder = "Tag";
 
   tempForm.appendChild(formTitle);
   tempForm.appendChild(tempTaskIn);
