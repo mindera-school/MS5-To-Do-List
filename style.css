@@ -277,6 +277,7 @@ ul {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 22px;
   padding-left: 200px;
+  overflow-y: scroll;
 }
 
 li {

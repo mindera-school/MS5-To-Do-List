@@ -161,7 +161,7 @@ subBtn.addEventListener("click", () => {
     tagInput.setAttribute("id", "tag");
     dateInput.setAttribute("id", "date");
   }, 500);
-
+  updatePage();
 });
 
 deleteAll.addEventListener("click", (e) => {
@@ -220,7 +220,7 @@ function createOnPg(task, date, tag, index) {
 function addItem(taskName, date, tag) {
   const newItem = { taskName, date, tag };
   const index = storageList.push(newItem) - 1;
-  createOnPg(value, date, tag, index);
+  createOnPg(taskName, date, tag, index);
   refreshLocalStorage(storageList);
 };
 
