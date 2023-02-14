@@ -1,4 +1,4 @@
-const main = document.getElementsByTagName("main")[0];
+const main = document.querySelector("main");
 const taskInputForm = document.getElementById("taskAddForm");
 const subBtn = document.getElementById("subBtn");
 const deleteAll = document.getElementById("deleteBtn");
@@ -17,25 +17,26 @@ const removeOddBtn = document.getElementById("removeOdd");
 const randomizeBtn = document.getElementById("randomize");
 const alphaBtnOrderBtn = document.getElementById("alphabetically");
 const alphaRvrsOrderBtn = document.getElementById("alphabeticallyRvrs");
+let stateList = document.getElementById("list");
+let storageList = JSON.parse(localStorage.getItem("list"));
 
+window.addEventListener("load", () => {
+  for (let i = 0; i < storageList.length; i++) {
+    createOnPg(storageList[i].taskName, storageList[i].date, storageList[i].tag);
+  }
+});
 
-
-let list = document.getElementById("list");
-let listToDo = JSON.parse(localStorage.getItem("list"));
-
-
-
-if (listToDo?.length === 0 || !listToDo) {
-  listToDo = [];
-}
+if (storageList?.length === 0 || !storageList) {
+  storageList = [];
+};
 
 function updatePage() {
-  list.innerHTML = null;
-  for (let i = 0; i < listToDo.length; i++) {
-    createOnPg(listToDo[i].taskName, listToDo[i].date, listToDo[i].tag);
+  stateList.innerHTML = null;
+  for (let i = 0; i < storageList.length; i++) {
+    createOnPg(storageList[i].taskName, storageList[i].date, storageList[i].tag);
   }
-  refreshLocalStorage(listToDo);
-}
+  refreshLocalStorage(storageList);
+};
 
 taskInputForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -44,58 +45,58 @@ taskInputForm.addEventListener("submit", (e) => {
 taskNameInput.addEventListener("focus", () => {
   dateInput.setAttribute("id", "date-appear");
   dateInput.disabled = false;
-  setTimeout(() => { 
+  setTimeout(() => {
     tagInput.setAttribute("id", "tag-appear");
-    tagInput.disabled = false; 
+    tagInput.disabled = false;
   }, 300);
 });
 
 removeOddBtn.addEventListener("click", () => {
-  for (let i = 0; i < listToDo.length; i++) {
+  for (let i = 0; i < storageList.length; i++) {
     if (i % 2 === 0) {
-      listToDo.splice(i, 1);
-    }
-  }
+      storageList.splice(i, 1);
+    };
+  };
   updatePage();
-})
+});
 
 removeDupBtn.addEventListener("click", () => {
   const tempSet = new Set();
   const tempArray = [];
-  for (let i = 0; i < listToDo.length; i++) {
-    if (!tempSet.has(listToDo[i].taskName)) {
-      tempArray.push(listToDo[i]);
-    }
-    tempSet.add(listToDo[i].taskName);
-  }
-  listToDo = tempArray;
+  for (let i = 0; i < storageList.length; i++) {
+    if (!tempSet.has(storageList[i].taskName)) {
+      tempArray.push(storageList[i]);
+    };
+    tempSet.add(storageList[i].taskName);
+  };
+  storageList = tempArray;
   updatePage();
 });
 
 removeRandomBtn.addEventListener("click", () => {
-  const random = Math.round(Math.random() * listToDo.length - 1);
-  listToDo.splice(random, 1);
+  const random = Math.round(Math.random() * storageList.length - 1);
+  storageList.splice(random, 1);
   updatePage();
 });
 
 removeLastBtn.addEventListener("click", () => {
-  listToDo.pop();
+  storageList.pop();
   updatePage();
 });
 
 removeFirstBtn.addEventListener("click", () => {
-  listToDo.shift();
+  storageList.shift();
   updatePage();
 });
 
 addRandomBtn.addEventListener("click", () => {
-  const randomNum = Math.round(Math.random() * listToDo.length - 1);
+  const randomNum = Math.round(Math.random() * storageList.length - 1);
   const newItem = {
     taskName: taskNameInput.value,
     date: dateInput.value,
     tag: tagInput.value
-  }
-  listToDo.splice(randomNum, 0, newItem);
+  };
+  storageList.splice(randomNum, 0, newItem);
   updatePage();
 });
 
@@ -104,51 +105,24 @@ addFirstBtn.addEventListener("click", () => {
     taskName: taskNameInput.value,
     date: dateInput.value,
     tag: tagInput.value
-  }
-  listToDo.unshift(newItem);
+  };
+  storageList.unshift(newItem);
   updatePage();
 });
 
 randomizeBtn.addEventListener("click", () => {
-  listToDo.sort(() => Math.random() - 0.5);
+  storageList.sort(() => Math.random() - 0.5);
   updatePage();
 });
 
 alphaBtnOrderBtn.addEventListener("click", () => {
-  listToDo.sort((a, b) => {
-    const taskA = a.taskName.toUpperCase();
-    const taskB = b.taskName.toUpperCase();
-    if (taskA > taskB) {
-      return 1;
-    }
-    if (taskA < taskB) {
-      return -1;
-    }
-    return 0;
-  });
+  listToDo.sort((a, b) => (a.taskName > b.taskName ? 1 : -1));
   updatePage();
 });
 
 alphaRvrsOrderBtn.addEventListener("click", () => {
-  listToDo.sort((a, b) => {
-    const taskA = a.taskName.toUpperCase();
-    const taskB = b.taskName.toUpperCase();
-    if (taskA > taskB) {
-      return -1;
-    }
-    if (taskA < taskB) {
-      return 1;
-    }
-    return 0;
-  });
-
+  listToDo.sort((a, b) => (a.taskName < b.taskName ? 1 : -1));
   updatePage();
-});
-
-window.addEventListener("load", () => {
-  for (let i = 0; i < listToDo.length; i++) {
-    createOnPg(listToDo[i].taskName, listToDo[i].date, listToDo[i].tag);
-  }
 });
 
 function refreshLocalStorage(updatedList) {
@@ -164,20 +138,15 @@ seeMoreBtn.addEventListener("click", (e) => {
       tagInput.setAttribute("id", "tag");
       dateInput.setAttribute("id", "date");
     }, 400);
-  }
-
-  if (seeMoreDiv.style.display === "block") {
-    seeMoreDiv.style.display = "none"
-  } else {
-    seeMoreDiv.style.display = "block"
-  }
+  };
+  seeMoreDiv.style.display === "block" ? seeMoreDiv.style.display = "none" : seeMoreDiv.style.display = "block";
 });
 
 subBtn.addEventListener("click", () => {
   if (!taskNameInput.value) {
     window.alert("You're adding an empty task!");
     return
-  }
+  };
   addItem(taskNameInput.value, dateInput.value, tagInput.value);
   taskNameInput.value = null;
   dateInput.value = null;
@@ -185,9 +154,9 @@ subBtn.addEventListener("click", () => {
   dateInput.setAttribute("id", "date-disappear");
   dateInput.disabled = true;
   setTimeout(() => {
-     tagInput.setAttribute("id", "tag-disappear");
-     tagInput.disabled = true; 
-    }, 150)
+    tagInput.setAttribute("id", "tag-disappear");
+    tagInput.disabled = true;
+  }, 150);
   setTimeout(() => {
     tagInput.setAttribute("id", "tag");
     dateInput.setAttribute("id", "date");
@@ -196,12 +165,12 @@ subBtn.addEventListener("click", () => {
 });
 
 deleteAll.addEventListener("click", (e) => {
-  list.setAttribute("id", "list-disappear");
+  stateList.setAttribute("id", "list-disappear");
   setTimeout(() => {
     e.preventDefault();
-    listToDo = [];
-    refreshLocalStorage(listToDo);
-    list.remove();
+    storageList = [];
+    refreshLocalStorage(storageList);
+    stateList.remove();
     const newList = document.createElement("ul");
     newList.setAttribute("id", "list");
     main.appendChild(newList);
@@ -221,53 +190,44 @@ function createOnPg(task, date, tag, index) {
   const iconDelete = document.createElement("img");
   const iconMarkDone = document.createElement("img");
   const spanForTag = document.createElement("span");
-  spanForTag.innerHTML = "#"+tag;
-
-  iconEdit.src = "./icons/edit.svg"
+  spanForTag.innerHTML = "#" + tag;
+  iconEdit.src = "./icons/edit.svg";
   iconDelete.src = "./icons/trash.svg";
   iconMarkDone.src = "./icons/check.svg";
   editBtn.appendChild(iconEdit);
   deleteBtn.appendChild(iconDelete);
   markDoneBtn.appendChild(iconMarkDone);
-  list.appendChild(item);
+  stateList.appendChild(item);
   item.appendChild(spanForTag);
   item.appendChild(editBtn);
   item.appendChild(deleteBtn);
   item.appendChild(markDoneBtn);
   markDoneBtn.addEventListener("click", () => {
-    if (item.style.textDecoration === "line-through") {
-      item.style.textDecoration = "none";
-    } else {
-      item.style.textDecoration = "line-through";
-    }
+    item.style.textDecoration === "line-through" ? item.style.textDecoration = "none" : item.style.textDecoration = "line-through";
   });
   deleteBtn.addEventListener("click", () => {
     item.setAttribute("class", "disappearLi");
     setTimeout(() => {
       const parent = deleteBtn.parentNode;
       parent.remove();
-      listToDo.splice(index, 1);
-      refreshLocalStorage(listToDo);
-    }, 400)
+      storageList.splice(index, 1);
+      refreshLocalStorage(storageList);
+    }, 400);
   });
   item.setAttribute("class", "appearLi");
 };
 
-function addItem(value, date, tag) {
-  const newItem = {
-    taskName: value,
-    date: date,
-    tag: tag
-  };
-  const index = listToDo.push(newItem) - 1;
+function addItem(taskName, date, tag) {
+  const newItem = { taskName, date, tag };
+  const index = storageList.push(newItem) - 1;
   createOnPg(value, date, tag, index);
-  refreshLocalStorage(listToDo);
+  refreshLocalStorage(storageList);
 };
 
-function rewriterCall(e,index) {
+function rewriterCall(e, index) {
   const changesForm = document.getElementsByClassName("editForm")[0];
-  changesForm.setAttribute("class","editForm-active");
-  
+  changesForm.setAttribute("class", "editForm-active");
+
   const formTitle = document.createElement("h3");
   const tempForm = document.createElement("form");
   const tempTaskIn = document.createElement("input");
@@ -275,7 +235,7 @@ function rewriterCall(e,index) {
   const tempTagIn = document.createElement("input");
   const savebtn = document.createElement("button");
 
-  formTitle.innerHTML = "Edit Task"
+  formTitle.innerHTML = "Edit Task";
   savebtn.innerHTML = "Save Changes";
 
   tempTaskIn.placeholder = "Taskname";
@@ -296,12 +256,11 @@ function rewriterCall(e,index) {
       taskName: tempTaskIn.value,
       date: tempDateIn.value,
       tag: tempTagIn.value
-    }
-    listToDo.splice(index, 1, updatedItem);
-    changesForm.setAttribute("class","editForm");
+    };
+    storageList.splice(index, 1, updatedItem);
+    changesForm.setAttribute("class", "editForm");
     updatePage();
-  })
-
+  });
 };
 
 
