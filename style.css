@@ -280,8 +280,12 @@ ul {
 }
 
 li {
+  display: flex;
+  flex-wrap: nowrap;
   height: 30px;
   width: 60%;
+  max-height: 30px;
+  min-width: fit-content;
   margin-bottom: 20px;
   padding: 10px;
   border: 2px solid white;
