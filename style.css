@@ -1,0 +1,355 @@
+@keyframes appearMenu {
+  0% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes appearTask {
+  0% {
+    opacity: 0;
+    color: green;
+    transform: translate(-50px, 0);
+  }
+  100% {
+    opacity: 1;
+    color: white;
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes disappearUl {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes disappearTask {
+  0% {
+    opacity: 1;
+    transform: translate(0px, 0);
+  }
+  100% {
+    color: red;
+    opacity: 0;
+    transform: translate(-50px, 0);
+  }
+}
+
+@keyframes curtainDown {
+  0% {
+    opacity: 0;
+    transform: translate(0px, -50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0);
+  }
+}
+
+@keyframes curtainUp {
+  0% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0px, -50px);
+  }
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("https://blog.justinablakeney.com/wp-content/uploads/2017/08/Aja-2-holeweb.jpg");
+  color: white;
+  background-attachment: fixed;
+}
+
+h1 {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 40px;
+}
+
+#list-disappear {
+  animation: disappearUl 0.5s ease 0s 1 normal;
+}
+
+#subButton {
+  transition: 0.5s;
+}
+
+#subButton:hover {
+  transform: scale(1.1);
+}
+
+#deleteBtn {
+  transition: 0.5s;
+}
+
+#deleteBtn:hover {
+  transform: scale(1.1);
+}
+
+main {
+  width: 60%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 100px 20px 100px 20px;
+  border: rgb(142, 200, 178) 15px solid;
+  background-color: rgb(29, 83, 119);
+  box-shadow: 0px 1px 10px black;
+  overflow: hidden;
+}
+
+main form {
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+#saveBtn {
+  height: 30px;
+  border: 2px solid;
+  background: white;
+  border-radius: 5px;
+}
+
+#seeMoreBtn:hover {
+  transition: 0.5s;
+  transform: scale(1.1);
+}
+
+#seeMoreDiv {
+  margin-top: 0px;
+  border: 5px solid rgb(142, 200, 178);
+  padding: 10px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 1px 2px 10px black;
+  animation: appearMenu 0.5s ease 0s 1 normal;
+}
+
+#seeMoreDiv button {
+  margin: 8px;
+  height: 60px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 1px 2px 5px black;
+  transition: 0.3s;
+}
+
+#seeMoreDiv button:hover {
+  transform: scale(1.1);
+  background-color: rgb(142, 200, 178);
+  color: white;
+}
+
+#seeMoreDiv button:active {
+  transform: scale(1.1);
+  background-color: gray;
+  color: white;
+}
+
+form input {
+  width: 60%;
+  height: 100%;
+  padding-left: 15px;
+  font-size: 18px;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 1px 5px black;
+  transition: all 0.4s;
+}
+
+.editForm {
+  display: none;
+}
+
+.editForm-active {
+  animation: appearMenu 0.5s ease 0s 1 normal;
+  border: 2px white solid;
+  padding: 10px;
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+}
+
+.editForm-active form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.editForm-active form input {
+  padding-left: 15px;
+  width: 200px;
+  height: 40px;
+  border-radius: 10px;
+  outline: none;
+}
+
+.editForm-active form button {
+  height: 40px;
+  width: fit-content;
+  border: 2px white solid;
+  background-color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#date {
+  opacity: 0%;
+}
+
+#tag {
+  opacity: 0%;
+}
+
+#date-appear {
+  animation: curtainDown 0.5s ease 0s 1 normal;
+}
+
+#tag-appear {
+  animation: curtainDown 0.5s ease 0s 1 normal;
+}
+
+#date-disappear {
+  animation: curtainUp 0.5s ease 0s 1 normal;
+}
+
+#tag-disappear {
+  animation: curtainUp 0.5s ease 0s 1 normal;
+}
+
+#inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+#inputContainer input {
+  margin-top: 10px;
+  height: 50px;
+}
+
+#buttonsContainer {
+  display: flex;
+  justify-content: center;
+}
+
+form button {
+  margin-left: 20px;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+form button img {
+  height: 30px;
+}
+
+ul {
+  width: 100%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: 22px;
+  padding-left: 200px;
+}
+
+li {
+  display: flex;
+  flex-wrap: nowrap;
+  height: 30px;
+  width: 60%;
+  max-height: 30px;
+  min-width: fit-content;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 0px 20px 0px 20px;
+  list-style-type: none;
+}
+
+
+li span{
+    background: rgb(141, 200, 175);
+    border-radius: 10px;
+    padding: 0px 10px 0px 10px;
+}
+
+li:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+
+li::before {
+  content: "🌱 ";
+}
+
+.appearLi {
+  animation: appearTask 0.5s ease 0s 1 normal;
+}
+
+.disappearLi {
+  animation: disappearTask 0.5s ease 0s 1 normal;
+}
+
+li img {
+  height: 20px;
+}
+
+li input {
+  position: relative;
+  margin: 8px;
+  width: 100px;
+}
+
+li input:hover {
+  width: 150px;
+}
+
+li input:active {
+  width: 150px;
+}
+
+li form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+ul button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  height: 25px;
+  padding-left: 20px;
+}
+
+ul button img {
+  height: 20px;
+}
