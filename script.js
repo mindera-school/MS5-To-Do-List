@@ -192,12 +192,12 @@ deleteAll.addEventListener("click", (e) => {
 });
 
 searchBar.addEventListener("input", () => {
-  if(searchBar.value === ""){
+  if (searchBar.value === "") {
     storageList.forEach((e) => {
       createOnPg(e.taskName, e.date, e.tag, e.id);
-    })
+    });
   }
-  list.innerHTML = null;
+  stateList.innerHTML = null;
   storageList.forEach((e) => {
     if (e.taskName.includes(searchBar.value)) {
       createOnPg(e.taskName, e.date, e.tag, e.id);
@@ -208,6 +208,62 @@ searchBar.addEventListener("input", () => {
     updatePage();
   });
 });
+
+let draggingTask;
+
+stateList.addEventListener("dragstart", (event) => {
+  draggingTask = event.target;
+  event.dataTransfer.setData("text/plain", null);
+});
+
+stateList.addEventListener("dragleave", (event) => {
+  const dropTarget = getDropTarget(event.target, event.clientY);
+  if (dropTarget) {
+    dropTarget.classList.remove("drag-over");
+  }
+});
+
+stateList.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  const dropTarget = getDropTarget(event.target, event.clientY);
+  if (dropTarget) {
+    dropTarget.classList.add("drag-over");
+  }
+});
+
+stateList.addEventListener("drop", (event) => {
+  event.preventDefault();
+  const dropTarget = getDropTarget(event.target, event.clientY);
+  if (dropTarget) {
+    const draggingIndex = Array.from(stateList.children).indexOf(draggingTask);
+    const dropIndex = Array.from(stateList.children).indexOf(dropTarget);
+    let tempTask = storageList[draggingIndex];
+    if (draggingIndex < dropIndex) {
+      stateList.insertBefore(draggingTask, dropTarget.nextSibling);
+    } else {
+      stateList.insertBefore(draggingTask, dropTarget);
+    }
+    storageList.splice(draggingIndex, 1);
+    storageList.splice(dropIndex, 0, tempTask);
+    localStorage.setItem("list", JSON.stringify(storageList));
+  }
+  draggingTask.classList.remove("dragging");
+  document.querySelectorAll(".drag-over").forEach((dropTarget) => {
+    dropTarget.classList.remove("drag-over");
+  });
+});
+
+function getDropTarget(target, y) {
+  for (const task of Array.from(stateList.children)) {
+    if (task === draggingTask) continue;
+    const taskRect = task.getBoundingClientRect();
+    const offset = y - taskRect.top - taskRect.height / 2;
+    if (offset > 0 && offset < taskRect.height) {
+      return task;
+    }
+  }
+  return null;
+}
 
 function createOnPg(task, date, tag, index) {
   const item = document.createElement("li");
@@ -226,6 +282,7 @@ function createOnPg(task, date, tag, index) {
   iconEdit.src = "./icons/edit.svg";
   iconDelete.src = "./icons/trash.svg";
   iconMarkDone.src = "./icons/check.svg";
+  item.setAttribute("draggable", "true");
   editBtn.appendChild(iconEdit);
   deleteBtn.appendChild(iconDelete);
   markDoneBtn.appendChild(iconMarkDone);
