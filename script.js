@@ -17,26 +17,36 @@ const removeOddBtn = document.getElementById("removeOdd");
 const randomizeBtn = document.getElementById("randomize");
 const alphaBtnOrderBtn = document.getElementById("alphabetically");
 const alphaRvrsOrderBtn = document.getElementById("alphabeticallyRvrs");
+const searchBar = document.getElementById("searchBar");
+const closeSearchBar = document.getElementById("closeSearchBar");
 let stateList = document.getElementById("list");
 let storageList = JSON.parse(localStorage.getItem("list"));
 
 window.addEventListener("load", () => {
   for (let i = 0; i < storageList.length; i++) {
-    createOnPg(storageList[i].taskName, storageList[i].date, storageList[i].tag);
+    createOnPg(
+      storageList[i].taskName,
+      storageList[i].date,
+      storageList[i].tag
+    );
   }
 });
 
 if (storageList?.length === 0 || !storageList) {
   storageList = [];
-};
+}
 
 function updatePage() {
   stateList.innerHTML = null;
   for (let i = 0; i < storageList.length; i++) {
-    createOnPg(storageList[i].taskName, storageList[i].date, storageList[i].tag);
+    createOnPg(
+      storageList[i].taskName,
+      storageList[i].date,
+      storageList[i].tag
+    );
   }
   refreshLocalStorage(storageList);
-};
+}
 
 taskInputForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -55,8 +65,8 @@ removeOddBtn.addEventListener("click", () => {
   for (let i = 0; i < storageList.length; i++) {
     if (i % 2 === 0) {
       storageList.splice(i, 1);
-    };
-  };
+    }
+  }
   updatePage();
 });
 
@@ -66,9 +76,9 @@ removeDupBtn.addEventListener("click", () => {
   for (let i = 0; i < storageList.length; i++) {
     if (!tempSet.has(storageList[i].taskName)) {
       tempArray.push(storageList[i]);
-    };
+    }
     tempSet.add(storageList[i].taskName);
-  };
+  }
   storageList = tempArray;
   updatePage();
 });
@@ -94,7 +104,7 @@ addRandomBtn.addEventListener("click", () => {
   const newItem = {
     taskName: taskNameInput.value,
     date: dateInput.value,
-    tag: tagInput.value
+    tag: tagInput.value,
   };
   storageList.splice(randomNum, 0, newItem);
   updatePage();
@@ -104,7 +114,7 @@ addFirstBtn.addEventListener("click", () => {
   const newItem = {
     taskName: taskNameInput.value,
     date: dateInput.value,
-    tag: tagInput.value
+    tag: tagInput.value,
   };
   storageList.unshift(newItem);
   updatePage();
@@ -127,26 +137,30 @@ alphaRvrsOrderBtn.addEventListener("click", () => {
 
 function refreshLocalStorage(updatedList) {
   localStorage.setItem("list", JSON.stringify(updatedList));
-};
+}
 
 seeMoreBtn.addEventListener("click", (e) => {
   e.preventDefault();
   if (dateInput.getAttribute("id") === "date-appear") {
     dateInput.setAttribute("id", "date-disappear");
-    setTimeout(() => { tagInput.setAttribute("id", "tag-disappear") }, 100);
+    setTimeout(() => {
+      tagInput.setAttribute("id", "tag-disappear");
+    }, 100);
     setTimeout(() => {
       tagInput.setAttribute("id", "tag");
       dateInput.setAttribute("id", "date");
     }, 400);
-  };
-  seeMoreDiv.style.display === "block" ? seeMoreDiv.style.display = "none" : seeMoreDiv.style.display = "block";
+  }
+  seeMoreDiv.style.display === "block"
+    ? (seeMoreDiv.style.display = "none")
+    : (seeMoreDiv.style.display = "block");
 });
 
 subBtn.addEventListener("click", () => {
   if (!taskNameInput.value) {
     window.alert("You're adding an empty task!");
-    return
-  };
+    return;
+  }
   addItem(taskNameInput.value, dateInput.value, tagInput.value);
   taskNameInput.value = null;
   dateInput.value = null;
@@ -177,6 +191,24 @@ deleteAll.addEventListener("click", (e) => {
   }, 300);
 });
 
+searchBar.addEventListener("input", () => {
+  if(searchBar.value === ""){
+    storageList.forEach((e) => {
+      createOnPg(e.taskName, e.date, e.tag, e.id);
+    })
+  }
+  list.innerHTML = null;
+  storageList.forEach((e) => {
+    if (e.taskName.includes(searchBar.value)) {
+      createOnPg(e.taskName, e.date, e.tag, e.id);
+    }
+  });
+  closeSearchBar.addEventListener("click", () => {
+    searchBar.value = null;
+    updatePage();
+  });
+});
+
 function createOnPg(task, date, tag, index) {
   const item = document.createElement("li");
   const editBtn = document.createElement("button");
@@ -203,7 +235,9 @@ function createOnPg(task, date, tag, index) {
   item.appendChild(deleteBtn);
   item.appendChild(markDoneBtn);
   markDoneBtn.addEventListener("click", () => {
-    item.style.textDecoration === "line-through" ? item.style.textDecoration = "none" : item.style.textDecoration = "line-through";
+    item.style.textDecoration === "line-through"
+      ? (item.style.textDecoration = "none")
+      : (item.style.textDecoration = "line-through");
   });
   deleteBtn.addEventListener("click", () => {
     item.setAttribute("class", "disappearLi");
@@ -215,14 +249,14 @@ function createOnPg(task, date, tag, index) {
     }, 400);
   });
   item.setAttribute("class", "appearLi");
-};
+}
 
 function addItem(taskName, date, tag) {
   const newItem = { taskName, date, tag };
   const index = storageList.push(newItem) - 1;
   createOnPg(taskName, date, tag, index);
   refreshLocalStorage(storageList);
-};
+}
 
 function rewriterCall(e, index) {
   const changesForm = document.getElementsByClassName("editForm")[0];
@@ -255,14 +289,10 @@ function rewriterCall(e, index) {
     const updatedItem = {
       taskName: tempTaskIn.value,
       date: tempDateIn.value,
-      tag: tempTagIn.value
+      tag: tempTagIn.value,
     };
     storageList.splice(index, 1, updatedItem);
     changesForm.setAttribute("class", "editForm");
     updatePage();
   });
-};
-
-
-
-
+}
