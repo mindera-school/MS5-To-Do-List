@@ -1,0 +1,386 @@
+@use "animations";
+
+@mixin theme($light-mode) {
+  @if $light-mode {
+  } @else {
+
+  }
+}
+
+:root {
+  --header-bg-color: #17425e;
+  --main-bg-color: #13293d;
+  --font-color: white;
+  --input-bg-color: #8d99ae;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: white;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  header {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    justify-content: space-between;
+    width: 100%;
+    height: 75px;
+    background-color: var(--header-bg-color);
+
+    & input {
+      height: 38px;
+      width: 300px;
+      border-radius: 50px;
+      padding-left: 15px;
+      outline: 0;
+      color: var(--font-color);
+      font-size: 20px;
+      background-color: transparent;
+      border: none;
+      &::placeholder {
+        color: var(--font-color);
+      }
+    }
+
+    #searchDiv {
+      display: flex;
+      align-items: center;
+      background-color: var(--input-bg-color);
+      border-radius: 30px;
+
+      #closeSearchBar {
+        background-color: transparent;
+        border: none;
+        padding-right: 10px;
+      }
+    }
+
+    #burguerMenuBtn {
+      background-color: transparent;
+      border: none;
+      outline: 0;
+    }
+
+    #loginBtn {
+      height: 50px;
+      width: 50px;
+      padding: 5px;
+      border-radius: 100px;
+      outline: 0;
+      border: none;
+      background-color: var(--input-bg-color);
+      cursor: pointer;
+    }
+  }
+
+  main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    overflow: hidden;
+    box-sizing: border-box;
+    form {
+      display: flex;
+      padding: 10px;
+      width: 100%;
+      flex-direction: column;
+      width: 40%;
+      height: 300px;
+      align-items: center;
+      justify-content: center;
+      
+      input {
+        width: 60%;
+        height: 60px;
+        padding: 15px;
+        font-size: 18px;
+        border-radius: 10px;
+        margin-top: 10px;
+        outline: none;
+        border: none;
+        box-shadow: 0px 1px 5px black;
+        transition: all 0.4s;
+        background-color: var(--input-bg-color);
+        color: var(--font-color);
+
+        &::placeholder {
+          color: var(--font-color);
+        }
+      }
+
+      button {
+        margin-left: 20px;
+        height: 100%;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
+      button img {
+        height: 30px;
+      }
+
+      #addTaskBtn {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--header-bg-color);
+        margin-top: 15px;
+        height: 30px;
+        width: 30px;
+        border-radius: 15px;
+        font-size: 18px;
+      }
+    }
+
+    ul {
+      width: 100%;
+      font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+      font-size: 22px;
+      padding-left: 200px;
+      overflow-y: scroll;
+      button {
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        height: 25px;
+        padding-left: 20px;
+        img {
+          height: 20px;
+        }
+      }
+      li {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+        height: 30px;
+        width: 60%;
+        max-height: 30px;
+        min-width: fit-content;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 2px solid white;
+        border-radius: 0px 20px 0px 20px;
+        list-style-type: none;
+
+        img {
+          height: 20px;
+        }
+
+        input {
+          position: relative;
+          margin: 8px;
+          width: 100px;
+
+          &:hover {
+            width: 150px;
+          }
+          &:active {
+            width: 150px;
+          }
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+
+        span {
+          margin-left: 10px;
+          // esta cor vai ser definida pelo user
+          background: rgb(141, 200, 175);
+          border-radius: 10px;
+          padding: 0px 10px 0px 10px;
+        }
+        & :hover {
+          transform: scale(1.05);
+          transition: transform 0.3s;
+        }
+      }
+    }
+
+    #seeMoreDiv button {
+      margin: 8px;
+      height: 60px;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      box-shadow: 1px 2px 5px black;
+      transition: 0.3s;
+
+      &:hover {
+        transform: scale(1.1);
+        background-color: rgb(142, 200, 178);
+        color: white;
+      }
+
+      &:active {
+        transform: scale(1.1);
+        background-color: gray;
+        color: white;
+      }
+    }
+  
+    .date-appear {
+      display: block;
+      animation: curtainDown 0.5s ease 0s 1 normal;
+    }
+
+    .tag-appear {
+      display: block;
+      animation: curtainDown 0.5s ease 0s 1 normal;
+    }
+
+    .description-appear {
+      display: block;
+      animation: curtainDown 0.5s ease 0s 1 normal;
+    }
+
+    .date-disappear {
+      animation: curtainUp 0.5s ease 0s 1 normal;
+      display: none;
+    }
+
+    .tag-disappear {
+      display: none;
+      animation: curtainUp 0.5s ease 0s 1 normal;
+    }
+
+    .description-disappear {
+      display: none;
+      animation: curtainUp 0.5s ease 0s 1 normal;
+    }
+
+
+    #inputContainer {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+    }
+
+    #inputContainer input {
+      margin-top: 10px;
+      height: 50px;
+    }
+  }
+}
+
+#list-disappear {
+  animation: disappearUl 0.5s ease 0s 1 normal;
+}
+
+#deleteBtn {
+  transition: 0.5s;
+}
+
+#deleteBtn:hover {
+  transform: scale(1.1);
+}
+
+#titleTab {
+  margin-top: 27px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 70%;
+}
+
+#titleTab :last-child {
+  display: flex;
+  align-items: center;
+}
+
+#saveBtn {
+  height: 30px;
+  border: 2px solid;
+  background: white;
+  border-radius: 5px;
+}
+
+#seeMoreBtn:hover {
+  transition: 0.5s;
+  transform: scale(1.1);
+}
+
+#seeMoreDiv {
+  margin-top: 0px;
+  border: 5px solid rgb(142, 200, 178);
+  padding: 10px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 1px 2px 10px black;
+  animation: appearMenu 0.5s ease 0s 1 normal;
+}
+
+.light-mode {
+  @include theme($light-mode: true);
+}
+
+.dark-mode {
+  @include theme($light-mode: false);
+}
+
+.appearLi {
+  animation: appearTask 0.5s ease 0s 1 normal;
+}
+
+.disappearLi {
+  animation: disappearTask 0.5s ease 0s 1 normal;
+}
+
+.editForm {
+  display: none;
+}
+
+.editForm-active {
+  animation: appearMenu 0.5s ease 0s 1 normal;
+  border: 2px white solid;
+  padding: 10px;
+  text-align: center;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  border-radius: 10px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    input {
+      padding-left: 15px;
+      width: 200px;
+      height: 40px;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    button {
+      height: 40px;
+      width: fit-content;
+      border: 2px white solid;
+      background-color: white;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  }
+}
