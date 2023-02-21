@@ -1,12 +1,12 @@
 const main = document.querySelector("main");
-const taskInputForm = document.getElementById("taskAddForm");
-const subBtn = document.getElementById("subBtn");
+const subBtn = document.getElementById("addTaskBtn");
 const deleteAll = document.getElementById("deleteBtn");
 const seeMoreBtn = document.getElementById("seeMoreBtn");
 const seeMoreDiv = document.getElementById("seeMoreDiv");
 const taskNameInput = document.getElementById("input");
 const dateInput = document.getElementById("date");
 const tagInput = document.getElementById("tag");
+const descriptionInput = document.getElementById("description");
 const addFirstBtn = document.getElementById("addFirst");
 const addRandomBtn = document.getElementById("addRandomPos");
 const removeFirstBtn = document.getElementById("removeFirst");
@@ -48,16 +48,13 @@ function updatePage() {
   refreshLocalStorage(storageList);
 }
 
-taskInputForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-});
-
 taskNameInput.addEventListener("focus", () => {
-  dateInput.setAttribute("id", "date-appear");
-  dateInput.disabled = false;
+  dateInput.setAttribute("class", "date-appear");
   setTimeout(() => {
-    tagInput.setAttribute("id", "tag-appear");
-    tagInput.disabled = false;
+    tagInput.setAttribute("class", "tag-appear");
+  }, 100);
+  setTimeout(() => {
+    descriptionInput.setAttribute("class", "description-appear");
   }, 300);
 });
 
@@ -139,23 +136,6 @@ function refreshLocalStorage(updatedList) {
   localStorage.setItem("list", JSON.stringify(updatedList));
 }
 
-seeMoreBtn.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (dateInput.getAttribute("id") === "date-appear") {
-    dateInput.setAttribute("id", "date-disappear");
-    setTimeout(() => {
-      tagInput.setAttribute("id", "tag-disappear");
-    }, 100);
-    setTimeout(() => {
-      tagInput.setAttribute("id", "tag");
-      dateInput.setAttribute("id", "date");
-    }, 400);
-  }
-  seeMoreDiv.style.display === "block"
-    ? (seeMoreDiv.style.display = "none")
-    : (seeMoreDiv.style.display = "block");
-});
-
 subBtn.addEventListener("click", () => {
   if (!taskNameInput.value) {
     window.alert("You're adding an empty task!");
@@ -178,18 +158,18 @@ subBtn.addEventListener("click", () => {
   updatePage();
 });
 
-deleteAll.addEventListener("click", (e) => {
-  stateList.setAttribute("id", "list-disappear");
-  setTimeout(() => {
-    e.preventDefault();
-    storageList = [];
-    refreshLocalStorage(storageList);
-    stateList.remove();
-    const newList = document.createElement("ul");
-    newList.setAttribute("id", "list");
-    main.appendChild(newList);
-  }, 300);
-});
+// deleteAll.addEventListener("click", (e) => {
+//   stateList.setAttribute("id", "list-disappear");
+//   setTimeout(() => {
+//     e.preventDefault();
+//     storageList = [];
+//     refreshLocalStorage(storageList);
+//     stateList.remove();
+//     const newList = document.createElement("ul");
+//     newList.setAttribute("id", "list");
+//     main.appendChild(newList);
+//   }, 300);
+// });
 
 searchBar.addEventListener("input", () => {
   if (searchBar.value === "") {

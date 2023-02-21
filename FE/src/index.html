@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./stylesheets/output.css" />
+    <title>ToDoList</title>
+  </head>
+  <body class="dark-mode">
+    <header>
+      <div>
+        <button id="burguerMenuBtn">
+          <img src="./icons/menu.svg" alt="" />
+        </button>
+      </div>
+      <div id="searchDiv">
+        <input type="text" id="searchBar" placeholder="Search" />
+        <button id="closeSearchBar">
+          <img src="./icons/delete.svg" alt="" />
+        </button>
+      </div>
+      <div>
+        <button id="loginBtn"><img src="./icons/user.svg" alt="" /></button>
+      </div>
+    </header>
+    <main>
+      <form id="addTaskForm">
+        <input id="input" type="text" placeholder="Task name ex: Meeting" />
+        <input type="text" id="date" class="date-disappear" placeholder="dd/mm/yyyy"
+                    onfocus="(this.type='date')"/>
+        <input
+          id="tag" class="tag-disappear"
+          placeholder="Tag ex: #work"
+          type="text"
+          />
+        <input type="text" id="description" class="description-disappear" placeholder="Description of task">  
+        <button type="submit" id="addTaskBtn"><img src="./icons/plus-circle.svg" alt=""></button>
+      </form>
+
+      <div id="seeMoreDiv">
+        <div id="upperButtons">
+          <button id="addRandomPos">Add Randomly</button>
+          <button id="addFirst">Add First</button>
+        </div>
+
+        <div id="midButtons">
+          <button id="removeFirst">Remove First</button>
+          <button id="removeLast">Remove Last</button>
+          <button id="removeRandom">Remove Random</button>
+          <button id="removeDuplicates">Remove Duplicates</button>
+          <button id="removeOdd">Remove Even</button>
+        </div>
+
+        <div id="lowerBtnContainer">
+          <button id="randomize">Randomize</button>
+          <button id="alphabetically">Sort Alphabetically</button>
+          <button id="alphabeticallyRvrs">Sort AlphaReverse</button>
+        </div>
+      </div>
+      <div class="editForm"></div>
+      <ul id="list"></ul>
+    </main>
+  </body>
+  <script src="./script.js"></script>
+</html>
