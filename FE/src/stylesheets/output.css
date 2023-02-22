@@ -117,6 +117,7 @@ body header #searchDiv #closeSearchBar {
   background-color: transparent;
   border: none;
   padding-right: 10px;
+  cursor: pointer;
 }
 body header #burguerMenuBtn {
   background-color: transparent;
@@ -255,15 +256,16 @@ body main ul li :hover {
 }
 body main #loginSideBar {
   position: fixed;
-  height: 100vh;
-  width: 390px;
   display: flex;
+  overflow-x: hidden;
+  height: 100vh;
   flex-direction: column;
   align-items: center;
   right: 0;
   top: 0;
   background-color: var(--header-bg-color);
   z-index: 1;
+  transition: width 0.4s;
 }
 body main #loginSideBar img:nth-child(2) {
   margin-top: 100px;
@@ -317,6 +319,12 @@ body main #loginSideBar #loginForm #loginFormSubBtn {
   background-color: var(--input-bg-color);
   margin-top: 20px;
   box-shadow: 1px 0px 5px black;
+}
+body main .loginSideMenu-show {
+  width: 390px;
+}
+body main .loginSideMenu-hidden {
+  width: 0;
 }
 body main #seeMoreDiv button {
   margin: 8px;

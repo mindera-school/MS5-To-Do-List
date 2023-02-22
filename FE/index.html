@@ -11,17 +11,17 @@
     <header>
       <div>
         <button id="burguerMenuBtn">
-          <img src="./icons/menu.svg" alt="" />
+          <img src="../FE/src/assets/icons/menu.svg" alt="" />
         </button>
       </div>
       <div id="searchDiv">
         <input type="text" id="searchBar" placeholder="Search" />
         <button id="closeSearchBar">
-          <img src="./icons/delete.svg" alt="" />
+          <img src="./src/assets/icons/delete.svg" alt="" />
         </button>
       </div>
       <div>
-        <button id="loginSideMenuBtn"><img src="./icons/user.svg" alt="" /></button>
+        <button id="loginSideMenuBtn"><img src="./src/assets/icons/user.svg" alt="" /></button>
       </div>
     </header>
     <main>
@@ -60,9 +60,10 @@
       </div>
       <div class="editForm"></div>
       <ul id="list"></ul>
-      <aside id="loginSideBar">
+
+      <aside id="loginSideBar"  class="loginSideMenu-hidden">
           <div id="loginMenuBtnContainer">
-            <button><img src="./src/assets/icons/arrow-right-svgrepo-com.svg" alt=""></button>
+            <button id="loginSideMenuCloseBtn"><img src="./src/assets/icons/arrow-right-svgrepo-com.svg" alt=""></button>
             <button><img src="./src/assets/icons/user-add-svgrepo-com.svg" alt=""></button>
           </div>
           <img src="./src/assets/icons/user.svg" alt="">
@@ -76,9 +77,10 @@
           <a href="">Forgot password?</a>
           <button id="loginFormSubBtn" type="submit">Login</button>
         </form>
-        
       </aside>
+
     </main>
   </body>
   <script src="./src/scripts/script.js"></script>
+  <script src="./src/scripts/components/loginSideBar.js"></script>
 </html>
