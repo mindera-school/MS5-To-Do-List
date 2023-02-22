@@ -253,6 +253,64 @@ body main ul li :hover {
   transform: scale(1.05);
   transition: transform 0.3s;
 }
+body main #loginSideBar {
+  position: fixed;
+  height: 100vh;
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  right: 0;
+  top: 0;
+  background-color: var(--header-bg-color);
+  z-index: 1;
+}
+body main #loginSideBar img:nth-child(2) {
+  margin-top: 100px;
+  height: 200px;
+  width: fit-content;
+  background-color: var(--input-bg-color);
+  box-sizing: border-box;
+  border-radius: 100px;
+  box-shadow: 0px 5px 10px black;
+}
+body main #loginSideBar #loginMenuBtnContainer {
+  display: flex;
+  top: 0;
+  width: 100%;
+  justify-content: space-between;
+}
+body main #loginSideBar #loginMenuBtnContainer button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+body main #loginSideBar #loginMenuBtnContainer button > img {
+  height: 60px;
+}
+body main #loginSideBar #loginMenuBtnContainer button:nth-child(2) {
+  height: 10px;
+  margin: 10px;
+}
+body main #loginSideBar #loginMenuBtnContainer button:nth-child(2) img {
+  height: 40px;
+}
+body main #loginSideBar #loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+}
+body main #loginSideBar #loginForm input {
+  width: 300px;
+  height: 40px;
+  margin-top: 25px;
+}
+body main #loginSideBar #loginForm a {
+  color: #70F6FF;
+  margin-top: 5px;
+  align-self: flex-end;
+}
 body main #seeMoreDiv button {
   margin: 8px;
   height: 60px;

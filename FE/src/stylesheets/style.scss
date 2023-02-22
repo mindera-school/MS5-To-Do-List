@@ -3,7 +3,6 @@
 @mixin theme($light-mode) {
   @if $light-mode {
   } @else {
-
   }
 }
 
@@ -101,7 +100,7 @@ body {
       height: 300px;
       align-items: center;
       justify-content: center;
-      
+
       input {
         width: 60%;
         height: 60px;
@@ -216,6 +215,69 @@ body {
       }
     }
 
+    
+
+    #loginSideBar {
+      position: fixed;
+      height: 100vh;
+      width: 390px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      right: 0;
+      top: 0;
+      background-color: var(--header-bg-color);
+      z-index: 1;
+      img:nth-child(2){
+        margin-top: 100px;
+        height: 200px;
+        width: fit-content;
+        background-color: var(--input-bg-color);
+        box-sizing: border-box;
+        border-radius: 100px;
+        box-shadow: 0px 5px 10px black;
+      }
+
+      #loginMenuBtnContainer {
+        display: flex;
+        top: 0;
+        width: 100%;
+        justify-content: space-between;
+        button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          & > img {
+            height: 60px;
+          }
+        }
+        button:nth-child(2){
+          height: 10px;
+          margin: 10px;
+          img {
+            height: 40px;
+          }
+        }
+      }
+
+      #loginForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: fit-content;
+        input {
+          width: 300px;
+          height: 40px;
+          margin-top: 25px;
+        }
+        a {
+          color: #70F6FF;
+          margin-top: 5px;
+          align-self: flex-end;
+        }
+      }
+    }
+
     #seeMoreDiv button {
       margin: 8px;
       height: 60px;
@@ -237,7 +299,7 @@ body {
         color: white;
       }
     }
-  
+
     .date-appear {
       display: block;
       animation: curtainDown 0.5s ease 0s 1 normal;
@@ -267,7 +329,6 @@ body {
       display: none;
       animation: curtainUp 0.5s ease 0s 1 normal;
     }
-
 
     #inputContainer {
       display: flex;

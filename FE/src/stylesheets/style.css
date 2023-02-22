@@ -8,7 +8,6 @@
     opacity: 1;
   }
 }
-
 @keyframes appearTask {
   0% {
     opacity: 0;
@@ -21,7 +20,6 @@
     transform: translate(0, 0);
   }
 }
-
 @keyframes disappearUl {
   0% {
     opacity: 1;
@@ -33,7 +31,6 @@
     opacity: 0;
   }
 }
-
 @keyframes disappearTask {
   0% {
     opacity: 1;
@@ -45,7 +42,6 @@
     transform: translate(-50px, 0);
   }
 }
-
 @keyframes curtainDown {
   0% {
     opacity: 0;
@@ -56,7 +52,6 @@
     transform: translate(0px, 0);
   }
 }
-
 @keyframes curtainUp {
   0% {
     opacity: 1;
@@ -67,33 +62,310 @@
     transform: translate(0px, -50px);
   }
 }
+:root {
+  --header-bg-color: #17425e;
+  --main-bg-color: #13293d;
+  --font-color: white;
+  --input-bg-color: #8d99ae;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: white;
+}
 
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-image: url("https://blog.justinablakeney.com/wp-content/uploads/2017/08/Aja-2-holeweb.jpg");
-  color: white;
-  background-attachment: fixed;
 }
-
-h1 {
+body header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  justify-content: space-between;
+  width: 100%;
+  height: 75px;
+  background-color: var(--header-bg-color);
+}
+body header input {
+  height: 38px;
+  width: 300px;
+  border-radius: 50px;
+  padding-left: 15px;
+  outline: 0;
+  color: var(--font-color);
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+}
+body header input::placeholder {
+  color: var(--font-color);
+}
+body header #searchDiv {
+  display: flex;
+  align-items: center;
+  background-color: var(--input-bg-color);
+  border-radius: 30px;
+}
+body header #searchDiv #closeSearchBar {
+  background-color: transparent;
+  border: none;
+  padding-right: 10px;
+}
+body header #burguerMenuBtn {
+  background-color: transparent;
+  border: none;
+  outline: 0;
+}
+body header #loginBtn {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  border-radius: 100px;
+  outline: 0;
+  border: none;
+  background-color: var(--input-bg-color);
+  cursor: pointer;
+}
+body main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--main-bg-color);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+body main form {
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  flex-direction: column;
+  width: 40%;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+}
+body main form input {
+  width: 60%;
+  height: 60px;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-top: 10px;
+  outline: none;
+  border: none;
+  box-shadow: 0px 1px 5px black;
+  transition: all 0.4s;
+  background-color: var(--input-bg-color);
+  color: var(--font-color);
+}
+body main form input::placeholder {
+  color: var(--font-color);
+}
+body main form button {
+  margin-left: 20px;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+body main form button img {
+  height: 30px;
+}
+body main form #addTaskBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--header-bg-color);
+  margin-top: 15px;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  font-size: 18px;
+}
+body main ul {
+  width: 100%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 40px;
+  font-size: 22px;
+  padding-left: 200px;
+  overflow-y: scroll;
+}
+body main ul button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  height: 25px;
+  padding-left: 20px;
+}
+body main ul button img {
+  height: 20px;
+}
+body main ul li {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  height: 30px;
+  width: 60%;
+  max-height: 30px;
+  min-width: fit-content;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 2px solid white;
+  border-radius: 0px 20px 0px 20px;
+  list-style-type: none;
+}
+body main ul li img {
+  height: 20px;
+}
+body main ul li input {
+  position: relative;
+  margin: 8px;
+  width: 100px;
+}
+body main ul li input:hover {
+  width: 150px;
+}
+body main ul li input:active {
+  width: 150px;
+}
+body main ul li form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+body main ul li span {
+  margin-left: 10px;
+  background: rgb(141, 200, 175);
+  border-radius: 10px;
+  padding: 0px 10px 0px 10px;
+}
+body main ul li :hover {
+  transform: scale(1.05);
+  transition: transform 0.3s;
+}
+body main #loginSideBar {
+  position: fixed;
+  height: 100vh;
+  width: 390px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  right: 0;
+  top: 0;
+  background-color: var(--header-bg-color);
+  z-index: 1;
+}
+body main #loginSideBar img:nth-child(2) {
+  margin-top: 100px;
+  height: 200px;
+  width: fit-content;
+  background-color: var(--input-bg-color);
+  box-sizing: border-box;
+  border-radius: 100px;
+  box-shadow: 0px 5px 10px black;
+}
+body main #loginSideBar #loginMenuBtnContainer {
+  display: flex;
+  top: 0;
+  width: 100%;
+  justify-content: space-between;
+}
+body main #loginSideBar #loginMenuBtnContainer button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+body main #loginSideBar #loginMenuBtnContainer button > img {
+  height: 60px;
+}
+body main #loginSideBar #loginMenuBtnContainer button:nth-child(2) {
+  height: 10px;
+  margin: 10px;
+}
+body main #loginSideBar #loginMenuBtnContainer button:nth-child(2) img {
+  height: 40px;
+}
+body main #loginSideBar #loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+}
+body main #loginSideBar #loginForm input {
+  width: 300px;
+  height: 40px;
+  margin-top: 25px;
+}
+body main #loginSideBar #loginForm a {
+  color: #70F6FF;
+  margin-top: 5px;
+  align-self: flex-end;
+}
+body main #seeMoreDiv button {
+  margin: 8px;
+  height: 60px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 1px 2px 5px black;
+  transition: 0.3s;
+}
+body main #seeMoreDiv button:hover {
+  transform: scale(1.1);
+  background-color: rgb(142, 200, 178);
+  color: white;
+}
+body main #seeMoreDiv button:active {
+  transform: scale(1.1);
+  background-color: gray;
+  color: white;
+}
+body main .date-appear {
+  display: block;
+  animation: curtainDown 0.5s ease 0s 1 normal;
+}
+body main .tag-appear {
+  display: block;
+  animation: curtainDown 0.5s ease 0s 1 normal;
+}
+body main .description-appear {
+  display: block;
+  animation: curtainDown 0.5s ease 0s 1 normal;
+}
+body main .date-disappear {
+  animation: curtainUp 0.5s ease 0s 1 normal;
+  display: none;
+}
+body main .tag-disappear {
+  display: none;
+  animation: curtainUp 0.5s ease 0s 1 normal;
+}
+body main .description-disappear {
+  display: none;
+  animation: curtainUp 0.5s ease 0s 1 normal;
+}
+body main #inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+body main #inputContainer input {
+  margin-top: 10px;
+  height: 50px;
 }
 
 #list-disappear {
   animation: disappearUl 0.5s ease 0s 1 normal;
-}
-
-#subButton {
-  transition: 0.5s;
-}
-
-#subButton:hover {
-  transform: scale(1.1);
 }
 
 #deleteBtn {
@@ -104,30 +376,6 @@ h1 {
   transform: scale(1.1);
 }
 
-main {
-  width: 60%;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 100px 20px 100px 20px;
-  border: rgb(142, 200, 178) 15px solid;
-  background-color: rgb(29, 83, 119);
-  box-shadow: 0px 1px 10px black;
-  overflow: hidden;
-}
-
-h1{
-  margin: 0;
-}
-
-main form {
-  display: flex;
-  padding: 10px;
-  width: 100%;
-  justify-content: center;
-}
-
 #titleTab {
   margin-top: 27px;
   display: flex;
@@ -136,7 +384,7 @@ main form {
   width: 70%;
 }
 
-#titleTab :last-child  {
+#titleTab :last-child {
   display: flex;
   align-items: center;
 }
@@ -164,38 +412,12 @@ main form {
   animation: appearMenu 0.5s ease 0s 1 normal;
 }
 
-#seeMoreDiv button {
-  margin: 8px;
-  height: 60px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-  box-shadow: 1px 2px 5px black;
-  transition: 0.3s;
+.appearLi {
+  animation: appearTask 0.5s ease 0s 1 normal;
 }
 
-#seeMoreDiv button:hover {
-  transform: scale(1.1);
-  background-color: rgb(142, 200, 178);
-  color: white;
-}
-
-#seeMoreDiv button:active {
-  transform: scale(1.1);
-  background-color: gray;
-  color: white;
-}
-
-form input {
-  width: 60%;
-  height: 100%;
-  padding-left: 15px;
-  font-size: 18px;
-  border-radius: 10px;
-  outline: none;
-  border: none;
-  box-shadow: 0px 1px 5px black;
-  transition: all 0.4s;
+.disappearLi {
+  animation: disappearTask 0.5s ease 0s 1 normal;
 }
 
 .editForm {
@@ -207,18 +429,15 @@ form input {
   border: 2px white solid;
   padding: 10px;
   text-align: center;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   border-radius: 10px;
 }
-
 .editForm-active form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-
 .editForm-active form input {
   padding-left: 15px;
   width: 200px;
@@ -226,7 +445,6 @@ form input {
   border-radius: 10px;
   outline: none;
 }
-
 .editForm-active form button {
   height: 40px;
   width: fit-content;
@@ -237,137 +455,4 @@ form input {
   cursor: pointer;
 }
 
-#date {
-  opacity: 0%;
-}
-
-#tag {
-  opacity: 0%;
-}
-
-#date-appear {
-  animation: curtainDown 0.5s ease 0s 1 normal;
-}
-
-#tag-appear {
-  animation: curtainDown 0.5s ease 0s 1 normal;
-}
-
-#date-disappear {
-  animation: curtainUp 0.5s ease 0s 1 normal;
-}
-
-#tag-disappear {
-  animation: curtainUp 0.5s ease 0s 1 normal;
-}
-
-#inputContainer {
-  display: flex;
-  flex-direction: column;
-  width: 60%;
-}
-
-#inputContainer input {
-  margin-top: 10px;
-  height: 50px;
-}
-
-#buttonsContainer {
-  display: flex;
-  justify-content: center;
-}
-
-form button {
-  margin-left: 20px;
-  height: 100%;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-form button img {
-  height: 30px;
-}
-
-ul {
-  width: 100%;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 22px;
-  padding-left: 200px;
-  overflow-y: scroll;
-}
-
-li {
-  display: flex;
-  flex-wrap: nowrap;
-  height: 30px;
-  width: 60%;
-  max-height: 30px;
-  min-width: fit-content;
-  margin-bottom: 20px;
-  padding: 10px;
-  border: 2px solid white;
-  border-radius: 0px 20px 0px 20px;
-  list-style-type: none;
-}
-
-
-li span{
-    background: rgb(141, 200, 175);
-    border-radius: 10px;
-    padding: 0px 10px 0px 10px;
-}
-
-li:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s;
-}
-
-li::before {
-  content: "🌱 ";
-}
-
-.appearLi {
-  animation: appearTask 0.5s ease 0s 1 normal;
-}
-
-.disappearLi {
-  animation: disappearTask 0.5s ease 0s 1 normal;
-}
-
-li img {
-  height: 20px;
-}
-
-li input {
-  position: relative;
-  margin: 8px;
-  width: 100px;
-}
-
-li input:hover {
-  width: 150px;
-}
-
-li input:active {
-  width: 150px;
-}
-
-li form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-ul button {
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-  height: 25px;
-  padding-left: 20px;
-}
-
-ul button img {
-  height: 20px;
-}
+/*# sourceMappingURL=style.css.map */
