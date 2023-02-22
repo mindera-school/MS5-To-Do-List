@@ -123,7 +123,7 @@ body header #burguerMenuBtn {
   border: none;
   outline: 0;
 }
-body header #loginBtn {
+body header #loginSideMenuBtn {
   height: 50px;
   width: 50px;
   padding: 5px;
@@ -310,6 +310,13 @@ body main #loginSideBar #loginForm a {
   color: #70F6FF;
   margin-top: 5px;
   align-self: flex-end;
+}
+body main #loginSideBar #loginForm #loginFormSubBtn {
+  width: 85px;
+  height: 30px;
+  background-color: var(--input-bg-color);
+  margin-top: 20px;
+  box-shadow: 1px 0px 5px black;
 }
 body main #seeMoreDiv button {
   margin: 8px;

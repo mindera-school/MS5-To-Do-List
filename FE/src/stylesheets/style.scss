@@ -70,7 +70,7 @@ body {
       outline: 0;
     }
 
-    #loginBtn {
+    #loginSideMenuBtn {
       height: 50px;
       width: 50px;
       padding: 5px;
@@ -78,7 +78,7 @@ body {
       outline: 0;
       border: none;
       background-color: var(--input-bg-color);
-      cursor: pointer;
+      cursor: pointer;  
     }
   }
 
@@ -275,8 +275,18 @@ body {
           margin-top: 5px;
           align-self: flex-end;
         }
+        #loginFormSubBtn {
+          width: 85px;
+          height: 30px;
+          background-color: var(--input-bg-color);
+          margin-top: 20px;
+          box-shadow: 1px 0px 5px black;
+        }
       }
     }
+
+    
+
 
     #seeMoreDiv button {
       margin: 8px;

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./stylesheets/output.css" />
+    <link rel="stylesheet" href="./src/stylesheets/output.css" />
     <title>ToDoList</title>
   </head>
   <body class="dark-mode">
@@ -21,7 +21,7 @@
         </button>
       </div>
       <div>
-        <button id="loginBtn"><img src="./icons/user.svg" alt="" /></button>
+        <button id="loginSideMenuBtn"><img src="./icons/user.svg" alt="" /></button>
       </div>
     </header>
     <main>
@@ -35,7 +35,7 @@
           type="text"
           />
         <input type="text" id="description" class="description-disappear" placeholder="Description of task">  
-        <button type="submit" id="addTaskBtn"><img src="./icons/plus-circle.svg" alt=""></button>
+        <button type="submit" id="addTaskBtn"><img src="./src/assets/icons/plus-circle.svg" alt="Add new task symbol"></button>
       </form>
 
       <div id="seeMoreDiv">
@@ -62,10 +62,10 @@
       <ul id="list"></ul>
       <aside id="loginSideBar">
           <div id="loginMenuBtnContainer">
-            <button><img src="./icons/arrow-right-svgrepo-com.svg" alt=""></button>
-            <button><img src="./icons/user-add-svgrepo-com.svg" alt=""></button>
+            <button><img src="./src/assets/icons/arrow-right-svgrepo-com.svg" alt=""></button>
+            <button><img src="./src/assets/icons/user-add-svgrepo-com.svg" alt=""></button>
           </div>
-          <img src="./icons/user.svg" alt="">
+          <img src="./src/assets/icons/user.svg" alt="">
         <form id="loginForm">
           <label for="username">
             <input placeholder="Username"></input>
@@ -74,10 +74,11 @@
             <input type="password" placeholder="Password"></input>
           </label>
           <a href="">Forgot password?</a>
+          <button id="loginFormSubBtn" type="submit">Login</button>
         </form>
         
       </aside>
     </main>
   </body>
-  <script src="./script.js"></script>
+  <script src="./src/scripts/script.js"></script>
 </html>
