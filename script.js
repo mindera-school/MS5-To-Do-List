@@ -5,9 +5,7 @@ document.getElementById("form").addEventListener("submit", (e) => e.preventDefau
 
 const edit = (item, field) => {
     let edit = prompt();
-    field.innerHTML = edit;
-
-    container.indexOf(value)[field] = edit;
+    container[container.indexOf(item)][item] = edit;
     localStorage.setItem("container", JSON.stringify(container));
 }
 
@@ -119,7 +117,12 @@ document.getElementById("openMenu").addEventListener("click", () => {
     const addFirst = document.createElement("button");
     addFirst.innerHTML = "Add first";
     addFirst.addEventListener("click", () => {
-        container.splice(0, 0, description.value);
+        container.splice(0, 0, {
+            title: tit.value,
+            description: description.value,
+            date: dt.value,
+            checked: false
+        });
         updateList();
     });
     addButtons.appendChild(addFirst);
@@ -129,7 +132,12 @@ document.getElementById("openMenu").addEventListener("click", () => {
     addRandom.innerHTML = "Add random";
     addRandom.addEventListener("click", () => {
         let number = Math.floor(Math.random() * container.length);
-        container.splice(number, 0, description.value);
+        container.splice(number, 0, {
+            title: tit.value,
+            description: description.value,
+            date: dt.value,
+            checked: false
+        });
         updateList();
     });
     addButtons.appendChild(addRandom);
