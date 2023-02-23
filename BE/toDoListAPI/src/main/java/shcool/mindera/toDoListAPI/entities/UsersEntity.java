@@ -1,4 +1,4 @@
-package shcool.mindera.toDoListAPI.entity;
+package shcool.mindera.toDoListAPI.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
