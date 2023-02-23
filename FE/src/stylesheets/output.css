@@ -321,9 +321,14 @@ body main #loginSideBar #loginForm #loginFormSubBtn {
   box-shadow: 1px 0px 5px black;
 }
 body main .loginSideMenu-show {
+  display: flex;
   width: 390px;
 }
 body main .loginSideMenu-hidden {
+  width: 0;
+}
+body main .loginSideMenu-nodisplay {
+  display: none;
   width: 0;
 }
 body main #seeMoreDiv button {

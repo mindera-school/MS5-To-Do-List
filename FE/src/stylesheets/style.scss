@@ -288,10 +288,16 @@ body {
     }
 
     .loginSideMenu-show {
+      display: flex;
       width: 390px;
     }
 
     .loginSideMenu-hidden {
+      width: 0;
+    }
+
+    .loginSideMenu-nodisplay {
+      display: none;
       width: 0;
     }
 
