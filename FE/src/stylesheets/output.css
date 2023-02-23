@@ -62,6 +62,75 @@
     transform: translate(0px, -50px);
   }
 }
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 3.5em;
+  height: 2em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgb(0, 0, 0);
+  transition: 0.4s;
+  border-radius: 30px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.4em;
+  width: 1.4em;
+  border-radius: 20px;
+  left: 0.3em;
+  bottom: 0.3em;
+  background-color: rgb(219, 198, 2);
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #000000;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #000000;
+}
+
+input:checked + .slider:before {
+  transform: translateX(1.5em);
+}
+
+.slider::after {
+  width: 20px;
+  height: 20px;
+  left: 20%;
+  top: 10%;
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  background-color: rgb(0, 0, 0);
+  transition: ease 0.4s;
+}
+
+input:checked + .slider::after {
+  left: 80%;
+  width: 0px;
+  height: 0px;
+}
+
 :root {
   --header-bg-color: #17425e;
   --main-bg-color: #13293d;
@@ -255,10 +324,10 @@ body main ul li :hover {
   transition: transform 0.3s;
 }
 body main #loginSideBar {
+  height: 100vh;
   position: fixed;
   display: flex;
   overflow-x: hidden;
-  height: 100vh;
   flex-direction: column;
   align-items: center;
   right: 0;
@@ -269,7 +338,7 @@ body main #loginSideBar {
 }
 body main #loginSideBar img:nth-child(2) {
   margin-top: 100px;
-  height: 200px;
+  height: 130px;
   width: fit-content;
   background-color: var(--input-bg-color);
   box-sizing: border-box;
@@ -308,17 +377,13 @@ body main #loginSideBar #loginForm input {
   height: 40px;
   margin-top: 25px;
 }
-body main #loginSideBar #loginForm a {
-  color: #70F6FF;
-  margin-top: 5px;
-  align-self: flex-end;
-}
 body main #loginSideBar #loginForm #loginFormSubBtn {
   width: 85px;
   height: 30px;
   background-color: var(--input-bg-color);
   margin-top: 20px;
   box-shadow: 1px 0px 5px black;
+  color: var(--font-color);
 }
 body main .loginSideMenu-show {
   display: flex;
@@ -430,6 +495,20 @@ body main #inputContainer input {
   flex-direction: column;
   box-shadow: 1px 2px 10px black;
   animation: appearMenu 0.5s ease 0s 1 normal;
+}
+
+.light-mode {
+  --header-bg-color: #17425e;
+  --main-bg-color: #13293d;
+  --font-color: white;
+  --input-bg-color: #8d99ae;
+}
+
+.dark-mode {
+  --header-bg-color: #2C5BA1;
+  --main-bg-color: #FCFCFC;
+  --font-color: #282828;
+  --input-bg-color: #FCFCFC;
 }
 
 .appearLi {

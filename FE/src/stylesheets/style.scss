@@ -1,8 +1,17 @@
 @use "animations";
+@use "darkmodeSlider";
 
 @mixin theme($light-mode) {
   @if $light-mode {
+    --header-bg-color: #17425e;
+    --main-bg-color: #13293d;
+    --font-color: white;
+    --input-bg-color: #8d99ae;
   } @else {
+    --header-bg-color: #2C5BA1;
+    --main-bg-color: #FCFCFC;
+    --font-color: #282828;;
+    --input-bg-color: #FCFCFC;
   }
 }
 
@@ -79,7 +88,7 @@ body {
       outline: 0;
       border: none;
       background-color: var(--input-bg-color);
-      cursor: pointer;  
+      cursor: pointer;
     }
   }
 
@@ -216,13 +225,11 @@ body {
       }
     }
 
-    
-
     #loginSideBar {
+      height: 100vh;
       position: fixed;
       display: flex;
       overflow-x: hidden;
-      height: 100vh;
       flex-direction: column;
       align-items: center;
       right: 0;
@@ -230,9 +237,9 @@ body {
       background-color: var(--header-bg-color);
       z-index: 1;
       transition: width 0.4s;
-      img:nth-child(2){
+      img:nth-child(2) {
         margin-top: 100px;
-        height: 200px;
+        height: 130px;
         width: fit-content;
         background-color: var(--input-bg-color);
         box-sizing: border-box;
@@ -253,7 +260,7 @@ body {
             height: 60px;
           }
         }
-        button:nth-child(2){
+        button:nth-child(2) {
           height: 10px;
           margin: 10px;
           img {
@@ -272,17 +279,14 @@ body {
           height: 40px;
           margin-top: 25px;
         }
-        a {
-          color: #70F6FF;
-          margin-top: 5px;
-          align-self: flex-end;
-        }
+
         #loginFormSubBtn {
           width: 85px;
           height: 30px;
           background-color: var(--input-bg-color);
           margin-top: 20px;
           box-shadow: 1px 0px 5px black;
+          color: var(--font-color);
         }
       }
     }
