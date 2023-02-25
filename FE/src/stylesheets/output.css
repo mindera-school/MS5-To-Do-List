@@ -131,7 +131,14 @@ input:checked + .slider::after {
   height: 0px;
 }
 
-:root {
+.light-theme {
+  --header-bg-color: #2c5ba1;
+  --main-bg-color: #fcfcfc;
+  --font-color: #282828;
+  --input-bg-color: #fcfcfc;
+}
+
+.navy-theme {
   --header-bg-color: #17425e;
   --main-bg-color: #13293d;
   --font-color: white;
@@ -495,20 +502,6 @@ body main #inputContainer input {
   flex-direction: column;
   box-shadow: 1px 2px 10px black;
   animation: appearMenu 0.5s ease 0s 1 normal;
-}
-
-.light-mode {
-  --header-bg-color: #17425e;
-  --main-bg-color: #13293d;
-  --font-color: white;
-  --input-bg-color: #8d99ae;
-}
-
-.dark-mode {
-  --header-bg-color: #2C5BA1;
-  --main-bg-color: #FCFCFC;
-  --font-color: #282828;
-  --input-bg-color: #FCFCFC;
 }
 
 .appearLi {

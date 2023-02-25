@@ -1,26 +1,6 @@
 @use "animations";
 @use "darkmodeSlider";
-
-@mixin theme($light-mode) {
-  @if $light-mode {
-    --header-bg-color: #17425e;
-    --main-bg-color: #13293d;
-    --font-color: white;
-    --input-bg-color: #8d99ae;
-  } @else {
-    --header-bg-color: #2C5BA1;
-    --main-bg-color: #FCFCFC;
-    --font-color: #282828;;
-    --input-bg-color: #FCFCFC;
-  }
-}
-
-:root {
-  --header-bg-color: #17425e;
-  --main-bg-color: #13293d;
-  --font-color: white;
-  --input-bg-color: #8d99ae;
-}
+@use "darkModeClasses";
 
 * {
   padding: 0;
@@ -416,14 +396,6 @@ body {
   flex-direction: column;
   box-shadow: 1px 2px 10px black;
   animation: appearMenu 0.5s ease 0s 1 normal;
-}
-
-.light-mode {
-  @include theme($light-mode: true);
-}
-
-.dark-mode {
-  @include theme($light-mode: false);
 }
 
 .appearLi {
