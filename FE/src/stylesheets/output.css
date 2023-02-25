@@ -117,13 +117,14 @@ body header #searchDiv #closeSearchBar {
   background-color: transparent;
   border: none;
   padding-right: 10px;
+  cursor: pointer;
 }
 body header #burguerMenuBtn {
   background-color: transparent;
   border: none;
   outline: 0;
 }
-body header #loginBtn {
+body header #loginSideMenuBtn {
   height: 50px;
   width: 50px;
   padding: 5px;
@@ -252,6 +253,83 @@ body main ul li span {
 body main ul li :hover {
   transform: scale(1.05);
   transition: transform 0.3s;
+}
+body main #loginSideBar {
+  position: fixed;
+  display: flex;
+  overflow-x: hidden;
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  right: 0;
+  top: 0;
+  background-color: var(--header-bg-color);
+  z-index: 1;
+  transition: width 0.4s;
+}
+body main #loginSideBar img:nth-child(2) {
+  margin-top: 100px;
+  height: 200px;
+  width: fit-content;
+  background-color: var(--input-bg-color);
+  box-sizing: border-box;
+  border-radius: 100px;
+  box-shadow: 0px 5px 10px black;
+}
+body main #loginSideBar #loginMenuBtnContainer {
+  display: flex;
+  top: 0;
+  width: 100%;
+  justify-content: space-between;
+}
+body main #loginSideBar #loginMenuBtnContainer button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+body main #loginSideBar #loginMenuBtnContainer button > img {
+  height: 60px;
+}
+body main #loginSideBar #loginMenuBtnContainer button:nth-child(2) {
+  height: 10px;
+  margin: 10px;
+}
+body main #loginSideBar #loginMenuBtnContainer button:nth-child(2) img {
+  height: 40px;
+}
+body main #loginSideBar #loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+}
+body main #loginSideBar #loginForm input {
+  width: 300px;
+  height: 40px;
+  margin-top: 25px;
+}
+body main #loginSideBar #loginForm a {
+  color: #70F6FF;
+  margin-top: 5px;
+  align-self: flex-end;
+}
+body main #loginSideBar #loginForm #loginFormSubBtn {
+  width: 85px;
+  height: 30px;
+  background-color: var(--input-bg-color);
+  margin-top: 20px;
+  box-shadow: 1px 0px 5px black;
+}
+body main .loginSideMenu-show {
+  display: flex;
+  width: 390px;
+}
+body main .loginSideMenu-hidden {
+  width: 0;
+}
+body main .loginSideMenu-nodisplay {
+  display: none;
+  width: 0;
 }
 body main #seeMoreDiv button {
   margin: 8px;
