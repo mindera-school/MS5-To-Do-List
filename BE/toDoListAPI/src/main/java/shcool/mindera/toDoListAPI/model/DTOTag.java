@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOTag {
-    private Integer id;
+    private Integer tagId;
     private String name;
     private String color;
 }

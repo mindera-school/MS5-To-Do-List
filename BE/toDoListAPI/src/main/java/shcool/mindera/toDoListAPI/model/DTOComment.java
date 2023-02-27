@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DTOComment {
 
-    private Integer id;
+    private Integer commentId;
     private String description;
     private String date;
     private String userName;

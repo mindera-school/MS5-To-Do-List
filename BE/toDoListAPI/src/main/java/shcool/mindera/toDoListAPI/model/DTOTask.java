@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOTask {
-    private Integer id;
+    private Integer taskId;
     private String title;
     private String description;
     private String endDate;

@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 public class DTOLoggedUser {
-    private Integer id;
+    private Integer userId;
     private String firstName;
     private String lastName;
     private String userName;
