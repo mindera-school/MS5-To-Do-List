@@ -18,7 +18,7 @@ const randomizeBtn = document.getElementById("randomize");
 const alphaBtnOrderBtn = document.getElementById("alphabetically");
 const alphaRvrsOrderBtn = document.getElementById("alphabeticallyRvrs");
 const searchBar = document.getElementById("searchBar");
-const emptySearchBar = document.getElementById("closeSearchBar");
+const closeSearchBar = document.getElementById("closeSearchBar");
 let stateList = document.getElementById("list");
 let storageList = JSON.parse(localStorage.getItem("list"));
 let draggingTask;
@@ -188,7 +188,7 @@ searchBar.addEventListener("input", () => {
       createOnPg(e.taskName, e.date, e.tag, e.id);
     }
   });
-  emptySearchBar.addEventListener("click", () => {
+  closeSearchBar.addEventListener("click", () => {
     searchBar.value = null;
     updatePage();
   });
