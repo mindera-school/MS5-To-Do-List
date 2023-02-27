@@ -28,11 +28,11 @@ let draggingStartY;
 let draggingStartX;
 
 window.addEventListener("load", () => {
-  storageList.forEach(() => {
+  storageList.forEach((e) => {
     createOnPg(
-      storageList[i].taskName,
-      storageList[i].date,
-      storageList[i].tag
+      e.taskName,
+      e.date,
+      e.tag
     );
   });
 });
@@ -231,10 +231,13 @@ stateList.addEventListener("drop", (e) => {
   });
 });
 
+//This function finds the closest child element of the parent to a given y coordinate,
+// excluding the draggingTask element, and returns it. If there is no matching element, 
+//it returns null.
 function getDropTarget(parent, y) {
   for (const task of Array.from(parent.children)) {
-    if (task !== draggingTask) {
-      return;
+    if (task === draggingTask) {
+      continue;
     }
     const taskRect = task.getBoundingClientRect();
     const offset = y - taskRect.top - taskRect.height / 2;
@@ -245,10 +248,11 @@ function getDropTarget(parent, y) {
   return null;
 }
 
+//does the same but doesnt specify the parent
 function getDropTargetDrag(y) {
   for (const task of Array.from(stateList.children)) {
-    if (task !== draggingTask) {
-      return;
+    if (task === draggingTask) {
+      continue;
     }
     const taskRect = task.getBoundingClientRect();
     const offset = y - taskRect.top - taskRect.height / 2;
@@ -288,7 +292,7 @@ function createOnPg(task, date, tag, index) {
   item.appendChild(deleteBtn);
   item.appendChild(markDoneBtn);
   item.appendChild(moveBtn);
-  setupMoveButton(moveBtn, item, storageList);
+  setupMoveButton(moveBtn, item);
   markDoneBtn.addEventListener("click", () => {
     if (item.style.textDecoration === "line-through") {
       item.style.textDecoration = "none";
@@ -308,7 +312,7 @@ function createOnPg(task, date, tag, index) {
   item.setAttribute("class", "appearLi");
 }
 
-function setupMoveButton(moveBtn, storageList) { 
+function setupMoveButton(moveBtn) { 
    //function to handle the drag and drop of the moveBtn
   moveBtn.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", "");
