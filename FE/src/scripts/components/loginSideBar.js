@@ -1,4 +1,4 @@
-const bodyElement = document.querySelector("body");
+const bodyElement = document.body;
 const loginSideBarOpenBtn = document.getElementById("loginSideMenuBtn");
 const loginSideBarCloseBtn = document.getElementById("loginSideMenuCloseBtn");
 const loginSideBar = document.getElementById("loginSideBar");
