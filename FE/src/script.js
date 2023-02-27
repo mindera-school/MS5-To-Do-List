@@ -28,13 +28,13 @@ let draggingStartY;
 let draggingStartX;
 
 window.addEventListener("load", () => {
-  for (let i = 0; i < storageList.length; i++) {
+  storageList.forEach(() => {
     createOnPg(
       storageList[i].taskName,
       storageList[i].date,
       storageList[i].tag
     );
-  }
+  });
 });
 
 if (storageList?.length === 0 || !storageList) {
@@ -194,13 +194,12 @@ searchBar.addEventListener("input", () => {
   });
 });
 
+//swipe event
 stateList.addEventListener("dragstart", (e) => {
   draggingTask = e.target;
   e.dataTransfer.setData("text/plain", null);
   draggingStart = e.clientX;
 });
-
-
 
 stateList.addEventListener("dragover", (e) => {
   e.preventDefault();
@@ -213,7 +212,6 @@ stateList.addEventListener("dragover", (e) => {
 stateList.addEventListener("drop", (e) => {
   e.preventDefault();
   const dropTarget = getDropTarget(e.target, e.clientY);
-  //if (dropTarget) {
   const draggingIndex = Array.from(stateList.children).indexOf(draggingTask);
   const dropIndex = Array.from(stateList.children).indexOf(dropTarget);
   if (draggingStart - 120 > e.clientX) {
@@ -227,7 +225,6 @@ stateList.addEventListener("drop", (e) => {
       ? (draggingTask.style.textDecoration = "none")
       : (draggingTask.style.textDecoration = "line-through");
   }
-  //}
   draggingTask.classList.remove("dragging");
   document.querySelectorAll(".drag-over").forEach((dropTarget) => {
     dropTarget.classList.remove("drag-over");
@@ -236,7 +233,9 @@ stateList.addEventListener("drop", (e) => {
 
 function getDropTarget(parent, y) {
   for (const task of Array.from(parent.children)) {
-    if (task === draggingTask) continue;
+    if (task !== draggingTask) {
+      return;
+    }
     const taskRect = task.getBoundingClientRect();
     const offset = y - taskRect.top - taskRect.height / 2;
     if (offset > 0 && offset < taskRect.height) {
@@ -248,7 +247,9 @@ function getDropTarget(parent, y) {
 
 function getDropTargetDrag(y) {
   for (const task of Array.from(stateList.children)) {
-    if (task === draggingTask) continue;
+    if (task !== draggingTask) {
+      return;
+    }
     const taskRect = task.getBoundingClientRect();
     const offset = y - taskRect.top - taskRect.height / 2;
     if (offset > 0 && offset < taskRect.height) {
@@ -289,9 +290,11 @@ function createOnPg(task, date, tag, index) {
   item.appendChild(moveBtn);
   setupMoveButton(moveBtn, item, storageList);
   markDoneBtn.addEventListener("click", () => {
-    item.style.textDecoration === "line-through"
-      ? (item.style.textDecoration = "none")
-      : (item.style.textDecoration = "line-through");
+    if (item.style.textDecoration === "line-through") {
+      item.style.textDecoration = "none";
+    } else {
+      item.style.textDecoration = "line-through";
+    }
   });
   deleteBtn.addEventListener("click", () => {
     item.setAttribute("class", "disappearLi");
@@ -305,7 +308,8 @@ function createOnPg(task, date, tag, index) {
   item.setAttribute("class", "appearLi");
 }
 
-function setupMoveButton(moveBtn, storageList) {
+function setupMoveButton(moveBtn, storageList) { 
+   //function to handle the drag and drop of the moveBtn
   moveBtn.addEventListener("dragstart", (e) => {
     e.dataTransfer.setData("text/plain", "");
     draggingTask = e.target.parentNode;
