@@ -18,9 +18,14 @@ const randomizeBtn = document.getElementById("randomize");
 const alphaBtnOrderBtn = document.getElementById("alphabetically");
 const alphaRvrsOrderBtn = document.getElementById("alphabeticallyRvrs");
 const searchBar = document.getElementById("searchBar");
-const closeSearchBar = document.getElementById("closeSearchBar");
+const emptySearchBar = document.getElementById("closeSearchBar");
 let stateList = document.getElementById("list");
 let storageList = JSON.parse(localStorage.getItem("list"));
+let draggingTask;
+let draggingStart;
+let draggingEnd;
+let draggingStartY;
+let draggingStartX;
 
 window.addEventListener("load", () => {
   for (let i = 0; i < storageList.length; i++) {
@@ -183,57 +188,66 @@ searchBar.addEventListener("input", () => {
       createOnPg(e.taskName, e.date, e.tag, e.id);
     }
   });
-  closeSearchBar.addEventListener("click", () => {
+  emptySearchBar.addEventListener("click", () => {
     searchBar.value = null;
     updatePage();
   });
 });
 
-let draggingTask;
-
-stateList.addEventListener("dragstart", (event) => {
-  draggingTask = event.target;
-  event.dataTransfer.setData("text/plain", null);
+stateList.addEventListener("dragstart", (e) => {
+  e.target.lockAxis = "x";
+  draggingTask = e.target;
+  e.dataTransfer.setData("text/plain", null);
+  draggingStart = e.clientX;
 });
 
-stateList.addEventListener("dragleave", (event) => {
-  const dropTarget = getDropTarget(event.target, event.clientY);
-  if (dropTarget) {
-    dropTarget.classList.remove("drag-over");
-  }
-});
 
-stateList.addEventListener("dragover", (event) => {
-  event.preventDefault();
-  const dropTarget = getDropTarget(event.target, event.clientY);
+
+stateList.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  const dropTarget = getDropTarget(e.target, e.clientX);
   if (dropTarget) {
     dropTarget.classList.add("drag-over");
   }
 });
 
-stateList.addEventListener("drop", (event) => {
-  event.preventDefault();
-  const dropTarget = getDropTarget(event.target, event.clientY);
-  if (dropTarget) {
-    const draggingIndex = Array.from(stateList.children).indexOf(draggingTask);
-    const dropIndex = Array.from(stateList.children).indexOf(dropTarget);
-    let tempTask = storageList[draggingIndex];
-    if (draggingIndex < dropIndex) {
-      stateList.insertBefore(draggingTask, dropTarget.nextSibling);
-    } else {
-      stateList.insertBefore(draggingTask, dropTarget);
-    }
+stateList.addEventListener("drop", (e) => {
+  e.preventDefault();
+  const dropTarget = getDropTarget(e.target, e.clientY);
+  //if (dropTarget) {
+  const draggingIndex = Array.from(stateList.children).indexOf(draggingTask);
+  const dropIndex = Array.from(stateList.children).indexOf(dropTarget);
+  if (draggingStart - 120 > e.clientX) {
+    // dragging to the left
+    draggingTask.remove();
     storageList.splice(draggingIndex, 1);
-    storageList.splice(dropIndex, 0, tempTask);
     localStorage.setItem("list", JSON.stringify(storageList));
+  } else if (draggingStart + 120 < e.clientX) {
+    // dragging to the right
+    draggingTask.style.textDecoration === "line-through"
+      ? (draggingTask.style.textDecoration = "none")
+      : (draggingTask.style.textDecoration = "line-through");
   }
+  //}
   draggingTask.classList.remove("dragging");
   document.querySelectorAll(".drag-over").forEach((dropTarget) => {
     dropTarget.classList.remove("drag-over");
   });
 });
 
-function getDropTarget(target, y) {
+function getDropTarget(parent, y) {
+  for (const task of Array.from(parent.children)) {
+    if (task === draggingTask) continue;
+    const taskRect = task.getBoundingClientRect();
+    const offset = y - taskRect.top - taskRect.height / 2;
+    if (offset > 0 && offset < taskRect.height) {
+      return task;
+    }
+  }
+  return null;
+}
+
+function getDropTargetDrag(y) {
   for (const task of Array.from(stateList.children)) {
     if (task === draggingTask) continue;
     const taskRect = task.getBoundingClientRect();
@@ -250,6 +264,8 @@ function createOnPg(task, date, tag, index) {
   const editBtn = document.createElement("button");
   const deleteBtn = document.createElement("button");
   const markDoneBtn = document.createElement("button");
+  const moveBtn = document.createElement("button");
+  moveBtn.innerHTML = "X";
   item.innerHTML = "Task name: " + task + " | Date: " + date + " | ";
   editBtn.addEventListener("click", (e) => {
     rewriterCall(e, index);
@@ -271,6 +287,8 @@ function createOnPg(task, date, tag, index) {
   item.appendChild(editBtn);
   item.appendChild(deleteBtn);
   item.appendChild(markDoneBtn);
+  item.appendChild(moveBtn);
+  setupMoveButton(moveBtn, item, storageList);
   markDoneBtn.addEventListener("click", () => {
     item.style.textDecoration === "line-through"
       ? (item.style.textDecoration = "none")
@@ -286,6 +304,33 @@ function createOnPg(task, date, tag, index) {
     }, 400);
   });
   item.setAttribute("class", "appearLi");
+}
+
+function setupMoveButton(moveBtn, storageList) {
+  moveBtn.addEventListener("dragstart", (e) => {
+    e.dataTransfer.setData("text/plain", "");
+    draggingTask = e.target.parentNode;
+    draggingStart = e.clientY;
+  });
+
+  moveBtn.addEventListener("drop", (e) => {
+    const dropTarget = getDropTargetDrag(e.clientY);
+    if (dropTarget) {
+      const draggingIndex = Array.from(stateList.children).indexOf(
+        draggingTask
+      );
+      const dropIndex = Array.from(stateList.children).indexOf(dropTarget);
+      let tempTask = storageList[draggingIndex];
+      if (draggingIndex > dropIndex) {
+        stateList.insertBefore(draggingTask, dropTarget);
+      } else {
+        stateList.insertBefore(draggingTask, dropTarget.nextSibling);
+      }
+      storageList.splice(draggingIndex, 1);
+      storageList.splice(dropIndex, 0, tempTask);
+      localStorage.setItem("list", JSON.stringify(storageList));
+    }
+  });
 }
 
 function addItem(taskName, date, tag) {
