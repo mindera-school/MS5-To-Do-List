@@ -113,7 +113,7 @@ body header #searchDiv {
   background-color: var(--input-bg-color);
   border-radius: 30px;
 }
-body header #searchDiv #closeSearchBar {
+body header #searchDiv #eraseSearchBarBtn {
   background-color: transparent;
   border: none;
   padding-right: 10px;

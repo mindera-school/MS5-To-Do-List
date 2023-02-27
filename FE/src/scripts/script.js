@@ -17,8 +17,6 @@ const removeOddBtn = document.getElementById("removeOdd");
 const randomizeBtn = document.getElementById("randomize");
 const alphaBtnOrderBtn = document.getElementById("alphabetically");
 const alphaRvrsOrderBtn = document.getElementById("alphabeticallyRvrs");
-const searchBar = document.getElementById("searchBar");
-const closeSearchBar = document.getElementById("closeSearchBar");
 let stateList = document.getElementById("list");
 let storageList = JSON.parse(localStorage.getItem("list"));
 
@@ -170,25 +168,6 @@ subBtn.addEventListener("click", () => {
 //     main.appendChild(newList);
 //   }, 300);
 // });
-
-searchBar.addEventListener("input", () => {
-  if (searchBar.value === "") {
-    storageList.forEach((e) => {
-      createOnPg(e.taskName, e.date, e.tag, e.id);
-    });
-  }
-  stateList.innerHTML = null;
-  storageList.forEach((e) => {
-    if (e.taskName.includes(searchBar.value)) {
-      createOnPg(e.taskName, e.date, e.tag, e.id);
-    }
-  });
-  closeSearchBar.addEventListener("click", () => {
-    searchBar.value = null;
-    updatePage();
-  });
-});
-
 let draggingTask;
 
 stateList.addEventListener("dragstart", (event) => {
@@ -288,8 +267,8 @@ function createOnPg(task, date, tag, index) {
   item.setAttribute("class", "appearLi");
 }
 
-function addItem(taskName, date, tag) {
-  const newItem = { taskName, date, tag };
+function addItem(taskName, date, tag, description) {
+  const newItem = { taskName, date, tag, description };
   const index = storageList.push(newItem) - 1;
   createOnPg(taskName, date, tag, index);
   refreshLocalStorage(storageList);
