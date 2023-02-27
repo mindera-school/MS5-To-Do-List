@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="./src/stylesheets/output.css" />
     <title>ToDoList</title>
   </head>
-  <body class="dark-mode">
+  <body class="navy-theme">
     <header>
       <div>
         <button id="burguerMenuBtn">
           <img src="../FE/src/assets/icons/menu.svg" alt="Icon for open left side menu button" />
         </button>
       </div>
-      <div id="searchDiv">
+      <div id="searchTasks">
         <input type="text" id="searchBar" placeholder="Search" />
         <button id="eraseSearchBarBtn">
           <img src="./src/assets/icons/delete.svg" alt="Delete button for search bar" />
@@ -56,8 +56,11 @@
           </label>
           <button id="loginFormSubBtn" type="submit">Login</button>
         </form>
+        <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+        </label>
       </aside>
-
     </main>
   </body>
   <script src="./src/scripts/script.js"></script>
