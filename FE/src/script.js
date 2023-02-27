@@ -195,7 +195,6 @@ searchBar.addEventListener("input", () => {
 });
 
 stateList.addEventListener("dragstart", (e) => {
-  e.target.lockAxis = "x";
   draggingTask = e.target;
   e.dataTransfer.setData("text/plain", null);
   draggingStart = e.clientX;
