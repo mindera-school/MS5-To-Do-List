@@ -1,6 +1,8 @@
 const searchBar = document.getElementById("searchBar");
 const closeSearchBar = document.getElementById("eraseSearchBarBtn");
 
+
+//Only creates on page tasks which the name or description contains what value is on the search bar input
 searchBar.addEventListener("input", () => {
     stateList.innerHTML = null;
     storageList.forEach((e) => {
