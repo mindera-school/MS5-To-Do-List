@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class DTOLoggedUser {
     private Integer id;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private String userName;
     private List<DTOGroup> groups;

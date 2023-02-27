@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class DTORegister {
 private String email;
-private String fistName;
+private String firstName;
 private String lastName;
 private String userName;
 private  String password;
