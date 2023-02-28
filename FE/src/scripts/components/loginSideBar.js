@@ -3,7 +3,7 @@ const loginSideBarOpenBtn = document.getElementById("loginSideMenuBtn");
 const loginSideBarCloseBtn = document.getElementById("loginSideMenuCloseBtn");
 const loginSideBar = document.getElementById("loginSideBar");
 const colorThemeSwitch = document.getElementsByClassName("switch")[0];
-const deleteBtnIcon = document.getElementById("deleteBtnIcon");
+const deleteBtnIcon = document.getElementById("eraseSearchIcon");
 let lightMode = false;
 
 
@@ -21,11 +21,11 @@ loginSideBarCloseBtn.addEventListener("click", () => {
 colorThemeSwitch.addEventListener("change", ()=>{
     if(lightMode === true){
         bodyElement.setAttribute("class","navy-theme");
-        deleteBtnIcon.src = "/src/assets/icons/delete-navy-theme.svg";
+        deleteBtnIcon.src = "./src/assets/icons/delete-navy-theme.svg";
         lightMode = false;
     } else {
         bodyElement.setAttribute("class","light-theme");
-        deleteBtnIcon.src = "src/assets/icons/delete-light-theme.svg";
+        deleteBtnIcon.src = "./src/assets/icons/delete-light-theme.svg";
         lightMode = true;
     }
 });
