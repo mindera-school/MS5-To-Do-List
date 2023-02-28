@@ -1,18 +1,6 @@
 @use "animations";
-
-@mixin theme($light-mode) {
-  @if $light-mode {
-  } @else {
-
-  }
-}
-
-:root {
-  --header-bg-color: #17425e;
-  --main-bg-color: #13293d;
-  --font-color: white;
-  --input-bg-color: #8d99ae;
-}
+@use "darkmodeSlider";
+@use "darkModeClasses";
 
 * {
   padding: 0;
@@ -62,6 +50,7 @@ body {
         background-color: transparent;
         border: none;
         padding-right: 10px;
+        cursor: pointer;
       }
     }
 
@@ -71,7 +60,7 @@ body {
       outline: 0;
     }
 
-    #loginBtn {
+    #loginSideMenuBtn {
       height: 50px;
       width: 50px;
       padding: 5px;
@@ -101,7 +90,7 @@ body {
       height: 300px;
       align-items: center;
       justify-content: center;
-      
+
       input {
         width: 60%;
         height: 60px;
@@ -216,6 +205,86 @@ body {
       }
     }
 
+    #loginSideBar {
+      height: 100vh;
+      position: fixed;
+      display: flex;
+      overflow-x: hidden;
+      flex-direction: column;
+      align-items: center;
+      right: 0;
+      top: 0;
+      background-color: var(--header-bg-color);
+      z-index: 1;
+      transition: width 0.4s;
+      img:nth-child(2) {
+        margin-top: 100px;
+        height: 130px;
+        width: fit-content;
+        background-color: var(--input-bg-color);
+        box-sizing: border-box;
+        border-radius: 100px;
+        box-shadow: 0px 5px 10px black;
+      }
+
+      #loginMenuBtnContainer {
+        display: flex;
+        top: 0;
+        width: 100%;
+        justify-content: space-between;
+        button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          & > img {
+            height: 60px;
+          }
+        }
+        button:nth-child(2) {
+          height: 10px;
+          margin: 10px;
+          img {
+            height: 40px;
+          }
+        }
+      }
+
+      #loginForm {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: fit-content;
+        input {
+          width: 300px;
+          height: 40px;
+          margin-top: 25px;
+        }
+
+        #loginFormSubBtn {
+          width: 85px;
+          height: 30px;
+          background-color: var(--input-bg-color);
+          margin-top: 20px;
+          box-shadow: 1px 0px 5px black;
+          color: var(--font-color);
+        }
+      }
+    }
+
+    .loginSideMenu-show {
+      display: flex;
+      width: 390px;
+    }
+
+    .loginSideMenu-hidden {
+      width: 0;
+    }
+
+    .loginSideMenu-nodisplay {
+      display: none;
+      width: 0;
+    }
+
     #seeMoreDiv button {
       margin: 8px;
       height: 60px;
@@ -237,7 +306,7 @@ body {
         color: white;
       }
     }
-  
+
     .date-appear {
       display: block;
       animation: curtainDown 0.5s ease 0s 1 normal;
@@ -267,7 +336,6 @@ body {
       display: none;
       animation: curtainUp 0.5s ease 0s 1 normal;
     }
-
 
     #inputContainer {
       display: flex;
@@ -328,14 +396,6 @@ body {
   flex-direction: column;
   box-shadow: 1px 2px 10px black;
   animation: appearMenu 0.5s ease 0s 1 normal;
-}
-
-.light-mode {
-  @include theme($light-mode: true);
-}
-
-.dark-mode {
-  @include theme($light-mode: false);
 }
 
 .appearLi {
