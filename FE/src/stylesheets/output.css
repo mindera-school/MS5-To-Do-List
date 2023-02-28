@@ -183,13 +183,13 @@ body header input {
 body header input::placeholder {
   color: var(--font-color);
 }
-body header #searchDiv {
+body header #searchTasks {
   display: flex;
   align-items: center;
   background-color: var(--input-bg-color);
   border-radius: 30px;
 }
-body header #searchDiv #eraseSearchBarBtn {
+body header #searchTasks #eraseSearchBarBtn {
   background-color: transparent;
   border: none;
   padding-right: 10px;

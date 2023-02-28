@@ -21,11 +21,11 @@ loginSideBarCloseBtn.addEventListener("click", () => {
 colorThemeSwitch.addEventListener("change", ()=>{
     if(lightMode === true){
         bodyElement.setAttribute("class","navy-theme");
-        deleteBtnIcon.src = "./src/assets/icons/delete-navy-theme.svg";
+        deleteBtnIcon.src = "/src/assets/icons/delete-navy-theme.svg";
         lightMode = false;
     } else {
         bodyElement.setAttribute("class","light-theme");
-        deleteBtnIcon.src = "./src/assets/icons/delete-light-theme.svg";
+        deleteBtnIcon.src = "src/assets/icons/delete-light-theme.svg";
         lightMode = true;
     }
 });

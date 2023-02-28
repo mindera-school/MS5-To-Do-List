@@ -61,7 +61,7 @@ taskNameInput.addEventListener("focus", () => {
   }, 300);
 });
 
-removeOddBtn.addEventListener("click", () => {
+/* removeOddBtn.addEventListener("click", () => {
   for (let i = 0; i < storageList.length; i++) {
     if (i % 2 === 0) {
       storageList.splice(i, 1);
@@ -134,7 +134,7 @@ alphaRvrsOrderBtn.addEventListener("click", () => {
   listToDo.sort((a, b) => (a.taskName < b.taskName ? 1 : -1));
   updatePage();
 });
-
+ */
 function refreshLocalStorage(updatedList) {
   localStorage.setItem("list", JSON.stringify(updatedList));
 }
@@ -173,24 +173,6 @@ subBtn.addEventListener("click", () => {
 //     main.appendChild(newList);
 //   }, 300);
 // });
-
-searchBar.addEventListener("input", () => {
-  if (searchBar.value === "") {
-    storageList.forEach((e) => {
-      createOnPg(e.taskName, e.date, e.tag, e.id);
-    });
-  }
-  stateList.innerHTML = null;
-  storageList.forEach((e) => {
-    if (e.taskName.includes(searchBar.value)) {
-      createOnPg(e.taskName, e.date, e.tag, e.id);
-    }
-  });
-  closeSearchBar.addEventListener("click", () => {
-    searchBar.value = null;
-    updatePage();
-  });
-});
 
 //swipe event
 stateList.addEventListener("dragstart", (e) => {
@@ -339,6 +321,7 @@ function setupMoveButton(moveBtn) {
 }
 
 function addItem(taskName, date, tag, description) {
+  description = description===null?description:"";
   const newItem = { taskName, date, tag, description };
   const index = storageList.push(newItem) - 1;
   createOnPg(taskName, date, tag, index);
