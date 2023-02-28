@@ -25,7 +25,7 @@ colorThemeSwitch.addEventListener("change", ()=>{
         lightMode = false;
     } else {
         bodyElement.setAttribute("class","light-theme");
-        deleteBtnIcon.src = "./src/assets/icons/delete-navy-theme.svg";
+        deleteBtnIcon.src = "./src/assets/icons/delete-light-theme.svg";
         lightMode = true;
     }
 });
