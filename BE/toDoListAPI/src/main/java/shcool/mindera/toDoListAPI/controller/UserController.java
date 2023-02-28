@@ -1,6 +1,7 @@
 package shcool.mindera.toDoListAPI.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import shcool.mindera.toDoListAPI.service.GroupsService;
 import shcool.mindera.toDoListAPI.service.UserService;
 
 @RestController

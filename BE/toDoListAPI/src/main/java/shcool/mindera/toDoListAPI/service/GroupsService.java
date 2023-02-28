@@ -1,13 +1,15 @@
 package shcool.mindera.toDoListAPI.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import shcool.mindera.toDoListAPI.repository.ToDoRepository;
+import shcool.mindera.toDoListAPI.repository.GroupsRepositoryInterface;
 
 @Service
-public class UserService {
-    private final ToDoRepository repository;
+public class GroupsService {
+    @Autowired
+    private final GroupsRepositoryInterface groupsRepository;
 
-    public UserService(ToDoRepository repository) {
-        this.repository = repository;
+    public GroupsService(GroupsRepositoryInterface groupsRepository) {
+        this.groupsRepository = groupsRepository;
     }
 }

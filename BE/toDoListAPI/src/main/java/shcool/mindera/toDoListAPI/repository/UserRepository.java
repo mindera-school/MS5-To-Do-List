@@ -1,2 +1,7 @@
-package shcool.mindera.toDoListAPI.repository;public class GroupsRepositoyaa {
+package shcool.mindera.toDoListAPI.repository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class UserRepository {
 }

@@ -1,12 +1,17 @@
 package shcool.mindera.toDoListAPI.entities;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class UsersEntity {
@@ -23,4 +28,9 @@ public class UsersEntity {
     private String firstName;
     @Column(name = "lastname", nullable = false)
     private String lastName;
+    @Column(nullable = false)
+    private String profileImage;
+
+//    @OneToMany(mappedBy = "userId")
+//    private List<TagsEntity> tags;
 }
