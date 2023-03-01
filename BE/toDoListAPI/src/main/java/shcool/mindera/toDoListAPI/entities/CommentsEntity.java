@@ -14,14 +14,16 @@ import javax.transaction.Transactional;
 public class CommentsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer commentId;
 
     @Column(nullable = false)
     private String description;
 
-    @Column(name = "taskid", nullable = false)
-    private int taskId;
+    @ManyToOne
+    @JoinColumn(name = "taskId")
+    private TasksEntity taskId;
 
-    @Column(name = "userid", nullable = false)
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UsersEntity userId;
 }

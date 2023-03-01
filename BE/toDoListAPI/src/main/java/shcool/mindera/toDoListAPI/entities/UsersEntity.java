@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shcool.mindera.toDoListAPI.entities.compositePrimaryKeys.FollowersId;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
 public class UsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int userId;
     @Column(nullable = false)
     private String username;
     @Column(nullable = false)
@@ -31,6 +32,16 @@ public class UsersEntity {
     @Column(nullable = false)
     private String profileImage;
 
-//    @OneToMany(mappedBy = "userId")
-//    private List<TagsEntity> tags;
+    @OneToMany(mappedBy = "userId")
+    private List<UsersEntity> groups;
+    @OneToMany(mappedBy = "userId")
+    private List<TasksEntity> tasks;
+    @OneToMany(mappedBy = "userId")
+    private List<TagsEntity> tags;
+    @OneToMany(mappedBy = "userId")
+    private List<CommentsEntity> comments;
+
+    @OneToMany(mappedBy = "user")
+    private List<FollowersEntity> followers;
+
 }

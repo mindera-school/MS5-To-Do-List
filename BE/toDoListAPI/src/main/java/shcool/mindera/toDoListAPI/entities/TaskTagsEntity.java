@@ -14,14 +14,17 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "task_tags")
-@IdClass(TaskTagId.class)
 public class TaskTagsEntity {
-    @Id
-//    @ManyToOne
-//    @JoinColumn(name = "taskTagsOfTasks")
-    private Integer taskId;
-    @Id
-//    @ManyToOne
-//    @JoinColumn(name = "taskTagsOfUsers")
-    private Integer tagId;
+
+    @EmbeddedId
+    private TaskTagId id;
+
+    @ManyToOne
+    @MapsId("taskId")
+    @JoinColumn(name = "task_id")
+    private TasksEntity task;
+    @ManyToOne
+    @MapsId("tagId")
+    @JoinColumn(name = "tag_id")
+    private TagsEntity tag;
 }

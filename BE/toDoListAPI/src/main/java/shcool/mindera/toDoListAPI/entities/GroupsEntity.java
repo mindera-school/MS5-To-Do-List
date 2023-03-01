@@ -20,10 +20,10 @@ public class GroupsEntity {
     private Integer groupId;
     @Column(nullable = false)
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UsersEntity userId;
 
     @OneToMany(mappedBy = "groupId")
     private List<TasksEntity> tasks;
-
-//    @Column(name = "user_id", nullable = false)
-//    private UsersEntity userId;
 }

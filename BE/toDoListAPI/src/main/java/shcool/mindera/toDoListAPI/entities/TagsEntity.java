@@ -17,14 +17,13 @@ import java.util.List;
 public class TagsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer tagId;
     @Column(nullable = false)
     private String name;
-//    @ManyToOne
-//    @JoinColumn(name = "id")
-//    @Column(nullable = false)
-//    private UsersEntity userId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UsersEntity userId;
 
-//    @OneToMany(mappedBy = "tagId")
-//    private List<TaskTagsEntity> taskTagsOfUsers;
+    @OneToMany(mappedBy = "tag")
+    private List<TaskTagsEntity> tags;
 }

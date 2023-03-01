@@ -14,12 +14,15 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "followers")
-@IdClass(FollowersId.class)
 public class FollowersEntity {
-    @Id
-    @Column(name = "follower_id", nullable = false)
-    private Integer followerId;
-    @Id
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    @EmbeddedId
+    private FollowersId id;
+
+    @ManyToOne
+    @MapsId("followingId")
+    private UsersEntity following;
+    @ManyToOne
+    @MapsId("userId")
+    private UsersEntity user;
+
 }
