@@ -3,8 +3,9 @@ const loginSideBarOpenBtn = document.getElementById("loginSideMenuBtn");
 const loginSideBarCloseBtn = document.getElementById("loginSideMenuCloseBtn");
 const loginSideBar = document.getElementById("loginSideBar");
 const colorThemeSwitch = document.getElementsByClassName("switch")[0];
-const deleteBtnIcon = document.getElementById("deleteBtnIcon");
+const deleteBtnIcon = document.getElementById("eraseSearchIcon");
 let lightMode = false;
+
 
 loginSideBarOpenBtn.addEventListener("click", () => {
     loginSideBar.setAttribute("class", "loginSideMenu-show");
