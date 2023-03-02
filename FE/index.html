@@ -16,8 +16,8 @@
       </div>
       <div id="searchTasks">
         <input type="text" id="searchBar" placeholder="Search" />
-        <button id="closeSearchBar">
-          <img id="deleteBtnIcon" src="./src/assets/icons/delete-light-theme.svg" alt="Delete button for search bar" />
+        <button id="eraseSearchBarBtn">
+          <img id="eraseSearchIcon" src="./src/assets/icons/delete-navy-theme.svg" alt="Delete button for search bar" />
         </button>
       </div>
       <div>
@@ -38,26 +38,6 @@
         <button type="submit" id="addTaskBtn"><img src="./src/assets/icons/plus-circle.svg" alt="Add new task button"></button>
       </form>
 
-      <div id="seeMoreDiv">
-        <div id="upperButtons">
-          <button id="addRandomPos">Add Randomly</button>
-          <button id="addFirst">Add First</button>
-        </div>
-
-        <div id="midButtons">
-          <button id="removeFirst">Remove First</button>
-          <button id="removeLast">Remove Last</button>
-          <button id="removeRandom">Remove Random</button>
-          <button id="removeDuplicates">Remove Duplicates</button>
-          <button id="removeOdd">Remove Even</button>
-        </div>
-
-        <div id="lowerBtnContainer">
-          <button id="randomize">Randomize</button>
-          <button id="alphabetically">Sort Alphabetically</button>
-          <button id="alphabeticallyRvrs">Sort AlphaReverse</button>
-        </div>
-      </div>
       <div class="editForm"></div>
       <ul id="list"></ul>
 
@@ -85,4 +65,5 @@
   </body>
   <script src="./src/scripts/script.js"></script>
   <script src="./src/scripts/components/loginSideBar.js"></script>
+  <script src="./src/scripts/components/searchbar.js"></script>
 </html>
