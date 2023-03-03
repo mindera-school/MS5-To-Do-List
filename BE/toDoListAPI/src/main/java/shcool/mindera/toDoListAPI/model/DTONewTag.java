@@ -12,4 +12,5 @@ import lombok.Setter;
 public class DTONewTag {
     String name;
     String color;
+    Integer userId;
 }
