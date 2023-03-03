@@ -8,7 +8,7 @@
 		<version>2.7.8</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>shcool.mindera</groupId>
+	<groupId>school.mindera</groupId>
 	<artifactId>toDoListAPI</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>toDoListAPI</name>
