@@ -1,7 +1,8 @@
-package shcool.mindera.toDoListAPI.controller;
+package school.mindera.toDoListAPI.controller;
+
 import org.springframework.web.bind.annotation.*;
-import shcool.mindera.toDoListAPI.model.*;
-import shcool.mindera.toDoListAPI.service.UserService;
+import school.mindera.toDoListAPI.model.*;
+import school.mindera.toDoListAPI.service.UserService;
 
 import java.util.List;
 
@@ -22,21 +23,4 @@ public class UserController {
     public void register(@RequestBody DTORegister register){
         //save user
     }
-
-    //tags
-    @GetMapping("/tags")
-    public List<DTOTag> getTags(){
-        return null;
-    }
-
-    //groups
-    @PostMapping("/new-groups")
-    public void createGroup(@RequestBody DTONewGroup newGroup){
-        //save group
-    }
-    @GetMapping("/groups")
-    public List<DTOGroup> getGroups(@PathVariable Integer userId){
-        return null;
-    }
-
 }

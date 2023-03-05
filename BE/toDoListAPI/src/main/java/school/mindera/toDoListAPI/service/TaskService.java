@@ -1,4 +1,4 @@
-package shcool.mindera.toDoListAPI.service;
+package school.mindera.toDoListAPI.service;
 
 import org.springframework.stereotype.Service;
 
