@@ -18,6 +18,7 @@ public class TaskController {
     public List<DTOTask> getTasks(@PathVariable Integer userId){
         return null;
     }
+
     @PostMapping("/new-task")
     public void createTask(@RequestBody DTONewTask newTask){
         //save Task

@@ -14,6 +14,7 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
+
     @PostMapping("/login")
     public DTOLoggedUser logIn(@RequestBody DTOLogin login){
         return null;
