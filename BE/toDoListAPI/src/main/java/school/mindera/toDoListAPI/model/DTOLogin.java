@@ -1,4 +1,4 @@
-package shcool.mindera.toDoListAPI.model;
+package school.mindera.toDoListAPI.model;
 
 import lombok.*;
 

@@ -1,18 +1,19 @@
-package shcool.mindera.toDoListAPI.model;
+package school.mindera.toDoListAPI.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import javax.persistence.criteria.CriteriaBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTONewTask {
-    private String title;
+public class DTONewComment {
     private String description;
-    private Date finalDate;
+    private String date;
+    private Integer userId;
+    private Integer taskId;
 }
