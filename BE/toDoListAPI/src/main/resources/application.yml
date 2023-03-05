@@ -1,3 +1,6 @@
+server:
+  port: ${PORT}
+
 spring:
   datasource:
     url: jdbc:${TYPE}://${HOST}:${PORT}/${NAME}
