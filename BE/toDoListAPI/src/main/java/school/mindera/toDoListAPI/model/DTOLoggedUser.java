@@ -16,6 +16,7 @@ public class DTOLoggedUser {
     private String firstName;
     private String lastName;
     private String userName;
-    private List<DTOGroup> groups;
-
+    private String email;
+    private String groupsURL;
+    private String taskURL;
 }

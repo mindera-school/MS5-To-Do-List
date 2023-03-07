@@ -17,6 +17,7 @@ public class DTOTask {
     private String endDate;
     private Boolean isDone;
     private Boolean expired;
-    private List<DTOTag> tags;
+    private String tagsURL;
+    private String commentURL;
     private Integer groupId;
 }
