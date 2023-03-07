@@ -1,0 +1,27 @@
+package school.mindera.toDoListAPI.controller;
+
+import org.springframework.web.bind.annotation.*;
+import school.mindera.toDoListAPI.model.*;
+import school.mindera.toDoListAPI.service.UserService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/todo/users")
+public class UserController {
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/login")
+    public DTOLoggedUser logIn(@RequestBody DTOLogin login){
+        return null;
+    }
+
+    @PostMapping("/register")
+    public DTOLoggedUser register(@RequestBody DTORegister register){
+        return null;
+    }
+}

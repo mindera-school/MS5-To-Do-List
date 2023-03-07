@@ -15,4 +15,5 @@ public class DTONewTask {
     private String title;
     private String description;
     private Date finalDate;
+    private Integer userId;
 }
