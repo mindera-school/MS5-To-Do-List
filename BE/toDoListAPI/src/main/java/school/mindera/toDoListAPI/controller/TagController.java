@@ -8,7 +8,7 @@ import school.mindera.toDoListAPI.service.TagService;
 import java.util.List;
 
 @RestController
-@RequestMapping("todo/tags")
+@RequestMapping("/todo/tags")
 public class TagController {
     TagService tagService;
 
@@ -27,7 +27,7 @@ public class TagController {
     }
 
     @PostMapping("new-tag")
-    public void createTag(@RequestBody DTONewTag newTag){
-        //saveTag
+    public DTOTag createTag(@RequestBody DTONewTag newTag){
+        return null;
     }
 }

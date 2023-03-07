@@ -21,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void register(@RequestBody DTORegister register){
-        //save user
+    public DTOLoggedUser register(@RequestBody DTORegister register){
+        return null;
     }
 }

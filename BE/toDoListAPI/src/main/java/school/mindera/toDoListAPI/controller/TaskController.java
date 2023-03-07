@@ -6,7 +6,7 @@ import school.mindera.toDoListAPI.model.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("todo/tasks")
+@RequestMapping("/todo/tasks")
 public class TaskController {
     TaskService taskService;
 
@@ -20,7 +20,7 @@ public class TaskController {
     }
 
     @PostMapping("/new-task")
-    public void createTask(@RequestBody DTONewTask newTask){
-        //save Task
+    public DTOTask createTask(@RequestBody DTONewTask newTask){
+        return null;
     }
 }

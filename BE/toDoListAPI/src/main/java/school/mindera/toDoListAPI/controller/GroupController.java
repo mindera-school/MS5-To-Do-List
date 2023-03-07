@@ -8,7 +8,7 @@ import school.mindera.toDoListAPI.service.GroupService;
 import java.util.List;
 
 @RestController
-@RequestMapping("todo/groups")
+@RequestMapping("/todo/groups")
 public class GroupController {
     GroupService groupService;
 
@@ -17,8 +17,8 @@ public class GroupController {
     }
 
     @PostMapping("/new-group")
-    public void createGroup(@RequestBody DTONewGroup newGroup){
-        //save group
+    public DTOGroup createGroup(@RequestBody DTONewGroup newGroup){
+        return null;
     }
 
     @GetMapping("/groups")
