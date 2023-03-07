@@ -9,9 +9,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DTOTagPreview {
+public class DTOTaskPreview {
     private Integer taskId;
+    private Integer groupId;
     private String title;
     private Boolean isDone;
     private String date;
+    private Boolean expired;
+    private  Boolean isFavorite;
+    private String URL;
+
 }
