@@ -17,6 +17,6 @@ public class DTOTaskPreview {
     private String date;
     private Boolean expired;
     private Boolean isFavorite;
-    private String tagURL;
+    private String tagsURL;
 
 }

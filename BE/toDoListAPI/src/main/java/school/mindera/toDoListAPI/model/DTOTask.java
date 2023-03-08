@@ -18,6 +18,6 @@ public class DTOTask {
     private Boolean isDone;
     private Boolean expired;
     private String tagsURL;
-    private String commentURL;
+    private String commentsURL;
     private Integer groupId;
 }
