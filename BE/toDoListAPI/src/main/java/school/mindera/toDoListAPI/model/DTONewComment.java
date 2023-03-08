@@ -14,6 +14,5 @@ import javax.persistence.criteria.CriteriaBuilder;
 public class DTONewComment {
     private String description;
     private String date;
-    private Integer userId;
     private Integer taskId;
 }
