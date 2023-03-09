@@ -19,10 +19,10 @@ public class UsersEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -34,7 +34,7 @@ public class UsersEntity {
     @Column(name = "lastname", nullable = false)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column()
     private String profileImage;
 
     @OneToMany(mappedBy = "userId")
