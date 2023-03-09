@@ -1,5 +1,6 @@
 package school.mindera.toDoListAPI.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.service.UserService;
@@ -16,12 +17,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public DTOLoggedUser logIn(@RequestBody DTOLogin login){
-        return null;
+    public ResponseEntity<DTOLoggedUser> logIn(@RequestBody DTOLogin login) {
+        return userService.logIn(login);
     }
 
     @PostMapping("/register")
-    public DTOLoggedUser register(@RequestBody DTORegister register){
-        return null;
+    public ResponseEntity<DTOLoggedUser> register(@RequestBody DTORegister register) {
+        DTOLoggedUser loggedUser = userService.register(register);
+        return ResponseEntity.ok(loggedUser);
     }
 }
