@@ -1,5 +1,5 @@
 function App() {
-  return (<p>Ai</p>)
+  return (<p>Ai</p>);
 }
 
 export default App;
