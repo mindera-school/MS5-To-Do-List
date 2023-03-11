@@ -1,5 +1,7 @@
 function App() {
-  return (<p>Ai</p>);
+  return (
+    <p>A</p>
+  );
 }
 
 export default App;
