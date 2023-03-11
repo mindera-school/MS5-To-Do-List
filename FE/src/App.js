@@ -1,6 +1,9 @@
+import React from "react";
+import TaskPreview from "./components/TaskPreview";
+
 function App() {
   return (
-    <p>A</p>
+    <TaskPreview></TaskPreview>
   );
 }
 

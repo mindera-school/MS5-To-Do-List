@@ -1,13 +1,135 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.task-tag--red {
+  background-color: crimson;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.task-tag--blue {
+  background-color: deepskyblue;
 }
+
+.task--tag--chart {
+  background-color: chartreuse;
+}
+
+.task-tag--cadet {
+  background-color: cadetblue;
+}
+
+.task--tag--violet {
+  background-color: blueviolet;
+}
+
+.task--tag--coral {
+  background-color: coral;
+}
+
+.heart {
+  --size: 25px;
+  margin: 30px 10px 0px 0px;
+  position: relative;
+  width: var(--size);
+  height: calc(var(--size) * 0.3);
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: calc(var(--size) * 0.55);
+  top: 0;
+  width: calc(var(--size) * 0.55);
+  height: calc(var(--size) * 0.85);
+  background: #333;
+  border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("../assets/fonts/Roboto/Roboto-Regular.ttf");
+}
+.taskpreview {
+  display: flex;
+  width: 690px;
+  height: 80px;
+  background-color: #8D99AE;
+  border-radius: 30px;
+  box-sizing: border-box;
+  padding-left: 15px;
+  color: white;
+  font-family: Roboto;
+}
+.taskpreview .heartbtn {
+  transform: scale(0.5);
+  margin-top: 10px;
+}
+.taskpreview .task-titleholder {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin: 10px 0px 0px 0px;
+}
+.taskpreview .task-titleholder h3 {
+  margin-left: 5px;
+}
+.taskpreview .task-titleholder input {
+  cursor: pointer;
+}
+.taskpreview .task-tagslist {
+  display: flex;
+  width: 220px;
+  overflow-x: scroll;
+  margin-bottom: 5px;
+}
+.taskpreview .task-tagslist div {
+  display: flex;
+  height: 20px;
+  align-items: center;
+  font-size: 14px;
+  padding: 0px 20px 0px 20px;
+  box-sizing: border-box;
+  margin-right: 5px;
+  border-radius: 20px;
+}
+.taskpreview .expandBtn {
+  height: 100%;
+  width: 170px;
+}
+.taskpreview .date-container {
+  display: flex;
+  width: 120px;
+  align-items: center;
+}
+.taskpreview .date-container img {
+  margin-right: 10px;
+}
+.taskpreview .task-mover {
+  display: flex;
+  margin-left: 10px;
+}
+.taskpreview .task-mover button {
+  background-color: transparent;
+  border: none;
+  cursor: grab;
+}
+.taskpreview .vertical-line {
+  background-color: white;
+  width: 1px;
+  height: 75%;
+  align-self: center;
+  margin-left: 15px;
+}
+.taskpreview .detailsBtn {
+  background-color: transparent;
+  border: none;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=index.css.map */
