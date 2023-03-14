@@ -1,0 +1,98 @@
+$task-bg-color: #8D99AE;
+$tasks-font-color: white;
+
+.taskpreview {
+    display: flex;
+    position: relative;
+    width: 690px;
+    height: 80px;
+    background-color: $task-bg-color;
+    border-radius: 30px;
+    box-sizing: border-box;
+    margin: 15px;
+    padding-left: 15px;
+    color: $tasks-font-color;
+    font-family:Roboto;
+    .heartbtn {
+        transform: scale(0.5);
+        margin-top: 10px;
+    }
+
+    .task-titleholder {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        margin: 10px 0px 0px 0px;
+        h3 {
+            margin-left: 5px;
+        }
+        input {
+            cursor: pointer;
+        }
+    }
+
+    .task-tagslist {
+        display: flex;
+        width: 220px;
+        overflow-x: scroll;
+        margin-bottom: 5px;
+        div {
+            display: flex;
+            height: 20px;
+            width: fit-content;
+            align-items: center;
+            font-size: 14px;
+            padding: 0px 20px 0px 20px;
+            box-sizing: border-box;
+            margin-right: 5px; 
+            border-radius: 20px;   
+        }
+    }
+
+    .expandBtn {
+        height: 100%;
+        width: 170px;
+    }
+
+    .date-container {
+        display: flex;
+        width: 120px;
+        align-items: center;
+        img {
+            margin-right: 10px;
+        }
+    }
+
+    .task-mover {
+       display: flex; 
+       position: absolute;
+       right: 12%;
+       align-self: center;
+       margin-left: 10px;
+       button {
+        background-color: transparent;
+        border: none;
+        cursor:grab;
+       }
+    }
+
+    .vertical-line {
+        position: absolute;
+        right: 10%;
+        background-color: white;
+        width: 1px;
+        height: 75%;
+        align-self: center;
+        margin-left: 15px;
+    }
+
+    .detailsBtn {
+        position: absolute;
+        right: 3%;
+        align-self: center;
+        background-color: transparent;
+        border: none;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+}

@@ -5,7 +5,7 @@ import MoveIcon from "../../assets/icons/move-darkmode.svg";
 import ExpandIcon from "../../assets/icons/maximize-darkmode.svg";
 
 //TaskPreview template that will be generated for each task through the TaskList component
-export default function TaskPreview({ title , dueDate , tagsListUrl }) {
+export default function TaskPreview({ title , dueDate , tagsListUrl , isDone , isFavorite }) {
   return (
     <div className="taskpreview">
       <div className="heart"></div>
@@ -24,7 +24,7 @@ export default function TaskPreview({ title , dueDate , tagsListUrl }) {
       <div className="task-mover">
         <button><img src={MoveIcon} alt="Move task icon" /></button>
       </div>
-      <rect className="vertical-line" ></rect>
+      <div className="vertical-line" ></div>
       <button className="detailsBtn"> <img src={ExpandIcon} alt="Expand button" /></button>
     </div>
   );

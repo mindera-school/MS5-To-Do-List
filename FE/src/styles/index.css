@@ -26,38 +26,6 @@
   background-color: purple;
 }
 
-.heart {
-  --size: 25px;
-  margin: 30px 10px 0px 0px;
-  position: relative;
-  width: var(--size);
-  height: calc(var(--size) * 0.3);
-}
-
-.heart:before,
-.heart:after {
-  position: absolute;
-  content: "";
-  left: calc(var(--size) * 0.55);
-  top: 0;
-  width: calc(var(--size) * 0.55);
-  height: calc(var(--size) * 0.85);
-  background: #333;
-  border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
-  transform: rotate(-45deg);
-  transform-origin: 0 100%;
-}
-
-.heart:after {
-  left: 0;
-  transform: rotate(45deg);
-  transform-origin: 100% 100%;
-}
-
-@font-face {
-  font-family: Roboto;
-  src: url("../assets/fonts/Roboto/Roboto-Regular.ttf");
-}
 .taskpreview {
   display: flex;
   position: relative;
@@ -66,6 +34,7 @@
   background-color: #8D99AE;
   border-radius: 30px;
   box-sizing: border-box;
+  margin: 15px;
   padding-left: 15px;
   color: white;
   font-family: Roboto;
@@ -144,6 +113,39 @@
   border: none;
   margin-left: 15px;
   cursor: pointer;
+}
+
+.heart {
+  --size: 25px;
+  margin: 30px 10px 0px 0px;
+  position: relative;
+  width: var(--size);
+  height: calc(var(--size) * 0.3);
+}
+
+.heart:before,
+.heart:after {
+  position: absolute;
+  content: "";
+  left: calc(var(--size) * 0.55);
+  top: 0;
+  width: calc(var(--size) * 0.55);
+  height: calc(var(--size) * 0.85);
+  background: #333;
+  border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@font-face {
+  font-family: Roboto;
+  src: url("../assets/fonts/Roboto/Roboto-Regular.ttf");
 }
 
 /*# sourceMappingURL=index.css.map */

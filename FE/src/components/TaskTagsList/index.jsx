@@ -12,7 +12,6 @@ export default function TaskTagsList({ listUrl }) {
   }, []);
 
   allTags = tagList?.map((e, i) => {
-    console.log(tagList);
     return <Tag  key={i} tagText={e.name} color={e.color}></Tag>;
   });
 
