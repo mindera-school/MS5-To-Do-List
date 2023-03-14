@@ -6,7 +6,7 @@
   background-color: deepskyblue;
 }
 
-.task--tag--chart {
+.task-tag--chart {
   background-color: chartreuse;
 }
 
@@ -14,12 +14,16 @@
   background-color: cadetblue;
 }
 
-.task--tag--violet {
+.task-tag--violet {
   background-color: blueviolet;
 }
 
-.task--tag--coral {
+.task-tag--coral {
   background-color: coral;
+}
+
+.task-tag--purple {
+  background-color: purple;
 }
 
 .heart {
@@ -91,6 +95,7 @@
 .taskpreview .task-tagslist div {
   display: flex;
   height: 20px;
+  width: fit-content;
   align-items: center;
   font-size: 14px;
   padding: 0px 20px 0px 20px;

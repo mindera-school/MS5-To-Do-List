@@ -47,7 +47,8 @@ $font-color: white;
         margin-bottom: 5px;
         div {
             display: flex;
-            height: 20px; 
+            height: 20px;
+            width: fit-content;
             align-items: center;
             font-size: 14px;
             padding: 0px 20px 0px 20px;
