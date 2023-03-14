@@ -13,6 +13,7 @@ $font-color: white;
 
 .taskpreview {
     display: flex;
+    position: relative;
     width: 690px;
     height: 80px;
     background-color: $task-bg-color;
@@ -72,6 +73,9 @@ $font-color: white;
 
     .task-mover {
        display: flex; 
+       position: absolute;
+       right: 12%;
+       align-self: center;
        margin-left: 10px;
        button {
         background-color: transparent;
@@ -81,6 +85,8 @@ $font-color: white;
     }
 
     .vertical-line {
+        position: absolute;
+        right: 10%;
         background-color: white;
         width: 1px;
         height: 75%;
@@ -89,6 +95,9 @@ $font-color: white;
     }
 
     .detailsBtn {
+        position: absolute;
+        right: 3%;
+        align-self: center;
         background-color: transparent;
         border: none;
         margin-left: 15px;

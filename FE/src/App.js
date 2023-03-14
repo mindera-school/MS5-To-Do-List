@@ -3,7 +3,7 @@ import TaskPreview from "./components/TaskPreview";
 
 function App() {
   return (
-    <TaskPreview></TaskPreview>
+    <TaskPreview title="Lavar" dueDate="12/01/2045" tagsListUrl="https://todo/task/tags" ></TaskPreview>
   );
 }
 
