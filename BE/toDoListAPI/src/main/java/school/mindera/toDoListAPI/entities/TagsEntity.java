@@ -22,9 +22,8 @@ public class TagsEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private UsersEntity userId;
+    @Column(nullable = false)
+    private String color;
 
     @OneToMany(mappedBy = "tag")
     private List<TaskTagsEntity> tags;

@@ -21,8 +21,4 @@ public class CommentsEntity {
     @ManyToOne
     @JoinColumn(name = "taskId")
     private TasksEntity taskId;
-
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private UsersEntity userId;
 }
