@@ -3,12 +3,13 @@ import TaskTagsList from "../TaskTagsList";
 import CalendarIcon from "../../assets/icons/calendar-darkmode.svg";
 import MoveIcon from "../../assets/icons/move-darkmode.svg";
 import ExpandIcon from "../../assets/icons/maximize-darkmode.svg";
+import FavoriteHeart from "../FavoriteHeart";
 
 //TaskPreview template that will be generated for each task through the TaskList component
 export default function TaskPreview({ title , dueDate , tagsListUrl , isDone , isFavorite }) {
   return (
     <div className="taskpreview">
-      <div className="heart"></div>
+      <FavoriteHeart isFavorite={isFavorite}></FavoriteHeart>
       <div>
         <div className="task-titleholder">
           <input type="checkbox" />

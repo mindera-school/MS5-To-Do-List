@@ -8,8 +8,8 @@ function App() {
   //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomasly to fetch the tasks
   useEffect(() => {
-   setTasksList(taskFetcher());
-  },[]);
+      taskFetcher(1).then(res => setTasksList(res));
+  }, []);
 
   return <>
     <TaskList tasksList={tasksList}></TaskList>

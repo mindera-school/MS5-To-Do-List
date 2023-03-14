@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
+export default function FavoriteHeart({ isFavorite}) {
+  const [isFilled, setIsFilled] = useState(isFavorite);
 
+  const getHeartClass = () => {
+    return isFilled ? "heart--filled" : "heart--empty";
+  };
 
-export default function FavoriteHeart({isDone}) {
-    const [isFilled, setIsFilled] = useState();
-
-
-    return <button></button>
+  return <button id="heart" className={getHeartClass()} onClick={()=> {
+    isFilled?setIsFilled(false):setIsFilled(true);
+    console.log(isFilled);
+  }} ></button>;
 }
