@@ -22,10 +22,14 @@ public class TagsEntity {
     @Column(nullable = false)
     private String name;
 
-    @ManyToOne
+    @Column(nullable = false)
+    private String color;
+
+    @ManyToOne()
     @JoinColumn(name = "userId")
     private UsersEntity userId;
 
     @OneToMany(mappedBy = "tag")
     private List<TaskTagsEntity> tags;
+
 }
