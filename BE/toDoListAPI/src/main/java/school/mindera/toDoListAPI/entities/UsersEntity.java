@@ -42,4 +42,7 @@ public class UsersEntity {
 
     @OneToMany(mappedBy = "userId")
     private List<TasksEntity> tasks;
+
+    @OneToMany(mappedBy = "tagId")
+    private List<TagsEntity> tags;
 }
