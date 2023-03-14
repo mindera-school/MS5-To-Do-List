@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Tag from "../Tag";
 
+
+//Creates a div to hold every tag that corresponds to the task it's fathered by
 export default function TaskTagsList({ listUrl }) {
   const [tagList, setTagList] = useState([]);
   let allTags;
