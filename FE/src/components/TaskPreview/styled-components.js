@@ -2,7 +2,7 @@ import styled, { keyframes, css } from "styled-components";
 
 
 const heartbeatAnim = keyframes`
-from {
+  from {
     -webkit-transform: scale(1);
     transform: scale(1);
     -webkit-transform-origin: center center;
