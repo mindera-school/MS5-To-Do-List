@@ -11,12 +11,14 @@ import lombok.Setter;
 @Setter
 public class DTOTaskPreview {
     private Integer taskId;
+    private Integer parentId;
+    private Integer position;
     private String title;
     private Boolean isDone;
     private String date;
     private Boolean expired;
     private Boolean isFavorite;
-    private Integer parentId;
+    private String taskURL;
     private String tagsURL;
 
 }

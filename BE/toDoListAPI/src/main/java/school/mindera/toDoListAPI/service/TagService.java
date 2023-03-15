@@ -62,8 +62,8 @@ public class TagService {
 
         return ResponseEntity.ok(new DTOTag(savedTag.getTagId(), savedTag.getName(), savedTag.getColor()));
     }
-    public void associateTask(TasksEntity task, TagsEntity tag){
 
+    public void associateTask(TasksEntity task, TagsEntity tag){
 
         TaskTagsEntity taskTags = new TaskTagsEntity();
         taskTags.setTask(task);
@@ -77,20 +77,23 @@ public class TagService {
     }
 
     public ResponseEntity<List<DTOTag>> getUserTags(Integer userId){
+        if (!usersRepository.existsById(userId)){
+            return ResponseEntity.badRequest().build();
+        }
+
         List<TagsEntity> temp = tagsRepository.findTagsByUserId(userId);
-        if (temp == null || temp.size() == 0){
-            return ResponseEntity.notFound().build();
-        }
+
         List<DTOTag> tags = new ArrayList<>();
-        for (TagsEntity t : temp){
-            tags.add(new DTOTag(t.getTagId(),t.getName(),t.getColor()));
-        }
+        temp.forEach(e  -> tags.add(new DTOTag(e.getTagId(),e.getName(),e.getColor())));
+
         return ResponseEntity.ok(tags);
     }
+
     public ResponseEntity<List<DTOTag>> getTaskTags(Integer taskId){
+
        Optional<TasksEntity> task = tasksRepository.findById(taskId);
        if (task.isEmpty()){
-           return ResponseEntity.notFound().build();
+           return ResponseEntity.badRequest().build();
        }
        List<TagsEntity> tagsE = task.get().getTags();
        List<DTOTag> tags = new ArrayList<>();
