@@ -103,13 +103,13 @@ display: flex;
 
 
 export const VerticalLine = styled.div`
-position: absolute;
-right: 10%;
-background-color: white;
-width: 1px;
-height: 75%;
-align-self: center;
-margin-left: 15px;
+  position: absolute;
+  right: 10%;
+  background-color: white;
+  width: 1px;
+  height: 75%;
+  align-self: center;
+  margin-left: 15px;
 `;
 
 export const ExtendDiv = styled.div`
