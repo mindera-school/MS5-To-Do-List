@@ -139,13 +139,13 @@ cursor:grab;
 `;
 
 export const TaskDetailsBtn = styled.button`
-position: absolute;
-right: 3%;
-align-self: center;
-background-color: transparent;
-border: none;
-margin-left: 15px;
-cursor: pointer;
+  position: absolute;
+  right: 3%;
+  align-self: center;
+  background-color: transparent;
+  border: none;
+  margin-left: 15px;
+  cursor: pointer;
 `;
 
 
