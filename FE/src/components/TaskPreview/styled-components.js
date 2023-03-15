@@ -37,7 +37,7 @@ const heartbeatAnim = keyframes`
 `;
 
 export const StyledFavHeart = styled.button`
---size: 25px;
+  --size: 25px;
   margin: 30px 10px 0px 0px;
   position: relative;
   width: var(--size);
