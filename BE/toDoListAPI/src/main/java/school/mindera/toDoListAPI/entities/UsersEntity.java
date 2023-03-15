@@ -43,12 +43,6 @@ public class UsersEntity {
     @OneToMany(mappedBy = "userId")
     private List<TasksEntity> tasks;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "tagId")
     private List<TagsEntity> tags;
-
-    @OneToMany(mappedBy = "userId")
-    private List<CommentsEntity> comments;
-
-    @OneToMany(mappedBy = "user")
-    private List<FollowersEntity> followers;
 }

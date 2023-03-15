@@ -36,9 +36,12 @@ public class TasksEntity {
     @Column(name = "enddate")
     private Date endDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "groupId")
-    private GroupsEntity groupId;
+    @ManyToOne(targetEntity = TasksEntity.class)
+    @JoinColumn(name = "parentId")
+    private TasksEntity parentId;
+
+    @Column(name = "position", nullable = false)
+    private int position;
 
     @Column(nullable = false)
     private boolean favorite;
