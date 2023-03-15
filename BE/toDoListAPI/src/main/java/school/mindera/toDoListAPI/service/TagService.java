@@ -36,7 +36,7 @@ public class TagService {
 
     public ResponseEntity<DTOTag> createTag(DTONewTag newTag){
         Optional<UsersEntity> user = usersRepository.findById(newTag.getUserId());
-        Optional<TagsEntity> verifierTag = tagsRepository.findByName(newTag.getName());
+        Optional<TagsEntity> verifierTag = tagsRepository.findByNameAndUserId(newTag.getName(), newTag.getUserId());
         Optional<TasksEntity> task = tasksRepository.findById(newTag.getTaskId());
 
         if (task.isEmpty()){
@@ -89,9 +89,16 @@ public class TagService {
     }
     public ResponseEntity<List<DTOTag>> getTaskTags(Integer taskId){
        Optional<TasksEntity> task = tasksRepository.findById(taskId);
+       if (task.isEmpty()){
+           return ResponseEntity.notFound().build();
+       }
        List<TagsEntity> tagsE = task.get().getTags();
        List<DTOTag> tags = new ArrayList<>();
        tagsE.forEach(e-> tags.add(new DTOTag(e.getTagId(),e.getName(),e.getColor())));
        return ResponseEntity.ok(tags);
+    }
+
+    public void removeTag(Integer taskId, Integer tagId){
+        taskTagsRepository.deleteByTaskAndTagId(taskId,tagId);
     }
 }

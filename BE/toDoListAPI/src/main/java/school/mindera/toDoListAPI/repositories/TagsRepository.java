@@ -11,8 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TagsRepository  extends JpaRepository<TagsEntity, Integer> {
-    @Query("SELECT t FROM TagsEntity t WHERE t.userId.userId = ?1")
-    public List<TagsEntity> findTagsByUserId(Integer userId);
+    @Query("SELECT t FROM TagsEntity t WHERE t.userId.userId = :userId")
+    public List<TagsEntity> findTagsByUserId(@Param("userId") Integer userId);
 
-    public Optional<TagsEntity> findByName(String name);
+    @Query("SELECT t FROM TagsEntity t WHERE t.userId.userId = :userId AND t.name = :name")
+    public Optional<TagsEntity> findByNameAndUserId(@Param("name") String name,@Param("userId") Integer userId);
 }
