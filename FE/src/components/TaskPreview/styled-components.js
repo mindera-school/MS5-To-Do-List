@@ -118,12 +118,12 @@ width: 170px;
 `;
 
 export const DateContainer = styled.div`
-display: flex;
-width: 120px;
-align-items: center;
-& img {
-    margin-right: 10px;
-}
+  display: flex;
+  width: 120px;
+  align-items: center;
+  & img {
+      margin-right: 10px;
+  }
 `;
 
 export const TaskMover = styled.div`
