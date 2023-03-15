@@ -38,7 +38,7 @@ export default function TaskPreview({
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-      <img src={CalendarIcon} alt="Calendar Icon" />
+        <img src={CalendarIcon} alt="Calendar Icon" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <TaskMover>
