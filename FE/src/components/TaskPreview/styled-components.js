@@ -113,8 +113,8 @@ margin-left: 15px;
 `;
 
 export const ExtendDiv = styled.div`
-height: 100%;
-width: 170px;
+  height: 100%;
+  width: 170px;
 `;
 
 export const DateContainer = styled.div`
