@@ -31,24 +31,6 @@ $tasks-font-color: white;
         }
     }
 
-    .task-tagslist {
-        display: flex;
-        width: 220px;
-        overflow-x: scroll;
-        margin-bottom: 5px;
-        div {
-            display: flex;
-            height: 20px;
-            width: fit-content;
-            align-items: center;
-            font-size: 14px;
-            padding: 0px 20px 0px 20px;
-            box-sizing: border-box;
-            margin-right: 5px; 
-            border-radius: 20px;   
-        }
-    }
-
     .expandBtn {
         height: 100%;
         width: 170px;

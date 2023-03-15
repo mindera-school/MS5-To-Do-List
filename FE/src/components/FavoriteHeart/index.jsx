@@ -9,6 +9,5 @@ export default function FavoriteHeart({ isFavorite}) {
 
   return <button id="heart" className={getHeartClass()} onClick={()=> {
     isFilled?setIsFilled(false):setIsFilled(true);
-    console.log(isFilled);
   }} ></button>;
 }

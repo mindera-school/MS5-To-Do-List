@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tag from "../Tag";
 import taskTagsFetcher from "../../fetchers/fetchTaskTags.js";
+import {StylesTaskTagsList} from "./styled-components.js";
 
 //Creates a div to hold every tag that corresponds to the task it's fathered by
 export default function TaskTagsList({ listUrl }) {
@@ -15,7 +16,7 @@ export default function TaskTagsList({ listUrl }) {
 
   return (
     <>
-      <div className="task-tagslist">{allTags}</div>
+      <StylesTaskTagsList>{allTags}</StylesTaskTagsList>
     </>
   );
 }

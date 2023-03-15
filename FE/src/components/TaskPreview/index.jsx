@@ -12,7 +12,7 @@ export default function TaskPreview({ title , dueDate , tagsListUrl , isDone , i
       <FavoriteHeart isFavorite={isFavorite}></FavoriteHeart>
       <div>
         <div className="task-titleholder">
-          <input type="checkbox" />
+          <input checked={isDone} type="checkbox" />
           <h3>{title}</h3>
         </div>
         <TaskTagsList listUrl={tagsListUrl}></TaskTagsList>
