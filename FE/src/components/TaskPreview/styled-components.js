@@ -127,15 +127,15 @@ align-items: center;
 `;
 
 export const TaskMover = styled.div`
-position: absolute;
-right: 12%;
-align-self: center;
-margin-left: 10px;
-& button {
-background-color: transparent;
-border: none;
-cursor:grab;
-}
+  position: absolute;
+  right: 12%;
+  align-self: center;
+  margin-left: 10px;
+  & button {
+    background-color: transparent;
+    border: none;
+    cursor: grab;
+  }
 `;
 
 export const TaskDetailsBtn = styled.button`
