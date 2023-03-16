@@ -13,4 +13,5 @@ public class DTONewTag {
     String name;
     String color;
     Integer userId;
+    Integer taskId;
 }

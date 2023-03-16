@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class TaskTagsEntity {
 
     @EmbeddedId
-    private TaskTagId id;
+    private TaskTagId id = new TaskTagId();
 
     @ManyToOne
     @MapsId("taskId")
