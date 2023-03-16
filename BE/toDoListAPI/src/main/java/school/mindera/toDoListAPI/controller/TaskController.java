@@ -1,6 +1,5 @@
 package school.mindera.toDoListAPI.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.service.TaskService;
 import school.mindera.toDoListAPI.model.*;
