@@ -41,10 +41,13 @@ public class TasksEntity {
     private TasksEntity parentId;
 
     @Column(name = "position", nullable = false)
-    private int position;
+    private Integer position;
 
     @Column(nullable = false)
     private boolean favorite;
+
+    @Column(nullable = false)
+    private boolean disabled;
 
     @OneToMany(mappedBy = "taskId")
     private List<CommentsEntity> comments;

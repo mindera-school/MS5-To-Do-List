@@ -1,5 +1,6 @@
 package school.mindera.toDoListAPI.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.model.DTONewTag;
 import school.mindera.toDoListAPI.model.DTOTag;
@@ -17,17 +18,21 @@ public class TagController {
     }
 
     @GetMapping("/task/{taskId}")
-    public List<DTOTag> getTagsByTaskId(@PathVariable Integer taskId){
-        return null;
+    public ResponseEntity<List<DTOTag>> getTagsByTaskId(@PathVariable Integer taskId){
+        return tagService.getTaskTags(taskId);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<DTOTag>getTasksByUserId(@PathVariable Integer userId){
-        return null;
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<List<DTOTag>> getTasksByUserId(@PathVariable Integer userId){
+        return tagService.getUserTags(userId);
     }
 
-    @PostMapping("new-tag")
-    public DTOTag createTag(@RequestBody DTONewTag newTag){
-        return null;
+    @PostMapping("/new-tag")
+    public ResponseEntity<DTOTag> createTag(@RequestBody DTONewTag newTag){
+        return tagService.createTag(newTag);
+    }
+    @DeleteMapping("/{taskId}/{tagId}")
+    public void removeTag(@PathVariable Integer taskId,@PathVariable Integer tagId){
+        tagService.removeTag(taskId,tagId);
     }
 }
