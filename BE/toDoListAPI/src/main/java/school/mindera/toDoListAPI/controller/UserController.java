@@ -16,7 +16,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PostMapping("/login")
     public ResponseEntity<DTOLoggedUser> logIn(@RequestBody DTOLogin login) {
         return userService.logIn(login);
