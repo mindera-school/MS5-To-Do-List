@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import TaskList from "./components/TaskList";
+import { GoChevronLeft } from "react-icons/go";
 import Header from "./components/Header";
+import TaskList from "./components/TaskList";
 import taskFetcher from "./fetchers/fetchTasks";
 
 function App() {
