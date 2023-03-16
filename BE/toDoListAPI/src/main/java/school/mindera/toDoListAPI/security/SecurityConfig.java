@@ -28,8 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests().antMatchers("/todo/*").hasAnyRole("USER")
+        http.authorizeRequests()
+                .antMatchers("/todo/*")
+                .hasAnyRole("USER")
                 .and()
                 .httpBasic();
         http.csrf().disable().cors().disable();
