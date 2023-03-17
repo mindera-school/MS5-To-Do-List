@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import TaskTagsList from "../TaskTagsList";
-import CalendarIcon from "../../assets/icons/calendar-darkmode.svg";
-import MoveIcon from "../../assets/icons/move-darkmode.svg";
-import ExpandIcon from "../../assets/icons/maximize-darkmode.svg";
+import { AiOutlineCalendar } from "react-icons/ai";
+import { BiMoveVertical } from "react-icons/bi";
+import { MdOpenInFull } from "react-icons/md";
+
 import {
   StyledTaskPreview,
   VerticalLine,
@@ -38,17 +39,17 @@ export default function TaskPreview({
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-        <img src={CalendarIcon} alt="Calendar Icon" />
+        <img src={AiOutlineCalendar} alt="Calendar Icon" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <TaskMover>
         <button>
-          <img src={MoveIcon} alt="Move task icon" />
+          <img src={BiMoveVertical} alt="Move task icon" />
         </button>
       </TaskMover>
       <VerticalLine></VerticalLine>
       <TaskDetailsBtn>
-        <img src={ExpandIcon} alt="Expand button" />
+        <img src={MdOpenInFull} alt="Expand button" />
       </TaskDetailsBtn>
     </StyledTaskPreview>
   );

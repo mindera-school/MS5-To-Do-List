@@ -1,9 +1,9 @@
-import React from "react";
-import { useState } from "react";
-import { StyledHeader } from "./styled-component";
+import React, { useState } from "react";
+import AccountMenuContainer from "../AccountMenuContainer";
 import Button from "../Button";
 import Drawer from "../Drawer";
 import Overlay from "../Overlay";
+import { StyledHeader } from "./styled-component";
 
 export default function Header() {
   const [leftTabVisible, setLeftTabVisible] = useState(false);
@@ -29,14 +29,12 @@ export default function Header() {
   return (
     <StyledHeader>
       <Button displayed={"left"} handler={leftSideHandler} />
-      <Drawer tab={"left"} display={leftTabVisible} handler={leftSideHandler} />
-      <p>Future SearchBar</p>
       <Drawer
-        tab={"right"}
-        side="0"
-        display={rightTabVisible}
-        handler={rightSideHandler}
-      />
+        tab={"left"}
+        display={leftTabVisible}
+        handler={leftSideHandler} />
+      <p>Future SearchBar</p>
+      <AccountMenuContainer rightSideHandler={rightSideHandler} rightTabVisible={rightTabVisible} />
       <Button displayed={"right"} handler={rightSideHandler} />
       <Overlay handler={overlayClickHandler} display={isOverlayVisible} />
     </StyledHeader>
