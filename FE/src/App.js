@@ -1,5 +1,6 @@
 import React, { createContext, useState } from "react";
 import Header from "./components/Header";
+import { GlobalStyle } from "./globalStyles";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <>
+      <GlobalStyle />
       <AccTypeContext.Provider value={"teste"}>
         <Header />
       </AccTypeContext.Provider>

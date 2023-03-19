@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Button from "../Button";
 
 export const StyledDrawer = styled.div`
   display: block;
@@ -12,9 +11,11 @@ export const StyledDrawer = styled.div`
   z-index: 2;
   transition: width 0.4s;
   overflow-x: hidden;
+  padding-top: 35px;
 `;
 
 export const CloseButton = styled.button`
   background-color: transparent;
   border: none;
+  cursor: pointer;
 `;
