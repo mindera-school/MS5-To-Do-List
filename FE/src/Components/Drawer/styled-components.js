@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledDrawer = styled.div`
   display: block;
-  right: ${(props) => props.right};
+  right: ${(props) => props.position};
   position: absolute;
   top: 0;
   height: 100vh;

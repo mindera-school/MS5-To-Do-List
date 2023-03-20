@@ -1,12 +1,12 @@
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import Header from "./components/Header";
+import { AppContext, useCreateAppContext } from "./context";
 import { GlobalStyle } from "./globalStyles";
 
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
-  const [accMenuType, setAccMenuType] = useState();
-  const AccTypeContext = createContext(null);
+  const appContext = useCreateAppContext();
 
   //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
@@ -18,11 +18,12 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <AccTypeContext.Provider value={"teste"}>
+      <AppContext.Provider value={appContext}>
         <Header />
-      </AccTypeContext.Provider>
+      </AppContext.Provider>
     </>
   );
 }
+
 
 export default App;

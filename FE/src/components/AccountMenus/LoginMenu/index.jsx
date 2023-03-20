@@ -29,7 +29,7 @@ function createSendObj(username, password) {
 	};
 }
 
-export default function LoginMenu() {
+export const LoginMenu = () => {
 	const [userContent, setUserContent] = useState("");
 	const [passwordContent, setPasswordContent] = useState("");
 
@@ -53,5 +53,5 @@ export default function LoginMenu() {
 			<button onClick={() => sendLoginInfo(createSendObj(userContent, passwordContent))}>Login</button>
 		</LoginDiv>
 	</>;
-}
+};
 
