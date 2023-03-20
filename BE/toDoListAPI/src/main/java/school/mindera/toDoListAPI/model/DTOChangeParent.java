@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTONewGroup {
-    private String name;
-    private Integer userId;
+public class DTOChangeParent {
+    private Integer parentId;
 }

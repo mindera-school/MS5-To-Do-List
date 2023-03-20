@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOGroup {
-    private Integer groupId;
-    private String name;
+public class DTOChangePosition {
+    Integer taskId;
+    Integer newPosition;
 }
