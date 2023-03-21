@@ -1,0 +1,8 @@
+- More page themes;
+- Edit User information (Name, username, password, email, image);
+- User edit the time limit of the task expiration;
+- User change the date format(lib Moment);
+- Forgot password page (send email to confirm)
+- Delete verification
+- Send email when task is date is almost finished
+- Import GuestMode info to LoggedIn Mode
