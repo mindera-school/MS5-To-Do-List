@@ -88,8 +88,6 @@ public class TaskService {
         Optional<List<TasksEntity>> subTasks = tasksRepository.findByParentId(task.get());
 
         if(subTasks.isEmpty()){
-//                List<DTOTaskPreview> TEST = new ArrayList<>();
-//                TEST.add(Converter.toDTOTaskPreview(task.get()));
             return ResponseEntity.ok(new ArrayList<>());
         }
 

@@ -38,6 +38,15 @@ public class Converter {
         }
 
         DTOTaskDetails taskDetails = new DTOTaskDetails();
+        taskDetails.setTaskId(task.getTaskId());
+        taskDetails.setTitle(task.getTitle());
+        taskDetails.setDate(task.getEndDate().toString());
+        taskDetails.setIsDone(task.isDone());
+        taskDetails.setIsFavorite(task.isFavorite());
+        taskDetails.setPosition(task.getPosition());
+        taskDetails.setParentId(parentId);
+        taskDetails.setExpired(task.getEndDate().after(new Date()));
+        taskDetails.setTags(toDTOTagList(task.getTags()));
         taskDetails.setDescription(task.getDescription());
         taskDetails.setCommentsURL("http://localhost:8086/todo/comments/" + task.getTaskId());
 
