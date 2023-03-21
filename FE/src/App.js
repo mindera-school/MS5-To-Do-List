@@ -11,8 +11,11 @@ function App() {
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
     taskFetcher(1).then((res) => setTasksList(res));
-    setDisplayedTaskList(tasksList);
   }, []);
+
+  useEffect(() => {
+    setDisplayedTaskList(tasksList);
+  },[tasksList]);
   return (
     <>
       <Header
