@@ -10,8 +10,10 @@ import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class TaskService {
@@ -23,12 +25,90 @@ public class TaskService {
         this.usersRepository = usersRepository;
     }
 
+    public ResponseEntity<List<DTOTaskPreview>> getTaskPreview(Integer userId) {
+        Optional<UsersEntity> user = usersRepository.findById(userId);
+
+        if(user.isEmpty()){
+            throw new InvalidUserException("Invalid user");
+        }
+
+        Optional<List<TasksEntity>> tasks = tasksRepository.findByUserId(user.get());
+
+        if(tasks.isEmpty()){
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+
+        List<DTOTaskPreview> dtos = new ArrayList<>();
+
+        tasks.get().forEach(task -> {
+            DTOTaskPreview dto = Converter.toDTOTaskPreview(task);
+            dtos.add(dto);
+        });
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    public ResponseEntity<DTOTaskDetails> getTaskDetails(Integer taskId, Integer userId){
+        Optional<UsersEntity> user = usersRepository.findById(userId);
+        Optional<TasksEntity> task = tasksRepository.findById(taskId);
+
+        if(user.isEmpty()){
+            throw new InvalidUserException("Invalid user");
+        }
+
+        if(task.isEmpty()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        Optional<List<TasksEntity>> tasks = tasksRepository.findByUserId(user.get());
+
+        if(tasks.isEmpty()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        AtomicBoolean checkUserAccess = new AtomicBoolean(false);
+        tasks.get().forEach(userTasks -> {
+            checkUserAccess.set(userTasks.getTaskId().equals(task.get().getTaskId()));
+        });
+
+        if(!checkUserAccess.get()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        return ResponseEntity.ok(Converter.toDTOTaskDetails(task.get()));
+    }
+
+    public ResponseEntity<List<DTOTaskPreview>> getSubTasks(Integer parentId){
+        Optional<TasksEntity> task = tasksRepository.findById(parentId);
+
+        if(task.isEmpty()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        Optional<List<TasksEntity>> subTasks = tasksRepository.findByParentId(task.get());
+
+        if(subTasks.isEmpty()){
+//                List<DTOTaskPreview> TEST = new ArrayList<>();
+//                TEST.add(Converter.toDTOTaskPreview(task.get()));
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+
+        List<DTOTaskPreview> dtos = new ArrayList<>();
+
+        subTasks.get().forEach(subTask -> {
+            DTOTaskPreview dto = Converter.toDTOTaskPreview(subTask);
+            dtos.add(dto);
+        });
+
+        return ResponseEntity.ok(dtos);
+    }
+
     public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {
         Optional<TasksEntity> parent = tasksRepository.findById(newTask.getParentId());
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
 
         if (user.isEmpty()) {
-            throw new InvalidUserException("invalid user");
+            throw new InvalidUserException("Invalid user");
         }
 
         TasksEntity task = new TasksEntity();

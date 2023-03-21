@@ -15,9 +15,19 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @GetMapping("/{userId}")
-    public List<DTOTask> getTasks(@PathVariable Integer userId){
-        return null;
+    @GetMapping("/preview/{userId}")
+    public ResponseEntity<List<DTOTaskPreview>> getTasksPreview(@PathVariable Integer userId){
+        return taskService.getTaskPreview(userId);
+    }
+
+    @GetMapping("/{taskId}/{userId}")
+    public ResponseEntity<DTOTaskDetails> getTaskDetails(@PathVariable Integer taskId, @PathVariable Integer userId){
+        return taskService.getTaskDetails(taskId, userId);
+    }
+
+    @GetMapping("/sub-tasks/{parentId}")
+    public ResponseEntity<List<DTOTaskPreview>> getSubTasks(@PathVariable Integer parentId){
+        return taskService.getSubTasks(parentId);
     }
 
     @PostMapping("/new-task")
