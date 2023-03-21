@@ -11,7 +11,7 @@ export const StyledDrawer = styled.div`
   z-index: 2;
   transition: width 0.4s;
   overflow-x: hidden;
-  padding-top: 35px;
+  padding-top: 10px;
 `;
 
 export const CloseButton = styled.button`

@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 
 export const LoginDiv = styled.div`
-	height: 100%;
+	height: 90%;
 	width:100%;
 	display:flex;
 	flex-direction:column;
 	align-items:center;
-	background-color:white;
 	background-color: transparent;
 
 	div:nth-child(2) {
@@ -63,6 +62,7 @@ export const LoginDiv = styled.div`
 export const UserImg = styled.div`
 	min-height:200px;
 	min-width:200px;
+	max-width: 200px;
 	position: relative;
 	display: flex;
 	align-items: center;

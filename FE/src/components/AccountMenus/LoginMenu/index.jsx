@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
+import { useAppContext } from "../../../context";
 import { LoginDiv, UserImg } from "./styled-components";
 
-async function sendLoginInfo(data) {
+async function sendLoginInfo(data, logger) {
 	if (data.username === "" || data.password === "") {
 		return console.log("Data is empty");
 	}
@@ -16,11 +17,10 @@ async function sendLoginInfo(data) {
 		body: JSON.stringify(data),
 	})
 		.then(r => r.json())
-		.then(r => console.log(r))
+		.then(r => logger(r))
 		.catch(r => console.log(r))
 		;
 }
-
 
 function createSendObj(username, password) {
 	return {
@@ -32,6 +32,7 @@ function createSendObj(username, password) {
 export const LoginMenu = () => {
 	const [userContent, setUserContent] = useState("");
 	const [passwordContent, setPasswordContent] = useState("");
+	const setUser = useAppContext().setCurrentUser;
 
 
 	return <>
@@ -50,7 +51,7 @@ export const LoginMenu = () => {
 					<input type="password" value={passwordContent} onChange={(e) => { setPasswordContent(e.target.value); }} />
 				</label>
 			</div>
-			<button onClick={() => sendLoginInfo(createSendObj(userContent, passwordContent))}>Login</button>
+			<button onClick={() => sendLoginInfo(createSendObj(userContent, passwordContent), setUser)}>Login</button>
 		</LoginDiv>
 	</>;
 };

@@ -1,8 +1,9 @@
 import React from "react";
-import { LoginMenu, RegisterMenu } from "../components";
+import { LoginMenu, RegisterMenu, UserProfile } from "../components";
 
 export const accountMenuMap = {
 	login: <LoginMenu />,
-	register: <RegisterMenu />
+	register: <RegisterMenu />,
+	logged: <UserProfile />
 };
 
