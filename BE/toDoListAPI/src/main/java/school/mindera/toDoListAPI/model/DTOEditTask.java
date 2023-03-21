@@ -5,17 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTONewTask {
+public class DTOEditTask {
     private String title;
     private String description;
-    private Date finalDate;
-    private Integer userId;
-    private Integer parentId;
-    private Integer position;
+    private Date endDate;
 }
