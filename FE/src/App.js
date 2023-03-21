@@ -14,7 +14,6 @@ function App() {
      taskFetcher(1).then((res) => setTasksList(res));
    }, []); */
 
-
   return (
     <>
       <GlobalStyle />
