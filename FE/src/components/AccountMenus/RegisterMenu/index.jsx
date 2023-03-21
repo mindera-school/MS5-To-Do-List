@@ -1,9 +1,9 @@
 import React from "react";
 
-function RegisterMenu() {
+export const RegisterMenu = () => {
 	return <>
-	
-	</>;
-}
 
-export default RegisterMenu;
+	</>;
+};
+
+

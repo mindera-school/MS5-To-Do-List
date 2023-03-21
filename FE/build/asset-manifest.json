@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/static/js/main.cb6bf786.js",
+    "index.html": "/index.html",
+    "static/media/move-darkmode.svg": "/static/media/move-darkmode.ce95cb61ead5f19b1a69a13e7784ee50.svg",
+    "static/media/calendar-darkmode.svg": "/static/media/calendar-darkmode.eb6eb52f83ee587f5a0fc8b9c6491d29.svg",
+    "static/media/maximize-darkmode.svg": "/static/media/maximize-darkmode.1ab58d6827ae66e9fd35a16913d56c2e.svg",
+    "main.cb6bf786.js.map": "/static/js/main.cb6bf786.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.cb6bf786.js"
+  ]
+}
