@@ -23,13 +23,14 @@ public class TaskService {
         this.usersRepository = usersRepository;
     }
 
-    public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask){
+    public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {
         Optional<TasksEntity> parent = tasksRepository.findById(newTask.getParentId());
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
 
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             throw new InvalidUserException("invalid user");
         }
+
         TasksEntity task = new TasksEntity();
         task.setTitle(newTask.getTitle());
         task.setDescription(newTask.getDescription());
@@ -43,14 +44,13 @@ public class TaskService {
 
         TasksEntity savedTask = tasksRepository.save(task);
 
-
         return ResponseEntity.ok(Converter.toDTOTaskPreview(savedTask));
     }
 
-    public void done(Integer taskId){
+    public void done(Integer taskId) {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
-        if (task.isEmpty()){
+        if (task.isEmpty()) {
             throw new InvalidTaskException("invalid task");
         }
 
@@ -58,31 +58,33 @@ public class TaskService {
         tasksRepository.save(task.get());
     }
 
-    public void favorite(Integer taskId){
+    public void favorite(Integer taskId) {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
-        if (task.isEmpty()){
+        if (task.isEmpty()) {
             throw new InvalidTaskException("invalid task");
         }
 
         task.get().setFavorite(!task.get().isFavorite());
         tasksRepository.save(task.get());
     }
-    public void disable(Integer taskId){
+
+    public void disable(Integer taskId) {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
-        if (task.isEmpty()){
+        if (task.isEmpty()) {
             throw new InvalidTaskException("invalid task");
         }
 
-        task.get().setDisabled (!task.get().isDisabled());
+        task.get().setDisabled(!task.get().isDisabled());
         tasksRepository.save(task.get());
     }
-    public void changeParent(Integer taskId, Integer parentId){
+
+    public void changeParent(Integer taskId, Integer parentId) {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
         Optional<TasksEntity> parent = tasksRepository.findById(parentId);
 
-        if (task.isEmpty() || parent.isEmpty()|| parentId.equals(taskId)){
+        if (task.isEmpty() || parent.isEmpty() || parentId.equals(taskId)) {
             throw new InvalidTaskException("invalid task or parent");
         }
 
@@ -90,26 +92,31 @@ public class TaskService {
         tasksRepository.save(task.get());
     }
 
-    public void changePosition(Integer userId, DTOChangePosition changePosition){
+    public void changePosition(Integer userId, DTOChangePosition changePosition) {
         Optional<UsersEntity> user = usersRepository.findById(userId);
-        if (user.isEmpty()){
+
+        if (user.isEmpty()) {
             throw new InvalidUserException("invalidUser");
         }
-        if(!tasksRepository.existsById(changePosition.getTaskId())){
+
+        if (!tasksRepository.existsById(changePosition.getTaskId())) {
             throw new InvalidTaskException("invalid task");
         }
+
         List<TasksEntity> tasks = user.get().getTasks();
-        tasks.stream().filter(e-> e.getPosition() >= changePosition.getNewPosition()).forEach(e-> e.setPosition(e.getPosition() + 1));
-        tasks.stream().filter(e-> e.getTaskId().equals(changePosition.getTaskId())).findFirst().get().setPosition(changePosition.getNewPosition());
+        tasks.stream().filter(e -> e.getPosition() >= changePosition.getNewPosition()).forEach(e -> e.setPosition(e.getPosition() + 1));
+        tasks.stream().filter(e -> e.getTaskId().equals(changePosition.getTaskId())).findFirst().get().setPosition(changePosition.getNewPosition());
 
         tasksRepository.saveAll(tasks);
     }
 
-    public void editTask(DTOEditTask editTask, Integer taskId){
+    public void editTask(DTOEditTask editTask, Integer taskId) {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
-        if (task.isEmpty()){
+
+        if (task.isEmpty()) {
             throw new InvalidTaskException("invalid task");
         }
+
         task.get().setTitle(editTask.getTitle());
         task.get().setDescription(editTask.getDescription());
         task.get().setEndDate(editTask.getEndDate());

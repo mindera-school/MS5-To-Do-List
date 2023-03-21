@@ -44,10 +44,12 @@ public class TaskController {
     public void changeTaskPosition(@PathVariable Integer userId, @RequestBody DTOChangePosition changePosition ){
         taskService.changePosition(userId,changePosition);
     }
+
     @PatchMapping("change-parent/{taskId}")
     public void changeTaskParent(@PathVariable Integer taskId, @RequestBody DTOChangeParent parent){
         taskService.changeParent(taskId,parent.getParentId());
     }
+
     @PatchMapping("/edit-task/{taskId}")
     public void editTask(@PathVariable Integer taskId, @RequestBody DTOEditTask editTask){
         taskService.editTask(editTask,taskId);

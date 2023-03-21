@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOChangePosition {
-    Integer taskId;
-    Integer newPosition;
+    private Integer taskId;
+    private Integer newPosition;
 }

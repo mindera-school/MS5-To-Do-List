@@ -14,6 +14,7 @@ public class Converter {
         if (task.getParentId() !=  null){
             parentId = task.getParentId().getTaskId();
         }
+
         DTOTaskPreview preview = new DTOTaskPreview();
         preview.setTaskId(task.getTaskId());
         preview.setTitle(task.getTitle());
