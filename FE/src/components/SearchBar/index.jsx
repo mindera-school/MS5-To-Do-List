@@ -6,6 +6,7 @@ import {
   SearchInput,
   SearchButton,
 } from "./style";
+
 export default function SearchBar({ setInputValue, inputValue }) {
   const click = () => setInputValue("");
   return (
