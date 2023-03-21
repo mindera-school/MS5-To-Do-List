@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
+import { FiUserPlus } from "react-icons/fi";
 import { useAppContext } from "../../../context";
 import { LoginDiv, UserImg } from "./styled-components";
 
@@ -33,11 +34,12 @@ export const LoginMenu = () => {
 	const [userContent, setUserContent] = useState("");
 	const [passwordContent, setPasswordContent] = useState("");
 	const setUser = useAppContext().setCurrentUser;
-
+	const setMenuType = useAppContext().setMenuType;
 
 	return <>
 		{console.log(userContent)}
 		<LoginDiv>
+			<button onClick={() => setMenuType("register")} >Sign Up<FiUserPlus size="25px" /></button>
 			<UserImg>
 				<FaRegUser size="80px" />
 			</UserImg>

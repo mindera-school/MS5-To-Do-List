@@ -9,7 +9,19 @@ export const LoginDiv = styled.div`
 	align-items:center;
 	background-color: transparent;
 
-	div:nth-child(2) {
+	button:first-of-type {
+		background-color: transparent;
+		border:none;
+		color: #8D99AE;
+		display: flex;
+		align-items: center;
+		position: absolute;
+		top: 25px;
+		right: 10px;
+		cursor: pointer;
+	}
+
+	div:nth-child(3) {
 		position: relative;
 		display: flex;
 		flex-direction: column;
@@ -40,7 +52,7 @@ export const LoginDiv = styled.div`
 		}
 	}
 
-	button {
+	button:last-of-type {
 		width: 85px;
 		height: 30px;
 		font-size: 20px;
