@@ -10,8 +10,10 @@ import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class TaskService {
@@ -23,12 +25,57 @@ public class TaskService {
         this.usersRepository = usersRepository;
     }
 
+    public ResponseEntity<List<DTOTaskPreview>> getTaskPreview(Integer userId) {
+        Optional<UsersEntity> user = usersRepository.findById(userId);
+
+        if(user.isEmpty()){
+            throw new InvalidUserException("Invalid user");
+        }
+
+        List<TasksEntity> tasks = tasksRepository.findByUserId(user.get());
+
+        List<DTOTaskPreview> dtos = new ArrayList<>();
+
+        tasks.forEach(task -> {
+            DTOTaskPreview dto = Converter.toDTOTaskPreview(task);
+            dtos.add(dto);
+        });
+
+        return ResponseEntity.ok(dtos);
+    }
+
+    public ResponseEntity<DTOTaskDetails> getTaskDetails(Integer taskId, Integer userId){
+        Optional<UsersEntity> user = usersRepository.findById(userId);
+        Optional<TasksEntity> task = tasksRepository.findById(taskId);
+
+        if(user.isEmpty()){
+            throw new InvalidUserException("Invalid user");
+        }
+
+        if(task.isEmpty()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        List<TasksEntity> tasks = tasksRepository.findByUserId(user.get());
+
+        AtomicBoolean checkUserAccess = new AtomicBoolean(false);
+        tasks.forEach(userTasks -> {
+            checkUserAccess.set(userTasks.getTaskId().equals(task.get().getTaskId()));
+        });
+
+        if(!checkUserAccess.get()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        return ResponseEntity.ok(Converter.toDTOTaskDetails(task.get()));
+    }
+
     public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {
         Optional<TasksEntity> parent = tasksRepository.findById(newTask.getParentId());
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
 
         if (user.isEmpty()) {
-            throw new InvalidUserException("invalid user");
+            throw new InvalidUserException("Invalid user");
         }
 
         TasksEntity task = new TasksEntity();

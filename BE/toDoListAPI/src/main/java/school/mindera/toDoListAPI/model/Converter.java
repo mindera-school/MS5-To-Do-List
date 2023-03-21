@@ -30,6 +30,20 @@ public class Converter {
         return preview;
     }
 
+    public static DTOTaskDetails toDTOTaskDetails(TasksEntity task){
+        Integer parentId = null;
+
+        if (task.getParentId() !=  null){
+            parentId = task.getParentId().getTaskId();
+        }
+
+        DTOTaskDetails taskDetails = new DTOTaskDetails();
+        taskDetails.setDescription(task.getDescription());
+        taskDetails.setCommentsURL("http://localhost:8086/todo/comments/" + task.getTaskId());
+
+        return taskDetails;
+    }
+
     public static List<DTOTag> toDTOTagList(List<TagsEntity> tagsEntities){
         if (tagsEntities == null){
             return new ArrayList<>();
