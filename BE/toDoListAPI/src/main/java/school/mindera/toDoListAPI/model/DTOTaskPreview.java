@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +20,6 @@ public class DTOTaskPreview {
     private Boolean expired;
     private Boolean isFavorite;
     private String taskURL;
-    private String tagsURL;
+    private List<DTOTag> tags;
 
 }
