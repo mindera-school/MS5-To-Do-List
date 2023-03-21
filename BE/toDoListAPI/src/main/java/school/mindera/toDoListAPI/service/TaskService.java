@@ -32,11 +32,15 @@ public class TaskService {
             throw new InvalidUserException("Invalid user");
         }
 
-        List<TasksEntity> tasks = tasksRepository.findByUserId(user.get());
+        Optional<List<TasksEntity>> tasks = tasksRepository.findByUserId(user.get());
+
+        if(tasks.isEmpty()){
+            return ResponseEntity.ok(new ArrayList<>());
+        }
 
         List<DTOTaskPreview> dtos = new ArrayList<>();
 
-        tasks.forEach(task -> {
+        tasks.get().forEach(task -> {
             DTOTaskPreview dto = Converter.toDTOTaskPreview(task);
             dtos.add(dto);
         });
@@ -56,10 +60,14 @@ public class TaskService {
             throw new InvalidTaskException("Invalid Task");
         }
 
-        List<TasksEntity> tasks = tasksRepository.findByUserId(user.get());
+        Optional<List<TasksEntity>> tasks = tasksRepository.findByUserId(user.get());
+
+        if(tasks.isEmpty()){
+            throw new InvalidTaskException("Invalid Task");
+        }
 
         AtomicBoolean checkUserAccess = new AtomicBoolean(false);
-        tasks.forEach(userTasks -> {
+        tasks.get().forEach(userTasks -> {
             checkUserAccess.set(userTasks.getTaskId().equals(task.get().getTaskId()));
         });
 
@@ -68,6 +76,31 @@ public class TaskService {
         }
 
         return ResponseEntity.ok(Converter.toDTOTaskDetails(task.get()));
+    }
+
+    public ResponseEntity<List<DTOTaskPreview>> getSubTasks(Integer parentId){
+        Optional<TasksEntity> task = tasksRepository.findById(parentId);
+
+        if(task.isEmpty()){
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        Optional<List<TasksEntity>> subTasks = tasksRepository.findByParentId(task.get());
+
+        if(subTasks.isEmpty()){
+//                List<DTOTaskPreview> TEST = new ArrayList<>();
+//                TEST.add(Converter.toDTOTaskPreview(task.get()));
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+
+        List<DTOTaskPreview> dtos = new ArrayList<>();
+
+        subTasks.get().forEach(subTask -> {
+            DTOTaskPreview dto = Converter.toDTOTaskPreview(subTask);
+            dtos.add(dto);
+        });
+
+        return ResponseEntity.ok(dtos);
     }
 
     public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {

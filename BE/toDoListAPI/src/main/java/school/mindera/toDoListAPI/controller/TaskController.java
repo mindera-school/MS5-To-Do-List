@@ -25,6 +25,11 @@ public class TaskController {
         return taskService.getTaskDetails(taskId, userId);
     }
 
+    @GetMapping("/sub-tasks/{parentId}")
+    public ResponseEntity<List<DTOTaskPreview>> getSubTasks(@PathVariable Integer parentId){
+        return taskService.getSubTasks(parentId);
+    }
+
     @PostMapping("/new-task")
     public ResponseEntity<DTOTaskPreview> createTask(@RequestBody DTONewTask newTask){
         return taskService.addTask(newTask);
