@@ -4,20 +4,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.mindera.toDoListAPI.entities.TagsEntity;
+
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOTask {
+public class DTOTaskDetails {
     private Integer taskId;
     private String title;
     private String description;
-    private String endDate;
     private Boolean isDone;
+    private String date;
     private Boolean expired;
-    private String tagsURL;
+    private Boolean isFavorite;
+    private Integer parentId;
+    private Integer position;
+    private List<DTOTag> tags;
     private String commentsURL;
-    private Integer groupId;
 }
