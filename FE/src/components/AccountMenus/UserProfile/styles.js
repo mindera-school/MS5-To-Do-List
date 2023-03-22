@@ -48,6 +48,6 @@ export const StatsHolder = styled.div`
 
 export const VerticalLine = styled.div`
 	background-color: white;
-	height:100%;
+	height: 100%;
 	width: 2px;
 `;
