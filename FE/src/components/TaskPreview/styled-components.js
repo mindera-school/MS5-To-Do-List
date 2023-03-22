@@ -47,8 +47,8 @@ export const StyledFavHeart = styled.button`
   cursor: pointer;
   
   ${props =>
-        props.isFilled &&
-        css`
+    props.isFilled &&
+    css`
     animation: ${heartbeatAnim} 1s ease-in-out;
   `}
   
@@ -86,6 +86,7 @@ export const StyledTaskPreview = styled.div`
   padding-left: 15px;
   color: $tasks-font-color;
   font-family:Roboto;
+  color: white;
 `;
 
 export const NameAndDone = styled.div`

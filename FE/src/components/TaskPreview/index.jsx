@@ -39,17 +39,17 @@ export default function TaskPreview({
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-        <AiOutlineCalendar size="20px" />
+        <AiOutlineCalendar size="20px" color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <TaskMover>
         <button>
-          <BiMoveVertical size="25px" />
+          <BiMoveVertical size="25px" color="white"/>
         </button>
       </TaskMover>
       <VerticalLine></VerticalLine>
       <TaskDetailsBtn>
-        <MdOpenInFull size="20px" />
+        <MdOpenInFull size="20px" color="black" />
       </TaskDetailsBtn>
     </StyledTaskPreview>
   );
