@@ -37,7 +37,6 @@ export const LoginMenu = () => {
 	const setMenuType = useAppContext().setMenuType;
 
 	return <>
-		{console.log(userContent)}
 		<LoginDiv>
 			<button onClick={() => setMenuType("register")} >Sign Up<FiUserPlus size="25px" /></button>
 			<UserImg>

@@ -1,4 +1,48 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+
+export const jelloAnim = keyframes`
+	0% {
+		-webkit-transform: scale3d(1, 1, 1);
+				transform: scale3d(1, 1, 1);
+	}
+	30% {
+		-webkit-transform: scale3d(0.75, 1.25, 1);
+				transform: scale3d(0.75, 1.25, 1);
+	}
+	40% {
+		-webkit-transform: scale3d(1.25, 0.75, 1);
+				transform: scale3d(1.25, 0.75, 1);
+	}
+	50% {
+		-webkit-transform: scale3d(0.85, 1.15, 1);
+				transform: scale3d(0.85, 1.15, 1);
+	}
+	65% {
+		-webkit-transform: scale3d(1.05, 0.95, 1);
+				transform: scale3d(1.05, 0.95, 1);
+	}
+	75% {
+		-webkit-transform: scale3d(0.95, 1.05, 1);
+				transform: scale3d(0.95, 1.05, 1);
+	}
+	100% {
+		-webkit-transform: scale3d(1, 1, 1);
+				transform: scale3d(1, 1, 1);
+	}
+`;
+
+export const contentAppearAnim = keyframes`
+	0% {
+		opacity: 0;
+		transform: scale(0.9); 
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+`;
 
 export const RegisterContainer = styled.div`
 	display: flex;
@@ -15,7 +59,9 @@ export const RegisterForm = styled.form`
 	align-items: center;
 	margin-top: 20px;
 
-label {
+	animation: ${contentAppearAnim} 0.6s ease-in;
+
+	label {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -55,4 +101,17 @@ label {
 	}
 `;
 
+export const GoBackBtn = styled.button`
+	position: absolute;
+	color: #8D99AE;
+	border: none;
+	background-color: transparent;
+	top: 20px;
+	right: 10px;
+	cursor: pointer;
+
+	&:hover {
+		animation: ${jelloAnim} 0.8s ease-in both;
+	}
+`;
 

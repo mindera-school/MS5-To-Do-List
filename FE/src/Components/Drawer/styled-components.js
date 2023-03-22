@@ -18,4 +18,9 @@ export const CloseButton = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+  transition: transform 0.4s;
+
+  &:hover {
+    transform: translate(15px);
+  }
 `;

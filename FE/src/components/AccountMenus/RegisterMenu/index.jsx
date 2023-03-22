@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
+import { RiArrowGoBackLine } from "react-icons/ri";
+import { useAppContext } from "../../../context";
 import { UserImg } from "../LoginMenu/styled-components.js";
-import { RegisterContainer, RegisterForm } from "./styles.js";
-
+import { GoBackBtn, RegisterContainer, RegisterForm } from "./styles.js";
 
 function checkUserValidaty(user) {
 	const { email, firstName, lastName, username, password } = user;
@@ -25,7 +26,7 @@ function createUserObj(email, firstName, lastName, username, password) {
 }
 
 export const RegisterMenu = () => {
-
+	const changeMenuType = useAppContext().setMenuType;
 	const [email, setEmail] = useState("");
 	const [fName, setFName] = useState("");
 	const [lName, setLName] = useState("");
@@ -55,6 +56,7 @@ export const RegisterMenu = () => {
 
 	return <>
 		<RegisterContainer>
+			<GoBackBtn onClick={() => changeMenuType("login")} ><RiArrowGoBackLine size="30px" /></GoBackBtn>
 			<UserImg>
 				<FaRegUser size="80px" />
 			</UserImg>

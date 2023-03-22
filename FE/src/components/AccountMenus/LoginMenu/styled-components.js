@@ -1,5 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+export const contentAppearAnim = keyframes`
+	0% {
+		opacity: 0;
+		transform: scale(0.9); 
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+`;
 
 export const LoginDiv = styled.div`
 	height: 90%;
@@ -19,6 +30,9 @@ export const LoginDiv = styled.div`
 		top: 25px;
 		right: 10px;
 		cursor: pointer;
+		&:hover {
+			transform: scale(1.1);
+		}
 	}
 
 	div:nth-child(3) {
@@ -40,6 +54,7 @@ export const LoginDiv = styled.div`
 		height: 60px;
 		margin-bottom: 20px;
 		font-size: 20px;
+		animation: ${contentAppearAnim} 0.6s ease-in;
 		input {
 			height: 40px;
 			border-radius: 20px;
@@ -53,6 +68,7 @@ export const LoginDiv = styled.div`
 	}
 
 	button:last-of-type {
+		animation: ${contentAppearAnim} 0.6s ease-in;
 		width: 85px;
 		height: 30px;
 		font-size: 20px;
@@ -82,4 +98,6 @@ export const UserImg = styled.div`
 	border-radius:50%;
 	background-color: #8D99AE;
 	margin-bottom: 10px;
+	animation: ${contentAppearAnim} 0.6s ease;
 `;
+

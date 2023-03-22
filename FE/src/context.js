@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useState } from "react";
+import { accountMenuMap } from "./configs/accountMenu.jsx";
 
 export const AppContext = createContext({});
 
@@ -17,8 +18,8 @@ const mockUser = {
 export const useCreateAppContext = () => {
 	const [appState, setAppState] = useState(
 		{
-			menuType: "logged",
-			currentUser: mockUser
+			menuType: "register",
+			currentUser: null
 		}
 	);
 
@@ -29,12 +30,13 @@ export const useCreateAppContext = () => {
 		}
 		));
 	}
-	, []);
+		, []);
 
 	const setCurrentUser = useCallback((user) => {
 		setAppState((oldState) => ({
 			...oldState,
-			currentUser: user
+			currentUser: user,
+			menuType: user ? accountMenuMap.logged.key : accountMenuMap.login.key
 		}
 		));
 	}

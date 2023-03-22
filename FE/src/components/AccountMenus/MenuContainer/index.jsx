@@ -12,7 +12,7 @@ export default function AccountMenuContainer({ rightTabVisible, rightSideHandler
 			position="0"
 			display={rightTabVisible}
 			handler={rightSideHandler}
-		>{accountMenuMap[menuType]}</Drawer>
+		>{accountMenuMap[menuType].el}</Drawer>
 	</>;
 }
 
