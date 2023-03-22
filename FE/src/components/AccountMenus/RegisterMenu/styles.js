@@ -65,7 +65,7 @@ export const RegisterForm = styled.form`
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		width:80%;
+		width: 80%;
 		height: 60px;
 		margin-bottom: 20px;
 		font-size: 20px;
