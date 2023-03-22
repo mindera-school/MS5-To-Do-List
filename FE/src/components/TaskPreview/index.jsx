@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TaskTagsList from "../TaskTagsList";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BiMoveVertical } from "react-icons/bi";
@@ -11,7 +11,7 @@ import {
   ExtendDiv,
   DateContainer,
   TaskMover,
-  TaskDetailsBtn, 
+  TaskDetailsBtn,
   StyledFavHeart
 } from "./styled-components";
 
@@ -29,27 +29,27 @@ export default function TaskPreview({
 
   return (
     <StyledTaskPreview>
-      <StyledFavHeart isFilled={isThisFav} onClick={()=> setIsThisFav(isThisFav?false:true)}></StyledFavHeart>
+      <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
       <div>
         <NameAndDone>
-          <input checked={isThisDone} onChange={()=> setIsThisDone(isThisDone?false:true)} type="checkbox" />
+          <input checked={isThisDone} onChange={() => setIsThisDone(isThisDone ? false : true)} type="checkbox" />
           <h3>{title}</h3>
         </NameAndDone>
         <TaskTagsList listUrl={tagsListUrl}></TaskTagsList>
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-        <img src={AiOutlineCalendar} alt="Calendar Icon" />
+        <AiOutlineCalendar size="20px" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <TaskMover>
         <button>
-          <img src={BiMoveVertical} alt="Move task icon" />
+          <BiMoveVertical size="25px" />
         </button>
       </TaskMover>
       <VerticalLine></VerticalLine>
       <TaskDetailsBtn>
-        <img src={MdOpenInFull} alt="Expand button" />
+        <MdOpenInFull size="20px" />
       </TaskDetailsBtn>
     </StyledTaskPreview>
   );
