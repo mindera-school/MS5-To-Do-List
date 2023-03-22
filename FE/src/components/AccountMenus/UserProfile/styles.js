@@ -43,7 +43,7 @@ export const StatsHolder = styled.div`
 	justify-content: space-evenly;
 	margin-top: 30px;
 	margin-left: 40px;
-	font-size: 16px
+	font-size: 16px;
 `;
 
 export const VerticalLine = styled.div`
