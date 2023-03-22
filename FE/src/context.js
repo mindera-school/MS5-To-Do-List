@@ -18,7 +18,7 @@ const mockUser = {
 export const useCreateAppContext = () => {
 	const [appState, setAppState] = useState(
 		{
-			menuType: "register",
+			menuType: "login",
 			currentUser: null
 		}
 	);

@@ -18,7 +18,6 @@ export const UserProfile = () => {
 		<UserProfileContainer>
 			<button onClick={() => {
 				setUser(null);
-				setMenuType("login");
 			}}><FiLogOut size="30px" /></button>
 			<UserImg>
 				{getUserImage(currentUser.profileImage)}
