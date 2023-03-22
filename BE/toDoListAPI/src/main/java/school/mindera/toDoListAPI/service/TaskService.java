@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class TaskService {
     private final TasksRepository tasksRepository;
@@ -28,66 +30,50 @@ public class TaskService {
     public ResponseEntity<List<DTOTaskPreview>> getTaskPreview(Integer userId) {
         Optional<UsersEntity> user = usersRepository.findById(userId);
 
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new InvalidUserException("Invalid user");
         }
 
-        Optional<List<TasksEntity>> tasks = tasksRepository.findByUserId(user.get());
+        List<DTOTaskPreview> tasks = user.get().getTasks()
+                .stream()
+                .map(Converter::toDTOTaskPreview)
+                .filter(task -> isNull(task.getParentId()))
+                .toList();
 
-        if(tasks.isEmpty()){
-            return ResponseEntity.ok(new ArrayList<>());
-        }
-
-        List<DTOTaskPreview> dtos = new ArrayList<>();
-
-        tasks.get().forEach(task -> {
-            DTOTaskPreview dto = Converter.toDTOTaskPreview(task);
-            dtos.add(dto);
-        });
-
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(tasks);
     }
 
-    public ResponseEntity<DTOTaskDetails> getTaskDetails(Integer taskId, Integer userId){
+    public ResponseEntity<DTOTaskDetails> getTaskDetails(Integer taskId, Integer userId) {
         Optional<UsersEntity> user = usersRepository.findById(userId);
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new InvalidUserException("Invalid user");
         }
 
-        if(task.isEmpty()){
+        if (task.isEmpty()) {
             throw new InvalidTaskException("Invalid Task");
         }
 
-        Optional<List<TasksEntity>> tasks = tasksRepository.findByUserId(user.get());
+        List<TasksEntity> tasks = user.get().getTasks();
 
-        if(tasks.isEmpty()){
-            throw new InvalidTaskException("Invalid Task");
-        }
-
-        AtomicBoolean checkUserAccess = new AtomicBoolean(false);
-        tasks.get().forEach(userTasks -> {
-            checkUserAccess.set(userTasks.getTaskId().equals(task.get().getTaskId()));
-        });
-
-        if(!checkUserAccess.get()){
+        if (!tasks.contains(task.get())) {
             throw new InvalidTaskException("Invalid Task");
         }
 
         return ResponseEntity.ok(Converter.toDTOTaskDetails(task.get()));
     }
 
-    public ResponseEntity<List<DTOTaskPreview>> getSubTasks(Integer parentId){
+    public ResponseEntity<List<DTOTaskPreview>> getSubTasks(Integer parentId) {
         Optional<TasksEntity> task = tasksRepository.findById(parentId);
 
-        if(task.isEmpty()){
+        if (task.isEmpty()) {
             throw new InvalidTaskException("Invalid Task");
         }
 
         Optional<List<TasksEntity>> subTasks = tasksRepository.findByParentId(task.get());
 
-        if(subTasks.isEmpty()){
+        if (subTasks.isEmpty()) {
             return ResponseEntity.ok(new ArrayList<>());
         }
 
@@ -114,7 +100,7 @@ public class TaskService {
         task.setDescription(newTask.getDescription());
         task.setEndDate(newTask.getFinalDate());
         task.setUserId(user.get());
-        task.setParentId(null);
+        task.setParentId(parent.get());
         task.setPosition(newTask.getPosition());
         task.setDone(false);
         task.setFavorite(false);
