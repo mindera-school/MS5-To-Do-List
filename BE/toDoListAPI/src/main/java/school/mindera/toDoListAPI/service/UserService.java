@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.UsersEntity;
+import school.mindera.toDoListAPI.exceptions.InvalidUserException;
+import school.mindera.toDoListAPI.model.DTOChangeImg;
 import school.mindera.toDoListAPI.model.DTOLoggedUser;
 import school.mindera.toDoListAPI.model.DTOLogin;
 import school.mindera.toDoListAPI.model.DTORegister;
@@ -70,5 +72,17 @@ public class UserService {
             }
         }
         return ResponseEntity.notFound().build();
+    }
+
+    public void changeUserProfileImg(Integer userId, DTOChangeImg changeImg){
+        Optional<UsersEntity> user = usersRepository.findById(userId);
+
+        if (user.isEmpty()){
+            throw new InvalidUserException("Invalid user");
+        }
+
+        user.get().setProfileImage(changeImg.getImg());
+
+        usersRepository.save(user.get());
     }
 }

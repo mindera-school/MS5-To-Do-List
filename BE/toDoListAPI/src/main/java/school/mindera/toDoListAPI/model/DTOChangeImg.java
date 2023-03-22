@@ -1,2 +1,14 @@
-package school.mindera.toDoListAPI.model;public class DTOChangeImg {
+package school.mindera.toDoListAPI.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+public class DTOChangeImg {
+    String img;
 }

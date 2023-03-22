@@ -26,4 +26,8 @@ public class UserController {
         DTOLoggedUser loggedUser = userService.register(register);
         return ResponseEntity.ok(loggedUser);
     }
+    @PatchMapping("/{userId}/profile-image")
+    public void changeProfileImage(@PathVariable Integer userId, @RequestBody DTOChangeImg changeImg){
+        userService.changeUserProfileImg(userId,changeImg);
+    }
 }
