@@ -23,7 +23,7 @@ export const LoginDiv = styled.div`
 
 	button:first-of-type {
 		background-color: transparent;
-		border:none;
+		border: none;
 		color: #8D99AE;
 		display: flex;
 		align-items: center;
