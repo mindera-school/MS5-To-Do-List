@@ -20,11 +20,6 @@ export default function Header({
     search(setDisplayedTaskList, inputValue, tasksList);
   }, [inputValue]);
 
-  const leftSideHandler = () => {
-    setLeftTabVisible(!leftTabVisible);
-    setIsOverlayVisible(!isOverlayVisible);
-  };
-
   const rightSideHandler = () => {
     setRightTabVisible(!rightTabVisible);
     setIsOverlayVisible(!isOverlayVisible);
