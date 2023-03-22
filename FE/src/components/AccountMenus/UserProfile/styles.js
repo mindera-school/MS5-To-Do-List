@@ -5,7 +5,7 @@ export const UserProfileContainer = styled.div`
 	height: 90%;
 	display: flex;
 	flex-direction: column;
-	align-items:center;
+	align-items: center;
 
 	button {
 		position: absolute;
