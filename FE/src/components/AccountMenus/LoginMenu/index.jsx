@@ -19,8 +19,7 @@ async function sendLoginInfo(data, logger) {
 	})
 		.then(r => r.json())
 		.then(r => logger(r))
-		.catch(r => console.log(r))
-		;
+		.catch(r => console.log(r));
 }
 
 function createSendObj(username, password) {
@@ -33,7 +32,7 @@ export const LoginMenu = () => {
 	const setUser = useAppContext().setCurrentUser;
 	const setMenuType = useAppContext().setMenuType;
 
-	return <>
+	return (
 		<LoginDiv>
 			<button onClick={() => setMenuType("register")} >Sign Up<FiUserPlus size="25px" /></button>
 			<UserImg>
@@ -51,6 +50,6 @@ export const LoginMenu = () => {
 			</div>
 			<button onClick={() => sendLoginInfo(createSendObj(userContent, passwordContent), setUser)}>Login</button>
 		</LoginDiv>
-	</>;
+	);
 };
 

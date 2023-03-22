@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const StyledDrawer = styled.div`
   display: block;
-  right: ${(props) => props.position};
+  right: ${({ position }) => position};
   position: absolute;
   top: 0;
   height: 100vh;
   width: 390px; 
-  transform: translate(${props => props.display ? "0" : "100%"});
+  transform: translate(${({ display }) => display ? "0" : "100%"});
   background-color: #17425e;
   z-index: 2;
   transition: width 0.4s;
