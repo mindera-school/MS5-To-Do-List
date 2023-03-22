@@ -1,5 +1,7 @@
 package school.mindera.toDoListAPI.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.model.DTOComment;
 import school.mindera.toDoListAPI.model.DTONewComment;
@@ -17,8 +19,8 @@ public class CommentController {
     }
 
     @GetMapping("/{taskId}")
-    public List<DTOComment> getGroups(@PathVariable Integer taskId){
-        return null;
+    public ResponseEntity<List<DTOComment>> getGroups(@PathVariable Integer taskId){
+        return commentService.getComments(taskId);
     }
 
     @PostMapping("/new-comment")

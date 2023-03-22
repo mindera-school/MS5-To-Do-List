@@ -1,5 +1,6 @@
 package school.mindera.toDoListAPI.model;
 
+import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 
@@ -61,5 +62,14 @@ public class Converter {
         List<DTOTag> tags = new ArrayList<>();
         tagsEntities.forEach(e-> new DTOTag(e.getTagId(),e.getName(),e.getColor()));
         return tags;
+    }
+
+    public static DTOComment toDTOComment(CommentsEntity commentEntity){
+        DTOComment comment = new DTOComment();
+        comment.setCommentId(commentEntity.getCommentId());
+        comment.setDescription(commentEntity.getDescription());
+        comment.setTaskId(commentEntity.getTaskId().getTaskId());
+
+        return comment;
     }
 }
