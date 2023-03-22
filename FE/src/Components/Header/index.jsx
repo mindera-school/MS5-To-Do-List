@@ -29,10 +29,6 @@ export default function Header() {
   return (
     <StyledHeader>
       <Button displayed={"left"} handler={leftSideHandler} />
-      <Drawer
-        tab={"left"}
-        display={leftTabVisible}
-        handler={leftSideHandler} />
       <p>Future SearchBar</p>
       <AccountMenuContainer rightSideHandler={rightSideHandler} rightTabVisible={rightTabVisible} />
       <Button displayed={"right"} handler={rightSideHandler} />

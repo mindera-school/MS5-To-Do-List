@@ -5,7 +5,6 @@ import { CloseButton, StyledDrawer } from "./styled-components";
 
 export default function Drawer({ position, display, handler, children }) {
 
-
   return (
     <>
       <StyledDrawer position={position} display={display}>

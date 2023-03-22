@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import { AppContext, useCreateAppContext } from "./context";
-import { taskFetcher } from "./fetchers/fetchTasks";
-import { GlobalStyle } from "./globalStyles";
+import taskFetcher from "./fetchers/fetchTasks";
+
 
 function App() {
   const [tasksList, setTasksList] = useState([]);
@@ -16,7 +16,6 @@ function App() {
 
   return (
     <>
-      <GlobalStyle />
       <AppContext.Provider value={appContext}>
         <Header />
       </AppContext.Provider>

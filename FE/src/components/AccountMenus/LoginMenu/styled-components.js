@@ -19,6 +19,7 @@ export const LoginDiv = styled.div`
 	flex-direction:column;
 	align-items:center;
 	background-color: transparent;
+	
 
 	button:first-of-type {
 		background-color: transparent;

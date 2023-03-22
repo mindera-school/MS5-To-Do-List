@@ -6,12 +6,14 @@ export const StyledDrawer = styled.div`
   position: absolute;
   top: 0;
   height: 100vh;
-  width: ${(props) => (props.display ? "390px" : "0")}; 
+  width: 390px; 
+  transform: translate(${props => props.display ? "0" : "100%"});
   background-color: #17425e;
   z-index: 2;
   transition: width 0.4s;
   overflow-x: hidden;
   padding-top: 10px;
+  transition: transform 0.4s ease-out;
 `;
 
 export const CloseButton = styled.button`
