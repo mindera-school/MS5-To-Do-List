@@ -28,6 +28,6 @@ public class UserController {
     }
     @PatchMapping("/{userId}/profile-image")
     public void changeProfileImage(@PathVariable Integer userId, @RequestBody DTOChangeImg changeImg){
-        userService.changeUserProfileImg(userId,changeImg);
+        userService.changeUserProfileImg(userId, changeImg);
     }
 }
