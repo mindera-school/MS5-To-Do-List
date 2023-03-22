@@ -62,23 +62,23 @@ export const RegisterMenu = () => {
 			</UserImg>
 			<RegisterForm>
 				<label>
-					Email:
+					<span>Email:</span>
 					<input type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} />
 				</label>
 				<label>
-					First Name:
+					<span>First Name:</span>
 					<input type={"text"} value={fName} onChange={(e) => setFName(e.target.value)} />
 				</label>
 				<label>
-					Last Name:
+					<span>Last Name:</span>
 					<input type={"text"} value={lName} onChange={(e) => setLName(e.target.value)} />
 				</label>
 				<label>
-					Username:
+					<span>Username:</span>
 					<input type={"text"} value={userName} onChange={(e) => setUserName(e.target.value)} />
 				</label>
 				<label>
-					Password:
+					<span>Password:</span>
 					<input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} />
 				</label>
 
@@ -87,7 +87,7 @@ export const RegisterMenu = () => {
 					sendRegisterInfo(createUserObj(email, fName, lName, userName, password));
 				}
 				}>
-					Register
+					<span>Register</span>
 				</button>
 			</RegisterForm>
 		</RegisterContainer>

@@ -24,10 +24,7 @@ async function sendLoginInfo(data, logger) {
 }
 
 function createSendObj(username, password) {
-	return {
-		username: username,
-		password: password
-	};
+	return { username, password };
 }
 
 export const LoginMenu = () => {
@@ -48,7 +45,7 @@ export const LoginMenu = () => {
 					<input type="text" value={userContent} onChange={(e) => setUserContent(e.target.value)} />
 				</label>
 				<label>
-					Password:
+					<span>Password:</span>
 					<input type="password" value={passwordContent} onChange={(e) => { setPasswordContent(e.target.value); }} />
 				</label>
 			</div>
