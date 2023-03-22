@@ -3,22 +3,9 @@ import Header from "./components/Header";
 import TaskList from "./components/TaskList";
 import taskFetcher from "./fetchers/fetchTasks";
 import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
-body {
-    background-color: #13293D;
-    margin: 0;
-  }
-
-  #root { 
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-`;
-
-function App() {
+export default function App() {
   const [tasksList, setTasksList] = useState([]);
   const [displayedTaskList, setDisplayedTaskList] = useState([]);
 
@@ -39,8 +26,32 @@ function App() {
         setDisplayedTaskList={setDisplayedTaskList}
         tasksList={tasksList}
       />
-      <TaskList tasksList={displayedTaskList} />
+      <Main>
+        <TaskList tasksList={displayedTaskList} />
+      </Main>
     </>
   );
 }
-export default App;
+
+const GlobalStyle = createGlobalStyle`
+
+  body {
+    background-color: #13293D;
+    margin: 0;
+  }
+
+  #root { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+`;
+
+const Main = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  overflow: auto;
+  flex: 1;
+`;
