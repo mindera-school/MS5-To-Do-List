@@ -139,7 +139,7 @@
   "timeline.pageSize": 0,
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "workbench.colorTheme": "One Dark Pro",
-  "workbench.iconTheme": "vscode-icons",
+  "workbench.iconTheme": "material-icon-theme",
   "workbench.startupEditor": "welcomePage",
   "yaml.schemas": {
     "file:///Users/flaviosilva/.vscode/extensions/atlassian.atlascode-3.0.0/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"

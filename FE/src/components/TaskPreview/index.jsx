@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import TaskTagsList from "../TaskTagsList";
-import CalendarIcon from "../../assets/icons/calendar-darkmode.svg";
-import MoveIcon from "../../assets/icons/move-darkmode.svg";
-import ExpandIcon from "../../assets/icons/maximize-darkmode.svg";
+import { AiOutlineCalendar } from "react-icons/ai";
+import { BiMoveVertical } from "react-icons/bi";
+import { MdOpenInFull } from "react-icons/md";
+
 import {
   StyledTaskPreview,
   VerticalLine,
@@ -10,7 +11,7 @@ import {
   ExtendDiv,
   DateContainer,
   TaskMover,
-  TaskDetailsBtn, 
+  TaskDetailsBtn,
   StyledFavHeart
 } from "./styled-components";
 
@@ -28,27 +29,27 @@ export default function TaskPreview({
 
   return (
     <StyledTaskPreview>
-      <StyledFavHeart isFilled={isThisFav} onClick={()=> setIsThisFav(isThisFav?false:true)}></StyledFavHeart>
+      <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
       <div>
         <NameAndDone>
-          <input checked={isThisDone} onChange={()=> setIsThisDone(isThisDone?false:true)} type="checkbox" />
+          <input checked={isThisDone} onChange={() => setIsThisDone(isThisDone ? false : true)} type="checkbox" />
           <h3>{title}</h3>
         </NameAndDone>
         <TaskTagsList listUrl={tagsListUrl}></TaskTagsList>
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-        <img src={CalendarIcon} alt="Calendar Icon" />
+        <AiOutlineCalendar size="20px" color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <TaskMover>
         <button>
-          <img src={MoveIcon} alt="Move task icon" />
+          <BiMoveVertical size="25px" color="white"/>
         </button>
       </TaskMover>
       <VerticalLine></VerticalLine>
       <TaskDetailsBtn>
-        <img src={ExpandIcon} alt="Expand button" />
+        <MdOpenInFull size="20px" color="black" />
       </TaskDetailsBtn>
     </StyledTaskPreview>
   );

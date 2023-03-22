@@ -1,13 +1,15 @@
 import React from "react";
-import { StyledDrawer } from "./styled-components";
-import Button from "../Button";
+import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { CloseButton, StyledDrawer } from "./styled-components";
 
-export default function Drawer({side, display, handler, tab}) {
+
+export default function Drawer({ position, display, handler, children }) {
+
   return (
     <>
-      <StyledDrawer right={side} display={display}>
-        <Button handler={handler} displayed="X" />
-        {tab}
+      <StyledDrawer position={position} display={display}>
+        <CloseButton onClick={handler}> {position === "0" ? <MdOutlineKeyboardArrowRight size={60} color="#8D99AE" /> : <MdOutlineKeyboardArrowLeft />} </CloseButton>
+        {children}
       </StyledDrawer>
     </>
   );
