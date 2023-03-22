@@ -14,10 +14,10 @@ export const contentAppearAnim = keyframes`
 
 export const LoginDiv = styled.div`
 	height: 90%;
-	width:100%;
-	display:flex;
-	flex-direction:column;
-	align-items:center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	background-color: transparent;
 	
 
