@@ -13,6 +13,5 @@ public class DTOComment {
 
     private Integer commentId;
     private String description;
-    private String date;
     private Integer taskId;
 }
