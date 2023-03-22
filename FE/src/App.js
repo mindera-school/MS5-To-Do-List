@@ -25,7 +25,11 @@ export default function App() {
     <>
       <AppContext.Provider value={appContext}>
         <GlobalStyle />
-        <Header />
+        <Header
+          displayedTaskList={displayedTaskList}
+          setDisplayedTaskList={setDisplayedTaskList}
+          tasksList={tasksList}
+        />
         <Main>
           <TaskList tasksList={displayedTaskList} />
         </Main>
