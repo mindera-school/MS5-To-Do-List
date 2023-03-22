@@ -44,7 +44,7 @@ export const LoginMenu = () => {
 			</UserImg>
 			<div>
 				<label>
-					Username:
+					<span>Username:</span>
 					<input type="text" value={userContent} onChange={(e) => setUserContent(e.target.value)} />
 				</label>
 				<label>
