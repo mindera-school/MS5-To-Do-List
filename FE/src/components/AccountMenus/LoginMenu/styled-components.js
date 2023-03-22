@@ -61,7 +61,7 @@ export const LoginDiv = styled.div`
 			border-radius: 20px;
 			border: none;
 			padding-left: 10px;
-			outline:none;
+			outline: none;
 			font-size: 16px;
 			background-color: #8D99AE;
 			margin-top: 6px;
