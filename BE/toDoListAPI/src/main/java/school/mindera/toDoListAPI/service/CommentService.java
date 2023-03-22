@@ -8,6 +8,7 @@ import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
 import school.mindera.toDoListAPI.model.Converter;
 import school.mindera.toDoListAPI.model.DTOComment;
+import school.mindera.toDoListAPI.model.DTONewComment;
 import school.mindera.toDoListAPI.repositories.CommentsRepository;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 
@@ -45,5 +46,19 @@ public class CommentService {
                 .toList();
 
         return ResponseEntity.ok(commentDTO);
+    }
+    public ResponseEntity<DTOComment> createComment(DTONewComment newComment){
+        Optional<TasksEntity> task = tasksRepository.findById(newComment.getTaskId());
+
+        if (task.isEmpty()){
+            throw new InvalidTaskException("Invalid task");
+        }
+        CommentsEntity commentsEntity = new CommentsEntity();
+        commentsEntity.setTaskId(task.get());
+        commentsEntity.setDescription(newComment.getDescription());
+
+        CommentsEntity savedComment = commentsRepository.save(commentsEntity);
+
+        return ResponseEntity.ok(Converter.toDTOComment(savedComment));
     }
 }

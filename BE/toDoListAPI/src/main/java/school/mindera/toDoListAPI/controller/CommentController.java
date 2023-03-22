@@ -24,7 +24,7 @@ public class CommentController {
     }
 
     @PostMapping("/new-comment")
-    public DTOComment createComment(@RequestBody DTONewComment newComment){
-        return null;
+    public ResponseEntity<DTOComment> createComment(@RequestBody DTONewComment newComment){
+        return commentService.createComment(newComment);
     }
 }
