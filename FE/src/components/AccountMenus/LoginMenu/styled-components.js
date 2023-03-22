@@ -14,16 +14,16 @@ export const contentAppearAnim = keyframes`
 
 export const LoginDiv = styled.div`
 	height: 90%;
-	width:100%;
-	display:flex;
-	flex-direction:column;
-	align-items:center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	background-color: transparent;
 	
 
 	button:first-of-type {
 		background-color: transparent;
-		border:none;
+		border: none;
 		color: #8D99AE;
 		display: flex;
 		align-items: center;
@@ -40,8 +40,8 @@ export const LoginDiv = styled.div`
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		align-items:center;
-		width:100%;
+		align-items: center;
+		width: 100%;
 		margin-top: 30px;
 		color: white;
 		height: 160px;
@@ -51,7 +51,7 @@ export const LoginDiv = styled.div`
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		width:80%;
+		width: 80%;
 		height: 60px;
 		margin-bottom: 20px;
 		font-size: 20px;
@@ -61,7 +61,7 @@ export const LoginDiv = styled.div`
 			border-radius: 20px;
 			border: none;
 			padding-left: 10px;
-			outline:none;
+			outline: none;
 			font-size: 16px;
 			background-color: #8D99AE;
 			margin-top: 6px;

@@ -65,18 +65,18 @@ export const RegisterForm = styled.form`
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		width:80%;
+		width: 80%;
 		height: 60px;
 		margin-bottom: 20px;
 		font-size: 20px;
 		color: white;
 		input {
-			color:white;
+			color: white;
 			height: 40px;
 			border-radius: 20px;
 			border: none;
 			padding-left: 10px;
-			outline:none;
+			outline: none;
 			font-size: 16px;
 			background-color: #8D99AE;
 			margin-top: 6px;
