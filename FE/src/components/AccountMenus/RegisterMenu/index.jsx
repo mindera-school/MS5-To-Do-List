@@ -56,9 +56,9 @@ export const RegisterMenu = () => {
 
 	return <>
 		<RegisterContainer>
-			<GoBackBtn onClick={() => changeMenuType("login")} ><RiArrowGoBackLine size="30px" /></GoBackBtn>
+			<GoBackBtn onClick={() => changeMenuType("login")} ><RiArrowGoBackLine size={30} /></GoBackBtn>
 			<UserImg>
-				<FaRegUser size="80px" />
+				<FaRegUser size={80} />
 			</UserImg>
 			<RegisterForm>
 				<label>

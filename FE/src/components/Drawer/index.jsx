@@ -8,7 +8,7 @@ export default function Drawer({ position, display, handler, children }) {
   return (
     <>
       <StyledDrawer position={position} display={display}>
-        <CloseButton onClick={handler}> {position === "0" ? <MdOutlineKeyboardArrowRight size="60px" color="#8D99AE" /> : <MdOutlineKeyboardArrowLeft />} </CloseButton>
+        <CloseButton onClick={handler}> {position === "0" ? <MdOutlineKeyboardArrowRight size={60} color="#8D99AE" /> : <MdOutlineKeyboardArrowLeft />} </CloseButton>
         {children}
       </StyledDrawer>
     </>

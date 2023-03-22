@@ -18,7 +18,7 @@ export const UserProfile = () => {
 		<UserProfileContainer>
 			<button onClick={() => {
 				setUser(null);
-			}}><FiLogOut size="30px" /></button>
+			}}><FiLogOut size={30} /></button>
 			<UserImg>
 				{getUserImage(currentUser.profileImage)}
 			</UserImg>

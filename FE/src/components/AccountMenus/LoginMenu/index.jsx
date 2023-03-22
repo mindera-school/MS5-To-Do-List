@@ -34,9 +34,9 @@ export const LoginMenu = () => {
 
 	return (
 		<LoginDiv>
-			<button onClick={() => setMenuType("register")} >Sign Up<FiUserPlus size="25px" /></button>
+			<button onClick={() => setMenuType("register")} >Sign Up<FiUserPlus size={25} /></button>
 			<UserImg>
-				<FaRegUser size="80px" />
+				<FaRegUser size={80} />
 			</UserImg>
 			<div>
 				<label>
