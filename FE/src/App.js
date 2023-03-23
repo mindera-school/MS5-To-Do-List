@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #13293D;
     margin: 0;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   #root { 
