@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
+import styled, { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
-import { AppContext, useCreateAppContext } from "./context";
-import taskFetcher from "./fetchers/fetchTasks";
-import { createGlobalStyle } from "styled-components";
-import styled from "styled-components";
 import TaskList from "./components/TaskList";
+import { AppContext, useCreateAppContext, useCreateTaskListContext } from "./context";
+import taskFetcher from "./fetchers/fetchTasks";
 
 export default function App() {
   const [tasksList, setTasksList] = useState([]);
   const [displayedTaskList, setDisplayedTaskList] = useState([]);
   const appContext = useCreateAppContext();
+  const taskTest = useCreateTaskListContext();
 
   //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
@@ -20,6 +20,8 @@ export default function App() {
   useEffect(() => {
     setDisplayedTaskList(tasksList);
   }, [tasksList]);
+
+  console.log(taskTest);
 
   return (
     <>
