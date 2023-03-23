@@ -43,6 +43,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: #13293D;
     margin: 0;
+    overflow-x: hidden;
   }
 
   #root { 
@@ -60,4 +61,3 @@ const Main = styled.div`
   overflow: auto;
   flex: 1;
 `;
-
