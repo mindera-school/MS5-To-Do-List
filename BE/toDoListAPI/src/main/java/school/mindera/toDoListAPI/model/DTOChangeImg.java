@@ -5,13 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class DTOComment {
-
-    private Integer commentId;
-    private String description;
-    private Integer taskId;
+public class DTOChangeImg {
+    String img;
 }

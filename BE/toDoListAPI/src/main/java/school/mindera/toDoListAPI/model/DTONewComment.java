@@ -13,6 +13,5 @@ import javax.persistence.criteria.CriteriaBuilder;
 @NoArgsConstructor
 public class DTONewComment {
     private String description;
-    private String date;
     private Integer taskId;
 }

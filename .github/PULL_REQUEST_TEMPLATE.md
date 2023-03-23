@@ -14,11 +14,13 @@
 
 - [ ] Sim, eu testei as alterações e elas funcionam corretamente.
 - [ ] Não, eu não testei as alterações.
+- [ ] Não aplicavel.
 
 ### Documentação (WIKI)
 
 - [ ] Sim, eu atualizei a documentação conforme necessário.
 - [ ] Não, a documentação não precisa ser atualizada.
+- [ ] Não aplicavel.
 
 ### Checklist
 
