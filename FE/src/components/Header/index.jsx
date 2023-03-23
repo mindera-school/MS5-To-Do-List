@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
 import AccountMenuContainer from "../AccountMenus/MenuContainer";
-import Button from "../Button";
-import Drawer from "../Drawer";
 import Overlay from "../Overlay";
-import { StyledHeader } from "./styled-component";
 import SearchBar from "../SearchBar";
+import { AccountMenuBtn, StyledHeader } from "./styled-component";
 
 
 export default function Header({
@@ -21,11 +20,6 @@ export default function Header({
     search(setDisplayedTaskList, inputValue, tasksList);
   }, [inputValue]);
 
-  const leftSideHandler = () => {
-    setLeftTabVisible(!leftTabVisible);
-    setIsOverlayVisible(!isOverlayVisible);
-  };
-
   const rightSideHandler = () => {
     setRightTabVisible(!rightTabVisible);
     setIsOverlayVisible(!isOverlayVisible);
@@ -39,10 +33,12 @@ export default function Header({
 
   return (
     <StyledHeader>
-      <Button displayed={"left"} handler={leftSideHandler} />
+      <div></div>
       <SearchBar inputValue={inputValue} setInputValue={setInputValue} />
       <AccountMenuContainer rightSideHandler={rightSideHandler} rightTabVisible={rightTabVisible} />
-      <Button displayed={"right"} handler={rightSideHandler} />
+      <AccountMenuBtn onClick={rightSideHandler}>
+        <FaRegUser size={20} />
+      </AccountMenuBtn>
       <Overlay handler={overlayClickHandler} display={isOverlayVisible} />
     </StyledHeader>
   );
