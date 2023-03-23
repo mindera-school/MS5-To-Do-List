@@ -38,7 +38,7 @@ export const AccountMenuBtn = styled.button`
   }
 
   &:active {
-    background-color:#4B566A;
+    background-color: #4B566A;
   }
 `;
 
