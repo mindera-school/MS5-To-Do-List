@@ -30,7 +30,7 @@ export const AccountMenuBtn = styled.button`
   min-height: 50px;
   min-width: 50px;
   margin-right: 20px;
-  cursor:pointer;
+  cursor: pointer;
   transition: transform 0.4s;
 
   &:hover {
