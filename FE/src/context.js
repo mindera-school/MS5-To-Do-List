@@ -49,4 +49,27 @@ export const useCreateAppContext = () => {
 	};
 };
 
+//context for the users list of tasks
+export const TaskListContext = createContext({});
 
+export const useTaskListContext = () => useContext(TaskListContext);
+
+export const useCreateTaskListContext = () => {
+	const [taskListState, setTaskListState] = useState(
+		{
+			list: []
+		});
+
+	const setTaskList = useCallback((newList) => {
+		setTaskListState((oldState) => ({
+			...oldState,
+			list: newList
+		}
+		));
+	});
+
+	return {
+		...taskListState,
+		setTaskList
+	};
+};

@@ -11,7 +11,7 @@ export default function Header({
   displayedTaskList,
   tasksList,
 }) {
-  const [leftTabVisible, setLeftTabVisible] = useState(false);
+
   const [rightTabVisible, setRightTabVisible] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -21,12 +21,13 @@ export default function Header({
   }, [inputValue]);
 
   const rightSideHandler = () => {
-    setRightTabVisible(!rightTabVisible);
-    setIsOverlayVisible(!isOverlayVisible);
+    setRightTabVisible(rightTabVisible ? false : true);
+    setIsOverlayVisible(isOverlayVisible ? false : true);
   };
 
+  console.log(rightTabVisible);
+
   const overlayClickHandler = () => {
-    setLeftTabVisible(false);
     setRightTabVisible(false);
     setIsOverlayVisible(false);
   };
