@@ -6,11 +6,11 @@ import { AppContext, TaskListContext, useCreateAppContext, useCreateTaskListCont
 import taskFetcher from "./fetchers/fetchTasks";
 
 export default function App() {
+  const tasksListContext = useCreateTaskListContext();
+  const tasksList = tasksListContext.list;
   const [displayedTaskList, setDisplayedTaskList] = useState([]);
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
-  const tasksListContext = useCreateTaskListContext();
-  const tasksList = tasksListContext.list;
 
   //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
@@ -19,10 +19,9 @@ export default function App() {
       //Here can be created the needed methods to establish the local storage for guest mode
       return;
     }
-    console.log("entrou");
     taskFetcher(currentUser.userId).then((res) => tasksListContext.setTaskList(res));
     //maybe we should add the tasks to the displayed tasklist. Then the backend would be called to confirm and fill the original task list with the new task
-  }, [currentUser, displayedTaskList]);
+  }, [currentUser, tasksList.length]);
 
   useEffect(() => {
     setDisplayedTaskList(tasksList);
