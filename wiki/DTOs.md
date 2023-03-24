@@ -69,6 +69,43 @@
 ```
 </details>
 
+<details>
+<summary>ERROR CODES</summary>
+
+<h3>401</h3>
+
+```
+{
+        "message": "Wrong credentials",
+        "type": "....",
+        "code": 10,
+        "timestemp": date
+}
+```
+
+<h3>403</h3>
+
+```
+{
+        "message": "User don't have permission",
+        "type": "....",
+        "code": 12,
+        "timestemp": date
+}
+```
+
+<h3>409</h3>
+
+```
+{
+        "message": "Register conflict",
+        "type": "....",
+        "code": 11,
+        "timestemp": date
+}
+```
+</details>
+
 
 
 ### TASKS
@@ -219,7 +256,42 @@
 ```
 </details>
 
+<details>
+<summary>ERROR CODES</summary>
 
+<h3>400</h3>
+
+```
+{
+        "message": "Missing data o creation task",
+        "type": "....",
+        "code": 21,
+        "timestemp": date
+}
+```
+
+<h3>400</h3>
+
+```
+{
+        "message": "Invalid task",
+        "type": "....",
+        "code": 22,
+        "timestemp": date
+}
+```
+
+<h3>404</h3>
+
+```
+{
+        "message": "Task not found",
+        "type": "....",
+        "code": 20,
+        "timestemp": date
+}
+```
+</details>
 
 ### TAGS
 <details>
@@ -270,6 +342,20 @@
 ```
 </details>
 
+<details>
+<summary>ERROR CODES</summary>
+
+<h3>404</h3>
+
+```
+{
+        "message": "Tag not found",
+        "type": "....",
+        "code": 30,
+        "timestemp": date
+}
+```
+</details>
 
 
 ### COMMENTS
@@ -301,6 +387,21 @@
 ```json
 {
     
+}
+```
+</details>
+
+<details>
+<summary>ERROR CODES</summary>
+
+<h3>404</h3>
+
+```
+{
+        "message": "Comment not found",
+        "type": "....",
+        "code": 30,
+        "timestemp": date
 }
 ```
 </details>
@@ -686,3 +787,30 @@
 ]
 ```
 </details>
+</br>
+
+# HeadingError codes
+
+## User
+
+**10** - *`wrong credentials`*
+
+**11** - *`register conflict`*
+
+**12** - *`users doesn't have permission`*
+
+## Task
+
+**20** - *`task not found`*
+
+**21** - *`missing data`*
+
+**22** - *`invalid task`*
+
+## Tag
+
+**30** - *`tag not found`*
+
+## Comment
+
+**40** - *`comment not found`*
