@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/MS5-To-Do-List/static/js/main.76aca48b.js",
+    "main.js": "/MS5-To-Do-List/static/js/main.001b6283.js",
     "index.html": "/MS5-To-Do-List/index.html",
-    "main.76aca48b.js.map": "/MS5-To-Do-List/static/js/main.76aca48b.js.map"
+    "main.001b6283.js.map": "/MS5-To-Do-List/static/js/main.001b6283.js.map"
   },
   "entrypoints": [
-    "static/js/main.76aca48b.js"
+    "static/js/main.001b6283.js"
   ]
 }
