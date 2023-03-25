@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
+import TaskDetailsModal from "./components/TaskDetailsModal";
 import TaskList from "./components/TaskList";
 import { AppContext, TaskListContext, useCreateAppContext, useCreateTaskListContext } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
@@ -39,6 +40,7 @@ export default function App() {
           />
           <Main>
             <TaskList tasksList={displayedTaskList} />
+            <TaskDetailsModal></TaskDetailsModal>
           </Main>
         </TaskListContext.Provider>
       </AppContext.Provider>
