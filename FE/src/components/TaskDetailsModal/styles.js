@@ -124,7 +124,43 @@ export const HorizontalLine = styled.div`
 export const DescriptionContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: space-around;
+	overflow-y: scroll;
 	width: 100%;
-	height: 190px;
+	height: 180px;
 	color: white;
+	padding-top: 20px;
+	h2,
+	h5 {
+		margin: 0;
+	}
+
+	h2 {
+		margin: 15px 0 15px 0;
+	}
+`;
+
+export const CommentContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 150px;
+	width: 100%;
+	overflow-y: scroll;
+	color: white;
+
+`;
+
+export const Comment = styled.span`
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 50px;
+	font-size: 15px;
+	background-color: #D9D9D9;
+	color: black;
+	margin-bottom: 8px;
+	box-sizing: border-box;
+	padding-left: 8px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 `;

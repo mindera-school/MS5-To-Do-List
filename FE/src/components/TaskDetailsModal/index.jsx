@@ -3,6 +3,7 @@ import { BiEdit } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import Overlay from "../Overlay";
 import TaskTagsList from "../TaskTagsList";
+import CommentBox from "./CommentBox";
 import { BoxHeader, DescriptionContainer, Divider, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TaskInfo } from "./styles";
 
 
@@ -50,9 +51,10 @@ function TaskDetailsModal({ listUrl }) {
 				<HorizontalLine />
 				<DescriptionContainer>
 					<h2>Description</h2>
-					<h5>asdasdjhashjs jahsjd ajhsjk hakjsh asjhdk jasjh jhkasjhkjsajash jhsakjd kjashdj kjasho sdkjfk alkjl hdkjhlk</h5>
+					<h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum vitae justo in pellentesque. Fusce vitae sodales ligula, in euismod purus. Donec nec elit eros. Vestibulum condimentum augue sit amet mauris malesuada, at molestie turpis malesuada. Suspendisse vestibulum eleifend sapien dapibus eleifend. Donec dapibus libero vitae massa ornare mollis. Nullam aliquet ipsum nec mi pretium malesuada. Integer eu ante felis. Donec venenatis sem placerat, suscipit est vitae, auctor sem. Donec blandit vestibulum diam. Donec scelerisque interdum tempus. Aliquam lacinia, lorem ac ullamcorper lobortis, dui risus laoreet risus, ac tempor arcu nisl sed justo. Nullam faucibus nisi pharetra nulla euismod rhoncus. Aliquam lorem nibh, malesuada id nisl vel, suscipit molestie purus. Proin volutpat lorem ipsum.</h5>
 				</DescriptionContainer>
 				<HorizontalLine />
+				<CommentBox commentsUrl="http://localhost:8086/todo/comments/1"></CommentBox>
 			</InnerBox>
 		</OuterBox>
 		<Overlay handler={manageClose} display={isOverlayVisible} />
