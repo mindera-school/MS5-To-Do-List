@@ -8,7 +8,12 @@ export default function TaskTagsList({ listUrl }) {
   const [tagList, setTagList] = useState([]);
   let allTags;
 
-  useEffect(() => { taskTagsFetcher(listUrl).then((res) => setTagList(res)); }, []);
+  useEffect(() => {
+    if (listUrl.length === 0) {
+      return;
+    }
+    taskTagsFetcher(listUrl).then((res) => setTagList(res));
+  }, []);
 
   allTags = tagList?.map((e, i) => {
     return <Tag key={i} tagText={e.name} color={e.color}></Tag>;
