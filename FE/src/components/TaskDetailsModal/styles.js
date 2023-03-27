@@ -17,6 +17,7 @@ export const OuterBox = styled.div`
 	display: ${({ display }) => display ? "flex" : "none"};
 	flex-direction: column;
 	position: fixed;
+	align-items: center;
 	align-self: center;
 	height: 740px;
 	width: 812px;
@@ -168,4 +169,18 @@ export const Comment = styled.span`
 export const CommentInput = styled.input`
 	width: 270px;
 	border-radius: 5px;
+	background-color: #D9D9D9;
+	border: none;
+	height: 34px;
+	padding-left: 15px;
+	box-sizing: border-box;
+	font-size: 16px;
 `;
+
+export const CommentButton = styled.button`
+	background-color: transparent;
+	border: none;
+	color: white;
+	cursor: pointer;
+`;
+

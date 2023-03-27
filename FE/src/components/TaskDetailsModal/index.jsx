@@ -3,6 +3,7 @@ import { BiEdit } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import Overlay from "../Overlay";
 import TaskTagsList from "../TaskTagsList";
+import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
 import { BoxHeader, DescriptionContainer, Divider, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TaskInfo } from "./styles";
 
@@ -56,6 +57,7 @@ function TaskDetailsModal({ task }) {
 				<HorizontalLine />
 				<CommentBox commentsUrl="http://localhost:8086/todo/comments/1"></CommentBox>
 			</InnerBox>
+			<AddCommentForm></AddCommentForm>
 		</OuterBox>
 		<Overlay handler={manageClose} display={isOverlayVisible} />
 	</>;
