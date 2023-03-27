@@ -5,17 +5,19 @@ import { useAppContext } from "../../../context";
 import { LoginDiv, UserImg } from "./styled-components";
 
 async function sendLoginInfo(data, logger) {
+	console.log(data);
 	if (data.username === "" || data.password === "") {
 		return console.log("Data is empty");
 	}
 	fetch("http://localhost:8086/todo/users/login", {
 		method: "POST",
+		mode: "no-cors",
 		headers: {
-			"Content-Type": "application/json",
+			"Content-Type": "application/json;",
 		},
 		redirect: "follow",
 		referrerPolicy: "no-referrer",
-		body: JSON.stringify(data),
+		body: JSON.stringify(data)
 	})
 		.then(r => r.json())
 		.then(r => logger(r))
