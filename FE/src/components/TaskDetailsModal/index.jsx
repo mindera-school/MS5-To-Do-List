@@ -7,7 +7,7 @@ import CommentBox from "./CommentBox";
 import { BoxHeader, DescriptionContainer, Divider, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TaskInfo } from "./styles";
 
 
-function TaskDetailsModal({ listUrl }) {
+function TaskDetailsModal({ task }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 	const [isModalVisible, setisModalVisible] = useState(true);
 

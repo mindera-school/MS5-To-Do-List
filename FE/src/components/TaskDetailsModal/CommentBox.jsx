@@ -17,7 +17,6 @@ function CommentBox({ commentsUrl }) {
 				return <Comment key={i}>{e.description}</Comment>;
 			})}
 		</CommentContainer>
-
 	</>;
 }
 

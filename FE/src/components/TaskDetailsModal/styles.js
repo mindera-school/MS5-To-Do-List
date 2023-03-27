@@ -161,6 +161,11 @@ export const Comment = styled.span`
 	color: black;
 	margin-bottom: 8px;
 	box-sizing: border-box;
-	padding-left: 8px;
+	padding: 8px 0px 8px 8px;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
+`;
+
+export const CommentInput = styled.input`
+	width: 270px;
+	border-radius: 5px;
 `;
