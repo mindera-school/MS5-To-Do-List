@@ -23,7 +23,7 @@ export const StyledHeader = styled.div`
 
 export const AccountMenuBtn = styled.button`
   border: none;
-  background-color: #8D99AE;
+  background-color: #8d99ae;
   justify-self: flex-end;
   align-self: center;
   border-radius: 50%;
@@ -34,12 +34,17 @@ export const AccountMenuBtn = styled.button`
   transition: transform 0.4s;
 
   &:hover {
-    animation: ${scaleUpAnim} 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    animation: ${scaleUpAnim} 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
   }
 
   &:active {
-    background-color: #4B566A;
+    background-color: #4b566a;
   }
 `;
 
-
+export const LeftDummy = styled.div`
+box-sizing: border-box;
+  min-height: 50px;
+  min-width: 50px;
+  margin-left: 20px;
+`;
