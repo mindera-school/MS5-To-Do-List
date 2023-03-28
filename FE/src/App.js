@@ -16,7 +16,7 @@ export default function App() {
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
     if (currentUser === null) {
-      //Here can be created the needed methods to establish the local storage for guest mode
+      tasksListContext.setTaskList([]);
       return;
     }
     taskFetcher(currentUser.userId).then((res) => tasksListContext.setTaskList(res));
