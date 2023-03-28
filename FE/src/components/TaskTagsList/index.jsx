@@ -8,8 +8,10 @@ export default function TaskTagsList({ listUrl }) {
   const [tagList, setTagList] = useState([]);
   let allTags;
 
+  console.log(listUrl);
+
   useEffect(() => {
-    if (listUrl.length === 0) {
+    if (listUrl?.length === 0 || listUrl === undefined) {
       return;
     }
     taskTagsFetcher(listUrl).then((res) => setTagList(res));

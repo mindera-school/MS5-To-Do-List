@@ -9,12 +9,14 @@ async function sendLoginInfo(data, logger) {
 	if (data.username === "" || data.password === "") {
 		return console.log("Data is empty");
 	}
-	fetch("http://localhost:8086/todo/users/login", {
+
+	const headers = new Headers();
+	headers.append("Content-Type", "application/json");
+
+	await fetch("http://localhost:8086/todo/users/login", {
 		method: "POST",
 		mode: "no-cors",
-		headers: {
-			"Content-Type": "application/json;",
-		},
+		headers: headers,
 		redirect: "follow",
 		referrerPolicy: "no-referrer",
 		body: JSON.stringify(data)

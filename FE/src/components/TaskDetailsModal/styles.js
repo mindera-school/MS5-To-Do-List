@@ -17,7 +17,6 @@ export const OuterBox = styled.div`
 	display: ${({ display }) => display ? "flex" : "none"};
 	flex-direction: column;
 	position: fixed;
-	align-items: center;
 	align-self: center;
 	height: 740px;
 	width: 812px;
@@ -27,7 +26,6 @@ export const OuterBox = styled.div`
 	z-index: 2;
 	animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	padding: 15px;
-
 `;
 
 export const BoxHeader = styled.div`
@@ -84,35 +82,12 @@ export const OptionTitles = styled.h4`
 
 export const TaskInfo = styled.div`
 	display: flex;
+	flex-direction: column;
 	height: 120px;
 	width: 100%;
 	color: white;
 	box-sizing: border-box;
-`;
-
-export const Divider = styled.div`
-	display: flex;
-	flex-direction: column;	
-	height: 100%;
-	font-weight: bolder;
-	& > span {
-		padding: 6px;
-		margin: 0px;
-		height: 19px;
-	}
-
-	button {
-		background-color: transparent;
-		border: none;
-		color: white;
-		cursor: pointer;
-	}
-
-	&:first-of-type {
-		font-family: Verdana, Geneva, Tahoma, sans-serif;
-		color: #17425E;
-		font-weight: 50px;
-	}
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
 `;
 
 export const HorizontalLine = styled.div`
@@ -184,3 +159,28 @@ export const CommentButton = styled.button`
 	cursor: pointer;
 `;
 
+export const CenteredForm = styled.form`
+	align-self: center;
+`;
+
+export const TagsContainer = styled.span`
+	display: flex;
+	width: 100%;
+	button {
+		background-color: transparent;
+		border: none;
+		color: white;
+		cursor: pointer;
+	}
+`;
+
+export const CustomLine = styled.div`
+	display: flex;
+	padding: 5px;
+
+	span:first-of-type {
+		margin-right: 10px;
+		font-weight: 900;
+		color: #17425E;
+	}
+`;

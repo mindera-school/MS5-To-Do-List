@@ -5,22 +5,19 @@ import Overlay from "../Overlay";
 import TaskTagsList from "../TaskTagsList";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
-import { BoxHeader, DescriptionContainer, Divider, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TaskInfo } from "./styles";
+import { BoxHeader, CustomLine, DescriptionContainer, Divider, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskInfo } from "./styles";
 
 
-function TaskDetailsModal({ task }) {
+function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(true);
-	const [isModalVisible, setisModalVisible] = useState(true);
 
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
-		setisModalVisible(isModalVisible ? false : true);
+		setDisplay(false);
 	}
 
-	//if isModal false, do not run useEffect
-
 	return <>
-		<OuterBox display={isModalVisible} >
+		<OuterBox display={display}>
 			<BoxHeader>
 				<button onClick={manageClose}><IoMdClose size={25} /></button>
 				<button >
@@ -29,37 +26,41 @@ function TaskDetailsModal({ task }) {
 			</BoxHeader>
 			<InnerBox>
 				<InnerHeader>
-					<InnerTitle>Task 3</InnerTitle>
+					<InnerTitle>{task.title}</InnerTitle>
 					<OptionTitles>
 						<span>Add Sub Task</span>
 						<button><IoIosAddCircleOutline color="white" size={20} /></button>
 					</OptionTitles>
 				</InnerHeader>
 				<TaskInfo>
-					<Divider>
-						<span>Sub Tasks:</span>
-						<span>Status:</span>
+						<CustomLine>
+							<span>Sub Tasks:</span>
+							<span>0</span>
+						</CustomLine>
+						<CustomLine>
+							<span>Status:</span>
+							<span>{task.isDone ? "Completed" : "Still to do"}</span>
+						</CustomLine>
+						<CustomLine>
 						<span>End Date:</span>
+						<span>{task.date}</span>
+						</CustomLine>
+						<CustomLine>
 						<span>Tags:</span>
-					</Divider>
-					<Divider>
-						<span>0</span>
-						<span>To Do</span>
-						<span>28/02/2023</span>
-						<span><TaskTagsList listUrl={""} /><button>+ Add tag</button></span>
-					</Divider>
+						<TagsContainer><TaskTagsList listUrl={task.tagsURL} /><button>+ Add tag</button></TagsContainer>
+						</CustomLine>
 				</TaskInfo>
 				<HorizontalLine />
 				<DescriptionContainer>
 					<h2>Description</h2>
-					<h5>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec rutrum vitae justo in pellentesque. Fusce vitae sodales ligula, in euismod purus. Donec nec elit eros. Vestibulum condimentum augue sit amet mauris malesuada, at molestie turpis malesuada. Suspendisse vestibulum eleifend sapien dapibus eleifend. Donec dapibus libero vitae massa ornare mollis. Nullam aliquet ipsum nec mi pretium malesuada. Integer eu ante felis. Donec venenatis sem placerat, suscipit est vitae, auctor sem. Donec blandit vestibulum diam. Donec scelerisque interdum tempus. Aliquam lacinia, lorem ac ullamcorper lobortis, dui risus laoreet risus, ac tempor arcu nisl sed justo. Nullam faucibus nisi pharetra nulla euismod rhoncus. Aliquam lorem nibh, malesuada id nisl vel, suscipit molestie purus. Proin volutpat lorem ipsum.</h5>
+					<h5>{task.description}</h5>
 				</DescriptionContainer>
 				<HorizontalLine />
 				<CommentBox commentsUrl="http://localhost:8086/todo/comments/1"></CommentBox>
 			</InnerBox>
-			<AddCommentForm></AddCommentForm>
+			<AddCommentForm taskId={task.taskId}></AddCommentForm>
 		</OuterBox>
-		<Overlay handler={manageClose} display={isOverlayVisible} />
+		<Overlay handler={manageClose} display={display} />
 	</>;
 }
 

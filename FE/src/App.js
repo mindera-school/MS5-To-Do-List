@@ -13,7 +13,6 @@ export default function App() {
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
 
-  //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
     if (currentUser === null) {
@@ -40,7 +39,6 @@ export default function App() {
           />
           <Main>
             <TaskList tasksList={displayedTaskList} />
-            <TaskDetailsModal></TaskDetailsModal>
           </Main>
         </TaskListContext.Provider>
       </AppContext.Provider>

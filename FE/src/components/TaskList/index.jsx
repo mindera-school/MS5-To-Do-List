@@ -11,7 +11,9 @@ export default function TaskList({ tasksList }) {
         isDone={e.isDone}
         dueDate={e.date}
         isFavorite={e.isFavorite}
-        tagsListUrl={e.tagsURL}></TaskPreview>
+        tagsListUrl={e.tagsURL}
+        fullTaskURL={e.fullTaskURL}>
+      </TaskPreview>
     );
   });
   return <div className="tasksList">{allTasksComps}</div>;

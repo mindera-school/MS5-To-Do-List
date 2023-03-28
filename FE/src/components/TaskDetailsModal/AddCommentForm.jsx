@@ -1,15 +1,17 @@
 import React from "react";
 import { BiCommentAdd } from "react-icons/bi";
-import { CommentButton, CommentInput } from "./styles";
+import { CommentButton, CommentInput, CenteredForm } from "./styles";
 
-function AddCommentForm() {
+
+// Missing Add comment Post
+function AddCommentForm({ taskId }) {
 	return (
-		<form>
+		<CenteredForm>
 			<CommentInput />
 			<CommentButton>
 				<BiCommentAdd size={25} />
 			</CommentButton>
-		</form>
+		</CenteredForm>
 	);
 }
 

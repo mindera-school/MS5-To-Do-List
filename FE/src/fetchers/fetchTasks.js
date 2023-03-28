@@ -1,4 +1,4 @@
-const taskFetcher = (userId) => fetch(`https://todo/tasks/user/${userId}`)
-.then(response => response.json());
+const taskFetcher = (userId) => fetch(`http://localhost:8086/todo/tasks/${userId}`)
+    .then(response => response.json());
 
 export default taskFetcher;
