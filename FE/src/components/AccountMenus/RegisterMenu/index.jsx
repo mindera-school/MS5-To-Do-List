@@ -39,19 +39,18 @@ export const RegisterMenu = () => {
 			console.log("All fields must be filled");
 			return;
 		}
-
 		fetch("http://localhost:8086/todo/users/register", {
 			method: "POST",
+			mode: "no-cors",
 			headers: {
 				"Content-Type": "application/json",
 			},
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
-			body: JSON.stringify(data),
+			body: data,
 		})
 			.then(r => r.json())
-			.catch(r => console.log(r))
-			;
+			.catch(r => console.log(r));
 	}
 
 	return <>
