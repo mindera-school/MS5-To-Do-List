@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
 import TaskList from "./components/TaskList";
-import { AppContext, TaskListContext, useCreateAppContext, useCreateTaskListContext } from "./context";
+import {
+  AppContext,
+  TaskListContext,
+  useCreateAppContext,
+  useCreateTaskListContext,
+} from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
+import CreateTasksContainer from "./components/CreateTasksContainer";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
@@ -19,9 +25,11 @@ export default function App() {
       tasksListContext.setTaskList([]);
       return;
     }
-    taskFetcher(currentUser.userId).then((res) => tasksListContext.setTaskList(res));
+    taskFetcher(currentUser.userId).then((res) =>
+      tasksListContext.setTaskList(res)
+    );
     //maybe we should add the tasks to the displayed tasklist. Then the backend would be called to confirm and fill the original task list with the new task
-  }, [currentUser, tasksList.length]);
+  }, [currentUser]);
 
   useEffect(() => {
     setDisplayedTaskList(tasksList);
@@ -38,6 +46,7 @@ export default function App() {
             tasksList={tasksList}
           />
           <Main>
+            <CreateTasksContainer />
             <TaskList tasksList={displayedTaskList} />
           </Main>
         </TaskListContext.Provider>
@@ -64,7 +73,8 @@ const GlobalStyle = createGlobalStyle`
 
 const Main = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   overflow: auto;
   flex: 1;

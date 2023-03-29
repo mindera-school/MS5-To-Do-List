@@ -25,8 +25,6 @@ export default function Header({
     setIsOverlayVisible(isOverlayVisible ? false : true);
   };
 
-  console.log(rightTabVisible);
-
   const overlayClickHandler = () => {
     setRightTabVisible(false);
     setIsOverlayVisible(false);
