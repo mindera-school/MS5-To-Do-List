@@ -24,7 +24,6 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<DTOLoggedUser> register(@RequestBody DTORegister register) {
-        System.out.println(register);
         DTOLoggedUser loggedUser = userService.register(register);
         return ResponseEntity.ok(loggedUser);
     }
