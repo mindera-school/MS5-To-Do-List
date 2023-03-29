@@ -14,7 +14,6 @@ async function sendLoginInfo(data, logger) {
 
 	await fetch("http://localhost:8086/todo/users/login", {
 		method: "POST",
-		mode: "no-cors",
 		headers: headers,
 		redirect: "follow",
 		referrerPolicy: "no-referrer",
