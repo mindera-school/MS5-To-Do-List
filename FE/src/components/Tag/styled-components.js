@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyledTag = styled.div`
   display: flex;
   height: 20px;
-  width: fit-content;
+  min-width: 75px;
   align-items: center;
   font-size: 14px;
   padding: 0px 20px 0px 20px;

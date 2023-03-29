@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import TaskTagsList from "../TaskTagsList";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
-
+import { SlClose } from "react-icons/sl";
+import TaskTagsList from "../TaskTagsList";
 import {
-  StyledTaskPreview,
-  VerticalLine,
-  NameAndDone,
-  ExtendDiv,
-  DateContainer,
-  TaskMover,
-  TaskDetailsBtn,
-  StyledFavHeart
+  DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
 } from "./styled-components";
+
+const deleteTask = (id) => {
+  fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    }
+  });
+};
 
 //TaskPreview template that will be generated for each task through the TaskList component
 export default function TaskPreview({
+  id,
   title,
   dueDate,
   tagsListUrl,
@@ -39,18 +42,23 @@ export default function TaskPreview({
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-        <AiOutlineCalendar size="20px" color="white" />
+        <AiOutlineCalendar size={20} color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <TaskMover>
         <button>
-          <BiMoveVertical size="25px" color="white"/>
+          <BiMoveVertical size={20} color="white" />
         </button>
       </TaskMover>
       <VerticalLine></VerticalLine>
-      <TaskDetailsBtn>
-        <MdOpenInFull size="20px" color="black" />
-      </TaskDetailsBtn>
+      <EdgeButtonsContainer>
+        <DeleteBtn>
+          <SlClose size={20} />
+        </DeleteBtn>
+        <TaskDetailsBtn onClick={() => deleteTask(id)}>
+          <MdOpenInFull size={20} color="black" />
+        </TaskDetailsBtn>
+      </EdgeButtonsContainer>
     </StyledTaskPreview>
   );
 }
