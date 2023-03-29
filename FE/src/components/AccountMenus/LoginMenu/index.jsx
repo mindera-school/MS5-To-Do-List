@@ -5,7 +5,6 @@ import { useAppContext } from "../../../context";
 import { LoginDiv, UserImg } from "./styled-components";
 
 async function sendLoginInfo(data, logger) {
-	console.log(data);
 	if (data.username === "" || data.password === "") {
 		return console.log("Data is empty");
 	}
