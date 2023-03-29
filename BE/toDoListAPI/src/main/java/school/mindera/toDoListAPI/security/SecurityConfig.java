@@ -11,7 +11,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import school.mindera.toDoListAPI.service.AuthenticationService;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -28,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors();
         http.authorizeRequests()
                 .antMatchers("/todo/*")
                 .hasAnyRole("USER")
@@ -35,7 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic();
         http.csrf().disable().cors().disable();
         http.headers().frameOptions().disable();
-
     }
 
     @Override
@@ -44,5 +49,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .eraseCredentials(true)
                 .userDetailsService(authenticationService)
                 .passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }

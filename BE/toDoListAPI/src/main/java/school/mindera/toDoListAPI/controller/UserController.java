@@ -1,5 +1,6 @@
 package school.mindera.toDoListAPI.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.model.*;
@@ -26,8 +27,9 @@ public class UserController {
         DTOLoggedUser loggedUser = userService.register(register);
         return ResponseEntity.ok(loggedUser);
     }
+
     @PatchMapping("/{userId}/profile-image")
-    public void changeProfileImage(@PathVariable Integer userId, @RequestBody DTOChangeImg changeImg){
+    public void changeProfileImage(@PathVariable Integer userId, @RequestBody DTOChangeImg changeImg) {
         userService.changeUserProfileImg(userId, changeImg);
     }
 }
