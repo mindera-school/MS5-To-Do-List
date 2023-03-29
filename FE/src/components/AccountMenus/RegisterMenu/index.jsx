@@ -41,6 +41,7 @@ export const RegisterMenu = () => {
 		}
 		fetch("http://localhost:8086/todo/users/register", {
 			method: "POST",
+			mode: "no-cors",
 			headers: {
 				"Content-Type": "application/json",
 			},
