@@ -17,7 +17,7 @@ async function sendLoginInfo(data, logger) {
 		headers: headers,
 		redirect: "follow",
 		referrerPolicy: "no-referrer",
-		body: JSON.stringify(data)
+		body: data
 	})
 		.then(r => r.json())
 		.then(r => logger(r))
