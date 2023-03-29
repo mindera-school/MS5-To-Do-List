@@ -1,23 +1,33 @@
 import styled, { keyframes } from "styled-components";
 
 export const slideIn = keyframes`
-	0% {
-    -webkit-transform: translateY(-1000px);
-            transform: translateY(-1000px);
+  0% {
+    transform: translateY(-1000px);
     opacity: 0;
   }
   100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    
+    transform: translateY(0);
     opacity: 1;
   }
 `;
 
+export const Wrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: ${({ display }) => display ? "flex" : "none"};
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 60;
+`;
+
 export const OuterBox = styled.div`
-	display: ${({ display }) => display ? "flex" : "none"};
+	display: flex;
 	flex-direction: column;
-	position: fixed;
-	align-self: center;
 	height: 740px;
 	width: 812px;
 	box-sizing: border-box;
