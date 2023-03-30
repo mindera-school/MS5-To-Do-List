@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled, { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
 import TaskDetailsModal from "./components/TaskDetailsModal";
 import TaskList from "./components/TaskList";
@@ -11,6 +10,7 @@ import {
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
 import CreateTasksContainer from "./components/CreateTasksContainer";
+import { GlobalStyle, Main } from "./GlobalStyles";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
@@ -53,28 +53,3 @@ export default function App() {
     </>
   );
 }
-
-const GlobalStyle = createGlobalStyle`
-
-  body {
-    background-color: #13293D;
-    margin: 0;
-    overflow: hidden;
-  }
-
-  #root { 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
-  }
-`;
-
-const Main = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  overflow: auto;
-  flex: 1;
-`;
