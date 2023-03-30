@@ -8,7 +8,8 @@ import {
   DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
 } from "./styled-components";
 
-const deleteTask = (id) => {
+const deleteTask = (id, e) => {
+  e.stopPropagation();
   fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
     method: "PATCH",
     headers: {
@@ -52,10 +53,10 @@ export default function TaskPreview({
       </TaskMover>
       <VerticalLine></VerticalLine>
       <EdgeButtonsContainer>
-        <DeleteBtn>
+        <DeleteBtn onClick={(e) => deleteTask(id, e)}>
           <SlClose size={20} />
         </DeleteBtn>
-        <TaskDetailsBtn onClick={() => deleteTask(id)}>
+        <TaskDetailsBtn>
           <MdOpenInFull size={20} color="black" />
         </TaskDetailsBtn>
       </EdgeButtonsContainer>

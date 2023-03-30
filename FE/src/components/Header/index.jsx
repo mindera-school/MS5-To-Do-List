@@ -3,7 +3,7 @@ import { FaRegUser } from "react-icons/fa";
 import AccountMenuContainer from "../AccountMenus/MenuContainer";
 import Overlay from "../Overlay";
 import SearchBar from "../SearchBar";
-import { AccountMenuBtn, StyledHeader, LeftDummy } from "./styled-component";
+import { AccountMenuBtn, LeftDummy, StyledHeader } from "./styled-component";
 
 
 export default function Header({
@@ -24,8 +24,6 @@ export default function Header({
     setRightTabVisible(rightTabVisible ? false : true);
     setIsOverlayVisible(isOverlayVisible ? false : true);
   };
-
-  console.log(rightTabVisible);
 
   const overlayClickHandler = () => {
     setRightTabVisible(false);

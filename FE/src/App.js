@@ -27,8 +27,6 @@ export default function App() {
     setDisplayedTaskList(tasksList);
   }, [tasksList]);
 
-
-  console.log(tasksListContext);
   return (
     <>
       <AppContext.Provider value={appContext}>

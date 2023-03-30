@@ -3,6 +3,7 @@ import TaskPreview from "../TaskPreview";
 
 //Injects every object task preview coming from the user state list of tasks into a Task Preview component
 export default function TaskList({ tasksList }) {
+  console.log(tasksList);
   let allTasksComps = tasksList?.map((e) => {
     return (
       <TaskPreview
@@ -15,5 +16,5 @@ export default function TaskList({ tasksList }) {
         tagsListUrl={e.tagsURL}></TaskPreview>
     );
   });
-  return <div className="tasksList">{allTasksComps}</div>;
+  return <div>{allTasksComps}</div>;
 }
