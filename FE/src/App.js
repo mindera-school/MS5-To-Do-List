@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import Header from "./components/Header";
+import TaskDetailsModal from "./components/TaskDetailsModal";
 import TaskList from "./components/TaskList";
 import { AppContext, TaskListContext, useCreateAppContext, useCreateTaskListContext } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
@@ -12,7 +13,6 @@ export default function App() {
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
 
-  //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
     if (currentUser === null) {
