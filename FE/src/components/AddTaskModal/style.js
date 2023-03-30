@@ -1,5 +1,16 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+export const slideIn = keyframes`
+  0% {
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 const inputColor = "#17425E";
 
 export const AddModal = styled.div`
@@ -18,6 +29,8 @@ export const AddModal = styled.div`
   padding: 50px;
   box-sizing: border-box;
   z-index: 2;
+  animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
 `;
 
 export const ModalContainer = styled.div`
@@ -33,6 +46,8 @@ export const CloseButton = styled.button`
   background: inherit;
   border: none;
   padding: 0;
+  transition: 0.4s;
+
 
   &:hover {
     scale: 1.2;
@@ -159,6 +174,7 @@ export const AddDiffButton = styled.button`
   margin: 0 5px;
   color: white;
   cursor: pointer;
+  transition: 0.4s;
   &:hover {
     scale: 1.2;
   }
@@ -179,6 +195,8 @@ export const AddButton = styled.button`
   text-align: left;
   margin-top: 5px;
   cursor: pointer;
+  transition: 0.4s;
+
 
   &:hover {
     scale: 1.1;
