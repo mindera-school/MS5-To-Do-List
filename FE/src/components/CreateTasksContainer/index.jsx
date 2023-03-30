@@ -2,12 +2,13 @@ import React, { useContext, useState, useRef } from "react";
 import CreateTasks from "../CreateTasks";
 import AddTaskModal from "../AddTaskModal";
 import Overlay from "../Overlay";
-import { useTaskListContext } from "../../context";
+import { useTaskListContext, useAppContext } from "../../context";
 import { Container } from "./style";
 
 export default function CreateTasksContainer() {
   const [modalVisible, setModalVisible] = useState("none");
   const tasksList = useTaskListContext();
+  const user = useAppContext();
   const handler = () =>
     setModalVisible(modalVisible === "none" ? "block" : "none");
   let newTask = {
@@ -25,24 +26,29 @@ export default function CreateTasksContainer() {
     if (newTask.title === "") return;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
-    await fetch("http://localhost:8086/todo/tasks/create-task", {
-      method: "POST",
-      body: JSON.stringify(newTask),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
-    })
-      .then((r) => r.json())
-      .then((r) => {
-        if (compareObjs(r, newTask)) {
-          newTask = r;
-          //Add task locally
-          tasksList.setTaskList([...tasksList.list, newTask]);
-        }
+    if (user.currentUser != null) {
+      await fetch("http://localhost:8086/todo/tasks/create-task", {
+        method: "POST",
+        body: JSON.stringify(newTask),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
       })
-      .catch(() => console.error("Error task not created"));
+        .then((r) => r.json())
+        .then((r) => {
+          if (compareObjs(r, newTask)) {
+            newTask = r;
+            //Add task locally
+            tasksList.setTaskList([...tasksList.list, newTask]);
+          }
+        })
+        .catch(() => console.error("Error task not created"));
+    } else {
+      //Guest Mode
+      tasksList.setTaskList([...tasksList.list, newTask]);
+    }
   };
 
   return (
