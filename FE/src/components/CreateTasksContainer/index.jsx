@@ -14,13 +14,10 @@ export default function CreateTasksContainer() {
   let newTask = {
     title: "",
     description: "",
-    endDate: "",
-    favorite: false,
-    isDone: false,
-    position: tasksList.list.length,
+    finalDate: "",
+    userId: user.currentUser.userId,
     parentId: null,
-    tags: null,
-    userId: null,
+    position: tasksList.list.length,
   };
   const addHandler = async () => {
     if (newTask.title === "") return;
