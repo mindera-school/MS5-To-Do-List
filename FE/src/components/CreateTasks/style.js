@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CreateTasksButton = styled.button`
-  padding: 10px;
+  padding: 13px;
   height: 38px;
   width: 158px;
   font-weight: 400;
