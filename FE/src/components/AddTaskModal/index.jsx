@@ -31,6 +31,9 @@ export default function AddTaskModal({
     newTask.title = titleInput.current.value;
     newTask.description = descriptionInput.current.value;
     newTask.date = dateInput.current.value;
+    titleInput.current.value = "";
+    descriptionInput.current.value = "";
+    dateInput.current.value = "";
   };
 
   return (
