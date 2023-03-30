@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   AddModal,
   CloseButton,
@@ -22,24 +22,36 @@ export default function AddTaskModal({
   closeHandler,
   addHandler,
   modalVisible,
-  setModalVisible,
+  newTask,
 }) {
+  const titleInput = useRef();
+  const dateInput = useRef();
+  const descriptionInput = useRef();
+  const addValue = () => {
+    newTask.title = titleInput.current.value;
+    newTask.description = descriptionInput.current.value;
+    newTask.date = dateInput.current.value;
+  };
+
   return (
     <AddModal display={modalVisible}>
       <CloseButton onClick={closeHandler}>
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
       <ModalContainer>
-        <TitleInput type="text" placeholder="Task Title" />
+        <TitleInput ref={titleInput} type="text" placeholder="Task Title" />
         <ContainerInput>
           <DateTagdiv>
-            End Date: <DateInput type="date" />
+            End Date: <DateInput ref={dateInput} type="date" />
           </DateTagdiv>
           <DateTagdiv>Tags:</DateTagdiv>
         </ContainerInput>
         <DescriptionContainer>
           <Description>Description</Description>
-          <DescriptionInput placeholder="Write your task description here" />
+          <DescriptionInput
+            ref={descriptionInput}
+            placeholder="Write your task description here"
+          />
         </DescriptionContainer>
         <ButtonsContainer>
           <AddButtonsDiv>
@@ -47,7 +59,12 @@ export default function AddTaskModal({
             <AddDiffButton>Add last</AddDiffButton>
             <AddDiffButton>Add random</AddDiffButton>
           </AddButtonsDiv>
-          <AddButton onClick={addHandler}>
+          <AddButton
+            onClick={() => {
+              addValue();
+              addHandler();
+            }}
+          >
             Add Task
             <MdOutlineAddBox size={24} color="white" />
           </AddButton>

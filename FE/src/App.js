@@ -13,10 +13,10 @@ import CreateTasksContainer from "./components/CreateTasksContainer";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
-  const tasksList = tasksListContext.list;
   const [displayedTaskList, setDisplayedTaskList] = useState([]);
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
+
 
   //Fills the tasks state list. In the future the fetch url will be coming from the user object.
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
@@ -30,20 +30,19 @@ export default function App() {
     );
     //maybe we should add the tasks to the displayed tasklist. Then the backend would be called to confirm and fill the original task list with the new task
   }, [currentUser]);
-
+  
   useEffect(() => {
-    setDisplayedTaskList(tasksList);
-  }, [tasksList]);
+    setDisplayedTaskList(tasksListContext.list);
+  }, [tasksListContext.list]);
 
   return (
     <>
       <AppContext.Provider value={appContext}>
-        <TaskListContext.Provider value={tasksList}>
+        <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle />
           <Header
-            displayedTaskList={displayedTaskList}
             setDisplayedTaskList={setDisplayedTaskList}
-            tasksList={tasksList}
+            tasksList={tasksListContext}
           />
           <Main>
             <CreateTasksContainer />

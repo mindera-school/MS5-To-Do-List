@@ -8,7 +8,6 @@ import { AccountMenuBtn, StyledHeader, LeftDummy } from "./styled-component";
 
 export default function Header({
   setDisplayedTaskList,
-  displayedTaskList,
   tasksList,
 }) {
 
@@ -48,7 +47,7 @@ function search(setDisplayedTaskList, inputValue, tasksList) {
     setDisplayedTaskList(tasksList);
   }
   setDisplayedTaskList(
-    tasksList.filter((task) =>
+    tasksList.list.filter((task) =>
       task.title.toLowerCase().includes(inputValue.toLowerCase())
     )
   );
