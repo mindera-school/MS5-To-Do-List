@@ -3,7 +3,7 @@ import { FaRegUser } from "react-icons/fa";
 import AccountMenuContainer from "../AccountMenus/MenuContainer";
 import Overlay from "../Overlay";
 import SearchBar from "../SearchBar";
-import { AccountMenuBtn, StyledHeader, LeftDummy } from "./styled-component";
+import { AccountMenuBtn, LeftDummy, StyledHeader } from "./styled-component";
 
 
 export default function Header({

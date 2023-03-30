@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
-import school.mindera.toDoListAPI.exceptions.InvalidUserException;
+import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
@@ -13,7 +13,6 @@ import school.mindera.toDoListAPI.repositories.UsersRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.util.Objects.isNull;
 

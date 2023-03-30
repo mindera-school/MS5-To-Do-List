@@ -1,18 +1,12 @@
-import React, { useState } from "react";
-import TaskTagsList from "../TaskTagsList";
+import React, { useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
+import TaskDetailsModal from "../TaskDetailsModal";
+import TaskTagsList from "../TaskTagsList";
 
 import {
-  StyledTaskPreview,
-  VerticalLine,
-  NameAndDone,
-  ExtendDiv,
-  DateContainer,
-  TaskMover,
-  TaskDetailsBtn,
-  StyledFavHeart
+  DateContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
 } from "./styled-components";
 
 //TaskPreview template that will be generated for each task through the TaskList component
@@ -22,12 +16,25 @@ export default function TaskPreview({
   tagsListUrl,
   isDone,
   isFavorite,
+  fullTaskURL
 }) {
 
   const [isThisFav, setIsThisFav] = useState(isFavorite);
   const [isThisDone, setIsThisDone] = useState(isDone);
+  const [isDetailVis, setIsDetailVis] = useState(false);
+  const [task, setTask] = useState({});
 
-  return (
+  useEffect(() => {
+    if (!isDetailVis) {
+      setTask({});
+      return;
+    }
+    fetch(fullTaskURL)
+      .then(r => r.json())
+      .then(r => setTask(r));
+  }, [isDetailVis, fullTaskURL]);
+
+  return <>
     <StyledTaskPreview>
       <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
       <div>
@@ -44,13 +51,14 @@ export default function TaskPreview({
       </DateContainer>
       <TaskMover>
         <button>
-          <BiMoveVertical size="25px" color="white"/>
+          <BiMoveVertical size="25px" color="white" />
         </button>
       </TaskMover>
       <VerticalLine></VerticalLine>
-      <TaskDetailsBtn>
+      <TaskDetailsBtn onClick={() => setIsDetailVis(true)}>
         <MdOpenInFull size="20px" color="black" />
       </TaskDetailsBtn>
     </StyledTaskPreview>
-  );
+    <TaskDetailsModal task={task} display={isDetailVis} setDisplay={setIsDetailVis}></TaskDetailsModal>
+  </>;
 }

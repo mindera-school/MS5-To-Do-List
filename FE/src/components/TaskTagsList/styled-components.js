@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StylesTaskTagsList = styled.div`
-    display:flex;
+    display: flex;
     width: 170px;
     overflow-x: scroll;
 `;
