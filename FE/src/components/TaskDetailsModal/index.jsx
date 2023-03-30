@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BiEdit } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import TaskTagsList from "../TaskTagsList";
@@ -7,13 +7,27 @@ import CommentBox from "./CommentBox";
 import { BoxHeader, CustomLine, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskInfo, Wrapper } from "./styles";
 
 
+
 function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+	const [taskComments, setTaskComments] = useState([]);
 
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
 		setDisplay(false);
 	}
+
+	const updateTaskComments = (newComment) => {
+		const newElement = { description: newComment };
+		setTaskComments([...taskComments, newElement]);
+		console.log(taskComments);
+	};
+
+	useEffect(() => {
+		fetch("http://localhost:8086/todo/comments")
+			.then(r => r.json())
+			.then(r => setTaskComments(r));
+	}, [display]);
 
 	return <>
 		<Wrapper onClick={manageClose} display={display}>
@@ -56,9 +70,9 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 						<h5>{task.description}</h5>
 					</DescriptionContainer>
 					<HorizontalLine />
-					<CommentBox commentsUrl="http://localhost:8086/todo/comments/1"></CommentBox>
+					<CommentBox comments={taskComments} ></CommentBox>
 				</InnerBox>
-				<AddCommentForm taskId={task.taskId}></AddCommentForm>
+				<AddCommentForm taskId={task.taskId} updateComments={updateTaskComments}></AddCommentForm>
 			</OuterBox>
 		</Wrapper>
 	</>;

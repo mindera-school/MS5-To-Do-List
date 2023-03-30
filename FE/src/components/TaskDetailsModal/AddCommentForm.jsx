@@ -24,7 +24,7 @@ function sendComment(comment, taskId) {
 }
 
 // Missing Add comment Post
-function AddCommentForm({ taskId }) {
+function AddCommentForm({ taskId, updateComments }) {
 	const [inputContent, setInputContent] = useState("");
 
 	return (
@@ -32,7 +32,9 @@ function AddCommentForm({ taskId }) {
 			<CommentInput value={inputContent} onChange={(e) => { setInputContent(e.target.value); }} />
 			<CommentButton onClick={(e) => {
 				e.preventDefault();
+				updateComments(inputContent);
 				sendComment(inputContent, taskId);
+				setInputContent("");
 			}}>
 				<BiCommentAdd size={25} />
 			</CommentButton>
