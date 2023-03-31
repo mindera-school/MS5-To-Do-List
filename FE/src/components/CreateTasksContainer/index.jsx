@@ -14,18 +14,18 @@ export default function CreateTasksContainer() {
   let newTask = {
     title: "",
     description: "",
-    date: "",
-    userId: user === null ? null : user.currentUser?.userId,
+    date: null,
+    userId: user.currentUser === null ? null : user.currentUser?.userId,
     parentId: null,
     position: tasksList.list.length,
   };
   const addHandler = async () => {
     if (newTask.title === "") return;
-    if (newTask.date === "") newTask.date = null;
+    if(newTask.date === "") newTask.date = null;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/create-task", {
+      await fetch("http://localhost:8086/todo/tasks/new-task", {
         method: "POST",
         body: JSON.stringify(newTask),
         headers: {
