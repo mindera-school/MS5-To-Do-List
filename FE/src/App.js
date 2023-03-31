@@ -31,7 +31,6 @@ export default function App() {
   }, [currentUser]);
   
   useEffect(() => {
-    console.log(tasksListContext.list);
     tasksListContext.setDisplayedTaskList(tasksListContext.list);
   }, [tasksListContext.list]);
 
