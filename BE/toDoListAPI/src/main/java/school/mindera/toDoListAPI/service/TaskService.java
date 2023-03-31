@@ -1,5 +1,6 @@
 package school.mindera.toDoListAPI.service;
 
+import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.TasksEntity;
@@ -10,6 +11,8 @@ import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -87,19 +90,25 @@ public class TaskService {
     }
 
     public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {
-        Optional<TasksEntity> parent = tasksRepository.findById(newTask.getParentId());
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
+        Optional<TasksEntity> parent = Optional.ofNullable(null);
 
+        if (!isNull(newTask.getParentId())){
+            parent = tasksRepository.findById(newTask.getParentId());
+        }
         if (user.isEmpty()) {
             throw new InvalidUserException("Invalid user");
+        }
+        if (!isNull(newTask.getParentId()) && parent.isEmpty()){
+            throw new InvalidTaskException("invalid task");
         }
 
         TasksEntity task = new TasksEntity();
         task.setTitle(newTask.getTitle());
         task.setDescription(newTask.getDescription());
-        task.setEndDate(newTask.getFinalDate());
+        task.setEndDate(newTask.getDate());
         task.setUserId(user.get());
-        task.setParentId(parent.get());
+        task.setParentId(parent.isEmpty() ? null : parent.get());
         task.setPosition(newTask.getPosition());
         task.setDone(false);
         task.setFavorite(false);

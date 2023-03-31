@@ -1,8 +1,8 @@
-import React, { useContext, useState, useRef } from "react";
-import CreateTasks from "../CreateTasks";
+import React, { useState } from "react";
+import { useAppContext, useTaskListContext } from "../../context";
 import AddTaskModal from "../AddTaskModal";
+import CreateTasks from "../CreateTasks";
 import Overlay from "../Overlay";
-import { useTaskListContext, useAppContext } from "../../context";
 import { Container } from "./style";
 
 export default function CreateTasksContainer() {
@@ -14,13 +14,14 @@ export default function CreateTasksContainer() {
   let newTask = {
     title: "",
     description: "",
-    finalDate: "",
-    userId: user.currentUser.userId,
+    date: "",
+    userId: user === null ? null : user.currentUser?.userId,
     parentId: null,
     position: tasksList.list.length,
   };
   const addHandler = async () => {
     if (newTask.title === "") return;
+    if (newTask.date === "") newTask.date = null;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
