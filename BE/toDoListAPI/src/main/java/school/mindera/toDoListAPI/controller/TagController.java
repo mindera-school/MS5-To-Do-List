@@ -27,7 +27,7 @@ public class TagController {
         return tagService.getUserTags(userId);
     }
 
-    @PostMapping("/new-tag")
+    @PostMapping()
     public ResponseEntity<DTOTag> createTag(@RequestBody DTONewTag newTag){
         return tagService.createTag(newTag);
     }
