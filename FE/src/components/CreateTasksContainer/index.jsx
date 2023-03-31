@@ -1,8 +1,8 @@
-import React, { useContext, useState, useRef } from "react";
-import CreateTasks from "../CreateTasks";
+import React, { useState } from "react";
+import { useAppContext, useTaskListContext } from "../../context";
 import AddTaskModal from "../AddTaskModal";
+import CreateTasks from "../CreateTasks";
 import Overlay from "../Overlay";
-import { useTaskListContext, useAppContext } from "../../context";
 import { Container } from "./style";
 
 export default function CreateTasksContainer() {
