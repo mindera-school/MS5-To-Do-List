@@ -23,7 +23,7 @@ public class CommentController {
         return commentService.getComments(taskId);
     }
 
-    @PostMapping("/new-comment")
+    @PostMapping()
     public ResponseEntity<DTOComment> createComment(@RequestBody DTONewComment newComment){
         return commentService.createComment(newComment);
     }
