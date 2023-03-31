@@ -14,8 +14,8 @@ export default function CreateTasksContainer() {
   let newTask = {
     title: "",
     description: "",
-    date: "",
-    userId: user.currentUser.userId,
+    date: null,
+    userId: user.currentUser === null ? null : user.currentUser?.userId,
     parentId: null,
     position: tasksList.list.length,
   };
