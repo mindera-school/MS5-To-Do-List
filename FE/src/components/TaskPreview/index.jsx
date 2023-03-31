@@ -26,12 +26,25 @@ export default function TaskPreview({
   tagsListUrl,
   isDone,
   isFavorite,
+  fullTaskURL
 }) {
 
   const [isThisFav, setIsThisFav] = useState(isFavorite);
   const [isThisDone, setIsThisDone] = useState(isDone);
+  const [isDetailVis, setIsDetailVis] = useState(false);
+  const [task, setTask] = useState({});
 
-  return (
+  useEffect(() => {
+    if (!isDetailVis) {
+      setTask({});
+      return;
+    }
+    fetch(fullTaskURL)
+      .then(r => r.json())
+      .then(r => setTask(r));
+  }, [isDetailVis, fullTaskURL]);
+
+  return <>
     <StyledTaskPreview>
       <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
       <div>
@@ -61,5 +74,6 @@ export default function TaskPreview({
         </TaskDetailsBtn>
       </EdgeButtonsContainer>
     </StyledTaskPreview>
-  );
+    <TaskDetailsModal task={task} display={isDetailVis} setDisplay={setIsDetailVis}></TaskDetailsModal>
+  </>;
 }
