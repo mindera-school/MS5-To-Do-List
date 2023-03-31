@@ -13,7 +13,6 @@ public class Converter {
     public static DTOTaskPreview toDTOTaskPreview(TasksEntity task){
         Integer parentId = null;
 
-
         if (task.getParentId() !=  null){
             parentId = task.getParentId().getTaskId();
         }
