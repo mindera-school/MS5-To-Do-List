@@ -25,7 +25,7 @@ export default function CreateTasksContainer() {
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/create-task", {
+      await fetch("http://localhost:8086/todo/tasks/new-task", {
         method: "POST",
         body: JSON.stringify(newTask),
         headers: {
