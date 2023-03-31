@@ -51,6 +51,7 @@ export const useTaskListContext = () => useContext(TaskListContext);
 export const useCreateTaskListContext = () => {
   const [taskListState, setTaskListState] = useState({
     list: [],
+    displayedList: [],
   });
 
   const setTaskList = useCallback((newList) => {
@@ -60,8 +61,16 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
+  const setDisplayedTaskList = useCallback((newDisplayedList) => {
+    setTaskListState((oldState) => ({
+      ...oldState,
+      displayedList: newDisplayedList,
+    }));
+  });
+
   return {
     ...taskListState,
     setTaskList,
+    setDisplayedTaskList,
   };
 };
