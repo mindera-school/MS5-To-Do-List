@@ -29,12 +29,12 @@
 
 ```json
 {
-    "email": "STRING",
-    "profileImage": "to be discussed",
-    "firstName": "STRING",
-    "lastName": "STRING",
-    "username": "STRING",
-    "password": "STRING"
+  "email": "string",
+  "firstName": "string",
+  "lastName": "string",
+  "profileImage": "string",
+  "username": "string",
+  "password": "string"
 }
 ```
 </details>
@@ -43,13 +43,13 @@
 
 ## Request
 
-**Endpoint:** `PACH` http://localhost:8086/todo/users/profile_image
+**Endpoint:** `PACH` http://localhost:8086/todo/users/{userId}/profile_image
 
 **Body:**
 
 ```json
 {
-    "profileImage": "To be discussed"
+    "profileImage": "string"
 }
 ```
 </details>
@@ -64,7 +64,7 @@
 
 ```json
 {
-    "new_password": "STRING"
+    "newPassword": "string"
 }
 ```
 </details>
@@ -114,21 +114,18 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks/create-task
+**Endpoint:** `POST` http://localhost:8086/todo/tasks
 
 **Body:**
 
 ```json
 {
-    "title": "String",
-    "description": "String",
-    "endDate": "String",
-    "favorite": "Boolean",      // False by DEFAULT if you don't have a favorite option on creation
-    "isDone": "Boolean",        // False by DEFAULT
-    "position": "Integer",
-    "parentId": "Integer",      // Null if dont have parent
-    "tags": "[tagId, tagId]"
-    "userId": "Integer"
+  "title": "string",
+  "description": "string",
+  "date": "31-03-2023",
+  "userId": 0,
+  "parentId": 0,
+  "position": 0
 }
 ```
 </details>

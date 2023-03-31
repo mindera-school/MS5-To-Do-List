@@ -9,6 +9,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class DTOChangeImg {
-    String profileImage;
+public class DTOForgotPassword {
+    private String newPassword;
 }
