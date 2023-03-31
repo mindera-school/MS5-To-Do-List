@@ -14,7 +14,6 @@ import { GlobalStyle, Main } from "./GlobalStyles";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
-  const [displayedTaskList, setDisplayedTaskList] = useState([]);
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
 
@@ -32,7 +31,7 @@ export default function App() {
   }, [currentUser]);
   
   useEffect(() => {
-    setDisplayedTaskList(tasksListContext.list);
+    tasksListContext.setDisplayedTaskList(tasksListContext.list);
   }, [tasksListContext.list]);
 
   return (
@@ -41,12 +40,11 @@ export default function App() {
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle />
           <Header
-            setDisplayedTaskList={setDisplayedTaskList}
             tasksList={tasksListContext}
           />
           <Main>
             <CreateTasksContainer />
-            <TaskList tasksList={displayedTaskList} />
+            <TaskList />
           </Main>
         </TaskListContext.Provider>
       </AppContext.Provider>

@@ -3,20 +3,17 @@ import { FaRegUser } from "react-icons/fa";
 import AccountMenuContainer from "../AccountMenus/MenuContainer";
 import Overlay from "../Overlay";
 import SearchBar from "../SearchBar";
+import { useTaskListContext } from "../../context";
 import { AccountMenuBtn, LeftDummy, StyledHeader } from "./styled-component";
 
-
-export default function Header({
-  setDisplayedTaskList,
-  tasksList,
-}) {
-
+export default function Header() {
   const [rightTabVisible, setRightTabVisible] = useState(false);
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const tasksList = useTaskListContext();
 
   useEffect(() => {
-    search(setDisplayedTaskList, inputValue, tasksList);
+    search(inputValue, tasksList);
   }, [inputValue]);
 
   const rightSideHandler = () => {
@@ -33,7 +30,10 @@ export default function Header({
     <StyledHeader>
       <LeftDummy></LeftDummy>
       <SearchBar inputValue={inputValue} setInputValue={setInputValue} />
-      <AccountMenuContainer rightSideHandler={rightSideHandler} rightTabVisible={rightTabVisible} />
+      <AccountMenuContainer
+        rightSideHandler={rightSideHandler}
+        rightTabVisible={rightTabVisible}
+      />
       <AccountMenuBtn onClick={rightSideHandler}>
         <FaRegUser size={20} />
       </AccountMenuBtn>
@@ -42,11 +42,11 @@ export default function Header({
   );
 }
 
-function search(setDisplayedTaskList, inputValue, tasksList) {
+function search(inputValue, tasksList) {
   if (inputValue === "") {
-    setDisplayedTaskList(tasksList);
+    tasksList.setDisplayedTaskList(tasksList.list);
   }
-  setDisplayedTaskList(
+  tasksList.setDisplayedTaskList(
     tasksList.list.filter((task) =>
       task.title.toLowerCase().includes(inputValue.toLowerCase())
     )
