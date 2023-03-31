@@ -60,6 +60,10 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
+  const deleteTask = useCallback((taskId) => {
+    
+  });
+
   return {
     ...taskListState,
     setTaskList,

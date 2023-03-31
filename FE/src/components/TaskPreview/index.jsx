@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
+import { TaskListContext } from "../../context.js";
+import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
   DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
 } from "./styled-components";
-
 const deleteTask = (id, e) => {
   e.stopPropagation();
   fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
@@ -16,6 +17,7 @@ const deleteTask = (id, e) => {
       "Content-type": "application/json; charset=UTF-8",
     }
   });
+
 };
 
 //TaskPreview template that will be generated for each task through the TaskList component
@@ -33,6 +35,7 @@ export default function TaskPreview({
   const [isThisDone, setIsThisDone] = useState(isDone);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
+  const tasksListContext = useContext(TaskListContext);
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -43,6 +46,8 @@ export default function TaskPreview({
       .then(r => r.json())
       .then(r => setTask(r));
   }, [isDetailVis, fullTaskURL]);
+
+  console.log(tasksListContext);
 
   return <>
     <StyledTaskPreview>
@@ -66,7 +71,10 @@ export default function TaskPreview({
       </TaskMover>
       <VerticalLine></VerticalLine>
       <EdgeButtonsContainer>
-        <DeleteBtn onClick={(e) => deleteTask(id, e)}>
+        <DeleteBtn onClick={(e) => {
+          deleteTask(id, e);
+
+        }}>
           <SlClose size={20} />
         </DeleteBtn>
         <TaskDetailsBtn>
