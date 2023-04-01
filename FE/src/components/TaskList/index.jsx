@@ -15,7 +15,8 @@ export default function TaskList() {
     const tempTasks = Array.from(taskList);
     const [reorderedTask] = tempTasks.splice(result.source.index, 1);
     tempTasks.splice(result.destination.index, 0, reorderedTask);
-    updateTaskList(tempTasks);
+    const updatedPositionTasks = tempTasks.map((e, i) => { return { ...e, position: i }; });
+    updateTaskList(updatedPositionTasks);
   }
 
   let allTasksComps = useTaskListContext().displayedList?.map((e, index) => {
@@ -30,8 +31,10 @@ export default function TaskList() {
               isDone={e.isDone}
               dueDate={e.date}
               isFavorite={e.isFavorite}
+              position={e.position}
               tagsListUrl={e.tagsURL}
-              fullTaskURL={e.fullTaskURL}>
+              fullTaskURL={e.fullTaskURL}
+            >
             </TaskPreview>
           </div>
         }

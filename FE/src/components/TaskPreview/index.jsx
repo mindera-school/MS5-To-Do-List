@@ -15,7 +15,8 @@ export default function TaskPreview({
   tagsListUrl,
   isDone,
   isFavorite,
-  fullTaskURL
+  fullTaskURL,
+  position
 }) {
 
   const [isThisFav, setIsThisFav] = useState(isFavorite);

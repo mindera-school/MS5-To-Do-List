@@ -121,21 +121,6 @@ export const DateContainer = styled.div`
   display: flex;
   width: 120px;
   align-items: center;
-  & img {
-      margin-right: 10px;
-  }
-`;
-
-export const TaskMover = styled.div`
-  position: absolute;
-  right: 12%;
-  align-self: center;
-  margin-left: 10px;
-  & button {
-    background-color: transparent;
-    border: none;
-    cursor: grab;
-  }
 `;
 
 export const TaskDetailsBtn = styled.button`
