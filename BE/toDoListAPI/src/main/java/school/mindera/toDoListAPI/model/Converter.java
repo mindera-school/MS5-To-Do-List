@@ -7,6 +7,7 @@ import school.mindera.toDoListAPI.entities.TasksEntity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Converter {
     public static DTOTaskPreview toDTOTaskPreview(TasksEntity task){
@@ -19,12 +20,11 @@ public class Converter {
         DTOTaskPreview preview = new DTOTaskPreview();
         preview.setTaskId(task.getTaskId());
         preview.setTitle(task.getTitle());
-        preview.setDate(task.getEndDate().toString());
+        preview.setDate(task.getEndDate());
         preview.setIsDone(task.isDone());
         preview.setIsFavorite(task.isFavorite());
         preview.setPosition(task.getPosition());
         preview.setParentId(parentId);
-        preview.setExpired(task.getEndDate().after(new Date()));
         preview.setTags(toDTOTagList(task.getTags()));
         preview.setTaskURL("http://localhost:8086/todo/tasks/" + task.getTaskId());
 
@@ -41,7 +41,7 @@ public class Converter {
         DTOTaskDetails taskDetails = new DTOTaskDetails();
         taskDetails.setTaskId(task.getTaskId());
         taskDetails.setTitle(task.getTitle());
-        taskDetails.setDate(task.getEndDate().toString());
+        taskDetails.setDate(task.getEndDate());
         taskDetails.setIsDone(task.isDone());
         taskDetails.setIsFavorite(task.isFavorite());
         taskDetails.setPosition(task.getPosition());

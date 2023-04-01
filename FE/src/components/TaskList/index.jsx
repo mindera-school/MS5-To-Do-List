@@ -1,9 +1,10 @@
 import React from "react";
+import { useTaskListContext } from "../../context";
 import TaskPreview from "../TaskPreview";
 
 //Injects every object task preview coming from the user state list of tasks into a Task Preview component
-export default function TaskList({ tasksList }) {
-  let allTasksComps = tasksList?.map((e) => {
+export default function TaskList() {
+  let allTasksComps = useTaskListContext().displayedList?.map((e, i) => {
     return (
       <TaskPreview
         key={e.taskId}
