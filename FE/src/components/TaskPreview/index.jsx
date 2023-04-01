@@ -26,6 +26,8 @@ const deleteTask = (id, e, deleteTaskContext, currentUser) => {
     } catch (exception) {
       console.error("Unable to delete");
     }
+  } else {
+    deleteTaskContext(id);
   }
 };
 
