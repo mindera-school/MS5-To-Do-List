@@ -1,4 +1,4 @@
-import styled, { keyframes, css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 
 const heartbeatAnim = keyframes`
@@ -110,7 +110,6 @@ export const VerticalLine = styled.div`
   width: 1px;
   height: 75%;
   align-self: center;
-  margin-left: 15px;
 `;
 
 export const ExtendDiv = styled.div`

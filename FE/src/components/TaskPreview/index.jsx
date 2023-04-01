@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 
 import {
-  DateContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
+  DateContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
 } from "./styled-components";
 
 //TaskPreview template that will be generated for each task through the TaskList component
@@ -49,11 +48,6 @@ export default function TaskPreview({
         <AiOutlineCalendar size="20px" color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
-      <TaskMover>
-        <button>
-          <BiMoveVertical size="25px" color="white" />
-        </button>
-      </TaskMover>
       <VerticalLine></VerticalLine>
       <TaskDetailsBtn onClick={() => setIsDetailVis(true)}>
         <MdOpenInFull size="20px" color="black" />
