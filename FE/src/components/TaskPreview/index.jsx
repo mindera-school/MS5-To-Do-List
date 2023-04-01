@@ -3,22 +3,32 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
-import { TaskListContext } from "../../context.js";
+import { AppContext, TaskListContext } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
   DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
 } from "./styled-components";
-const deleteTask = (id, e) => {
-  e.stopPropagation();
-  fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    }
-  });
 
+const deleteTask = (id, e, deleteTaskContext, currentUser) => {
+  e.stopPropagation();
+  if (currentUser !== null) {
+    try {
+      fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        }
+      })
+        .then(r => {
+          r.ok ? deleteTaskContext(id) : console.log("Couldn't connect!");
+        });
+    } catch (exception) {
+      console.error("Unable to delete");
+    }
+  }
 };
+
 
 //TaskPreview template that will be generated for each task through the TaskList component
 export default function TaskPreview({
@@ -35,7 +45,8 @@ export default function TaskPreview({
   const [isThisDone, setIsThisDone] = useState(isDone);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
-  const tasksListContext = useContext(TaskListContext);
+  const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
+  const currentUser = useContext(AppContext).currentUser;
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -46,8 +57,6 @@ export default function TaskPreview({
       .then(r => r.json())
       .then(r => setTask(r));
   }, [isDetailVis, fullTaskURL]);
-
-  console.log(tasksListContext);
 
   return <>
     <StyledTaskPreview>
@@ -72,8 +81,7 @@ export default function TaskPreview({
       <VerticalLine></VerticalLine>
       <EdgeButtonsContainer>
         <DeleteBtn onClick={(e) => {
-          deleteTask(id, e);
-
+          deleteTask(id, e, deleteTaskFromContext, currentUser);
         }}>
           <SlClose size={20} />
         </DeleteBtn>

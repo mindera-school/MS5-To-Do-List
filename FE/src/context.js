@@ -60,12 +60,17 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
-  const deleteTask = useCallback((taskId) => {
-    
+  const deleteTaskFromContext = useCallback((taskId) => {
+    const updatedList = taskListState.list.filter(e => e.taskId !== taskId);
+    setTaskListState((oldState) => ({
+      ...oldState,
+      list: updatedList,
+    }));
   });
 
   return {
     ...taskListState,
     setTaskList,
+    deleteTaskFromContext
   };
 };
