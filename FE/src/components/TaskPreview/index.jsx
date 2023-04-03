@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
 import { AppContext, TaskListContext } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
-  DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
+  DateContainer, DeleteBtn, DraggerContainer, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
 } from "./styled-components";
 
 const deleteTask = (id, e, deleteTaskContext, currentUser) => {
@@ -40,7 +39,8 @@ export default function TaskPreview({
   tagsListUrl,
   isDone,
   isFavorite,
-  fullTaskURL
+  fullTaskURL,
+  dragger
 }) {
 
   const [isThisFav, setIsThisFav] = useState(isFavorite);
@@ -75,11 +75,9 @@ export default function TaskPreview({
         <AiOutlineCalendar size={20} color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
-      <TaskMover>
-        <button>
-          <BiMoveVertical size={20} color="white" />
-        </button>
-      </TaskMover>
+      <DraggerContainer>
+        {dragger}
+      </DraggerContainer>
       <VerticalLine></VerticalLine>
       <EdgeButtonsContainer>
         <DeleteBtn onClick={(e) => {
