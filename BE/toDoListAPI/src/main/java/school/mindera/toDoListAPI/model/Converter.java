@@ -1,9 +1,11 @@
 package school.mindera.toDoListAPI.model;
 
+import org.springframework.scheduling.config.Task;
 import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +54,32 @@ public class Converter {
         taskDetails.setCommentsURL("http://localhost:8086/todo/comments/" + task.getTaskId());
 
         return taskDetails;
+    }
+
+    public static DTOUpdateTask toDTOUpdateTask(TasksEntity task){
+        DTOUpdateTask taskDTO = new DTOUpdateTask();
+
+        taskDTO.setTaskId(task.getTaskId());
+        taskDTO.setTitle(task.getTitle());
+        taskDTO.setDescription(task.getDescription());
+        taskDTO.setIsDone(task.isDone());
+
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        taskDTO.setDate(formatDate.format(task.getEndDate()));
+        taskDTO.setIsFavorite(task.isFavorite());
+        taskDTO.setDisabled(task.isDisabled());
+
+        return taskDTO;
+    }
+
+    public static DTOUpdatePosition toDTOUpdatePosition(TasksEntity task){
+        DTOUpdatePosition taskDTO = new DTOUpdatePosition();
+
+        taskDTO.setTaskId(task.getTaskId());
+        taskDTO.setPosition(task.getPosition());
+        taskDTO.setParentId(task.getParentId().getTaskId());
+
+        return taskDTO;
     }
 
     public static List<DTOTag> toDTOTagList(List<TagsEntity> tagsEntities){
