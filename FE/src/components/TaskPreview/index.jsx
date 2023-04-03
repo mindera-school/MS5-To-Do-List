@@ -125,7 +125,7 @@ export default function TaskPreview({
             }}>
               <SlClose size={20} />
             </DeleteBtn>
-            <TaskDetailsBtn>
+            <TaskDetailsBtn onClick={() => setIsDetailVis(true)}>
               <MdOpenInFull size={20} color="black" />
             </TaskDetailsBtn>
           </EdgeButtonsContainer>
