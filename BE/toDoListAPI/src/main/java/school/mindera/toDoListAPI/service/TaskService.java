@@ -95,6 +95,18 @@ public class TaskService {
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
         Optional<TasksEntity> parent = Optional.ofNullable(null);
 
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        Date date;
+        if(!isNull(newTask.getDate())) {
+            try {
+                date = formatData.parse(newTask.getDate());
+            } catch (Exception e) {
+                throw new InvalidTaskException("Date is not valid");
+            }
+        }else{
+            date = null;
+        }
+
         if (!isNull(newTask.getParentId())) {
             parent = tasksRepository.findById(newTask.getParentId());
         }
@@ -108,7 +120,8 @@ public class TaskService {
         TasksEntity task = new TasksEntity();
         task.setTitle(newTask.getTitle());
         task.setDescription(newTask.getDescription());
-        task.setEndDate(newTask.getDate());
+
+        task.setEndDate(date);
         task.setUserId(user.get());
         task.setParentId(parent.isEmpty() ? null : parent.get());
         task.setPosition(newTask.getPosition());

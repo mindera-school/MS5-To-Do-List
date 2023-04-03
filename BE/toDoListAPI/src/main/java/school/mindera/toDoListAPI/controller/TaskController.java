@@ -33,7 +33,7 @@ public class TaskController {
         return taskService.getSubTasks(parentId);
     }
 
-    @PostMapping()
+    @PostMapping("/v1")
     public ResponseEntity<DTOTaskPreview> createTask(@RequestBody DTONewTask newTask){
         return taskService.addTask(newTask);
     }
