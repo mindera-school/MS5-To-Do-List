@@ -40,11 +40,11 @@ public class TaskController {
 
     @PatchMapping("/v1/{taskId}")
     public ResponseEntity<DTOUpdateTask> updateTask(@PathVariable Integer taskId, @RequestBody DTOUpdateTask updatedTask){
-        return taskService.updateTask(updatedTask);
+        return taskService.updateTask(taskId, updatedTask);
     }
 
     @PatchMapping("/v1/change-position/{userId}")
-    public ResponseEntity<List<DTOUpdatePosition>> updateTask(@PathVariable Integer userId, @RequestBody List<DTOUpdatePosition> updatedTasks){
-        return taskService.updatePosition(updatedTasks);
+    public ResponseEntity<List<DTOUpdatePosition>> updateTaskPosition(@PathVariable Integer userId, @RequestBody List<DTOUpdatePosition> updatedTasks){
+        return taskService.updatePosition(userId, updatedTasks);
     }
 }
