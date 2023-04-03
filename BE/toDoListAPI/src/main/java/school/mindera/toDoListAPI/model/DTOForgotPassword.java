@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOChangePosition {
-    private Integer taskId;
-    private Integer newPosition;
+public class DTOForgotPassword {
+    private String newPassword;
 }

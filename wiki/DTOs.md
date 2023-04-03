@@ -29,12 +29,12 @@
 
 ```json
 {
-    "email": "STRING",
-    "profileImage": "to be discussed",
-    "firstName": "STRING",
-    "lastName": "STRING",
-    "username": "STRING",
-    "password": "STRING"
+  "email": "string",
+  "firstName": "string",
+  "lastName": "string",
+  "profileImage": "string",
+  "username": "string",
+  "password": "string"
 }
 ```
 </details>
@@ -43,13 +43,13 @@
 
 ## Request
 
-**Endpoint:** `PACH` http://localhost:8086/todo/users/profile_image
+**Endpoint:** `PATCH` http://localhost:8086/todo/users/{userId}/profile_image
 
 **Body:**
 
 ```json
 {
-    "profileImage": "To be discussed"
+    "profileImage": "string"
 }
 ```
 </details>
@@ -58,13 +58,13 @@
 
 ## Request
 
-**Endpoint:** `PACH` http://localhost:8086/todo/users/forgot_password
+**Endpoint:** `PATCH` http://localhost:8086/todo/users/forgot_password
 
 **Body:**
 
 ```json
 {
-    "new_password": "STRING"
+    "newPassword": "string"
 }
 ```
 </details>
@@ -114,100 +114,62 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks/create-task
+**Endpoint:** `POST` http://localhost:8086/todo/tasks
 
 **Body:**
 
 ```json
 {
+  "title": "string",
+  "description": "string",
+  "date": "31-03-2023",
+  "userId": 0,
+  "parentId": 0,
+  "position": 0
+}
+```
+</details>
+<details>
+<summary>UPDATE TASK</summary>
+
+## Request
+
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1
+
+**Body:**
+
+```json
+{
+    "taskId": "Integer",
     "title": "String",
     "description": "String",
-    "endDate": "String",
-    "favorite": "Boolean",      // False by DEFAULT if you don't have a favorite option on creation
-    "isDone": "Boolean",        // False by DEFAULT
+    "isDone": "Boolean",
+    "date": "String",
+    "isFavorite": "Boolean",
+    "disabled": "Boolean"
+}
+```
+</details>
+<details>
+<summary>UPDATE POSITION</summary>
+
+## Request
+
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1/change-position
+
+**Body:**
+
+```json
+[{
+    "taskId": "Integer",
     "position": "Integer",
-    "parentId": "Integer",      // Null if dont have parent
-    "tags": "[tagId, tagId]"
-    "userId": "Integer"
-}
-```
-</details>
-<details>
-<summary>EDIT TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/edit-task/{taskId}
-
-**Body:**
-
-```json
+    "parentId": "Integer"
+},
 {
-    "title": "String",
-    "description": "String",
-    "endDate": "String"
-}
-```
-</details>
-<details>
-<summary>DONE/UNDONE TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/done-state/{taskId}
-
-**Body:**
-
-```json
-{
-    "isDone": "Boolean"
-}
-```
-</details>
-<details>
-<summary>FAVORITE TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/favorite-state/{taskId}
-
-**Body:**
-
-```json
-{
-    "favorite": "Boolean"
-}
-```
-</details>
-<details>
-<summary>CHANGE POSITION TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/change-position/{taskId}
-
-**Body:**
-
-```json
-{
-    "parentId": "Integer",
-    "position": "Integer"
-}
-```
-</details>
-<details>
-<summary>DELETE TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/delete/{taskId}
-
-**Body:**
-
-```json
-{
-
-}
+    "taskId": "Integer",
+    "position": "Integer",
+    "parentId": "Integer"
+}]
 ```
 </details>
 <details>
@@ -215,7 +177,7 @@
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/tasks/preview/{taskId}
+**Endpoint:** `GET` http://localhost:8086/todo/tasks/preview/{userId}
 
 **Body:**
 
@@ -226,11 +188,11 @@
 ```
 </details>
 <details>
-<summary>GET TASK</summary>
+<summary>GET FULL TASK</summary>
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/tasks/{taskId}
+**Endpoint:** `GET` http://localhost:8086/todo/tasks/v1/{taskId}/{userId}
 
 **Body:**
 
@@ -241,11 +203,11 @@
 ```
 </details>
 <details>
-<summary>GET ALL TASKS</summary>
+<summary>GET SUB TASKS</summary>
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/tasks/{userId}
+**Endpoint:** `GET` http://localhost:8086/todo/tasks/v1/{parentId}
 
 **Body:**
 
@@ -299,7 +261,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tags/create-tag
+**Endpoint:** `POST` http://localhost:8086/todo/tags/v1
 
 **Body:**
 
@@ -307,16 +269,17 @@
 {
     "name": "String",
     "color": "String",
-    "userId": "Integer"
+    "userId": "Integer",
+    "taskId": "Integer"
 }
 ```
 </details>
 <details>
-<summary>DELETE TAG</summary>
+<summary>GET ALL USER TAGS</summary>
 
 ## Request
 
-**Endpoint:** `DELETE` http://localhost:8086/todo/tags/{tagId}/{userId}
+**Endpoint:** `GET` http://localhost:8086/todo/tags/v1/users/{userId}
 
 **Body:**
 
@@ -327,11 +290,26 @@
 ```
 </details>
 <details>
-<summary>GET ALL TAGS</summary>
+<summary>GET ALL TASK TAGS</summary>
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/tags/{userId}
+**Endpoint:** `GET` http://localhost:8086/todo/tags/v1/task/{taskId}
+
+**Body:**
+
+```json
+{
+    
+}
+```
+</details>
+<details>
+<summary>DELETE TAG</summary>
+
+## Request
+
+**Endpoint:** `DELETE` http://localhost:8086/todo/tags/{taskId}/{tagId}
 
 **Body:**
 
@@ -364,7 +342,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/comments/create-comment
+**Endpoint:** `POST` http://localhost:8086/todo/comments/v1
 
 **Body:**
 
@@ -380,7 +358,7 @@
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/comments/{taskId}
+**Endpoint:** `GET` http://localhost:8086/todo/comments/v1/{taskId}
 
 **Body:**
 
@@ -423,13 +401,13 @@
 
 ```json
 {
-    "userId": "number",
-    "profileImage": "To be discussed",
-    "firstName": "string",
-    "lastName": "string",
-    "username": "string",
-    "email": "string",
-    "tasksPreviewsURL": "string"
+  "userId": "Integer",
+  "firstName": "string",
+  "lastName": "string",
+  "username": "string",
+  "email": "string",
+  "groupsURL": "string",
+  "tasksPreviewsURL": "string"
 }
 ```
 </details>
@@ -444,13 +422,14 @@
 
 ```json
 {
-    "userId": "number",
-    "profileImage": null,
-    "firstName": "string",
-    "lastName": "string",
-    "username": "string",
-    "email": "string",
-    "tasksPreviewsURL": "string"
+  "userId": 0,
+  "firstName": "string",
+  "lastName": "string",
+  "profileImage": "string",
+  "username": "string",
+  "email": "string",
+  "groupsURL": "string",
+  "tasksPreviewsURL": "string"
 }
 ```
 </details>
@@ -459,13 +438,13 @@
 
 ## Request
 
-**Endpoint:** `PACH` http://localhost:8086/todo/users/profile_image
+**Endpoint:** `PATCH` http://localhost:8086/todo/users/{userId}/profile_image
 
 **Body:**
 
 ```json
 {
-    "profileImage": "To be discussed"
+    "profileImage": "String"
 }
 ```
 </details>
@@ -474,19 +453,13 @@
 
 ## Request
 
-**Endpoint:** `PACH` http://localhost:8086/todo/users/forgot_password
+**Endpoint:** `PATCH` http://localhost:8086/todo/users/forgot_password
 
 **Body:**
 
 ```json
 {
-    "userId": "number",
-    "profileImage": "To be discussed",
-    "firstName": "string",
-    "lastName": "string",
-    "username": "string",
-    "email": "string",
-    "tasksPreviewsURL": "string"
+    
 }
 ```
 </details>
@@ -505,25 +478,31 @@
 
 ```json
 {
-    "taskId": "Integer",
-    "title": "String",
-    "isDone": "Boolean",
-    "date": "String",
-    "expired": "Boolean",
-    "isFavorite": "Boolean",
-    "position": "Integer",
-    "ParentId": "Integer",
-    "tagsURL": "String URL",
-    "fullTaskURL": "String URL"
+  "taskId": "Integer",
+  "parentId": "Integer",
+  "position": "Integer",
+  "title": "string",
+  "date": "03-04-2023",
+  "isDone": "Boolean",
+  "isFavorite": "Boolean",
+  "taskURL": "string",
+  "tags": [
+    {
+      "tagId": "Integer",
+      "name": "string",
+      "color": "string"
+    }
+  ],
+  "expired": "Boolean"
 }
 ```
 </details>
 <details>
-<summary>EDIT TASK</summary>
+<summary>UPDATE TASK</summary>
 
 ## Request
 
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/edit-task/{taskId}
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
@@ -534,72 +513,31 @@
     "description": "String",
     "isDone": "Boolean",
     "date": "String",
-    "expired": "Boolean",
     "isFavorite": "Boolean",
+    "disabled": "Boolean"
+}
+```
+</details>
+<details>
+<summary>UPDATE POSITION</summary>
+
+## Request
+
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1/change-position
+
+**Body:**
+
+```json
+[{
+    "taskId": "Integer",
     "position": "Integer",
-    "ParentId": "Integer",
-    "tagsURL": "String URL"
-}
-```
-</details>
-<details>
-<summary>DONE/UNDONE TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/done-state/{taskId}
-
-**Body:**
-
-```json
+    "parentId": "Integer"
+},
 {
-    // To be discussed
-}
-```
-</details>
-<details>
-<summary>FAVORITE TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/favorite-state/{taskId}
-
-**Body:**
-
-```json
-{
-    // To be discussed
-}
-```
-</details>
-<details>
-<summary>CHANGE POSITION TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/change-position/{taskId}
-
-**Body:**
-
-```json
-{
-    // To be discussed
-}
-```
-</details>
-<details>
-<summary>DELETE TASK</summary>
-
-## Request
-
-**Endpoint:** `PACH` http://localhost:8086/todo/tasks/delete/{taskId}
-
-**Body:**
-
-```json
-{
-    // To be discussed
-}
+    "taskId": "Integer",
+    "position": "Integer",
+    "parentId": "Integer"
+}]
 ```
 </details>
 <details>
@@ -612,78 +550,88 @@
 **Body:**
 
 ```json
-{
+[
+  {
     "taskId": "Integer",
-    "title": "String",
-    "isDone": "Boolean",
-    "date": "String",
-    "expired": "Boolean",
-    "isFavorite": "Boolean",
+    "parentId": "Integer",
     "position": "Integer",
-    "ParentId": "Integer",
-    "tagsURL": "String URL",
-    "fullTaskURL": "String URL"
-}
+    "title": "string",
+    "date": "03-04-2023",
+    "isDone": "Boolean",
+    "isFavorite": "Boolean",
+    "taskURL": "string",
+    "tags": [
+        {
+        "tagId": "Integer",
+        "name": "string",
+        "color": "string"
+        }
+    ],
+    "expired": "Boolean"
+  }
+]
 ```
 </details>
 <details>
-<summary>GET TASK</summary>
+<summary>GET FULL TASK</summary>
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/tasks/{taskId}
+**Endpoint:** `GET` http://localhost:8086/todo/tasks/v1/{taskId}/{userId}
 
 **Body:**
 
 ```json
 {
-    "taskId": "Integer",
-    "title": "String",
-    "description": "String",
-    "isDone": "Boolean",
-    "date": "String",
-    "expired": "Boolean",
-    "isFavorite": "Boolean",
-    "position": "Integer",
-    "ParentId": "Integer",
-    "tagsURL": "String URL"
+  "taskId": "Integer",
+  "title": "string",
+  "description": "string",
+  "isDone": "Boolean",
+  "date": "03-04-2023",
+  "expired": "Boolean",
+  "isFavorite": "Boolean",
+  "parentId": "Integer",
+  "position": "Integer",
+  "tags": [
+    {
+      "tagId": "Integer",
+      "name": "string",
+      "color": "string"
+    }
+  ],
+  "commentsURL": "string"
 }
 ```
 </details>
 <details>
-<summary>GET ALL TASKS</summary>
+<summary>GET SUB TASKS</summary>
 
 ## Request
 
-**Endpoint:** `GET` http://localhost:8086/todo/tasks/{userId}
+**Endpoint:** `GET` http://localhost:8086/todo/tasks/v1/{parentId}
 
 **Body:**
 
 ```json
-[{
+[
+  {
     "taskId": "Integer",
-    "title": "String",
-    "isDone": "Boolean",
-    "date": "String",
-    "expired": "Boolean",
-    "isFavorite": "Boolean",
+    "parentId": "Integer",
     "position": "Integer",
-    "ParentId": "Integer",
-    "tagsURL": "String URL",
-    "fullTaskURL": "String URL"
-},
-{
-    "taskId": "Integer",
-    "title": "String",
+    "title": "string",
+    "date": "03-04-2023",
     "isDone": "Boolean",
-    "date": "String",
-    "expired": "Boolean",
     "isFavorite": "Boolean",
-    "position": "Integer",
-    "ParentId": "Integer",
-    "tagsURL": "String URL",
-    "fullTaskURL": "String URL"
-}
+    "taskURL": "string",
+    "tags": [
+        {
+        "tagId": "Integer",
+        "name": "string",
+        "color": "string"
+        }
+    ],
+    "expired": "Boolean"
+  }
 ]
 ```
 </details>
@@ -696,7 +644,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tags/create-tag
+**Endpoint:** `POST` http://localhost:8086/todo/tags/v1
 
 **Body:**
 
@@ -706,6 +654,44 @@
     "name": "String",
     "color": "String"
 }
+```
+</details>
+<details>
+<summary>GET ALL USER TAGS</summary>
+
+## Request
+
+**Endpoint:** `GET` http://localhost:8086/todo/tags/v1/users/{userId}
+
+**Body:**
+
+```json
+[
+  {
+    "tagId": "Integer",
+    "name": "string",
+    "color": "string"
+  }
+]
+```
+</details>
+<details>
+<summary>GET ALL TASK TAGS</summary>
+
+## Request
+
+**Endpoint:** `GET` http://localhost:8086/todo/tags/v1/task/{taskId}
+
+**Body:**
+
+```json
+[
+  {
+    "tagId": "Integer",
+    "name": "string",
+    "color": "string"
+  }
+]
 ```
 </details>
 <details>
@@ -713,41 +699,16 @@
 
 ## Request
 
-**Endpoint:** `DELETE` http://localhost:8086/todo/tags/{tagId}/{userId}
+**Endpoint:** `DELETE` http://localhost:8086/todo/tags/{taskId}/{tagId}
 
 **Body:**
 
 ```json
 {
-    // To be discussed
+    
 }
 ```
 </details>
-<details>
-<summary>GET ALL TAGS</summary>
-
-## Request
-
-**Endpoint:** `GET` http://localhost:8086/todo/tags/{userId}
-
-**Body:**
-
-```json
-[{
-    "tagId": "Integer",
-    "name": "String",
-    "color": "String"
-},
-{
-    "tagId": "Integer",
-    "name": "String",
-    "color": "String"
-}
-]
-```
-</details>
-
-
 
 ### COMMENTS
 <details>
@@ -755,14 +716,15 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/comments/create-comment
+**Endpoint:** `POST` http://localhost:8086/todo/comments/v1
 
 **Body:**
 
 ```json
 {
-    "commentId": "Integer",
-    "description": "String"
+  "commentId": "Integer",
+  "description": "string",
+  "taskId": "Integer"
 }
 ```
 </details>
@@ -776,14 +738,12 @@
 **Body:**
 
 ```json
-[{
+[
+  {
     "commentId": "Integer",
-    "description": "String"
-},
-{
-    "commentId": "Integer",
-    "description": "String"
-}
+    "description": "string",
+    "taskId": "Integer"
+  }
 ]
 ```
 </details>

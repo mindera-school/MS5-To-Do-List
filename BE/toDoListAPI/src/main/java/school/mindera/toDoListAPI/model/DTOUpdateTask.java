@@ -5,14 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOEditTask {
+@Getter
+@Setter
+public class DTOUpdateTask {
+    private Integer taskId;
     private String title;
     private String description;
-    private Date endDate;
+    private Boolean isDone;
+    private String date;
+    private Boolean isFavorite;
+    private Boolean disabled;
 }

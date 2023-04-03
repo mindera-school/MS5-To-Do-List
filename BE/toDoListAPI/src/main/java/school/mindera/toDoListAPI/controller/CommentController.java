@@ -18,12 +18,12 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @GetMapping("/{taskId}")
+    @GetMapping("/v1/{taskId}")
     public ResponseEntity<List<DTOComment>> getGroups(@PathVariable Integer taskId){
         return commentService.getComments(taskId);
     }
 
-    @PostMapping("/new-comment")
+    @PostMapping("/v1")
     public ResponseEntity<DTOComment> createComment(@RequestBody DTONewComment newComment){
         return commentService.createComment(newComment);
     }
