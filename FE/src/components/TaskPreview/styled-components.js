@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import styled, { css, keyframes } from "styled-components";
 
 
 const heartbeatAnim = keyframes`
@@ -119,6 +118,7 @@ export const ExtendDiv = styled.div`
 export const DateContainer = styled.div`
   display: flex;
   width: 120px;
+  margin-right: 25px;
   align-items: center;
 `;
 
@@ -141,5 +141,5 @@ export const EdgeButtonsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   width: 120px;
-  padding: 10px;
+  padding: 15px;
 `;
