@@ -17,7 +17,7 @@ const deleteTask = (id, e, deleteTaskContext, currentUser) => {
       fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
         method: "PATCH",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-type": "application/json",
         }
       })
         .then(r => {
