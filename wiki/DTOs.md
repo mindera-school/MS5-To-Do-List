@@ -114,7 +114,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks
+**Endpoint:** `POST` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
@@ -471,7 +471,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks/create-task
+**Endpoint:** `POST` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
