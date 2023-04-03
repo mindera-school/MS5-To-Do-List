@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useTaskListContext } from "../../context";
 import TaskPreview from "../TaskPreview";
@@ -7,6 +7,33 @@ import TaskPreview from "../TaskPreview";
 export default function TaskList() {
   const taskList = useTaskListContext().list;
   const updateTaskList = useTaskListContext().setTaskList;
+
+  function createPatchDTO(updatedList) {
+    return updatedList.map(e => {
+      return {
+        taskId: e.taskId,
+        position: e.position,
+        ParentId: e.ParentId
+      };
+    });
+  }
+
+  useEffect(() => {
+    const sendData = setTimeout(() => {
+      const data = createPatchDTO(taskList);
+      fetch("http://localhost:8086/todo/v1/tasks/change-position", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: data
+      });
+    }, 3000);
+
+    return () => clearTimeout(sendData);
+  }, [taskList]);
 
   function handleOnDragEnd(result) {
     if (result.destination === "") {
