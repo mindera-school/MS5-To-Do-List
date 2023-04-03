@@ -64,11 +64,13 @@ export default function TaskPreview({
   }, [isDetailVis, fullTaskURL]);
 
   const handleStop = useCallback((event, info) => {
+    console.log(event.target.toString());
     event.preventDefault();
-    isDragging.current = false;
-    if (event.target.toString() === "[object SVGPathElement]" || event.target.toString() === "[object SVGSVGElement]") {
+    if (isDragging) {
+      isDragging.current = false;
       return;
     }
+    isDragging.current = false;
     if (info.x >= 450) {
       setIsDone(id, true);
     }
