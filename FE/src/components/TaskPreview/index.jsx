@@ -64,7 +64,6 @@ export default function TaskPreview({
   }, [isDetailVis, fullTaskURL]);
 
   const handleStop = useCallback((event, info) => {
-    console.log(event.target.toString());
     event.preventDefault();
     if (isDragging) {
       isDragging.current = false;
