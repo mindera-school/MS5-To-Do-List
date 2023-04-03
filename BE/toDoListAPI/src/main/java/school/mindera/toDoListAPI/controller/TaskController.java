@@ -38,8 +38,13 @@ public class TaskController {
         return taskService.addTask(newTask);
     }
 
-    @PatchMapping()
+    @PatchMapping("/v1")
     public ResponseEntity<DTOUpdateTask> updateTask(@RequestBody DTOUpdateTask updatedTask){
         return taskService.updateTask(updatedTask);
+    }
+
+    @PatchMapping("/v1/change-position")
+    public ResponseEntity<List<DTOUpdatePosition>> updateTask(@RequestBody List<DTOUpdatePosition> updatedTasks){
+        return taskService.updatePosition(updatedTasks);
     }
 }

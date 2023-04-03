@@ -9,12 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DTOUpdateTask {
+public class DTOUpdatePosition {
     private Integer taskId;
-    private String title;
-    private String description;
-    private Boolean isDone;
-    private String date;
-    private Boolean isFavorite;
-    private Boolean disabled;
+    private Integer position;
+    private Integer parentId;
 }

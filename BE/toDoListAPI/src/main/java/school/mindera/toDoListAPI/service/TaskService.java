@@ -123,4 +123,9 @@ public class TaskService {
 
         return ResponseEntity.ok(new DTOUpdateTask());
     }
+
+    public ResponseEntity<List<DTOUpdatePosition>> updatePosition(List<DTOUpdatePosition> updatedTasks) {
+
+        return ResponseEntity.ok(new ArrayList<>());
+    }
 }
