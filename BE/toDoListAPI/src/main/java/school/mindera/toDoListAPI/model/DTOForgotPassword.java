@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOChangeParent {
-    private Integer parentId;
+public class DTOForgotPassword {
+    private String newPassword;
 }
