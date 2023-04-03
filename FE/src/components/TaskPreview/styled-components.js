@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 
 const heartbeatAnim = keyframes`
@@ -104,8 +105,6 @@ display: flex;
 
 
 export const VerticalLine = styled.div`
-  position: absolute;
-  right: 10%;
   background-color: white;
   width: 1px;
   height: 75%;
@@ -124,8 +123,6 @@ export const DateContainer = styled.div`
 `;
 
 export const TaskDetailsBtn = styled.button`
-  position: absolute;
-  right: 3%;
   align-self: center;
   background-color: transparent;
   border: none;
@@ -133,4 +130,16 @@ export const TaskDetailsBtn = styled.button`
   cursor: pointer;
 `;
 
+export const DeleteBtn = styled.button`
+  color: #D01010;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
 
+export const EdgeButtonsContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 120px;
+  padding: 10px;
+`;

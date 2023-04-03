@@ -61,6 +61,14 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
+  const deleteTaskFromContext = useCallback((taskId) => {
+    const updatedList = taskListState.list.filter(e => e.taskId !== taskId);
+    setTaskListState((oldState) => ({
+      ...oldState,
+      list: updatedList,
+    }));
+  });
+
   const setDisplayedTaskList = useCallback((newDisplayedList) => {
     setTaskListState((oldState) => ({
       ...oldState,
@@ -71,6 +79,7 @@ export const useCreateTaskListContext = () => {
   return {
     ...taskListState,
     setTaskList,
-    setDisplayedTaskList,
+    deleteTaskFromContext,
+    setDisplayedTaskList
   };
 };

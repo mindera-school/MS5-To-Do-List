@@ -1,15 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { MdOpenInFull } from "react-icons/md";
+import { SlClose } from "react-icons/sl";
+import { AppContext, TaskListContext } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
-
 import {
-  DateContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
+  DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
 } from "./styled-components";
+
+const deleteTask = (id, e, deleteTaskContext, currentUser) => {
+  e.stopPropagation();
+  if (currentUser !== null) {
+    try {
+      fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        }
+      })
+        .then(r => {
+          r.ok ? deleteTaskContext(id) : console.log("Couldn't connect!");
+        });
+    } catch (exception) {
+      console.error("Unable to delete");
+    }
+  } else {
+    deleteTaskContext(id);
+  }
+};
+
 
 //TaskPreview template that will be generated for each task through the TaskList component
 export default function TaskPreview({
+  id,
   title,
   dueDate,
   tagsListUrl,
@@ -23,6 +47,8 @@ export default function TaskPreview({
   const [isThisDone, setIsThisDone] = useState(isDone);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
+  const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
+  const currentUser = useContext(AppContext).currentUser;
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -46,13 +72,20 @@ export default function TaskPreview({
       </div>
       <ExtendDiv></ExtendDiv>
       <DateContainer>
-        <AiOutlineCalendar size="20px" color="white" />
+        <AiOutlineCalendar size={20} color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
       <VerticalLine></VerticalLine>
-      <TaskDetailsBtn onClick={() => setIsDetailVis(true)}>
-        <MdOpenInFull size="20px" color="black" />
-      </TaskDetailsBtn>
+      <EdgeButtonsContainer>
+        <DeleteBtn onClick={(e) => {
+          deleteTask(id, e, deleteTaskFromContext, currentUser);
+        }}>
+          <SlClose size={20} />
+        </DeleteBtn>
+        <TaskDetailsBtn>
+          <MdOpenInFull size={20} color="black" />
+        </TaskDetailsBtn>
+      </EdgeButtonsContainer>
     </StyledTaskPreview>
     <TaskDetailsModal task={task} display={isDetailVis} setDisplay={setIsDetailVis}></TaskDetailsModal>
   </>;
