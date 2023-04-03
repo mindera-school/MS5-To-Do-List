@@ -1,14 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useRef, useState } from "react";
+import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { BiMoveVertical } from "react-icons/bi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
 import { AppContext, TaskListContext } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
-  DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, TaskMover, VerticalLine
+  DateContainer, DeleteBtn, DraggerContainer, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
 } from "./styled-components";
+
 
 const deleteTask = (id, e, deleteTaskContext, currentUser) => {
   e.stopPropagation();
@@ -17,7 +18,7 @@ const deleteTask = (id, e, deleteTaskContext, currentUser) => {
       fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
         method: "PATCH",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
+          "Content-type": "application/json",
         }
       })
         .then(r => {
@@ -40,15 +41,17 @@ export default function TaskPreview({
   tagsListUrl,
   isDone,
   isFavorite,
-  fullTaskURL
+  fullTaskURL,
+  dragger,
 }) {
 
   const [isThisFav, setIsThisFav] = useState(isFavorite);
-  const [isThisDone, setIsThisDone] = useState(isDone);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
   const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
   const currentUser = useContext(AppContext).currentUser;
+  const setIsDone = useContext(TaskListContext).setTaskDoneState;
+  const isDragging = useRef(null);
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -60,38 +63,75 @@ export default function TaskPreview({
       .then(r => setTask(r));
   }, [isDetailVis, fullTaskURL]);
 
+  const handleStop = useCallback((event, info) => {
+    event.preventDefault();
+    isDragging.current = false;
+    if (event.target.toString() === "[object SVGPathElement]" || event.target.toString() === "[object SVGSVGElement]") {
+      return;
+    }
+    if (info.x >= 450) {
+      setIsDone(id, true);
+    }
+    if (info.x <= -450) {
+      deleteTask(id, event, deleteTaskFromContext, currentUser);
+    }
+  }, [currentUser, deleteTaskFromContext, id, setIsDone]);
+
+  const handleStart = useCallback((event, info) => {
+    if (event.target.toString() === "[object SVGPathElement]" || event.target.toString() === "[object SVGSVGElement]") {
+      isDragging.current = true;
+      return;
+    }
+  }, []);
+
+  const handleDrag = useCallback(() => {
+    isDragging.current = true;
+  }, []);
+
   return <>
-    <StyledTaskPreview>
-      <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
-      <div>
-        <NameAndDone>
-          <input checked={isThisDone} onChange={() => setIsThisDone(isThisDone ? false : true)} type="checkbox" />
-          <h3>{title}</h3>
-        </NameAndDone>
-        <TaskTagsList listUrl={tagsListUrl}></TaskTagsList>
+    <Draggable
+      axis={isDragging.current ? "none" : "x"}
+      handle=".handle"
+      scale={1}
+      position={{ x: 0, y: 0 }}
+      onStart={handleStart}
+      onStop={handleStop}
+      onDrag={handleDrag}
+    >
+      <div className="handle">
+        <StyledTaskPreview>
+          <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
+          <div>
+            <NameAndDone>
+              <input checked={isDone} onChange={() => {
+                setIsDone(id, isDone ? false : true);
+              }} type="checkbox" />
+              <h3>{title}</h3>
+            </NameAndDone>
+            <TaskTagsList listUrl={tagsListUrl}></TaskTagsList>
+          </div>
+          <ExtendDiv></ExtendDiv>
+          <DateContainer>
+            <AiOutlineCalendar size={20} color="white" />
+            <h4>{dueDate}</h4>
+          </DateContainer>
+          <DraggerContainer isDragDisabled={true}>
+            {dragger}
+          </DraggerContainer>
+          <VerticalLine></VerticalLine>
+          <EdgeButtonsContainer>
+            <DeleteBtn onClick={(e) => {
+              deleteTask(id, e, deleteTaskFromContext, currentUser);
+            }}>
+              <SlClose size={20} />
+            </DeleteBtn>
+            <TaskDetailsBtn>
+              <MdOpenInFull size={20} color="black" />
+            </TaskDetailsBtn>
+          </EdgeButtonsContainer>
+        </StyledTaskPreview>
       </div>
-      <ExtendDiv></ExtendDiv>
-      <DateContainer>
-        <AiOutlineCalendar size={20} color="white" />
-        <h4>{dueDate}</h4>
-      </DateContainer>
-      <TaskMover>
-        <button>
-          <BiMoveVertical size={20} color="white" />
-        </button>
-      </TaskMover>
-      <VerticalLine></VerticalLine>
-      <EdgeButtonsContainer>
-        <DeleteBtn onClick={(e) => {
-          deleteTask(id, e, deleteTaskFromContext, currentUser);
-        }}>
-          <SlClose size={20} />
-        </DeleteBtn>
-        <TaskDetailsBtn>
-          <MdOpenInFull size={20} color="black" />
-        </TaskDetailsBtn>
-      </EdgeButtonsContainer>
-    </StyledTaskPreview>
+    </Draggable>
     <TaskDetailsModal task={task} display={isDetailVis} setDisplay={setIsDetailVis}></TaskDetailsModal>
   </>;
 }

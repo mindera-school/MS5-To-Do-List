@@ -1,5 +1,7 @@
 package school.mindera.toDoListAPI.exceptions.user;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,7 +15,7 @@ import java.util.Date;
 public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {InvalidUserException.class})
-    public ResponseEntity handleInvalidUser(InvalidUserException e){
+    public ResponseEntity handleInvalidUser(RuntimeException e){
         ErrorResponse response = ErrorResponse.builder()
                 .code(13)
                 .type("user")
@@ -25,7 +27,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {UserAlreadyExistsException.class})
-    public ResponseEntity handleUserAlreadyExists(InvalidUserException e){
+    public ResponseEntity handleUserAlreadyExists(RuntimeException e){
         ErrorResponse response = ErrorResponse.builder()
                 .code(11)
                 .type("user")
@@ -37,7 +39,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {UserWrongCredentials.class})
-    public ResponseEntity handleUserWrongCredentials(InvalidUserException e){
+    public ResponseEntity handleUserWrongCredentials(RuntimeException e){
         ErrorResponse response = ErrorResponse.builder()
                 .code(10)
                 .type("user")
@@ -49,7 +51,7 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {UserNotAuthorizedException.class})
-    public ResponseEntity handleUserNotAuthorized(InvalidUserException e){
+    public ResponseEntity handleUserNotAuthorized(RuntimeException e){
         ErrorResponse response = ErrorResponse.builder()
                 .code(12)
                 .type("user")

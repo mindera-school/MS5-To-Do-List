@@ -32,4 +32,9 @@ public class UserController {
     public void changeProfileImage(@PathVariable Integer userId, @RequestBody DTOChangeImg changeImg) {
         userService.changeUserProfileImg(userId, changeImg);
     }
+
+    @PatchMapping("/forgot_password")
+    public void forgotPassword(@RequestBody DTOForgotPassword newPassword) {
+        // Nice to Have
+    }
 }

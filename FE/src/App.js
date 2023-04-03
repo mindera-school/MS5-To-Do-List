@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import CreateTasksContainer from "./components/CreateTasksContainer";
 import Header from "./components/Header";
 import TaskList from "./components/TaskList";
 import LeftMenu from "./components/LeftMenu";
@@ -6,11 +7,11 @@ import {
   AppContext,
   TaskListContext,
   useCreateAppContext,
-  useCreateTaskListContext,
+  useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import CreateTasksContainer from "./components/AddTasks/CreateTasksContainer";
-import { GlobalStyle, Main, CentralDiv, LateralDiv } from "./GlobalStyles";
+import { GlobalStyle, Main, CentralDiv, LateralDiv  } from "./GlobalStyles";
+
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();

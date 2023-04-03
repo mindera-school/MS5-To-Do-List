@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledDrawer = styled.div`
-  display: block;
+  display: ${({ isShowing }) => isShowing ? "block" : "none"};
   right: ${({ position }) => position};
   position: absolute;
   top: 0;
