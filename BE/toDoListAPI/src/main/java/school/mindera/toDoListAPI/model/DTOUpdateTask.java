@@ -10,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DTOUpdateTask {
-    private Integer taskId;
     private String title;
     private String description;
     private Boolean isDone;

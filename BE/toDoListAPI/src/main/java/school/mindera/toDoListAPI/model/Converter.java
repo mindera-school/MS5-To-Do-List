@@ -1,6 +1,5 @@
 package school.mindera.toDoListAPI.model;
 
-import org.springframework.scheduling.config.Task;
 import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
@@ -9,7 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
+
+import static java.util.Objects.isNull;
 
 public class Converter {
     public static DTOTaskPreview toDTOTaskPreview(TasksEntity task){
@@ -59,7 +59,6 @@ public class Converter {
     public static DTOUpdateTask toDTOUpdateTask(TasksEntity task){
         DTOUpdateTask taskDTO = new DTOUpdateTask();
 
-        taskDTO.setTaskId(task.getTaskId());
         taskDTO.setTitle(task.getTitle());
         taskDTO.setDescription(task.getDescription());
         taskDTO.setIsDone(task.isDone());
@@ -77,7 +76,7 @@ public class Converter {
 
         taskDTO.setTaskId(task.getTaskId());
         taskDTO.setPosition(task.getPosition());
-        taskDTO.setParentId(task.getParentId().getTaskId());
+        taskDTO.setParentId((isNull(task.getParentId()) ? null : task.getParentId().getTaskId()));
 
         return taskDTO;
     }
