@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class DTOChangeParent {
+public class DTOUpdatePosition {
+    private Integer taskId;
+    private Integer position;
     private Integer parentId;
 }
