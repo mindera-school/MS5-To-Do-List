@@ -55,6 +55,7 @@ export default function TaskList() {
             ref={providedDraggable.innerRef}
           >
             <TaskPreview
+              id={e.taskId}
               title={e.title}
               isDone={e.isDone}
               dueDate={e.date}
