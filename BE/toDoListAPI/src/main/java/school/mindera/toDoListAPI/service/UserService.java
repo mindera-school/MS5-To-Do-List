@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
+import school.mindera.toDoListAPI.exceptions.user.UserAlreadyExistsException;
 import school.mindera.toDoListAPI.model.DTOChangeImg;
 import school.mindera.toDoListAPI.model.DTOLoggedUser;
 import school.mindera.toDoListAPI.model.DTOLogin;
@@ -26,6 +27,13 @@ public class UserService {
     }
 
     public DTOLoggedUser register(DTORegister register) {
+        if (usersRepository.existsByUsername(register.getUsername())){
+            throw new UserAlreadyExistsException("this username is already been used");
+        }
+        if (usersRepository.existsByEmail(register.getEmail())){
+            throw new UserAlreadyExistsException("this email is already been used");
+        }
+
         UsersEntity newUser = new UsersEntity();
         newUser.setUsername(register.getUsername());
         newUser.setPassword(passwordEncoder.encode(register.getPassword()));
