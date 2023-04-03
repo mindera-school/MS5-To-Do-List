@@ -5,12 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
-public class DTOUpdatePosition {
+@AllArgsConstructor
+@NoArgsConstructor
+public class DTOChangePosition {
     private Integer taskId;
-    private Integer position;
-    private Integer parentId;
+    private Integer newPosition;
 }
