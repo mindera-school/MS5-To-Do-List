@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { BiMove } from "react-icons/bi";
 import { useTaskListContext } from "../../context";
 import TaskPreview from "../TaskPreview";
 
@@ -52,7 +53,7 @@ export default function TaskList() {
         {(providedDraggable) =>
           <div {...providedDraggable.draggableProps}
             ref={providedDraggable.innerRef}
-            {...providedDraggable.dragHandleProps} >
+          >
             <TaskPreview
               title={e.title}
               isDone={e.isDone}
@@ -61,6 +62,10 @@ export default function TaskList() {
               position={e.position}
               tagsListUrl={e.tagsURL}
               fullTaskURL={e.fullTaskURL}
+              dragger={<div
+                {...providedDraggable.dragHandleProps}>
+                <BiMove size={25} />
+              </div>}
             >
             </TaskPreview>
           </div>

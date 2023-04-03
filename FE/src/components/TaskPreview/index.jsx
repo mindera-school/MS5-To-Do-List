@@ -6,7 +6,7 @@ import { AppContext, TaskListContext } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
-  DateContainer, DeleteBtn, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
+  DateContainer, DeleteBtn, DraggerContainer, EdgeButtonsContainer, ExtendDiv, NameAndDone, StyledFavHeart, StyledTaskPreview, TaskDetailsBtn, VerticalLine
 } from "./styled-components";
 
 const deleteTask = (id, e, deleteTaskContext, currentUser) => {
@@ -40,7 +40,7 @@ export default function TaskPreview({
   isDone,
   isFavorite,
   fullTaskURL,
-  position
+  dragger
 }) {
 
   const [isThisFav, setIsThisFav] = useState(isFavorite);
@@ -75,6 +75,9 @@ export default function TaskPreview({
         <AiOutlineCalendar size={20} color="white" />
         <h4>{dueDate}</h4>
       </DateContainer>
+      <DraggerContainer>
+        {dragger}
+      </DraggerContainer>
       <VerticalLine></VerticalLine>
       <EdgeButtonsContainer>
         <DeleteBtn onClick={(e) => {

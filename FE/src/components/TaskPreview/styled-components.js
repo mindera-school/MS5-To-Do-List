@@ -143,3 +143,8 @@ export const EdgeButtonsContainer = styled.div`
   width: 120px;
   padding: 15px;
 `;
+
+export const DraggerContainer = styled.div`
+  margin-right: 15px;
+  align-self: center;
+`;
