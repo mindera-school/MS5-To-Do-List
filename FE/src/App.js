@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
-import TaskDetailsModal from "./components/TaskDetailsModal";
 import TaskList from "./components/TaskList";
+import LeftMenu from "./components/LeftMenu";
 import {
   AppContext,
   TaskListContext,
@@ -9,14 +9,13 @@ import {
   useCreateTaskListContext,
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import CreateTasksContainer from "./components/CreateTasksContainer";
-import { GlobalStyle, Main } from "./GlobalStyles";
+import CreateTasksContainer from "./components/AddTasks/CreateTasksContainer";
+import { GlobalStyle, Main, CentralDiv, LateralDiv } from "./GlobalStyles";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
-
 
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
@@ -29,7 +28,7 @@ export default function App() {
     );
     //maybe we should add the tasks to the displayed tasklist. Then the backend would be called to confirm and fill the original task list with the new task
   }, [currentUser]);
-  
+
   useEffect(() => {
     tasksListContext.setDisplayedTaskList(tasksListContext.list);
   }, [tasksListContext.list]);
@@ -39,12 +38,16 @@ export default function App() {
       <AppContext.Provider value={appContext}>
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle />
-          <Header
-            tasksList={tasksListContext}
-          />
+          <Header tasksList={tasksListContext} />
           <Main>
-            <CreateTasksContainer />
-            <TaskList />
+            <LateralDiv>
+              <LeftMenu/>
+            </LateralDiv>
+            <CentralDiv>
+              <CreateTasksContainer />
+              <TaskList />
+            </CentralDiv>
+            <LateralDiv />
           </Main>
         </TaskListContext.Provider>
       </AppContext.Provider>
