@@ -43,8 +43,8 @@ public class TaskController {
         return taskService.updateTask(taskId, updatedTask);
     }
 
-    @PatchMapping("/v1/change-position/{userId}")
-    public ResponseEntity<List<DTOUpdatePosition>> updateTaskPosition(@PathVariable Integer userId, @RequestBody List<DTOUpdatePosition> updatedTasks){
-        return taskService.updatePosition(userId, updatedTasks);
+    @PatchMapping("/v1/change-position")
+    public ResponseEntity<List<DTOUpdatePosition>> updateTaskPosition(@RequestBody List<DTOUpdatePosition> updatedTasks){
+        return taskService.updatePosition(updatedTasks);
     }
 }

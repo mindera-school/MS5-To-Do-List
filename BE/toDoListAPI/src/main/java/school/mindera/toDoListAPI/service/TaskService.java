@@ -148,15 +148,11 @@ public class TaskService {
         return ResponseEntity.ok(Converter.toDTOUpdateTask(updatedTask));
     }
 
-    public ResponseEntity<List<DTOUpdatePosition>> updatePosition(Integer userId, List<DTOUpdatePosition> updateTasks) {
+    public ResponseEntity<List<DTOUpdatePosition>> updatePosition(List<DTOUpdatePosition> updateTasks) {
         List<TasksEntity> updatedTasks = new ArrayList<>();
 
         updateTasks.forEach((task) -> {
             Optional<TasksEntity> dataBaseTask = tasksRepository.findById(task.getTaskId());
-
-            if(dataBaseTask.get().getUserId().getUserId() != userId){
-                throw new InvalidTaskException("Not Valid User");
-            }
 
             if(dataBaseTask.isEmpty()){
                 throw new InvalidTaskException("Not Valid Task");
