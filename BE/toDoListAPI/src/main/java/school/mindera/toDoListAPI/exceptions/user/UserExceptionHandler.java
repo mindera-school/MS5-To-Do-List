@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import school.mindera.toDoListAPI.exceptions.ErrorResponse;
 
 import java.util.Date;
-@Order(Ordered.HIGHEST_PRECEDENCE)
+
 @ControllerAdvice
 public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
