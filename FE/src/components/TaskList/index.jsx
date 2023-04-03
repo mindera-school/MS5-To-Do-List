@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { BiMove } from "react-icons/bi";
-import { useTaskListContext } from "../../context";
+import { useAppContext, useTaskListContext } from "../../context";
 import TaskPreview from "../TaskPreview";
 
 //Injects every object task preview coming from the user state list of tasks into a Task Preview component
 export default function TaskList() {
   const taskList = useTaskListContext().list;
   const updateTaskList = useTaskListContext().setTaskList;
+  const currentUser = useAppContext().currentUser;
 
   function createPatchDTO(updatedList) {
     return updatedList.map(e => {
@@ -22,7 +23,7 @@ export default function TaskList() {
   useEffect(() => {
     const sendData = setTimeout(() => {
       const data = createPatchDTO(taskList);
-      fetch("http://localhost:8086/todo/tasks/v1/change-position", {
+      fetch(`http://localhost:8086/todo/tasks/v1/change-position/${currentUser.userId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"
