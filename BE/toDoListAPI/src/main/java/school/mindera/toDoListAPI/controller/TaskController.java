@@ -23,12 +23,12 @@ public class TaskController {
         return taskService.getTaskPreview(userId);
     }
 
-    @GetMapping("/{taskId}/{userId}")
+    @GetMapping("/v1/{taskId}/{userId}")
     public ResponseEntity<DTOTaskDetails> getTaskDetails(@PathVariable Integer taskId, @PathVariable Integer userId){
         return taskService.getTaskDetails(taskId, userId);
     }
 
-    @GetMapping("/sub-tasks/{parentId}")
+    @GetMapping("/v1/{parentId}")
     public ResponseEntity<List<DTOTaskPreview>> getSubTasks(@PathVariable Integer parentId){
         return taskService.getSubTasks(parentId);
     }

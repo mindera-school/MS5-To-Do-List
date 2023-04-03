@@ -17,17 +17,17 @@ public class TagController {
         this.tagService = tagService;
     }
 
-    @GetMapping("/task/{taskId}")
+    @GetMapping("/v1/task/{taskId}")
     public ResponseEntity<List<DTOTag>> getTagsByTaskId(@PathVariable Integer taskId){
         return tagService.getTaskTags(taskId);
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/v1/users/{userId}")
     public ResponseEntity<List<DTOTag>> getTasksByUserId(@PathVariable Integer userId){
         return tagService.getUserTags(userId);
     }
 
-    @PostMapping()
+    @PostMapping("/v1")
     public ResponseEntity<DTOTag> createTag(@RequestBody DTONewTag newTag){
         return tagService.createTag(newTag);
     }
