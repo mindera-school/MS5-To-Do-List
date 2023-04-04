@@ -1,7 +1,7 @@
 ## FrontEnd
 
-
 ### USERS
+
 <details>
 <summary>LOGIN</summary>
 
@@ -13,10 +13,11 @@
 
 ```json
 {
-	"username": "STRING",
-	"password": "STRING"
+  "username": "STRING",
+  "password": "STRING"
 }
 ```
+
 </details>
 <details>
 <summary>REGISTER</summary>
@@ -37,6 +38,7 @@
   "password": "string"
 }
 ```
+
 </details>
 <details>
 <summary>CHANGE PROFILE IMAGE</summary>
@@ -49,9 +51,10 @@
 
 ```json
 {
-    "profileImage": "string"
+  "profileImage": "string"
 }
 ```
+
 </details>
 <details>
 <summary>FORGOT PASSWORD</summary>
@@ -64,9 +67,10 @@
 
 ```json
 {
-    "newPassword": "string"
+  "newPassword": "string"
 }
 ```
+
 </details>
 
 <details>
@@ -104,17 +108,17 @@
         "timestemp": date
 }
 ```
+
 </details>
 
-
-
 ### TASKS
+
 <details>
 <summary>CREATE TASK</summary>
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks
+**Endpoint:** `POST` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
@@ -128,27 +132,28 @@
   "position": 0
 }
 ```
+
 </details>
 <details>
 <summary>UPDATE TASK</summary>
 
 ## Request
 
-**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1/{taskId}
 
 **Body:**
 
 ```json
 {
-    "taskId": "Integer",
-    "title": "String",
-    "description": "String",
-    "isDone": "Boolean",
-    "date": "String",
-    "isFavorite": "Boolean",
-    "disabled": "Boolean"
+  "title": "String",
+  "description": "String",
+  "isDone": "Boolean",
+  "date": "String",
+  "isFavorite": "Boolean",
+  "disabled": "Boolean"
 }
 ```
+
 </details>
 <details>
 <summary>UPDATE POSITION</summary>
@@ -160,17 +165,20 @@
 **Body:**
 
 ```json
-[{
+[
+  {
     "taskId": "Integer",
     "position": "Integer",
     "parentId": "Integer"
-},
-{
+  },
+  {
     "taskId": "Integer",
     "position": "Integer",
     "parentId": "Integer"
-}]
+  }
+]
 ```
+
 </details>
 <details>
 <summary>GET PREVIEW TASK</summary>
@@ -182,10 +190,9 @@
 **Body:**
 
 ```json
-{
-
-}
+{}
 ```
+
 </details>
 <details>
 <summary>GET FULL TASK</summary>
@@ -197,10 +204,9 @@
 **Body:**
 
 ```json
-{
-
-}
+{}
 ```
+
 </details>
 <details>
 <summary>GET SUB TASKS</summary>
@@ -212,10 +218,9 @@
 **Body:**
 
 ```json
-{
-
-}
+{}
 ```
+
 </details>
 
 <details>
@@ -253,9 +258,11 @@
         "timestemp": date
 }
 ```
+
 </details>
 
 ### TAGS
+
 <details>
 <summary>CREATE TAG</summary>
 
@@ -267,12 +274,13 @@
 
 ```json
 {
-    "name": "String",
-    "color": "String",
-    "userId": "Integer",
-    "taskId": "Integer"
+  "name": "String",
+  "color": "String",
+  "userId": "Integer",
+  "taskId": "Integer"
 }
 ```
+
 </details>
 <details>
 <summary>GET ALL USER TAGS</summary>
@@ -284,10 +292,9 @@
 **Body:**
 
 ```json
-{
-    
-}
+{}
 ```
+
 </details>
 <details>
 <summary>GET ALL TASK TAGS</summary>
@@ -299,10 +306,9 @@
 **Body:**
 
 ```json
-{
-    
-}
+{}
 ```
+
 </details>
 <details>
 <summary>DELETE TAG</summary>
@@ -314,10 +320,9 @@
 **Body:**
 
 ```json
-{
-    
-}
+{}
 ```
+
 </details>
 
 <details>
@@ -333,10 +338,11 @@
         "timestemp": date
 }
 ```
+
 </details>
 
-
 ### COMMENTS
+
 <details>
 <summary>CREATE COMMENT</summary>
 
@@ -348,10 +354,11 @@
 
 ```json
 {
-    "description": "String",
-    "taskId": "Integer"
+  "description": "String",
+  "taskId": "Integer"
 }
 ```
+
 </details>
 <details>
 <summary>GET ALL COMMENTS</summary>
@@ -363,10 +370,9 @@
 **Body:**
 
 ```json
-{
-    
-}
+{}
 ```
+
 </details>
 
 <details>
@@ -382,14 +388,15 @@
         "timestemp": date
 }
 ```
+
 </details>
 
---------
+---
 
 ## BackEnd
 
-
 ### USERS
+
 <details>
 <summary>LOGIN</summary>
 
@@ -410,6 +417,7 @@
   "tasksPreviewsURL": "string"
 }
 ```
+
 </details>
 <details>
 <summary>REGISTER</summary>
@@ -432,6 +440,7 @@
   "tasksPreviewsURL": "string"
 }
 ```
+
 </details>
 <details>
 <summary>CHANGE PROFILE IMAGE</summary>
@@ -444,9 +453,10 @@
 
 ```json
 {
-    "profileImage": "String"
+  "profileImage": "String"
 }
 ```
+
 </details>
 <details>
 <summary>FORGOT PASSWORD</summary>
@@ -458,21 +468,19 @@
 **Body:**
 
 ```json
-{
-    
-}
+{}
 ```
+
 </details>
 
-
-
 ### TASKS
+
 <details>
 <summary>CREATE TASK</summary>
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks/create-task
+**Endpoint:** `POST` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
@@ -496,27 +504,28 @@
   "expired": "Boolean"
 }
 ```
+
 </details>
 <details>
 <summary>UPDATE TASK</summary>
 
 ## Request
 
-**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1/{taskId}
 
 **Body:**
 
 ```json
 {
-    "taskId": "Integer",
-    "title": "String",
-    "description": "String",
-    "isDone": "Boolean",
-    "date": "String",
-    "isFavorite": "Boolean",
-    "disabled": "Boolean"
+  "title": "String",
+  "description": "String",
+  "isDone": "Boolean",
+  "date": "String",
+  "isFavorite": "Boolean",
+  "disabled": "Boolean"
 }
 ```
+
 </details>
 <details>
 <summary>UPDATE POSITION</summary>
@@ -528,17 +537,20 @@
 **Body:**
 
 ```json
-[{
+[
+  {
     "taskId": "Integer",
     "position": "Integer",
     "parentId": "Integer"
-},
-{
+  },
+  {
     "taskId": "Integer",
     "position": "Integer",
     "parentId": "Integer"
-}]
+  }
+]
 ```
+
 </details>
 <details>
 <summary>GET PREVIEW TASK</summary>
@@ -561,16 +573,17 @@
     "isFavorite": "Boolean",
     "taskURL": "string",
     "tags": [
-        {
+      {
         "tagId": "Integer",
         "name": "string",
         "color": "string"
-        }
+      }
     ],
     "expired": "Boolean"
   }
 ]
 ```
+
 </details>
 <details>
 <summary>GET FULL TASK</summary>
@@ -602,6 +615,7 @@
   "commentsURL": "string"
 }
 ```
+
 </details>
 <details>
 <summary>GET SUB TASKS</summary>
@@ -624,21 +638,21 @@
     "isFavorite": "Boolean",
     "taskURL": "string",
     "tags": [
-        {
+      {
         "tagId": "Integer",
         "name": "string",
         "color": "string"
-        }
+      }
     ],
     "expired": "Boolean"
   }
 ]
 ```
+
 </details>
 
-
-
 ### TAGS
+
 <details>
 <summary>CREATE TAG</summary>
 
@@ -650,11 +664,12 @@
 
 ```json
 {
-    "tagId": "Integer",
-    "name": "String",
-    "color": "String"
+  "tagId": "Integer",
+  "name": "String",
+  "color": "String"
 }
 ```
+
 </details>
 <details>
 <summary>GET ALL USER TAGS</summary>
@@ -674,6 +689,7 @@
   }
 ]
 ```
+
 </details>
 <details>
 <summary>GET ALL TASK TAGS</summary>
@@ -693,6 +709,7 @@
   }
 ]
 ```
+
 </details>
 <details>
 <summary>DELETE TAG</summary>
@@ -704,13 +721,13 @@
 **Body:**
 
 ```json
-{
-    
-}
+{}
 ```
+
 </details>
 
 ### COMMENTS
+
 <details>
 <summary>CREATE COMMENT</summary>
 
@@ -727,6 +744,7 @@
   "taskId": "Integer"
 }
 ```
+
 </details>
 <details>
 <summary>GET ALL COMMENTS</summary>
@@ -746,6 +764,7 @@
   }
 ]
 ```
+
 </details>
 </br>
 
@@ -753,24 +772,24 @@
 
 ## User
 
-**10** - *`wrong credentials`*
+**10** - _`wrong credentials`_
 
-**11** - *`register conflict`*
+**11** - _`register conflict`_
 
-**12** - *`users doesn't have permission`*
+**12** - _`users doesn't have permission`_
 
 ## Task
 
-**20** - *`task not found`*
+**20** - _`task not found`_
 
-**21** - *`missing data`*
+**21** - _`missing data`_
 
-**22** - *`invalid task`*
+**22** - _`invalid task`_
 
 ## Tag
 
-**30** - *`tag not found`*
+**30** - _`tag not found`_
 
 ## Comment
 
-**40** - *`comment not found`*
+**40** - _`comment not found`_
