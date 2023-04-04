@@ -11,6 +11,7 @@ import { BoxHeader, CustomLine, DescriptionContainer, HorizontalLine, InnerBox, 
 function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 	const [taskComments, setTaskComments] = useState([]);
+	const [isEditing, setIsEditing] = useState(false);
 
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
@@ -29,12 +30,13 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 			.then(r => setTaskComments(r));
 	}, [display]);
 
+	console.log(isEditing);
 	return <>
 		<Wrapper onClick={manageClose} display={display}>
 			<OuterBox onClick={(e) => e.stopPropagation()}>
 				<BoxHeader>
 					<button onClick={manageClose}><IoMdClose size={25} /></button>
-					<button >
+					<button onClick={() => setIsEditing(isEditing ? false : true)}>
 						<BiEdit size={25}></BiEdit>
 					</button>
 				</BoxHeader>

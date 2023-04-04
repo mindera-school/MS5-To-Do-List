@@ -65,11 +65,10 @@ export default function TaskPreview({
 
   const handleStop = useCallback((event, info) => {
     event.preventDefault();
-    if (isDragging) {
+    if (isDragging === true) {
       isDragging.current = false;
       return;
     }
-    isDragging.current = false;
     if (info.x >= 450) {
       setIsDone(id, true);
     }
@@ -79,14 +78,13 @@ export default function TaskPreview({
   }, [currentUser, deleteTaskFromContext, id, setIsDone]);
 
   const handleStart = useCallback((event, info) => {
+    if (event.target.toString() === "[object HTMLDivElement]") {
+      isDragging.current = false;
+    }
     if (event.target.toString() === "[object SVGPathElement]" || event.target.toString() === "[object SVGSVGElement]") {
       isDragging.current = true;
       return;
     }
-  }, []);
-
-  const handleDrag = useCallback(() => {
-    isDragging.current = true;
   }, []);
 
   return <>
@@ -97,7 +95,6 @@ export default function TaskPreview({
       position={{ x: 0, y: 0 }}
       onStart={handleStart}
       onStop={handleStop}
-      onDrag={handleDrag}
     >
       <div className="handle">
         <StyledTaskPreview>
