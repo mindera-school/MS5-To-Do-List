@@ -4,12 +4,10 @@ import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static java.util.Objects.isNull;
+import java.util.Objects;
 
 public class Converter {
     public static DTOTaskPreview toDTOTaskPreview(TasksEntity task){
@@ -22,9 +20,7 @@ public class Converter {
         DTOTaskPreview preview = new DTOTaskPreview();
         preview.setTaskId(task.getTaskId());
         preview.setTitle(task.getTitle());
-
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-        preview.setDate(formatDate.format(task.getEndDate()));
+        preview.setDate(task.getEndDate());
         preview.setIsDone(task.isDone());
         preview.setIsFavorite(task.isFavorite());
         preview.setPosition(task.getPosition());
@@ -56,31 +52,6 @@ public class Converter {
         taskDetails.setCommentsURL("http://localhost:8086/todo/comments/" + task.getTaskId());
 
         return taskDetails;
-    }
-
-    public static DTOUpdateTask toDTOUpdateTask(TasksEntity task){
-        DTOUpdateTask taskDTO = new DTOUpdateTask();
-
-        taskDTO.setTitle(task.getTitle());
-        taskDTO.setDescription(task.getDescription());
-        taskDTO.setIsDone(task.isDone());
-
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-        taskDTO.setDate(formatDate.format(task.getEndDate()));
-        taskDTO.setIsFavorite(task.isFavorite());
-        taskDTO.setDisabled(task.isDisabled());
-
-        return taskDTO;
-    }
-
-    public static DTOUpdatePosition toDTOUpdatePosition(TasksEntity task){
-        DTOUpdatePosition taskDTO = new DTOUpdatePosition();
-
-        taskDTO.setTaskId(task.getTaskId());
-        taskDTO.setPosition(task.getPosition());
-        taskDTO.setParentId((isNull(task.getParentId()) ? null : task.getParentId().getTaskId()));
-
-        return taskDTO;
     }
 
     public static List<DTOTag> toDTOTagList(List<TagsEntity> tagsEntities){

@@ -21,16 +21,16 @@ export default function CreateTasksContainer() {
   };
   const addHandler = async () => {
     if (newTask.title === "") return;
-    if (newTask.date === "") newTask.date = null;
+    if(newTask.date === "") newTask.date = null;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/v1", {
+      await fetch("http://localhost:8086/todo/tasks/new-task", {
         method: "POST",
+        body: JSON.stringify(newTask),
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newTask),
         redirect: "follow",
         referrerPolicy: "no-referrer",
       })
