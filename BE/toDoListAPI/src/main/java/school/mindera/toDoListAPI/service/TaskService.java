@@ -1,6 +1,5 @@
 package school.mindera.toDoListAPI.service;
 
-import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.TasksEntity;
@@ -11,9 +10,9 @@ import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,20 +92,31 @@ public class TaskService {
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
         Optional<TasksEntity> parent = Optional.ofNullable(null);
 
-        if (!isNull(newTask.getParentId())){
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        if(!isNull(newTask.getDate())) {
+            try {
+                date = formatData.parse(newTask.getDate());
+            } catch (Exception e) {
+                throw new InvalidTaskException("Date is not valid");
+            }
+        }
+
+        if (!isNull(newTask.getParentId())) {
             parent = tasksRepository.findById(newTask.getParentId());
         }
         if (user.isEmpty()) {
             throw new InvalidUserException("Invalid user");
         }
-        if (!isNull(newTask.getParentId()) && parent.isEmpty()){
+        if (!isNull(newTask.getParentId()) && parent.isEmpty()) {
             throw new InvalidTaskException("invalid task");
         }
 
         TasksEntity task = new TasksEntity();
         task.setTitle(newTask.getTitle());
         task.setDescription(newTask.getDescription());
-        task.setEndDate(newTask.getDate());
+
+        task.setEndDate(date);
         task.setUserId(user.get());
         task.setParentId(parent.isEmpty() ? null : parent.get());
         task.setPosition(newTask.getPosition());
@@ -119,13 +129,75 @@ public class TaskService {
         return ResponseEntity.ok(Converter.toDTOTaskPreview(savedTask));
     }
 
-    public ResponseEntity<DTOUpdateTask> updateTask(Integer taskId, DTOUpdateTask updateTask){
+    public ResponseEntity<DTOUpdateTask> updateTask(Integer taskId, DTOUpdateTask updateTask) {
+        Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
-        return ResponseEntity.ok(new DTOUpdateTask());
+        if (task.isEmpty()) {
+            throw new InvalidTaskException("Invalid Task");
+        }
+
+        TasksEntity updatedTask = setTaskUpdate(task.get(), updateTask);
+
+        tasksRepository.save(updatedTask);
+
+        return ResponseEntity.ok(Converter.toDTOUpdateTask(updatedTask));
     }
 
-    public ResponseEntity<List<DTOUpdatePosition>> updatePosition(List<DTOUpdatePosition> updatedTasks) {
+    public ResponseEntity<List<DTOUpdatePosition>> updatePosition(List<DTOUpdatePosition> updateTasks) {
+        List<TasksEntity> updatedTasks = new ArrayList<>();
 
-        return ResponseEntity.ok(new ArrayList<>());
+        updateTasks.forEach((task) -> {
+            Optional<TasksEntity> dataBaseTask = tasksRepository.findById(task.getTaskId());
+
+            if(dataBaseTask.isEmpty()){
+                throw new InvalidTaskException("Not Valid Task");
+            }
+
+            TasksEntity updatedTask = setTaskPosition(dataBaseTask.get(), task);
+
+            updatedTasks.add(updatedTask);
+        });
+
+        tasksRepository.saveAll(updatedTasks);
+
+        List<DTOUpdatePosition> updatedTasksDTOs = updatedTasks.stream()
+                .map(Converter::toDTOUpdatePosition)
+                .toList();
+
+        return ResponseEntity.ok(updatedTasksDTOs);
+    }
+
+    private TasksEntity setTaskUpdate(TasksEntity task, DTOUpdateTask updateTask){
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        Date date;
+        try {
+            date = formatData.parse(updateTask.getDate());
+        } catch (Exception e) {
+            throw new InvalidTaskException("Date is not valid");
+        }
+
+        task.setTitle(updateTask.getTitle());
+        task.setDescription(updateTask.getDescription());
+        task.setDone(updateTask.getIsDone());
+        task.setEndDate(date);
+        task.setFavorite(updateTask.getIsFavorite());
+        task.setDisabled(updateTask.getDisabled());
+
+        return task;
+    }
+
+    private TasksEntity setTaskPosition(TasksEntity task, DTOUpdatePosition updateTask){
+        if(!isNull(updateTask.getParentId())) {
+            Optional<TasksEntity> parent = tasksRepository.findById(updateTask.getParentId());
+            if (parent.isEmpty()) {
+                throw new InvalidTaskException("Parent is not valid");
+            }
+            task.setParentId(parent.get());
+        }else {
+            task.setParentId(null);
+        }
+        task.setPosition(updateTask.getPosition());
+
+        return task;
     }
 }
