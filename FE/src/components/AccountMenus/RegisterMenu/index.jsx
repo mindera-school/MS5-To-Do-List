@@ -34,6 +34,16 @@ export const RegisterMenu = () => {
 	const [password, setPassword] = useState("");
 
 	async function sendRegisterInfo(data) {
+
+		if (!checkEmail(data.email)) {
+			console.log("invalid email");
+			return;
+		}
+		if (!checkPassword(data.password)) {
+			console.log("invalid password");
+			return;
+		}
+
 		// in the future should open error modal
 		if (!checkUserValidaty(data)) {
 			console.log("All fields must be filled");
@@ -46,7 +56,7 @@ export const RegisterMenu = () => {
 			},
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
-			body: data,
+			body: JSON.stringify(data),
 		})
 			.then(r => r.json())
 			.catch(r => console.log(r));
@@ -90,6 +100,16 @@ export const RegisterMenu = () => {
 			</RegisterForm>
 		</RegisterContainer>
 	</>;
+};
+
+const checkPassword = (password) => {
+	const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/;
+	return password.match(regex);
+};
+
+const checkEmail = (email) => {
+	const regex = /^[\w -.]+@([\w-]+\.)+[\w-]{2,4}$/;
+	return email.match(regex);
 };
 
 
