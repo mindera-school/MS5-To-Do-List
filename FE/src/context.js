@@ -76,6 +76,24 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
+  const updateTask = useCallback((id, updatedTask) => {
+    const newList = taskListState.list.map(e => {
+      console.log(id, e.taskId);
+      if (e.taskId === id) {
+        return {
+          ...e,
+          ...updatedTask
+        };
+      }
+      return e;
+    });
+
+    setTaskListState((oldState) => ({
+      ...oldState,
+      list: newList
+    }));
+  });
+
   const setTaskDoneState = useCallback((id, state) => {
     const newList = taskListState.list.map(e => {
       if (e.taskId === id) {
@@ -98,6 +116,7 @@ export const useCreateTaskListContext = () => {
     setTaskList,
     deleteTaskFromContext,
     setDisplayedTaskList,
-    setTaskDoneState
+    setTaskDoneState,
+    updateTask
   };
 };
