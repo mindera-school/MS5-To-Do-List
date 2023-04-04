@@ -106,7 +106,6 @@ export default function CreateTasksContainer() {
 }
 
 function compareObjs(obj1, obj2) {
-  console.log(obj1.date, obj2.date);
   if (
     obj1.title === obj2.title &&
     obj2.date.includes(obj1.date) &&
