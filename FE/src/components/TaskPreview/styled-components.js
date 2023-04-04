@@ -154,4 +154,13 @@ export const SubtasksBtns = styled.button`
   position: absolute;
   bottom: 0;
   right: 50%;
+  cursor: pointer;
+  transform: rotate(${({ show }) => (show ? "180deg" : "0deg")});
+  transition: transform 0.7s;
+`;
+
+export const SubtasksList = styled.div`
+  max-height: ${({ show }) => (show ? "500px" : "0px")};
+  overflow-y: hidden;
+  transition: max-height 0.7s ease-in;
 `;

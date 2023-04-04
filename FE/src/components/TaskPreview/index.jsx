@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
-import { HiChevronDown } from "react-icons/hi";
+import { FiChevronDown } from "react-icons/fi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
 import { AppContext, TaskListContext } from "../../context.js";
@@ -25,7 +25,6 @@ import {
   VerticalLine
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
-
 
 const deleteTask = (id, e, deleteTaskContext, currentUser) => {
   e.stopPropagation();
@@ -70,6 +69,7 @@ export default function TaskPreview({
   const [padding, setPadding] = useState(false);
   const taskList = useContext(TaskListContext).list;
   const [taskChildren, setTaskChildren] = useState([]);
+  const [showChildren, setShowChildren] = useState(false);
 
   useEffect(() => {
     setPadding("3px 15px");
@@ -130,6 +130,7 @@ export default function TaskPreview({
   }, []);
 
   const handleStop = useCallback((event, info) => {
+    console.log(info);
     event.preventDefault();
     if (isDragging === true) {
       isDragging.current = false;
@@ -158,7 +159,19 @@ export default function TaskPreview({
       .then(r => setTaskChildren(r));
   }, [taskList, id, isParent]);
 
-  console.log("id" + id, taskChildren);
+  const getChevron = () => {
+    if (isParent && taskChildren.length >= 1) {
+      return <SubtasksBtns show={showChildren} onClick={() => setShowChildren(showChildren ? false : true)}>
+        <FiChevronDown size={25} />
+      </SubtasksBtns>;
+    }
+  };
+
+  useEffect(() => {
+    if (isDragging === true) {
+      setShowChildren(false);
+    }
+  }, [isDragging]);
 
   return (
     <>
@@ -196,9 +209,7 @@ export default function TaskPreview({
               <AiOutlineCalendar size={20} color="white" />
               <h4>{dueDate}</h4>
             </DateContainer>
-            <SubtasksBtns>
-              <HiChevronDown />
-            </SubtasksBtns>
+            {getChevron()}
             <DraggerContainer isDragDisabled={true}>{dragger}</DraggerContainer>
             <VerticalLine></VerticalLine>
             <EdgeButtonsContainer>
@@ -217,7 +228,7 @@ export default function TaskPreview({
         </div>
       </Draggable>
       {
-        taskChildren.length !== 0 ? <SubtaskList list={taskChildren} /> : null
+        taskChildren.length !== 0 ? <SubtaskList list={taskChildren} show={showChildren} /> : null
       }
       <TaskDetailsModal
         task={task}

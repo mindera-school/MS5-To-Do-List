@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { BiMove } from "react-icons/bi";
 import TaskPreview from "./index";
+import { SubtasksList } from "./styled-components";
 
-function SubtaskList({ list }) {
+function SubtaskList({ list, show }) {
 	const [stateList, setStateList] = useState(list);
 
 	function handleOnDragEnd(result) {
@@ -52,20 +53,22 @@ function SubtaskList({ list }) {
 	});
 
 	return <>
-		<DragDropContext onDragEnd={handleOnDragEnd}>
-			<Droppable droppableId="subtaskList">
-				{(providedDroppable) => (
-					<div
-						className="subtasksList"
-						{...providedDroppable.droppableProps}
-						ref={providedDroppable.innerRef}
-					>
-						{subtasks}
-						{providedDroppable.placeholder}
-					</div>
-				)}
-			</Droppable>
-		</DragDropContext>
+		<SubtasksList show={show}>
+			<DragDropContext onDragEnd={handleOnDragEnd}>
+				<Droppable droppableId="subtaskList">
+					{(providedDroppable) => (
+						<div
+							className="subtasksList"
+							{...providedDroppable.droppableProps}
+							ref={providedDroppable.innerRef}
+						>
+							{subtasks}
+							{providedDroppable.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
+		</SubtasksList>
 	</>;
 }
 
