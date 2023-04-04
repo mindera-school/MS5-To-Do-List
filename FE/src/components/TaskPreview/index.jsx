@@ -107,9 +107,9 @@ export default function TaskPreview({
         return;
       }
       const taskDate = new Date(dueDate);
-      const endDate = new Date();
-      const warningDate = new Date(endDate.getTime() + 48 * 60 * 60 * 1000);
-      if (warningDate <= taskDate || taskDate <= endDate.getTime()) {
+      const currentDate = new Date();
+      const warningDate = new Date(currentDate.getTime() + 48 * 60 * 60 * 1000);
+      if (taskDate <= warningDate) {
         if(borderColor === "none"){
           setBorderColor("3px solid red");
           setPadding("0 12px");
