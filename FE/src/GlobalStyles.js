@@ -34,9 +34,10 @@ export const CentralDiv = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  overflow: auto;
+  overflow: visible;
   flex: 3;
   height: 100vh;
+  z-index: 2;
 `;
 
 export const LateralDiv = styled.div`
