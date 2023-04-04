@@ -45,16 +45,17 @@ export default function CreateTasksContainer() {
   const [newTaskState, dispatch] = useReducer(reducer, newTask);
 
   const addHandler = async () => {
-    if (newTaskState.title === "") return;
+    if (newTask.title === "") return;
+    if (newTask.date === "") newTask.date = null;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/new-task", {
+      await fetch("http://localhost:8086/todo/tasks/v1", {
         method: "POST",
-        body: JSON.stringify(newTaskState),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(newTaskState),
         redirect: "follow",
         referrerPolicy: "no-referrer",
       })
@@ -105,6 +106,7 @@ export default function CreateTasksContainer() {
 }
 
 function compareObjs(obj1, obj2) {
+  console.log(obj1.date, obj2.date);
   if (
     obj1.title === obj2.title &&
     obj2.date.includes(obj1.date) &&
