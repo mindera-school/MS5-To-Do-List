@@ -7,11 +7,10 @@ import {
   AppContext,
   TaskListContext,
   useCreateAppContext,
-  useCreateTaskListContext
+  useCreateTaskListContext,
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import { GlobalStyle, Main, CentralDiv, LateralDiv  } from "./GlobalStyles";
-
+import { GlobalStyle, Main, CentralDiv, LateralDiv } from "./GlobalStyles";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
@@ -33,7 +32,6 @@ export default function App() {
   useEffect(() => {
     tasksListContext.setDisplayedTaskList(tasksListContext.list);
   }, [tasksListContext.list]);
-
   return (
     <>
       <AppContext.Provider value={appContext}>
@@ -42,7 +40,7 @@ export default function App() {
           <Header tasksList={tasksListContext} />
           <Main>
             <LateralDiv>
-              <LeftMenu/>
+              <LeftMenu />
             </LateralDiv>
             <CentralDiv>
               <CreateTasksContainer />
