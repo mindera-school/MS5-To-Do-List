@@ -3,14 +3,11 @@ package school.mindera.toDoListAPI.model;
 import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
-import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.isNull;
 
@@ -28,12 +25,8 @@ public class Converter {
 
         String date = null;
         if(!isNull(task.getEndDate())) {
-            DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                date = formatDate.format(task.getEndDate());
-            } catch (Exception e) {
-                throw new InvalidTaskException("Invalid Date");
-            }
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+            date = formatDate.format(task.getEndDate());
         }
         preview.setDate(date);
         preview.setIsDone(task.isDone());
@@ -59,12 +52,8 @@ public class Converter {
 
         String date = null;
         if(!isNull(task.getEndDate())) {
-            DateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-            try {
-                date = formatDate.format(task.getEndDate());
-            } catch (Exception e) {
-                throw new InvalidTaskException("Invalid Date");
-            }
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+            date = formatDate.format(task.getEndDate());
         }
         taskDetails.setDate(date);
         taskDetails.setIsDone(task.isDone());
@@ -77,6 +66,31 @@ public class Converter {
         taskDetails.setCommentsURL("http://localhost:8086/todo/comments/v1/" + task.getTaskId());
 
         return taskDetails;
+    }
+
+    public static DTOUpdateTask toDTOUpdateTask(TasksEntity task){
+        DTOUpdateTask taskDTO = new DTOUpdateTask();
+
+        taskDTO.setTitle(task.getTitle());
+        taskDTO.setDescription(task.getDescription());
+        taskDTO.setIsDone(task.isDone());
+
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
+        taskDTO.setDate(formatDate.format(task.getEndDate()));
+        taskDTO.setIsFavorite(task.isFavorite());
+        taskDTO.setDisabled(task.isDisabled());
+
+        return taskDTO;
+    }
+
+    public static DTOUpdatePosition toDTOUpdatePosition(TasksEntity task){
+        DTOUpdatePosition taskDTO = new DTOUpdatePosition();
+
+        taskDTO.setTaskId(task.getTaskId());
+        taskDTO.setPosition(task.getPosition());
+        taskDTO.setParentId((isNull(task.getParentId()) ? null : task.getParentId().getTaskId()));
+
+        return taskDTO;
     }
 
     public static List<DTOTag> toDTOTagList(List<TagsEntity> tagsEntities){

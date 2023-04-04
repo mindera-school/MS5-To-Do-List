@@ -33,18 +33,18 @@ public class TaskController {
         return taskService.getSubTasks(parentId);
     }
 
-    @PostMapping()
+    @PostMapping("/v1")
     public ResponseEntity<DTOTaskPreview> createTask(@RequestBody DTONewTask newTask){
         return taskService.addTask(newTask);
     }
 
-    @PatchMapping("/v1")
-    public ResponseEntity<DTOUpdateTask> updateTask(@RequestBody DTOUpdateTask updatedTask){
-        return taskService.updateTask(updatedTask);
+    @PatchMapping("/v1/{taskId}")
+    public ResponseEntity<DTOUpdateTask> updateTask(@PathVariable Integer taskId, @RequestBody DTOUpdateTask updatedTask){
+        return taskService.updateTask(taskId, updatedTask);
     }
 
     @PatchMapping("/v1/change-position")
-    public ResponseEntity<List<DTOUpdatePosition>> updateTask(@RequestBody List<DTOUpdatePosition> updatedTasks){
+    public ResponseEntity<List<DTOUpdatePosition>> updateTaskPosition(@RequestBody List<DTOUpdatePosition> updatedTasks){
         return taskService.updatePosition(updatedTasks);
     }
 }
