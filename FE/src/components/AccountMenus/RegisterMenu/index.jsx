@@ -46,7 +46,7 @@ export const RegisterMenu = () => {
 			},
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
-			body: JSON.stringify(data),
+			body: data,
 		})
 			.then(r => r.json())
 			.catch(r => console.log(r));
