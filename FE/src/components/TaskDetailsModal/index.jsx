@@ -24,12 +24,14 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	};
 
 	useEffect(() => {
-		if (display === true) {
-			fetch("http://localhost:8086/todo/comments/v1")
+		if (display === true && task.commentsURL !== undefined) {
+			console.log(task.commentsURL);
+			console.log("Teupai");
+			fetch(task.commentsURL)
 				.then(r => r.json())
 				.then(r => setTaskComments(r));
 		}
-	}, [display]);
+	}, [task.commentsURL]);
 
 	return <>
 		<Wrapper onClick={manageClose} display={display}>

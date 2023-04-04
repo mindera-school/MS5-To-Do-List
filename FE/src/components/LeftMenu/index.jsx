@@ -11,7 +11,10 @@ export default function LeftMenu() {
   const [selectedTag, setSelectedTag] = useState(null);
 
   useEffect(() => {
-    if (user.currentUser === null) setTags([]);
+    if (user.currentUser === null) {
+      setTags([]);
+      return;
+    }
     tagFetcher(user.currentUser?.userId).then((res) => setTags(res));
   }, [list, user.currentUser]);
 
@@ -49,7 +52,7 @@ export default function LeftMenu() {
       (tag, index, self) =>
         index === self.findIndex((t) => t.name === tag.name)
     );
-  
+
     return uniqueTags.map((t, i) => (
       <Tags
         onClick={() => {
@@ -63,7 +66,7 @@ export default function LeftMenu() {
       </Tags>
     ));
   };
-  
+
 
   const removeAll = () => {
     tasksList.setTaskList([]);
