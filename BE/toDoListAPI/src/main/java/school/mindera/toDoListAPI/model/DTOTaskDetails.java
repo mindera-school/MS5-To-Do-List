@@ -18,7 +18,7 @@ public class DTOTaskDetails {
     private String title;
     private String description;
     private Boolean isDone;
-    private Date date;
+    private String date;
     private Boolean expired;
     private Boolean isFavorite;
     private Integer parentId;

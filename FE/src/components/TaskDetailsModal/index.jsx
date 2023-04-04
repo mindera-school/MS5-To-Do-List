@@ -33,10 +33,12 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 		setTitle(task.title);
 		setDate(task.date);
 		setDescription(task.description);
-		fetch("http://localhost:8086/todo/comments")
-			.then(r => r.json())
-			.then(r => setTaskComments(r));
-	}, [display, task]);
+		if (display === true && task.commentsURL !== undefined) {
+			fetch(task.commentsURL)
+				.then(r => r.json())
+				.then(r => setTaskComments(r));
+		}
+	}, [task.commentsURL,display, task]);
 
 	const createDataObj = () => {
 		return {

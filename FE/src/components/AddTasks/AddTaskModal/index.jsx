@@ -1,36 +1,28 @@
 import React, { useRef } from "react";
-import {
-  AddModal,
-  CloseButton,
-  TitleInput,
-  DateInput,
-  DescriptionInput,
-  ContainerInput,
-  AddDiffButton,
-  AddButtonsDiv,
-  AddButton,
-  Description,
-  ButtonsContainer,
-  DateTagdiv,
-  DescriptionContainer,
-  ModalContainer,
-} from "./style";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
+import {
+  AddButton, AddButtonsDiv, AddDiffButton, AddModal, ButtonsContainer, CloseButton, ContainerInput, DateInput, DateTagdiv, Description, DescriptionContainer, DescriptionInput, ModalContainer, TitleInput
+} from "./style";
 
 export default function AddTaskModal({
   closeHandler,
   addHandler,
   modalVisible,
   newTask,
+  dispatch,
 }) {
   const titleInput = useRef();
   const dateInput = useRef();
   const descriptionInput = useRef();
-  const addValue = () => {
-    newTask.title = titleInput.current.value;
-    newTask.description = descriptionInput.current.value;
-    newTask.date = dateInput.current.value;
+  const addValue = (type) => {
+    dispatch({
+      type: type, value: {
+        title: titleInput.current.value,
+        description: descriptionInput.current.value,
+        date: dateInput.current.value
+      }
+    });
     titleInput.current.value = "";
     descriptionInput.current.value = "";
     dateInput.current.value = "";
@@ -58,14 +50,28 @@ export default function AddTaskModal({
         </DescriptionContainer>
         <ButtonsContainer>
           <AddButtonsDiv>
-            <AddDiffButton>Add first</AddDiffButton>
-            <AddDiffButton>Add last</AddDiffButton>
-            <AddDiffButton>Add random</AddDiffButton>
+            <AddDiffButton
+              onClick={() => {
+                addValue("first");
+              }}>
+              Add first
+            </AddDiffButton>
+            <AddDiffButton
+              onClick={() => {
+                addValue("");
+              }}>
+              Add last
+            </AddDiffButton>
+            <AddDiffButton
+              onClick={() => {
+                addValue("random");
+              }}>
+              Add random
+            </AddDiffButton>
           </AddButtonsDiv>
           <AddButton
             onClick={() => {
-              addValue();
-              addHandler();
+              addValue("");
             }}
           >
             Add Task
@@ -73,6 +79,6 @@ export default function AddTaskModal({
           </AddButton>
         </ButtonsContainer>
       </ModalContainer>
-    </AddModal>
+    </AddModal >
   );
 }

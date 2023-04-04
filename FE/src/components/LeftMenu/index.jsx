@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Container, Titles, TagsBox, ButtonsBox, Buttons, Tags } from "./style";
 import { useAppContext, useTaskListContext } from "../../context";
-import Tag from "../Tag";
 import tagFetcher from "../../fetchers/fetchTags";
+import { Buttons, ButtonsBox, Container, Tags, TagsBox, Titles } from "./style";
 
 export default function LeftMenu() {
   const tasksList = useTaskListContext();
   const user = useAppContext();
   const list = tasksList.list;
   const [tags, setTags] = useState([]);
+  const [selectedTag, setSelectedTag] = useState(null);
 
   useEffect(() => {
-    if (user.currentUser === undefined) setTags([]);
+    if (user.currentUser === null) {
+      setTags([]);
+      return;
+    }
     tagFetcher(user.currentUser?.userId).then((res) => setTags(res));
   }, [list, user.currentUser]);
 
@@ -25,20 +28,45 @@ export default function LeftMenu() {
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: data,
+        body: JSON.stringify(data),
       });
     }, 3000);
 
     return () => clearTimeout(sendData);
   }, [list]);
 
+  useEffect(() => {
+    if (selectedTag) {
+      tasksList.setDisplayedTaskList(
+        list.filter((task) =>
+          task.tags.some((e) => e.name === selectedTag.name)
+        )
+      );
+    } else {
+      tasksList.setDisplayedTaskList(list);
+    }
+  }, [selectedTag, list]);
+
   const showTags = () => {
-    return tags.map((t, i) => (
-      <Tags key={i} tagColor={t.color}>
+    const uniqueTags = tags.filter(
+      (tag, index, self) =>
+        index === self.findIndex((t) => t.name === tag.name)
+    );
+
+    return uniqueTags.map((t, i) => (
+      <Tags
+        onClick={() => {
+          setSelectedTag(t === selectedTag ? null : t);
+        }}
+        key={i}
+        tagColor={t.color}
+        active={t === selectedTag}
+      >
         {t.name}
       </Tags>
     ));
   };
+
 
   const removeAll = () => {
     tasksList.setTaskList([]);
@@ -51,8 +79,7 @@ export default function LeftMenu() {
   };
   const removeRandom = () => {
     tasksList.deleteTaskFromContext(
-      list[Math.floor(Math.random() * (list.length - 1 - 0 + 1) + 0)]
-        .taskId
+      list[Math.floor(Math.random() * (list.length - 1 - 0 + 1) + 0)].taskId
     );
   };
   const removeDuplicates = () => {
