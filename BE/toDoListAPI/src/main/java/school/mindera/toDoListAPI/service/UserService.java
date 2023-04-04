@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.exceptions.user.UserAlreadyExistsException;
+import school.mindera.toDoListAPI.exceptions.user.UserWrongCredentials;
 import school.mindera.toDoListAPI.model.DTOChangeImg;
 import school.mindera.toDoListAPI.model.DTOLoggedUser;
 import school.mindera.toDoListAPI.model.DTOLogin;
@@ -72,7 +73,7 @@ public class UserService {
                 return ResponseEntity.ok(loggedUser);
             }
         }
-        return ResponseEntity.notFound().build();
+        throw new UserWrongCredentials("Wrong Credentials");
     }
 
     public void changeUserProfileImg(Integer userId, DTOChangeImg changeImg){
