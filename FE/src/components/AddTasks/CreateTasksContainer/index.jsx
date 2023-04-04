@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { useAppContext, useTaskListContext } from "../../context";
+import { useAppContext, useTaskListContext } from "../../../context";
 import Overlay from "../../Overlay";
 import AddTaskModal from "../AddTaskModal";
 import CreateTasks from "../CreateTasks";
@@ -17,7 +17,8 @@ export default function CreateTasksContainer() {
     date: null,
     userId: user.currentUser === null ? null : user.currentUser?.userId,
     parentId: null,
-    position: 0
+    position: 0,
+    taskId: null
   };
 
   const reducer = (state, { type, value }) => {
@@ -30,31 +31,66 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
+          taskId: Date.now().toString(36)
         };
       case "last":
-        return { ...state, position: tasksList.length, date: value.date === "" ? null : value.date, title: value.title, description: value.description, userId: user.currentUser === null ? null : user.currentUser?.userId, };
+        return {
+          ...state,
+          position: tasksList.length,
+          date: value.date === "" ? null : value.date,
+          title: value.title,
+          description: value.description,
+          userId: user.currentUser === null ? null : user.currentUser?.userId,
+          taskId: Date.now().toString(36)
+        };
       case "random":
-        return { ...state, position: Math.floor(Math.random() * tasksList.list.length), date: value.date === "" ? null : value.date, title: value.title, description: value.description, userId: user.currentUser === null ? null : user.currentUser?.userId, };
+        return {
+          ...state,
+          position: Math.floor(Math.random() * tasksList.list.length),
+          date: value.date === "" ? null : value.date,
+          title: value.title,
+          description: value.description,
+          userId: user.currentUser === null ? null : user.currentUser?.userId,
+          taskId: Date.now().toString(36)
+        };
       case "set":
-        return { value, userId: user.currentUser === null ? null : user.currentUser?.userId };
+        return {
+          value,
+          userId: user.currentUser === null ? null : user.currentUser?.userId,
+        };
       default:
-        return { ...state, position: tasksList.list.length, date: value.date === "" ? null : value.date, title: value.title, description: value.description, userId: user.currentUser === null ? null : user.currentUser?.userId, };
+        return {
+          ...state,
+          position: tasksList.list.length,
+          date: value.date === "" ? null : value.date,
+          title: value.title,
+          description: value.description,
+          userId: user.currentUser === null ? null : user.currentUser?.userId,
+          taskId: Date.now().toString(36)
+        };
     }
   };
 
   const [newTaskState, dispatch] = useReducer(reducer, newTask);
 
   const addHandler = async () => {
-    if (newTaskState.title === "") return;
+    if (newTask.title === "") return;
+    if (newTask.date === "") newTask.date = null;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/new-task", {
+      await fetch("http://localhost:8086/todo/tasks/v1", {
         method: "POST",
-        body: JSON.stringify(newTaskState),
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          position: newTaskState.position,
+          date: newTaskState.date,
+          title: newTaskState.title,
+          description: newTaskState.description,
+          userId: newTaskState.taskId
+        }),
         redirect: "follow",
         referrerPolicy: "no-referrer",
       })

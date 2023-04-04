@@ -36,6 +36,7 @@ export const OuterBox = styled.div`
 	z-index: 2;
 	animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	padding: 15px;
+	color: white;
 `;
 
 export const BoxHeader = styled.div`
@@ -68,10 +69,18 @@ export const InnerHeader = styled.div`
 	box-sizing: border-box;
 `;
 
-export const InnerTitle = styled.h2`
+export const InnerTitle = styled.input`
 	font-size: 40px;
 	color: white;
 	text-decoration: underline;
+	background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
+	border: ${({ readOnly }) => readOnly ? "none" : "white 2px solid"};
+	border-radius: 10px;
+	padding-left: 10px;
+	outline: none;
+	::placeholder {
+		color: white;
+	}
 `;
 
 export const OptionTitles = styled.h4`
@@ -110,12 +119,12 @@ export const HorizontalLine = styled.div`
 export const DescriptionContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
+	justify-content: flex-start;
 	overflow-y: scroll;
 	width: 100%;
 	height: 180px;
 	color: white;
-	padding-top: 20px;
+	padding-bottom: 20px;
 	h2,
 	h5 {
 		margin: 0;
@@ -192,5 +201,47 @@ export const CustomLine = styled.div`
 		margin-right: 10px;
 		font-weight: 900;
 		color: #17425E;
+	}
+`;
+
+export const TaskDescInput = styled.textarea`
+	background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
+	border: ${({ readOnly }) => readOnly ? "none" : "white 2px solid"};
+	border-radius: 10px;
+	height: 100%;
+	font-size: 18px;
+	color: white;
+	padding: 15px;
+	overflow-y: scroll;
+	outline: none;
+`;
+
+export const DateInput = styled.div`
+	border: ${({ readOnly }) => readOnly ? "none" : "2px white solid"};
+	border-radius: 5px;
+	*,
+	*:before,
+	*:after{
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
+	}
+	input[type="date"]{
+		background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
+		
+		font-family: "Roboto Mono",monospace;
+		color: #ffffff;
+		font-size: 18px;
+		border: none;
+		outline: none;
+		border-radius: 5px;
+		width: fit-content;
+		padding-left: 10px;
+	}
+	::-webkit-calendar-picker-indicator{
+		background-color: #ffffff;
+		padding: 5px;
+		cursor: pointer;
+		border-radius: 3px;
 	}
 `;

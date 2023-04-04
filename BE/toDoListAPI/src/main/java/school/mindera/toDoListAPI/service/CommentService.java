@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
+import school.mindera.toDoListAPI.exceptions.comments.CommentNotFoundException;
 import school.mindera.toDoListAPI.model.Converter;
 import school.mindera.toDoListAPI.model.DTOComment;
 import school.mindera.toDoListAPI.model.DTONewComment;
@@ -31,7 +32,7 @@ public class CommentService {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
         if(task.isEmpty()){
-            throw new InvalidTaskException("Invalid Task");
+            throw new CommentNotFoundException("Task is not valid!");
         }
 
         List<CommentsEntity> comments = task.get().getComments();
