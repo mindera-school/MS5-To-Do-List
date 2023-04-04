@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BiEdit, BiSave } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
+import { useAppContext, useTaskListContext } from "../../context.js";
 import TaskTagsList from "../TaskTagsList";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
 import { BoxHeader, CustomLine, DateInput, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskDescInput, TaskInfo, Wrapper } from "./styles";
-
-
 
 function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -15,6 +14,10 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	const [title, setTitle] = useState(task.title);
 	const [date, setDate] = useState(task.date);
 	const [description, setDescription] = useState(task.description);
+	const currentUser = useAppContext().currentUser;
+	const updateTask = useTaskListContext().updateTask;
+	const taskList = useTaskListContext().list;
+
 
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
@@ -35,12 +38,46 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 			.then(r => setTaskComments(r));
 	}, [display, task]);
 
+	const createDataObj = () => {
+		return {
+			taskId: task.taskId,
+			title: title,
+			description: description,
+			isDone: task.isDone,
+			date: date,
+			isFavorite: task.isFavorite,
+			disabled: false
+		};
+	};
+
+	const saveEdition = (data) => {
+		fetch("http://localhost:8086/todo/tasks/v1", {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(data)
+		});
+	};
+
 	return <>
 		<Wrapper onClick={manageClose} display={display}>
 			<OuterBox onClick={(e) => e.stopPropagation()}>
 				<BoxHeader>
 					<button onClick={manageClose}><IoMdClose size={25} /></button>
-					<button onClick={() => setIsEditing(isEditing ? false : true)}>
+					<button onClick={() => {
+						if (isEditing) {
+							const updatedTask = createDataObj();
+							const id = task.taskId;
+							if (currentUser !== null) {
+								saveEdition(updatedTask);
+							}
+							updateTask(id, updatedTask);
+						}
+						setIsEditing(isEditing ? false : true);
+					}}>
 						{isEditing ? <BiSave size={25} /> : <BiEdit size={25}></BiEdit>}
 					</button>
 				</BoxHeader>
@@ -63,7 +100,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 						</CustomLine>
 						<CustomLine>
 							<span>End Date:</span>
-							<DateInput><input type="date" readOnly={isEditing ? false : true} value={date} onChange={(e) => setDate(e.target.value)}></input></DateInput>
+							<DateInput readOnly={isEditing ? false : true}><input type="date" readOnly={isEditing ? false : true} value={date} onChange={(e) => setDate(e.target.value)}></input></DateInput>
 						</CustomLine>
 						<CustomLine>
 							<span>Tags:</span>

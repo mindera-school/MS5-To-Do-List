@@ -217,27 +217,31 @@ export const TaskDescInput = styled.textarea`
 `;
 
 export const DateInput = styled.div`
+	border: ${({ readOnly }) => readOnly ? "none" : "2px white solid"};
+	border-radius: 5px;
 	*,
 	*:before,
 	*:after{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+		padding: 0;
+		margin: 0;
+		box-sizing: border-box;
 	}
 	input[type="date"]{
-    background-color: #2C5BA1;
-    font-family: "Roboto Mono",monospace;
-    color: #ffffff;
-    font-size: 18px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-	width: fit-content;
+		background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
+		
+		font-family: "Roboto Mono",monospace;
+		color: #ffffff;
+		font-size: 18px;
+		border: none;
+		outline: none;
+		border-radius: 5px;
+		width: fit-content;
+		padding-left: 10px;
 	}
 	::-webkit-calendar-picker-indicator{
-    background-color: #ffffff;
-    padding: 5px;
-    cursor: pointer;
-    border-radius: 3px;
+		background-color: #ffffff;
+		padding: 5px;
+		cursor: pointer;
+		border-radius: 3px;
 	}
 `;
