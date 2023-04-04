@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useState } from "react";
-import { useAppContext, useTaskListContext } from "../../context";
+import { useAppContext, useTaskListContext } from "../../../context";
 import Overlay from "../../Overlay";
 import AddTaskModal from "../AddTaskModal";
 import CreateTasks from "../CreateTasks";
@@ -49,7 +49,7 @@ export default function CreateTasksContainer() {
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/new-task", {
+      await fetch("http://localhost:8086/todo/tasks", {
         method: "POST",
         body: JSON.stringify(newTaskState),
         headers: {
