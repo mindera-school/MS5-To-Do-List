@@ -114,7 +114,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks/v1
+**Endpoint:** `POST` http://localhost:8086/todo/tasks
 
 **Body:**
 
@@ -134,12 +134,13 @@
 
 ## Request
 
-**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1/{taskId}
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
 ```json
 {
+    "taskId": "Integer",
     "title": "String",
     "description": "String",
     "isDone": "Boolean",
@@ -471,7 +472,7 @@
 
 ## Request
 
-**Endpoint:** `POST` http://localhost:8086/todo/tasks/v1
+**Endpoint:** `POST` http://localhost:8086/todo/tasks/create-task
 
 **Body:**
 
@@ -501,12 +502,13 @@
 
 ## Request
 
-**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1/{taskId}
+**Endpoint:** `PATCH` http://localhost:8086/todo/tasks/v1
 
 **Body:**
 
 ```json
 {
+    "taskId": "Integer",
     "title": "String",
     "description": "String",
     "isDone": "Boolean",

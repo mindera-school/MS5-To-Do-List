@@ -89,6 +89,7 @@ export default function TaskPreview({
     isDragging.current = true;
   }, []);
 
+
   return <>
     <Draggable
       axis={isDragging.current ? "none" : "x"}

@@ -24,9 +24,11 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	};
 
 	useEffect(() => {
-		fetch("http://localhost:8086/todo/comments")
-			.then(r => r.json())
-			.then(r => setTaskComments(r));
+		if (display === true) {
+			fetch("http://localhost:8086/todo/comments/v1")
+				.then(r => r.json())
+				.then(r => setTaskComments(r));
+		}
 	}, [display]);
 
 	return <>

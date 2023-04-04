@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Container, Titles, TagsBox, ButtonsBox, Buttons, Tags } from "./style";
 import { useAppContext, useTaskListContext } from "../../context";
-import Tag from "../Tag";
 import tagFetcher from "../../fetchers/fetchTags";
+import { Buttons, ButtonsBox, Container, Tags, TagsBox, Titles } from "./style";
 
 export default function LeftMenu() {
   const tasksList = useTaskListContext();
@@ -26,7 +25,7 @@ export default function LeftMenu() {
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: data,
+        body: JSON.stringify(data),
       });
     }, 3000);
 

@@ -23,7 +23,7 @@ public class DTOTaskPreview {
     private String date;
     private Boolean isDone;
     private Boolean isFavorite;
-    private String taskURL;
+    private String fullTaskURL;
     private List<DTOTag> tags;
 
     public boolean isExpired(){
@@ -31,13 +31,13 @@ public class DTOTaskPreview {
             return false;
         }
         SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-        boolean parsedDate;
-        try{
-            parsedDate = formatDate.parse(date).after(new Date());
+        boolean expiredDate;
+        try {
+            expiredDate = formatDate.parse(date).after(new Date());
         }catch (Exception e){
             throw new InvalidTaskException("Invalid Date");
         }
-        return parsedDate;
+        return expiredDate;
     }
 
 }
