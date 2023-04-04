@@ -11,11 +11,11 @@ export default function TaskList() {
   const currentUser = useAppContext().currentUser;
 
   function createPatchDTO(updatedList) {
-    return updatedList.map(e => {
+    return updatedList.map((e) => {
       return {
         taskId: e.taskId,
         position: e.position,
-        ParentId: e.parentId
+        ParentId: e.parentId,
       };
     });
   }
@@ -26,11 +26,11 @@ export default function TaskList() {
       fetch("http://localhost:8086/todo/tasks/v1/change-position", {
         method: "PATCH",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
     }, 3000);
 
@@ -44,15 +44,18 @@ export default function TaskList() {
     const tempTasks = Array.from(taskList);
     const [reorderedTask] = tempTasks.splice(result.source.index, 1);
     tempTasks.splice(result.destination.index, 0, reorderedTask);
-    const updatedPositionTasks = tempTasks.map((e, i) => { return { ...e, position: i }; });
+    const updatedPositionTasks = tempTasks.map((e, i) => {
+      return { ...e, position: i };
+    });
     updateTaskList(updatedPositionTasks);
   }
 
   let allTasksComps = useTaskListContext().displayedList?.map((e, index) => {
     return (
       <Draggable key={e.taskId} draggableId={e.taskId.toString()} index={index}>
-        {(providedDraggable) =>
-          <div {...providedDraggable.draggableProps}
+        {(providedDraggable) => (
+          <div
+            {...providedDraggable.draggableProps}
             ref={providedDraggable.innerRef}
           >
             <TaskPreview
@@ -64,25 +67,31 @@ export default function TaskList() {
               position={e.position}
               tagsListUrl={e.tagsURL}
               fullTaskURL={e.fullTaskURL}
-              dragger={<div
-                {...providedDraggable.dragHandleProps}>
-                <BiMove size={25} />
-              </div>}
-            >
-            </TaskPreview>
+              dragger={
+                <div {...providedDraggable.dragHandleProps}>
+                  <BiMove size={25} />
+                </div>
+              }
+            ></TaskPreview>
           </div>
-        }
+        )}
       </Draggable>
     );
   });
-  return <DragDropContext onDragEnd={handleOnDragEnd}>
-    <Droppable droppableId="taskList">
-      {(providedDroppable) => <div className="tasksList" {...providedDroppable.droppableProps} ref={providedDroppable.innerRef}>
-        {allTasksComps}
-        {providedDroppable.placeholder}
-      </div>
-      }
-    </Droppable>
-  </DragDropContext>;
-
+  return (
+    <DragDropContext onDragEnd={handleOnDragEnd}>
+      <Droppable droppableId="taskList">
+        {(providedDroppable) => (
+          <div
+            className="tasksList"
+            {...providedDroppable.droppableProps}
+            ref={providedDroppable.innerRef}
+          >
+            {allTasksComps}
+            {providedDroppable.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+  );
 }
