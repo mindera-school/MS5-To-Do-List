@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -18,17 +20,24 @@ public class DTOTaskPreview {
     private Integer parentId;
     private Integer position;
     private String title;
-    private Date date;
+    private String date;
     private Boolean isDone;
     private Boolean isFavorite;
-    private String taskURL;
+    private String fullTaskURL;
     private List<DTOTag> tags;
 
     public boolean isExpired(){
         if (Objects.isNull(date)){
             return false;
         }
-        return date.after(new Date());
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        boolean expiredDate;
+        try {
+            expiredDate = formatDate.parse(date).after(new Date());
+        }catch (Exception e){
+            throw new InvalidTaskException("Invalid Date");
+        }
+        return expiredDate;
     }
 
 }

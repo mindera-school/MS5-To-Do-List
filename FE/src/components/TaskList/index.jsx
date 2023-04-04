@@ -23,14 +23,15 @@ export default function TaskList() {
   useEffect(() => {
     const sendData = setTimeout(() => {
       const data = createPatchDTO(taskList);
-      fetch(`http://localhost:8086/todo/tasks/v1/change-position/${currentUser.userId}`, {
+      console.log("Entrou");
+      fetch("http://localhost:8086/todo/tasks/v1/change-position", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: data
+        body: JSON.stringify(data)
       });
     }, 3000);
 
