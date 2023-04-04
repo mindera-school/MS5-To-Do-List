@@ -19,7 +19,7 @@ export default function AddTaskModal({
     dispatch({
       type: type, value: {
         title: titleInput.current.value,
-        description: descriptionInput.current.value === "" ? "" : descriptionInput.current.value,
+        description: descriptionInput.current.value,
         date: dateInput.current.value
       }
     });

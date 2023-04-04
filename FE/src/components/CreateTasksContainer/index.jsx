@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useAppContext, useTaskListContext } from "../../context";
 import AddTaskModal from "../AddTaskModal";
 import CreateTasks from "../CreateTasks";
@@ -60,11 +60,9 @@ export default function CreateTasksContainer() {
       })
         .then((r) => r.json())
         .then((r) => {
-          console.log(newTaskState);
-          console.log(r);
           if (compareObjs(newTaskState, r)) {
-            console.log(r);
             dispatch({ type: "set", value: r });
+
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
           }
