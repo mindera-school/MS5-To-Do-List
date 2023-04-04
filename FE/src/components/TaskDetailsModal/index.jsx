@@ -38,7 +38,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 				.then(r => r.json())
 				.then(r => setTaskComments(r));
 		}
-	}, [task.commentsURL,display, task]);
+	}, [task.commentsURL, display, task]);
 
 	const createDataObj = () => {
 		return {
@@ -53,7 +53,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	};
 
 	const saveEdition = (data) => {
-		fetch("http://localhost:8086/todo/tasks/v1", {
+		fetch(`http://localhost:8086/todo/tasks/v1/${task.taskId}`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json"
