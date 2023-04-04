@@ -80,7 +80,13 @@ export default function CreateTasksContainer() {
     if (user.currentUser != null) {
       await fetch("http://localhost:8086/todo/tasks/new-task", {
         method: "POST",
-        body: JSON.stringify(newTaskState),
+        body: JSON.stringify({
+          position: newTaskState.position,
+          date: newTaskState.date,
+          title: newTaskState.title,
+          description: newTaskState.description,
+          userId: newTaskState.taskId
+        }),
         headers: {
           "Content-Type": "application/json",
         },
