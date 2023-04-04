@@ -25,8 +25,6 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 
 	useEffect(() => {
 		if (display === true && task.commentsURL !== undefined) {
-			console.log(task.commentsURL);
-			console.log("Teupai");
 			fetch(task.commentsURL)
 				.then(r => r.json())
 				.then(r => setTaskComments(r));
