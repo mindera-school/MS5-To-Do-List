@@ -10,7 +10,6 @@ export default function LeftMenu() {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    console.log(user.currentUser);
     if (user.currentUser === null) {
       setTags([]);
       return;
@@ -28,7 +27,7 @@ export default function LeftMenu() {
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
-        body: data,
+        body: JSON.stringify(data),
       });
     }, 3000);
 
