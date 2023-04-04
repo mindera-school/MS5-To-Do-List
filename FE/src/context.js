@@ -76,10 +76,28 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
+  const setTaskDoneState = useCallback((id, state) => {
+    const newList = taskListState.list.map(e => {
+      if (e.taskId === id) {
+        return {
+          ...e,
+          isDone: state
+        };
+      }
+      return e;
+    });
+
+    setTaskListState((oldState) => ({
+      ...oldState,
+      list: newList
+    }));
+  });
+
   return {
     ...taskListState,
     setTaskList,
     deleteTaskFromContext,
-    setDisplayedTaskList
+    setDisplayedTaskList,
+    setTaskDoneState
   };
 };

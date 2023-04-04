@@ -108,7 +108,6 @@ export const VerticalLine = styled.div`
   width: 1px;
   height: 75%;
   align-self: center;
-  margin-left: 15px;
 `;
 
 export const ExtendDiv = styled.div`
@@ -119,20 +118,8 @@ export const ExtendDiv = styled.div`
 export const DateContainer = styled.div`
   display: flex;
   width: 120px;
+  margin-right: 25px;
   align-items: center;
-  & img {
-      margin-right: 10px;
-  }
-`;
-
-export const TaskMover = styled.div`
-  align-self: center;
-  margin-left: 10px;
-  & button {
-    background-color: transparent;
-    border: none;
-    cursor: grab;
-  }
 `;
 
 export const TaskDetailsBtn = styled.button`
@@ -154,5 +141,10 @@ export const EdgeButtonsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   width: 120px;
-  padding: 10px;
+  padding: 15px;
+`;
+
+export const DraggerContainer = styled.div`
+  margin-right: 15px;
+  align-self: center;
 `;

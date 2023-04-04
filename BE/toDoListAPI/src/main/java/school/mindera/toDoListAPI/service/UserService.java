@@ -82,7 +82,7 @@ public class UserService {
             throw new InvalidUserException("Invalid user");
         }
 
-        user.get().setProfileImage(changeImg.getImg());
+        user.get().setProfileImage(changeImg.getProfileImage());
 
         usersRepository.save(user.get());
     }

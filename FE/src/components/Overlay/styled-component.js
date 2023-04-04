@@ -10,5 +10,5 @@ export const StyledOverlay = styled.div`
   height: 100vh;
   background-color: black;
   opacity: 70%;
-  z-index: 1;
+  z-index: 3;
 `;

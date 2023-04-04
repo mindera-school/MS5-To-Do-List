@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledDrawer = styled.div`
-  display: block;
+  display: ${({ isShowing }) => isShowing ? "block" : "none"};
   right: ${({ position }) => position};
   position: absolute;
   top: 0;
@@ -9,7 +9,7 @@ export const StyledDrawer = styled.div`
   width: 390px; 
   transform: translate(${({ display }) => display ? "0" : "100%"});
   background-color: #17425e;
-  z-index: 2;
+  z-index: 5;
   transition: width 0.4s;
   overflow-x: hidden;
   padding-top: 10px;
