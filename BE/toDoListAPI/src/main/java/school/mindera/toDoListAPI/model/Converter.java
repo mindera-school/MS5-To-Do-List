@@ -75,7 +75,7 @@ public class Converter {
         taskDTO.setDescription(task.getDescription());
         taskDTO.setIsDone(task.isDone());
 
-        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
         taskDTO.setDate(formatDate.format(task.getEndDate()));
         taskDTO.setIsFavorite(task.isFavorite());
         taskDTO.setDisabled(task.isDisabled());
