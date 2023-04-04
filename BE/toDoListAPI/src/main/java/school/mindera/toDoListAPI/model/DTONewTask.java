@@ -14,7 +14,7 @@ import java.util.Date;
 public class DTONewTask {
     private String title;
     private String description;
-    private Date date;
+    private String date;
     private Integer userId;
     private Integer parentId;
     private Integer position;
