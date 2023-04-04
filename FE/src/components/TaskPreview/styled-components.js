@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 
-
 const heartbeatAnim = keyframes`
   from {
     -webkit-transform: scale(1);
@@ -45,13 +44,13 @@ export const StyledFavHeart = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
-  
-  ${props =>
+
+  ${(props) =>
     props.isFilled &&
     css`
-    animation: ${heartbeatAnim} 1s ease-in-out;
-  `}
-  
+      animation: ${heartbeatAnim} 1s ease-in-out;
+    `}
+
   &:before,
   &:after {
     position: absolute;
@@ -63,7 +62,7 @@ export const StyledFavHeart = styled.button`
     border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
     transform: rotate(-45deg);
     transform-origin: 0 100%;
-    background-color: ${props => props.isFilled ? "red" : "black"};
+    background-color: ${(props) => (props.isFilled ? "red" : "black")};
   }
 
   &:after {
@@ -73,35 +72,34 @@ export const StyledFavHeart = styled.button`
   }
 `;
 
-
 export const StyledTaskPreview = styled.div`
   display: flex;
   position: relative;
   width: 690px;
   height: 80px;
-  background-color: #8D99AE;
+  background-color: #8d99ae;
+  border: ${(props) => props.border};
   border-radius: 30px;
   box-sizing: border-box;
   margin: 15px;
-  padding-left: 15px;
+  padding: ${(props) => props.padding};
   color: $tasks-font-color;
-  font-family:Roboto;
+  font-family: Roboto;
   color: white;
 `;
 
 export const NameAndDone = styled.div`
-display: flex;
-        align-items: center;
-        height: 40px;
-        margin: 10px 0px 0px 0px;
-        h3 {
-            margin-left: 5px;
-        }
-        input {
-            cursor: pointer;
-        }
+  display: flex;
+  align-items: center;
+  height: 40px;
+  margin: 10px 0px 0px 0px;
+  h3 {
+    margin-left: 5px;
+  }
+  input {
+    cursor: pointer;
+  }
 `;
-
 
 export const VerticalLine = styled.div`
   background-color: white;
@@ -117,7 +115,7 @@ export const ExtendDiv = styled.div`
 
 export const DateContainer = styled.div`
   display: flex;
-  width: 120px;
+  width: 200px;
   margin-right: 25px;
   align-items: center;
 `;
@@ -131,7 +129,7 @@ export const TaskDetailsBtn = styled.button`
 `;
 
 export const DeleteBtn = styled.button`
-  color: #D01010;
+  color: #d01010;
   background-color: transparent;
   border: none;
   cursor: pointer;
