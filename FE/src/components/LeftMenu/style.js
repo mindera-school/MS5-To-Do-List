@@ -11,6 +11,22 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const Tags = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  border-radius: 10px;
+  padding: 0 20px;
+  height: 35px;
+  width: 100%;
+  color: white;
+  box-sizing: border-box;
+  background-color: ${(props) => props.tagColor};
+  margin-bottom: 5px;
+`;
+
 export const Titles = styled.p`
   margin: 11px;
   font-size: 24px;
@@ -28,8 +44,6 @@ export const TagsBox = styled.div`
   width: 200px;
   background-color: inherit;
   overflow: auto;
-  //remove border
-  border: 1px solid red;
 `;
 
 export const ButtonsBox = styled.div`
@@ -49,10 +63,16 @@ export const Buttons = styled.button`
   text-align: center;
   height: 39px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 0;
   border-radius: 10px;
   background: #1a4d6f;
   color: white;
   box-shadow: 0px 4px 4px 0px #00000040;
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.1;
+  }
 `;
