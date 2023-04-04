@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useAppContext, useTaskListContext } from "../../../context";
+import React, { useEffect, useReducer, useState } from "react";
+import { useAppContext, useTaskListContext } from "../../context";
+import Overlay from "../../Overlay";
 import AddTaskModal from "../AddTaskModal";
 import CreateTasks from "../CreateTasks";
-import Overlay from "../../Overlay";
 import { Container } from "./style";
 
 export default function CreateTasksContainer() {
@@ -11,23 +11,47 @@ export default function CreateTasksContainer() {
   const user = useAppContext();
   const handler = () =>
     setModalVisible(modalVisible === "none" ? "block" : "none");
-  let newTask = {
+  const newTask = {
     title: "",
     description: "",
     date: null,
     userId: user.currentUser === null ? null : user.currentUser?.userId,
     parentId: null,
-    position: tasksList.list.length,
+    position: 0
   };
+
+  const reducer = (state, { type, value }) => {
+    switch (type) {
+      case "first":
+        return {
+          ...state,
+          position: 0,
+          date: value.date === "" ? null : value.date,
+          title: value.title,
+          description: value.description,
+          userId: user.currentUser === null ? null : user.currentUser?.userId,
+        };
+      case "last":
+        return { ...state, position: tasksList.length, date: value.date === "" ? null : value.date, title: value.title, description: value.description, userId: user.currentUser === null ? null : user.currentUser?.userId, };
+      case "random":
+        return { ...state, position: Math.floor(Math.random() * tasksList.list.length), date: value.date === "" ? null : value.date, title: value.title, description: value.description, userId: user.currentUser === null ? null : user.currentUser?.userId, };
+      case "set":
+        return { value, userId: user.currentUser === null ? null : user.currentUser?.userId };
+      default:
+        return { ...state, position: tasksList.list.length, date: value.date === "" ? null : value.date, title: value.title, description: value.description, userId: user.currentUser === null ? null : user.currentUser?.userId, };
+    }
+  };
+
+  const [newTaskState, dispatch] = useReducer(reducer, newTask);
+
   const addHandler = async () => {
-    if (newTask.title === "") return;
-    if(newTask.date === "") newTask.date = null;
+    if (newTaskState.title === "") return;
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
       await fetch("http://localhost:8086/todo/tasks/new-task", {
         method: "POST",
-        body: JSON.stringify(newTask),
+        body: JSON.stringify(newTaskState),
         headers: {
           "Content-Type": "application/json",
         },
@@ -36,18 +60,26 @@ export default function CreateTasksContainer() {
       })
         .then((r) => r.json())
         .then((r) => {
-          if (compareObjs(r, newTask)) {
-            newTask = r;
+          if (compareObjs(newTaskState, r)) {
+            dispatch({ type: "set", value: r });
+
             //Add task locally
-            tasksList.setTaskList([...tasksList.list, newTask]);
+            tasksList.setTaskList(updateTaskList(tasksList.list, r));
           }
         })
         .catch(() => console.error("Error task not created"));
     } else {
       //Guest Mode
-      tasksList.setTaskList([...tasksList.list, newTask]);
+      tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
     }
   };
+
+  useEffect(() => {
+    async function add() {
+      return await addHandler();
+    }
+    add();
+  }, [newTaskState]);
 
   return (
     <Container>
@@ -62,6 +94,7 @@ export default function CreateTasksContainer() {
         closeHandler={handler}
         newTask={newTask}
         addHandler={addHandler}
+        dispatch={dispatch}
       />
       <Overlay
         handler={handler}
@@ -74,12 +107,24 @@ export default function CreateTasksContainer() {
 function compareObjs(obj1, obj2) {
   if (
     obj1.title === obj2.title &&
-    obj1.date === obj2.date &&
-    obj1.description === obj2.description &&
+    obj2.date.includes(obj1.date) &&
     obj1.position === obj2.position &&
-    obj1.isDone === obj2.isDone &&
-    obj1.isFavorite === obj2.isFavorite &&
     obj1.ParentId === obj2.ParentId
-  )
+  ) {
     return true;
+  }
+  return false;
+}
+
+function updateTaskList(taskList, task) {
+  console.log(taskList);
+  if (task.position === 0) {
+    return [task, ...taskList];
+  }
+  if (task.position === taskList.length) {
+    return [...taskList, task];
+  }
+  const temp = taskList;
+  temp.splice(task.position, 0, task);
+  return [...temp];
 }
