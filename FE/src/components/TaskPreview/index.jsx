@@ -103,10 +103,12 @@ export default function TaskPreview({
 
   useEffect(() => {
     if (!isDone) {
+      if(dueDate === null){
+        return;
+      }
       const taskDate = new Date(dueDate);
       const endDate = new Date();
       const warningDate = new Date(endDate.getTime() + 48 * 60 * 60 * 1000);
-      console.log(warningDate);
       if (warningDate <= taskDate || taskDate <= endDate.getTime()) {
         if(borderColor === "none"){
           setBorderColor("3px solid red");
