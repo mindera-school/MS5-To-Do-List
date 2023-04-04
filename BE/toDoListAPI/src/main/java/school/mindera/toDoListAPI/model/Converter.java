@@ -52,7 +52,7 @@ public class Converter {
 
         String date = null;
         if(!isNull(task.getEndDate())) {
-            SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
             date = formatDate.format(task.getEndDate());
         }
         taskDetails.setDate(date);
