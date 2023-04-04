@@ -1,6 +1,5 @@
 import styled, { createGlobalStyle } from "styled-components";
 
-
 export const GlobalStyle = createGlobalStyle`
 
   html {
@@ -26,9 +25,25 @@ export const GlobalStyle = createGlobalStyle`
 
 export const Main = styled.div`
   display: flex;
+  width: 100%;
+  flex: 1;
+`;
+
+export const CentralDiv = styled.div`
+  display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  overflow: auto;
+  overflow: visible;
+  flex: 3;
+  height: 100vh;
+  z-index: 2;
+`;
+
+export const LateralDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
   flex: 1;
+  height: 100vh;
 `;

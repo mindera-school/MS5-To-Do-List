@@ -9,7 +9,7 @@ export const StyledDrawer = styled.div`
   width: 390px; 
   transform: translate(${({ display }) => display ? "0" : "100%"});
   background-color: #17425e;
-  z-index: 2;
+  z-index: 5;
   transition: width 0.4s;
   overflow-x: hidden;
   padding-top: 10px;

@@ -16,7 +16,15 @@ export default function TaskTagsList({ listUrl }) {
   }, [listUrl]);
 
   allTags = tagList?.map((e, i) => {
-    return <Tag key={i} tagText={e.name} color={e.color}></Tag>;
+    return (
+      <Tag
+        key={i}
+        tagText={e.name}
+        color={e.color}
+        height={"20px"}
+        width={"75px"}
+      ></Tag>
+    );
   });
 
   return (
