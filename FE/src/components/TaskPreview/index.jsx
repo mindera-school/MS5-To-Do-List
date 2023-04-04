@@ -58,7 +58,6 @@ export default function TaskPreview({
       setTask({});
       return;
     }
-    console.log(fullTaskURL);
     fetch(fullTaskURL)
       .then(r => r.json())
       .then(r => setTask(r));
@@ -91,7 +90,6 @@ export default function TaskPreview({
   }, []);
 
 
-  console.log(task);
   return <>
     <Draggable
       axis={isDragging.current ? "none" : "x"}

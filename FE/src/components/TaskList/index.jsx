@@ -23,7 +23,6 @@ export default function TaskList() {
   useEffect(() => {
     const sendData = setTimeout(() => {
       const data = createPatchDTO(taskList);
-      console.log("Entrou");
       fetch("http://localhost:8086/todo/tasks/v1/change-position", {
         method: "PATCH",
         headers: {
