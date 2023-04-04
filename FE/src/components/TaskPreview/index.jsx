@@ -52,6 +52,8 @@ export default function TaskPreview({
   const currentUser = useContext(AppContext).currentUser;
   const setIsDone = useContext(TaskListContext).setTaskDoneState;
   const isDragging = useRef(null);
+  const taskList = useContext().list;
+  const [taskChildren, setTaskChildren] = useState([]);
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -78,7 +80,7 @@ export default function TaskPreview({
     }
   }, [currentUser, deleteTaskFromContext, id, setIsDone]);
 
-  const handleStart = useCallback((event, info) => {
+  const handleStart = useCallback((event) => {
     if (event.target.toString() === "[object SVGPathElement]" || event.target.toString() === "[object SVGSVGElement]") {
       isDragging.current = true;
       return;
@@ -89,6 +91,11 @@ export default function TaskPreview({
     isDragging.current = true;
   }, []);
 
+  useEffect(() => {
+    fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
+      .then(r => r.json())
+      .then(r => setTaskChildren(r));
+  }, [taskList, id]);
 
   return <>
     <Draggable
@@ -101,7 +108,7 @@ export default function TaskPreview({
       onDrag={handleDrag}
     >
       <div className="handle">
-        <StyledTaskPreview>
+        <StyledTaskPreview isParent={taskChildren.length === 0 ? false : true}>
           <StyledFavHeart isFilled={isThisFav} onClick={() => setIsThisFav(isThisFav ? false : true)}></StyledFavHeart>
           <div>
             <NameAndDone>
