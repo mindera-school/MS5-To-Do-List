@@ -119,7 +119,7 @@ public class TaskService {
         return ResponseEntity.ok(Converter.toDTOTaskPreview(savedTask));
     }
 
-    public ResponseEntity<DTOUpdateTask> updateTask(DTOUpdateTask updateTask){
+    public ResponseEntity<DTOUpdateTask> updateTask(Integer taskId, DTOUpdateTask updateTask){
 
         return ResponseEntity.ok(new DTOUpdateTask());
     }
