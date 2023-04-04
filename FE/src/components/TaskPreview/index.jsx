@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -22,7 +22,7 @@ import {
   StyledFavHeart,
   StyledTaskPreview,
   TaskDetailsBtn,
-  VerticalLine,
+  VerticalLine
 } from "./styled-components";
 
 const deleteTask = (id, e, deleteTaskContext, currentUser) => {
@@ -81,14 +81,9 @@ export default function TaskPreview({
       .then((r) => setTask(r));
   }, [isDetailVis, fullTaskURL]);
 
-  useEffect(() => {}, []);
-  const handleStop = useCallback(
-    (event, info) => {
-      event.preventDefault();
-      if (isDragging) {
-        isDragging.current = false;
-        return;
-      }
+  const handleStop = useCallback((event, info) => {
+    event.preventDefault();
+    if (isDragging === true) {
       isDragging.current = false;
       if (info.x >= 450) {
         setIsDone(id, isDone ? false : true);
@@ -97,20 +92,21 @@ export default function TaskPreview({
       if (info.x <= -450) {
         deleteTask(id, event, deleteTaskFromContext, currentUser);
       }
-    },
+    }
+  },
     [currentUser, deleteTaskFromContext, id, setIsDone]
   );
 
   useEffect(() => {
     if (!isDone) {
-      if(dueDate === null){
+      if (dueDate === null) {
         return;
       }
       const taskDate = new Date(dueDate);
       const currentDate = new Date();
       const warningDate = new Date(currentDate.getTime() + 48 * 60 * 60 * 1000);
       if (taskDate <= warningDate) {
-        if(borderColor === "none"){
+        if (borderColor === "none") {
           setBorderColor("3px solid red");
           setPadding("0 12px");
         }
@@ -118,7 +114,7 @@ export default function TaskPreview({
         setBorderColor("3px solid red");
         setPadding("0 12px");
         return;
-      } 
+      }
     }
   }, [isDone]);
 
@@ -136,10 +132,10 @@ export default function TaskPreview({
   };
 
   const handleStart = useCallback((event, info) => {
-    if (
-      event.target.toString() === "[object SVGPathElement]" ||
-      event.target.toString() === "[object SVGSVGElement]"
-    ) {
+    if (event.target.toString() === "[object HTMLDivElement]") {
+      isDragging.current = false;
+    }
+    if (event.target.toString() === "[object SVGPathElement]" || event.target.toString() === "[object SVGSVGElement]") {
       isDragging.current = true;
       return;
     }

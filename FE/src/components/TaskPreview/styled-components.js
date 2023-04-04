@@ -115,7 +115,7 @@ export const ExtendDiv = styled.div`
 
 export const DateContainer = styled.div`
   display: flex;
-  width: 120px;
+  width: 200px;
   margin-right: 25px;
   align-items: center;
 `;
