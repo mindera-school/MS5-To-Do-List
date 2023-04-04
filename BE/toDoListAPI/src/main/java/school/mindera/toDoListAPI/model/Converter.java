@@ -22,7 +22,9 @@ public class Converter {
         DTOTaskPreview preview = new DTOTaskPreview();
         preview.setTaskId(task.getTaskId());
         preview.setTitle(task.getTitle());
-        preview.setDate(task.getEndDate());
+
+        SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+        preview.setDate(formatDate.format(task.getEndDate()));
         preview.setIsDone(task.isDone());
         preview.setIsFavorite(task.isFavorite());
         preview.setPosition(task.getPosition());

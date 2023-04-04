@@ -96,15 +96,13 @@ public class TaskService {
         Optional<TasksEntity> parent = Optional.ofNullable(null);
 
         SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
-        Date date;
+        Date date = null;
         if(!isNull(newTask.getDate())) {
             try {
                 date = formatData.parse(newTask.getDate());
             } catch (Exception e) {
                 throw new InvalidTaskException("Date is not valid");
             }
-        }else{
-            date = null;
         }
 
         if (!isNull(newTask.getParentId())) {
