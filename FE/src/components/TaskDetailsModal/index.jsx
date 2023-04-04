@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { BiEdit } from "react-icons/bi";
+import { BiEdit, BiSave } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import TaskTagsList from "../TaskTagsList";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
-import { BoxHeader, CustomLine, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskInfo, Wrapper } from "./styles";
+import { BoxHeader, CustomLine, DateInput, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskDescInput, TaskInfo, Wrapper } from "./styles";
 
 
 
@@ -12,6 +12,9 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 	const [taskComments, setTaskComments] = useState([]);
 	const [isEditing, setIsEditing] = useState(false);
+	const [title, setTitle] = useState(task.title);
+	const [date, setDate] = useState(task.date);
+	const [description, setDescription] = useState(task.description);
 
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
@@ -21,28 +24,29 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	const updateTaskComments = (newComment) => {
 		const newElement = { description: newComment };
 		setTaskComments([...taskComments, newElement]);
-		console.log(taskComments);
 	};
 
 	useEffect(() => {
+		setTitle(task.title);
+		setDate(task.date);
+		setDescription(task.description);
 		fetch("http://localhost:8086/todo/comments")
 			.then(r => r.json())
 			.then(r => setTaskComments(r));
-	}, [display]);
+	}, [display, task]);
 
-	console.log(isEditing);
 	return <>
 		<Wrapper onClick={manageClose} display={display}>
 			<OuterBox onClick={(e) => e.stopPropagation()}>
 				<BoxHeader>
 					<button onClick={manageClose}><IoMdClose size={25} /></button>
 					<button onClick={() => setIsEditing(isEditing ? false : true)}>
-						<BiEdit size={25}></BiEdit>
+						{isEditing ? <BiSave size={25} /> : <BiEdit size={25}></BiEdit>}
 					</button>
 				</BoxHeader>
 				<InnerBox>
 					<InnerHeader>
-						<InnerTitle>{task.title}</InnerTitle>
+						<InnerTitle readOnly={isEditing ? false : true} value={title} onChange={(e) => setTitle(e.target.value)}></InnerTitle>
 						<OptionTitles>
 							<span>Add Sub Task</span>
 							<button><IoIosAddCircleOutline color="white" size={20} /></button>
@@ -59,7 +63,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 						</CustomLine>
 						<CustomLine>
 							<span>End Date:</span>
-							<span>{task.date}</span>
+							<DateInput><input type="date" readOnly={isEditing ? false : true} value={date} onChange={(e) => setDate(e.target.value)}></input></DateInput>
 						</CustomLine>
 						<CustomLine>
 							<span>Tags:</span>
@@ -69,7 +73,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 					<HorizontalLine />
 					<DescriptionContainer>
 						<h2>Description</h2>
-						<h5>{task.description}</h5>
+						<TaskDescInput readOnly={isEditing ? false : true} value={description} onChange={(e) => setDescription(e.target.value)}></TaskDescInput>
 					</DescriptionContainer>
 					<HorizontalLine />
 					<CommentBox comments={taskComments} ></CommentBox>
