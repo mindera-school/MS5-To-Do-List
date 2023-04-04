@@ -28,7 +28,7 @@ export const AddModal = styled.div`
   align-items: center;
   padding: 50px;
   box-sizing: border-box;
-  z-index: 2;
+  z-index: 4;
   animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
 `;

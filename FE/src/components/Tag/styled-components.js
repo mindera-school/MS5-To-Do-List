@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledTag = styled.div`
+export const StyledTag = styled.button`
   display: flex;
   height: 20px;
   min-width: 75px;
@@ -12,6 +12,8 @@ export const StyledTag = styled.div`
   border-radius: 20px; 
   color: white;
   background-color: ${props => props.tagColor};
+  outline: none;
+  border: none;
 `;
 
 

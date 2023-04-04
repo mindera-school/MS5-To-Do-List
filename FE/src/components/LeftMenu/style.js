@@ -11,7 +11,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Tags = styled.div`
+export const Tags = styled.button`
   display: flex;
   align-items: center;
   font-size: 20px;
@@ -20,11 +20,19 @@ export const Tags = styled.div`
   border-radius: 10px;
   padding: 0 20px;
   height: 35px;
-  width: 100%;
+  width: 200px;
   color: white;
   box-sizing: border-box;
   background-color: ${(props) => props.tagColor};
   margin-bottom: 5px;
+  outline: none;
+  border: none;
+  transition: 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    scale: 1.05;
+  }
 `;
 
 export const Titles = styled.p`
@@ -40,8 +48,11 @@ export const Titles = styled.p`
 `;
 
 export const TagsBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   height: 200px;
-  width: 200px;
+  width: 100%;
   background-color: inherit;
   overflow: auto;
 `;
@@ -73,6 +84,6 @@ export const Buttons = styled.button`
   cursor: pointer;
 
   &:hover {
-    scale: 1.1;
+    scale: 1.05;
   }
 `;
