@@ -100,11 +100,11 @@ public class TagService {
 
     public void checkToAssociateTags(List<DTONewTag> tags) {
         Set<String> set = new HashSet<>();
-        for (DTONewTag tag : tags) {
+        tags.foreach((tag) -> {
             if (!set.add(tag.getName())) {
                 throw new TagAlreadyInUseException("Cannot add similar or duplicate tags. Tag name: " + tag.getName());
             }
-        }
+        });
     }
 
     public void associateTasks(List<TasksEntity> tasks, List<TagsEntity> tags) {
