@@ -70,6 +70,7 @@ export default function TaskPreview({
   const taskList = useContext(TaskListContext).list;
   const [taskChildren, setTaskChildren] = useState([]);
   const [showChildren, setShowChildren] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     setPadding("3px 15px");
@@ -184,7 +185,10 @@ export default function TaskPreview({
         onStop={handleStop}
         onDrag={handleDrag}
       >
-        <div className="handle">
+        <div className="handle" onDoubleClick={() => {
+          setIsDetailVis(true);
+          setIsEditing(true);
+        }}>
           <StyledTaskPreview isParent={isParent} border={borderColor} padding={padding}>
             <StyledFavHeart
               isFilled={isThisFav}
@@ -234,6 +238,8 @@ export default function TaskPreview({
         task={task}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
       ></TaskDetailsModal>
     </>
   );

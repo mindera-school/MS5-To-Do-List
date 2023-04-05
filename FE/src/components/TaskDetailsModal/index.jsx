@@ -7,10 +7,9 @@ import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
 import { BoxHeader, CustomLine, DateInput, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskDescInput, TaskInfo, Wrapper } from "./styles";
 
-function TaskDetailsModal({ task, display, setDisplay }) {
+function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 	const [taskComments, setTaskComments] = useState([]);
-	const [isEditing, setIsEditing] = useState(false);
 	const [title, setTitle] = useState(task.title);
 	const [date, setDate] = useState(task.date);
 	const [description, setDescription] = useState(task.description);
