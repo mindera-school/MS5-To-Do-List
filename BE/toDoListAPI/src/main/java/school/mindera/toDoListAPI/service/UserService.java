@@ -27,7 +27,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public DTOLoggedUser register(DTORegister register) {
+    public ResponseEntity<DTOLoggedUser> register(DTORegister register) {
         if (usersRepository.existsByUsername(register.getUsername())){
             throw new UserAlreadyExistsException("this username is already been used");
         }
@@ -53,7 +53,7 @@ public class UserService {
         loggedUser.setGroupsURL("/groups/" + savedUser.getUserId());
         loggedUser.setTasksPreviewsURL("/task-previews/" + savedUser.getUserId());
 
-        return loggedUser;
+        return ResponseEntity.ok(loggedUser);
     }
 
     public ResponseEntity<DTOLoggedUser> logIn(DTOLogin login) {

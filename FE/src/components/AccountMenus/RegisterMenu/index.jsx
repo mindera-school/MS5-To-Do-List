@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { useAppContext } from "../../../context";
 import { UserImg } from "../LoginMenu/styled-components.js";
-import { GoBackBtn, RegisterContainer, RegisterForm } from "./styles.js";
+import { ErrorDisplay, GoBackBtn, PasswordDetails, RegisterContainer, RegisterForm } from "./styles.js";
 
 function checkUserValidaty(user) {
 	const { email, firstName, lastName, username, password } = user;
@@ -32,11 +32,21 @@ export const RegisterMenu = () => {
 	const [lName, setLName] = useState("");
 	const [userName, setUserName] = useState("");
 	const [password, setPassword] = useState("");
+	const [pDetailsVisibility, setPDetailsVisibility] = useState(false);
+	const [errorMessage, setErrorMessage] = useState("");
 
 	async function sendRegisterInfo(data) {
 		// in the future should open error modal
 		if (!checkUserValidaty(data)) {
-			console.log("All fields must be filled");
+			setErrorMessage("All fields must be filled!");
+			return;
+		}
+		if (!checkEmail(data.email)) {
+			setErrorMessage("Invalid email!");
+			return;
+		}
+		if (!checkPassword(data.password)) {
+			setErrorMessage("Password does not match the requirements!	");
 			return;
 		}
 		fetch("http://localhost:8086/todo/users/register", {
@@ -46,11 +56,16 @@ export const RegisterMenu = () => {
 			},
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
-			body: data,
+			body: JSON.stringify(data),
 		})
 			.then(r => r.json())
 			.catch(r => console.log(r));
 	}
+	useEffect(() => {
+		const closePDetails = setTimeout(() => setPDetailsVisibility(false), 3000);
+
+		return () => clearTimeout(closePDetails);
+	}, [password]);
 
 	return <>
 		<RegisterContainer>
@@ -59,6 +74,7 @@ export const RegisterMenu = () => {
 				<FaRegUser size={80} />
 			</UserImg>
 			<RegisterForm>
+				<ErrorDisplay error={errorMessage}>{errorMessage}</ErrorDisplay>
 				<label>
 					<span>Email:</span>
 					<input type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -77,8 +93,15 @@ export const RegisterMenu = () => {
 				</label>
 				<label>
 					<span>Password:</span>
-					<input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} />
+					<input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} onSelect={() => setPDetailsVisibility(true)} />
 				</label>
+				<PasswordDetails isDisplayed={pDetailsVisibility}>
+					<h4>Password must include:</h4>
+					<li>Between 4 and 8 characters</li>
+					<li>One upper case letter</li>
+					<li>One lower case letter</li>
+					<li>One numeric digit</li>
+				</PasswordDetails>
 
 				<button onClick={(e) => {
 					e.preventDefault();
@@ -90,6 +113,16 @@ export const RegisterMenu = () => {
 			</RegisterForm>
 		</RegisterContainer>
 	</>;
+};
+
+const checkPassword = (password) => {
+	const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/;
+	return password.match(regex);
+};
+
+const checkEmail = (email) => {
+	const regex = /^[\w -.]+@([\w-]+\.)+[\w-]{2,4}$/;
+	return email.match(regex);
 };
 
 
