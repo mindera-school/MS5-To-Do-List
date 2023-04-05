@@ -10,7 +10,10 @@ import school.mindera.toDoListAPI.entities.TaskTagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.comments.CommentNotFoundException;
+import school.mindera.toDoListAPI.exceptions.tags.TagAlreadyInUseException;
 import school.mindera.toDoListAPI.exceptions.tags.TagNotFoundException;
+import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
+import school.mindera.toDoListAPI.model.Converter;
 import school.mindera.toDoListAPI.model.DTONewTag;
 import school.mindera.toDoListAPI.model.DTOTag;
 import school.mindera.toDoListAPI.repositories.TagsRepository;
@@ -18,9 +21,7 @@ import school.mindera.toDoListAPI.repositories.TaskTagsRepository;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TagService {
@@ -36,74 +37,120 @@ public class TagService {
         this.taskTagsRepository = taskTagsRepository;
     }
 
-    public ResponseEntity<DTOTag> createTag(DTONewTag newTag){
-        Optional<UsersEntity> user = usersRepository.findById(newTag.getUserId());
-        Optional<TagsEntity> verifierTag = tagsRepository.findByNameAndUserId(newTag.getName(), newTag.getUserId());
-        Optional<TasksEntity> task = tasksRepository.findById(newTag.getTaskId());
+    public ResponseEntity<List<DTOTag>> createTag(List<DTONewTag> newTag) {
+        checkToAssociateTags(newTag);
 
-        if (task.isEmpty()){
-            throw new TagNotFoundException("Invalid task on create");
-        }
-        if (verifierTag.isPresent()){
-            associateTask(task.get(),verifierTag.get());
-            return ResponseEntity.ok(new DTOTag(verifierTag.get().getTagId(),verifierTag.get().getName(),verifierTag.get().getColor()));
-        }
-        if(user.isEmpty()){
-            throw new TagNotFoundException("Invalid User on create");
-        }
+        List<DTONewTag> toCreate = new ArrayList<>();
+        List<TasksEntity> toCreateTask = new ArrayList<>();
+        List<TagsEntity> toSaveTags = new ArrayList<>();
+        List<TasksEntity> tasksSaved = new ArrayList<>();
 
-        TagsEntity tag = new TagsEntity();
-        tag.setName(newTag.getName());
-        tag.setColor(newTag.getColor());
-        tag.setUserId(user.get());
-        tag.setTags(taskTagsRepository.findAll());
+        newTag.forEach((e) -> {
+            Optional<UsersEntity> user = usersRepository.findById(e.getUserId());
+            Optional<TagsEntity> verifierTag = tagsRepository.findByNameAndUserId(e.getName(), e.getUserId());
+            Optional<TasksEntity> task = tasksRepository.findById(e.getTaskId());
 
-        TagsEntity savedTag = tagsRepository.save(tag);
+            if (task.isEmpty()) {
+                throw new TagNotFoundException("Invalid task on create Tag");
+            }
+            if (user.isEmpty()) {
+                throw new TagNotFoundException("Invalid User on create Tag");
+            }
+            if (verifierTag.isEmpty()) {
+                toCreateTask.add(task.get());
+                toCreate.add(e);
+                return;
+            }
 
-        associateTask(task.get() ,savedTag);
+            TagsEntity tag = verifierTag.get();
 
-        return ResponseEntity.ok(new DTOTag(savedTag.getTagId(), savedTag.getName(), savedTag.getColor()));
+            toSaveTags.add(tag);
+            tasksSaved.add(task.get());
+        });
+
+        tasksSaved.addAll(toCreateTask);
+        toSaveTags.addAll(createNewTags(toCreate));
+        associateTasks(tasksSaved, toSaveTags);
+        List<DTOTag> savedTags = Converter.toDTOTags(toSaveTags);
+
+        return ResponseEntity.ok(savedTags);
     }
 
-    public void associateTask(TasksEntity task, TagsEntity tag){
+    public List<TagsEntity> createNewTags(List<DTONewTag> tags) {
+        List<TagsEntity> tagsToAdd = new ArrayList<>();
 
-        TaskTagsEntity taskTags = new TaskTagsEntity();
-        taskTags.setTask(task);
-        taskTags.setTag(tag);
+        tags.forEach((e) -> {
+            Optional<UsersEntity> user = usersRepository.findById(e.getUserId());
 
-        if(taskTagsRepository.exists(Example.of(taskTags))){
-            throw new RuntimeException();
-        }
+            if (user.isEmpty()) {
+                throw new InvalidUserException("User is not Valid on Tag - " + e.getName());
+            }
 
-        taskTagsRepository.save(taskTags);
+            TagsEntity newTag = new TagsEntity();
+            newTag.setName(e.getName());
+            newTag.setColor(e.getColor());
+            newTag.setUserId(user.get());
+
+            tagsToAdd.add(newTag);
+        });
+
+        tagsRepository.saveAll(tagsToAdd);
+        return tagsToAdd;
     }
 
-    public ResponseEntity<List<DTOTag>> getUserTags(Integer userId){
-        if (!usersRepository.existsById(userId)){
+    public void checkToAssociateTags(List<DTONewTag> tags) {
+        Set<String> set = new HashSet<>();
+        tags.foreach((tag) -> {
+            if (!set.add(tag.getName())) {
+                throw new TagAlreadyInUseException("Cannot add similar or duplicate tags. Tag name: " + tag.getName());
+            }
+        });
+    }
+
+    public void associateTasks(List<TasksEntity> tasks, List<TagsEntity> tags) {
+        List<TaskTagsEntity> savedTaskTags = new ArrayList<>();
+
+        for (int i = 0; i < tags.size(); i++) {
+            TaskTagsEntity taskTags = new TaskTagsEntity();
+            taskTags.setTask(tasks.get(i));
+            taskTags.setTag(tags.get(i));
+
+            if (taskTagsRepository.exists(Example.of(taskTags))) {
+                throw new TagAlreadyInUseException("This tag is already associated on this task");
+            }
+
+            savedTaskTags.add(taskTags);
+        }
+
+        taskTagsRepository.saveAll(savedTaskTags);
+    }
+
+    public ResponseEntity<List<DTOTag>> getUserTags(Integer userId) {
+        if (!usersRepository.existsById(userId)) {
             throw new TagNotFoundException("Invalid user");
         }
 
         List<TagsEntity> temp = tagsRepository.findTagsByUserId(userId);
 
         List<DTOTag> tags = new ArrayList<>();
-        temp.forEach(e  -> tags.add(new DTOTag(e.getTagId(),e.getName(),e.getColor())));
+        temp.forEach(e -> tags.add(new DTOTag(e.getTagId(), e.getName(), e.getColor())));
 
         return ResponseEntity.ok(tags);
     }
 
-    public ResponseEntity<List<DTOTag>> getTaskTags(Integer taskId){
+    public ResponseEntity<List<DTOTag>> getTaskTags(Integer taskId) {
 
-       Optional<TasksEntity> task = tasksRepository.findById(taskId);
-       if (task.isEmpty()){
-           throw new TagNotFoundException("Invalid task");
-       }
-       List<TagsEntity> tagsE = task.get().getTags();
-       List<DTOTag> tags = new ArrayList<>();
-       tagsE.forEach(e-> tags.add(new DTOTag(e.getTagId(),e.getName(),e.getColor())));
-       return ResponseEntity.ok(tags);
+        Optional<TasksEntity> task = tasksRepository.findById(taskId);
+        if (task.isEmpty()) {
+            throw new TagNotFoundException("Invalid task");
+        }
+        List<TagsEntity> tagsE = task.get().getTags();
+        List<DTOTag> tags = new ArrayList<>();
+        tagsE.forEach(e -> tags.add(new DTOTag(e.getTagId(), e.getName(), e.getColor())));
+        return ResponseEntity.ok(tags);
     }
 
-    public void removeTag(Integer taskId, Integer tagId){
-        taskTagsRepository.deleteByTaskAndTagId(taskId,tagId);
+    public void removeTag(Integer taskId, Integer tagId) {
+        taskTagsRepository.deleteByTaskAndTagId(taskId, tagId);
     }
 }

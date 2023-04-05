@@ -39,6 +39,16 @@ public class Converter {
         return preview;
     }
 
+    public static List<DTOTag> toDTOTags(List<TagsEntity> tags){
+        List<DTOTag> convertedTags = new ArrayList<>();
+
+        tags.forEach((e) -> {
+            convertedTags.add(new DTOTag(e.getTagId(), e.getName(), e.getColor()));
+        });
+
+        return convertedTags;
+    }
+
     public static DTOTaskDetails toDTOTaskDetails(TasksEntity task){
         Integer parentId = null;
 
