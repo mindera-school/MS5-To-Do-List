@@ -790,6 +790,8 @@
 
 **30** - _`tag not found`_
 
+**31** - _`already in use`_
+
 ## Comment
 
 **40** - _`comment not found`_
