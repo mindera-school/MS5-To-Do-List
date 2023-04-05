@@ -132,8 +132,6 @@ export default function TaskPreview({
 
   const handleStop = useCallback((event, info) => {
     const swipeLength = window.innerWidth * 0.35;
-    console.log(swipeLength);
-    console.log(info.x);
     event.preventDefault();
     if (isDragging === true) {
       isDragging.current = false;
