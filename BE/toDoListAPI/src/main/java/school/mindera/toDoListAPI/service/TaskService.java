@@ -92,7 +92,9 @@ public class TaskService {
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
         Optional<TasksEntity> parent = Optional.ofNullable(null);
 
-        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println(newTask.getDate());
+
+        SimpleDateFormat formatData = new SimpleDateFormat("yyyy/MM/dd");
         Date date = null;
         if(!isNull(newTask.getDate())) {
             try {
@@ -168,7 +170,7 @@ public class TaskService {
     }
 
     private TasksEntity setTaskUpdate(TasksEntity task, DTOUpdateTask updateTask){
-        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatData = new SimpleDateFormat("yyyy/MM/dd");
         Date date;
         try {
             date = formatData.parse(updateTask.getDate());
