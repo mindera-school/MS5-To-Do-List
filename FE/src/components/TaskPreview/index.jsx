@@ -120,7 +120,6 @@ export default function TaskPreview({
   };
 
   const handleStart = useCallback((event, info) => {
-    console.log(info.x);
     if (event.target.toString() === "[object HTMLDivElement]") {
       isDragging.current = false;
     }
