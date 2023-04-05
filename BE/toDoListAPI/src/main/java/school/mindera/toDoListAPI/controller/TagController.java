@@ -28,9 +28,10 @@ public class TagController {
     }
 
     @PostMapping("/v1")
-    public ResponseEntity<DTOTag> createTag(@RequestBody DTONewTag newTag){
+    public ResponseEntity<List<DTOTag>> createTag(@RequestBody List<DTONewTag> newTag){
         return tagService.createTag(newTag);
     }
+
     @DeleteMapping("/{taskId}/{tagId}")
     public void removeTag(@PathVariable Integer taskId,@PathVariable Integer tagId){
         tagService.removeTag(taskId,tagId);

@@ -23,4 +23,16 @@ public class TagsExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity(response, HttpStatus.valueOf(404));
     }
+
+    @ExceptionHandler(value = {TagAlreadyInUseException.class})
+    public ResponseEntity handleTagAlreadyInUseException(RuntimeException e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code(31)
+                .type("tag")
+                .timestamp(new Date())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity(response, HttpStatus.valueOf(409));
+    }
 }
