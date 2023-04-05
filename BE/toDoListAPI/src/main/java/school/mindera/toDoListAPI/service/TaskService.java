@@ -92,7 +92,6 @@ public class TaskService {
         Optional<UsersEntity> user = usersRepository.findById(newTask.getUserId());
         Optional<TasksEntity> parent = Optional.ofNullable(null);
 
-        System.out.println(newTask.getDate());
 
         SimpleDateFormat formatData = new SimpleDateFormat("yyyy/MM/dd");
         Date date = null;
