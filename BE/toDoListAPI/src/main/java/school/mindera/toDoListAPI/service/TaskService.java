@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
-import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
+import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.TasksRepository;
@@ -53,13 +53,13 @@ public class TaskService {
         }
 
         if (task.isEmpty()) {
-            throw new InvalidTaskException("Invalid Task");
+            throw new TaskNotFoundException("Invalid Task");
         }
 
         List<TasksEntity> tasks = user.get().getTasks();
 
         if (!tasks.contains(task.get())) {
-            throw new InvalidTaskException("Invalid Task");
+            throw new TaskNotFoundException("Invalid Task");
         }
 
         return ResponseEntity.ok(Converter.toDTOTaskDetails(task.get()));
@@ -69,7 +69,7 @@ public class TaskService {
         Optional<TasksEntity> task = tasksRepository.findById(parentId);
 
         if (task.isEmpty()) {
-            throw new InvalidTaskException("Invalid Task");
+            throw new TaskNotFoundException("Invalid Parent ID");
         }
 
         Optional<List<TasksEntity>> subTasks = tasksRepository.findByParentId(task.get());
@@ -99,7 +99,7 @@ public class TaskService {
             try {
                 date = formatData.parse(newTask.getDate());
             } catch (Exception e) {
-                throw new InvalidTaskException("Date is not valid");
+                throw new TaskNotFoundException("Invalid Date");
             }
         }
 
@@ -110,7 +110,7 @@ public class TaskService {
             throw new InvalidUserException("Invalid user");
         }
         if (!isNull(newTask.getParentId()) && parent.isEmpty()) {
-            throw new InvalidTaskException("invalid task");
+            throw new TaskNotFoundException("Invalid Parent ID");
         }
 
         TasksEntity task = new TasksEntity();
@@ -134,7 +134,7 @@ public class TaskService {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
         if (task.isEmpty()) {
-            throw new InvalidTaskException("Invalid Task");
+            throw new TaskNotFoundException("Invalid Task");
         }
 
         TasksEntity updatedTask = setTaskUpdate(task.get(), updateTask);
@@ -151,7 +151,7 @@ public class TaskService {
             Optional<TasksEntity> dataBaseTask = tasksRepository.findById(task.getTaskId());
 
             if(dataBaseTask.isEmpty()){
-                throw new InvalidTaskException("Not Valid Task");
+                throw new TaskNotFoundException("Invalid Task");
             }
 
             TasksEntity updatedTask = setTaskPosition(dataBaseTask.get(), task);
@@ -174,7 +174,7 @@ public class TaskService {
         try {
             date = formatData.parse(updateTask.getDate());
         } catch (Exception e) {
-            throw new InvalidTaskException("Date is not valid");
+            throw new TaskNotFoundException("Invalid Date");
         }
 
         task.setTitle(updateTask.getTitle());
@@ -191,7 +191,7 @@ public class TaskService {
         if(!isNull(updateTask.getParentId())) {
             Optional<TasksEntity> parent = tasksRepository.findById(updateTask.getParentId());
             if (parent.isEmpty()) {
-                throw new InvalidTaskException("Parent is not valid");
+                throw new TaskNotFoundException("Invalid Parent ID");
             }
             task.setParentId(parent.get());
         }else {
