@@ -95,7 +95,7 @@ public class TagService {
 
        Optional<TasksEntity> task = tasksRepository.findById(taskId);
        if (task.isEmpty()){
-           throw new TagNotFoundException("invalid task");
+           throw new TagNotFoundException("Invalid task");
        }
        List<TagsEntity> tagsE = task.get().getTags();
        List<DTOTag> tags = new ArrayList<>();
