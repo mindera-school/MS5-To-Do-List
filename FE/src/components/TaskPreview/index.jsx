@@ -56,6 +56,7 @@ export default function TaskPreview({
   isFavorite,
   fullTaskURL,
   dragger,
+  parentId,
   isParent
 }) {
   const [isThisFav, setIsThisFav] = useState(isFavorite);
@@ -64,11 +65,13 @@ export default function TaskPreview({
   const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
   const currentUser = useContext(AppContext).currentUser;
   const setIsDone = useContext(TaskListContext).setTaskDoneState;
+  const deleteSubtask = useContext(TaskListContext).deleteSubtask;
+  const addSubstaskList = useContext(TaskListContext).addSubtasksList;
   const isDragging = useRef(null);
   const [borderColor, setBorderColor] = useState("none");
   const [padding, setPadding] = useState(false);
   const taskList = useContext(TaskListContext).list;
-  const [taskChildren, setTaskChildren] = useState([]);
+  const taskChildren = useContext(TaskListContext).getChildrenById(id) || [];
   const [showChildren, setShowChildren] = useState(false);
 
   useEffect(() => {
@@ -156,11 +159,14 @@ export default function TaskPreview({
     }
     fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
       .then(r => r.json())
-      .then(r => setTaskChildren(r));
+      .then(r => addSubstaskList({
+        id,
+        substasks: r
+      }));
   }, [taskList, id, isParent]);
 
   const getChevron = () => {
-    if (isParent && taskChildren.length >= 1) {
+    if (isParent && taskChildren?.length >= 1) {
       return <SubtasksBtns show={showChildren} onClick={() => setShowChildren(showChildren ? false : true)}>
         <FiChevronDown size={25} />
       </SubtasksBtns>;
@@ -215,7 +221,8 @@ export default function TaskPreview({
             <EdgeButtonsContainer>
               <DeleteBtn
                 onClick={(e) => {
-                  deleteTask(id, e, deleteTaskFromContext, currentUser);
+                  const deleteMethod = parentId === null ? deleteTaskFromContext : deleteSubtask;
+                  deleteTask(id, e, deleteMethod, currentUser);
                 }}
               >
                 <SlClose size={20} />
@@ -228,7 +235,7 @@ export default function TaskPreview({
         </div>
       </Draggable>
       {
-        taskChildren.length !== 0 ? <SubtaskList list={taskChildren} show={showChildren} /> : null
+        taskChildren?.length !== 0 ? <SubtaskList list={taskChildren} show={showChildren} /> : null
       }
       <TaskDetailsModal
         task={task}

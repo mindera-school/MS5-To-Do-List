@@ -5,16 +5,6 @@ export const AppContext = createContext({});
 
 export const useAppContext = () => useContext(AppContext);
 
-const mockUser = {
-  userId: 1,
-  profileImage: null,
-  firstName: "Adan",
-  lastName: "Oliveira",
-  username: "gorillaz",
-  email: "adank69@gmail.com",
-  tasksPreviewsURL: "https://todo/tasks/user/1",
-};
-
 export const useCreateAppContext = () => {
   const [appState, setAppState] = useState({
     menuType: "login",
@@ -52,6 +42,30 @@ export const useCreateTaskListContext = () => {
   const [taskListState, setTaskListState] = useState({
     list: [],
     displayedList: [],
+    subtasksList: []
+  });
+
+  const getChildrenById = useCallback((parentId) => {
+    return taskListState.subtasksList.find(e => e.id === parentId);
+  });
+
+  const addSubtasksList = useCallback((newList) => {
+    console.log(newList);
+    const tempArray = [...taskListState.subtasksList, newList];
+    console.log(tempArray);
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: tempArray
+    }));
+    console.log(taskListState.subtasksList);
+  });
+
+  const deleteSubtask = useCallback((subtaskId) => {
+    const updatedList = taskListState.subtasksList.filter(e => e.taskId !== subtaskId);
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: updatedList,
+    }));
   });
 
   const setTaskList = useCallback((newList) => {
@@ -114,9 +128,12 @@ export const useCreateTaskListContext = () => {
   return {
     ...taskListState,
     setTaskList,
+    addSubtasksList,
     deleteTaskFromContext,
+    deleteSubtask,
     setDisplayedTaskList,
     setTaskDoneState,
-    updateTask
+    updateTask,
+    getChildrenById
   };
 };

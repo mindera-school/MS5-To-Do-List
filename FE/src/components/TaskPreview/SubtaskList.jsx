@@ -39,6 +39,7 @@ function SubtaskList({ list, show }) {
 						isFavorite={e.isFavorite}
 						position={e.position}
 						tagsListUrl={e.tagsURL}
+						parentId={e.parentId}
 						isParent={false}
 						fullTaskURL={e.fullTaskURL}
 						dragger={
