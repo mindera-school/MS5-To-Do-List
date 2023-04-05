@@ -66,6 +66,7 @@ export default function TaskList() {
               isFavorite={e.isFavorite}
               position={e.position}
               tagsListUrl={e.tagsURL}
+              isParent={true}
               fullTaskURL={e.fullTaskURL}
               dragger={
                 <div {...providedDraggable.dragHandleProps}>

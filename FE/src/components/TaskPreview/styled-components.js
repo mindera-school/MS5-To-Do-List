@@ -80,12 +80,13 @@ export const StyledTaskPreview = styled.div`
   background-color: #8d99ae;
   border: ${(props) => props.border};
   border-radius: 30px;
-  box-sizing: border-box;
-  margin: 15px;
+  box-sizing: border - box;
+  margin: ${({ isParent }) => (isParent ? "15px" : "0")};
   padding: ${(props) => props.padding};
-  color: $tasks-font-color;
+  color: $tasks - font - color;
   font-family: Roboto;
   color: white;
+  transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")})
 `;
 
 export const NameAndDone = styled.div`
@@ -93,10 +94,10 @@ export const NameAndDone = styled.div`
   align-items: center;
   height: 40px;
   margin: 10px 0px 0px 0px;
-  h3 {
+    h3 {
     margin-left: 5px;
   }
-  input {
+    input {
     cursor: pointer;
   }
 `;
@@ -137,7 +138,7 @@ export const DeleteBtn = styled.button`
 
 export const EdgeButtonsContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space - around;
   width: 120px;
   padding: 15px;
 `;
@@ -145,4 +146,21 @@ export const EdgeButtonsContainer = styled.div`
 export const DraggerContainer = styled.div`
   margin-right: 15px;
   align-self: center;
+`;
+
+export const SubtasksBtns = styled.button`
+  background: transparent;
+  border: none;
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  cursor: pointer;
+  transform: rotate(${({ show }) => (show ? "180deg" : "0deg")});
+  transition: transform 0.7s;
+`;
+
+export const SubtasksList = styled.div`
+  max-height: ${({ show }) => (show ? "500px" : "0px")};
+  overflow-y: hidden;
+  transition: max-height 0.7s ease-in;
 `;
