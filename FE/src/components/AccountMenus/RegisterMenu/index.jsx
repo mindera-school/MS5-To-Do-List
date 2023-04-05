@@ -46,7 +46,7 @@ export const RegisterMenu = () => {
 			return;
 		}
 		if (!checkPassword(data.password)) {
-			setErrorMessage("password does not match the requirements!	");
+			setErrorMessage("Password does not match the requirements!	");
 			return;
 		}
 		fetch("http://localhost:8086/todo/users/register", {
