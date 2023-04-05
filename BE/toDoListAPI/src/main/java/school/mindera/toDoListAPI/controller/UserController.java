@@ -24,8 +24,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<DTOLoggedUser> register(@RequestBody DTORegister register) {
-        DTOLoggedUser loggedUser = userService.register(register);
-        return ResponseEntity.ok(loggedUser);
+        return userService.register(register);
     }
 
     @PatchMapping("/{userId}/profile-image")
