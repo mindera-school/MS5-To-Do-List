@@ -115,3 +115,24 @@ export const GoBackBtn = styled.button`
 	}
 `;
 
+export const PasswordDetails = styled.ul`
+	margin: 0;
+	color: white;
+	transition: height 0.8s;
+	height: ${({ isDisplayed }) => isDisplayed ? "30%" : 0};
+	overflow-y: hidden;
+	position: relative;
+	top: -5%;
+	left: -15%;
+`;
+
+export const ErrorDisplay = styled.div`
+	color: red;
+	width: 100%;
+	text-align: center;
+	background-color: rgba(255, 0, 0, 0.27);
+	padding: 20px;
+	display: ${({ error }) => error === "" ? "none" : "block"};
+	margin-bottom: 10px;
+`;
+
