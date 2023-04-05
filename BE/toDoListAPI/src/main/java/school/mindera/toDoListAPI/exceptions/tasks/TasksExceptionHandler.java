@@ -35,4 +35,16 @@ public class TasksExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity(response, HttpStatus.valueOf(400));
     }
+
+    @ExceptionHandler(value = {InvalidTaskException.class})
+    public ResponseEntity handleInvalidTaskException(RuntimeException e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code(22)
+                .type("task")
+                .timestamp(new Date())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity(response, HttpStatus.valueOf(400));
+    }
 }

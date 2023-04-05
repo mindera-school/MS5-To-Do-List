@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
+import school.mindera.toDoListAPI.exceptions.tasks.InvalidTaskException;
 import school.mindera.toDoListAPI.exceptions.tasks.TaskMissingDataException;
 import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
@@ -111,7 +112,7 @@ public class TaskService {
             throw new InvalidUserException("Invalid user");
         }
         if (!isNull(newTask.getParentId()) && parent.isEmpty()) {
-            throw new TaskMissingDataException("Invalid Parent ID");
+            throw new InvalidTaskException("Invalid Parent ID");
         }
 
         TasksEntity task = new TasksEntity();
@@ -192,7 +193,7 @@ public class TaskService {
         if(!isNull(updateTask.getParentId())) {
             Optional<TasksEntity> parent = tasksRepository.findById(updateTask.getParentId());
             if (parent.isEmpty()) {
-                throw new TaskNotFoundException("Invalid Parent ID");
+                throw new InvalidTaskException("Invalid Parent ID");
             }
             task.setParentId(parent.get());
         }else {
