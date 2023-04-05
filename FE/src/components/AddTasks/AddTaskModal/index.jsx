@@ -20,7 +20,7 @@ export default function AddTaskModal({
       type: type, value: {
         title: titleInput.current.value,
         description: descriptionInput.current.value,
-        date: dateInput.current.value
+        date: dateInput.current.value.replaceAll("-", "/")
       }
     });
     titleInput.current.value = "";
