@@ -42,7 +42,7 @@ export const RegisterMenu = () => {
 			return;
 		}
 		if (!checkEmail(data.email)) {
-			setErrorMessage("invalid email!");
+			setErrorMessage("Invalid email!");
 			return;
 		}
 		if (!checkPassword(data.password)) {
