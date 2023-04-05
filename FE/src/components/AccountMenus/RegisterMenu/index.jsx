@@ -96,11 +96,11 @@ export const RegisterMenu = () => {
 					<input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} onSelect={() => setPDetailsVisibility(true)} />
 				</label>
 				<PasswordDetails isDisplayed={pDetailsVisibility}>
-					<h4>password must include:</h4>
-					<li>between 4 and 8 characters</li>
-					<li>one upper case letter</li>
-					<li>one lower case letter</li>
-					<li>one numeric digit</li>
+					<h4>Password must include:</h4>
+					<li>Between 4 and 8 characters</li>
+					<li>One upper case letter</li>
+					<li>One lower case letter</li>
+					<li>One numeric digit</li>
 				</PasswordDetails>
 
 				<button onClick={(e) => {
