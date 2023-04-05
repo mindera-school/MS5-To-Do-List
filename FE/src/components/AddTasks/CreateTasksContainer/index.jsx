@@ -144,7 +144,6 @@ function compareObjs(obj1, obj2) {
     obj2.date === obj1.date &&
     obj1.position === obj2.position &&
     obj1.ParentId === obj2.ParentId;
-
 }
 
 function updateTaskList(taskList, task) {
