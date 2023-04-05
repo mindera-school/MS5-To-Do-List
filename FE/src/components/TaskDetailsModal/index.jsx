@@ -21,6 +21,7 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
 		setDisplay(false);
+		setIsEditing(false);
 	}
 
 	const updateTaskComments = (newComment) => {
