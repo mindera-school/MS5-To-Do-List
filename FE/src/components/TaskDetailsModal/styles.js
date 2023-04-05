@@ -245,3 +245,42 @@ export const DateInput = styled.div`
 		border-radius: 3px;
 	}
 `;
+
+export const SubtaskFormBox = styled.div`
+	max-height: ${({ opened }) => (opened ? "500px" : "0px")};
+	box-sizing: border-box;
+	padding: ${({ opened }) => (opened ? "10px" : "0px")};
+	width: 200px;
+	background-color: #2C5BA1;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	right: 5%;
+	top: 12%;
+	transition: max-height 0.4s;
+	border-radius: 5px;
+	overflow: hidden;
+`;
+
+export const SubtaskInput = styled.input`
+	width: 170px;
+	background-color: WHITE;
+	border: none;
+	border-radius: 4px;
+	padding: 5px;
+`;
+
+export const CustomLabel = styled.label`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 5px;
+	padding: 4px;
+`;
+
+export const SaveBtn = styled.button`
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+`;

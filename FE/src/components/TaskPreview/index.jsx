@@ -70,8 +70,7 @@ export default function TaskPreview({
   const isDragging = useRef(null);
   const [borderColor, setBorderColor] = useState("none");
   const [padding, setPadding] = useState(false);
-  const taskList = useContext(TaskListContext).list;
-  const taskChildren = useContext(TaskListContext).getChildrenById(id) || [];
+  const taskChildren = useContext(TaskListContext).getChildrenById(id);
   const [showChildren, setShowChildren] = useState(false);
 
   useEffect(() => {
@@ -161,12 +160,12 @@ export default function TaskPreview({
       .then(r => r.json())
       .then(r => addSubstaskList({
         id,
-        substasks: r
+        subtasks: r
       }));
-  }, [taskList, id, isParent]);
+  }, [id, isParent]);
 
   const getChevron = () => {
-    if (isParent && taskChildren?.length >= 1) {
+    if (isParent && taskChildren?.subtasks?.length >= 1) {
       return <SubtasksBtns show={showChildren} onClick={() => setShowChildren(showChildren ? false : true)}>
         <FiChevronDown size={25} />
       </SubtasksBtns>;
@@ -178,6 +177,13 @@ export default function TaskPreview({
       setShowChildren(false);
     }
   }, [isDragging]);
+
+  const getChildren = () => {
+    if (taskChildren === undefined) {
+      return;
+    }
+    return <SubtaskList list={taskChildren.subtasks} show={showChildren} />;
+  };
 
   return (
     <>
@@ -235,7 +241,7 @@ export default function TaskPreview({
         </div>
       </Draggable>
       {
-        taskChildren?.length !== 0 ? <SubtaskList list={taskChildren} show={showChildren} /> : null
+        getChildren()
       }
       <TaskDetailsModal
         task={task}

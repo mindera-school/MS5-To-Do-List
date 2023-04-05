@@ -49,15 +49,39 @@ export const useCreateTaskListContext = () => {
     return taskListState.subtasksList.find(e => e.id === parentId);
   });
 
+  const addChildrenToTask = useCallback((parentId, children) => {
+    console.log(children);
+    const updatedList = taskListState.subtasksList.map(e => {
+      if (e.id === parentId) {
+        return {
+          id: e.id,
+          subtasks: [
+            ...e.subtasks,
+            {
+              ...children,
+              isFavorite: false,
+              isDone: false,
+              tags: [],
+              expired: false,
+            }
+          ]
+        };
+      }
+      return e;
+    });
+
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: updatedList
+    }));
+  });
+
   const addSubtasksList = useCallback((newList) => {
-    console.log(newList);
     const tempArray = [...taskListState.subtasksList, newList];
-    console.log(tempArray);
     setTaskListState((oldState) => ({
       ...oldState,
       subtasksList: tempArray
     }));
-    console.log(taskListState.subtasksList);
   });
 
   const deleteSubtask = useCallback((subtaskId) => {
@@ -134,6 +158,7 @@ export const useCreateTaskListContext = () => {
     setDisplayedTaskList,
     setTaskDoneState,
     updateTask,
-    getChildrenById
+    getChildrenById,
+    addChildrenToTask
   };
 };
