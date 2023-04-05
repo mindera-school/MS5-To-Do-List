@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
+import school.mindera.toDoListAPI.exceptions.tasks.TaskMissingDataException;
 import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.model.*;
@@ -99,7 +100,7 @@ public class TaskService {
             try {
                 date = formatData.parse(newTask.getDate());
             } catch (Exception e) {
-                throw new TaskNotFoundException("Invalid Date");
+                throw new TaskMissingDataException("Invalid Date");
             }
         }
 
@@ -110,7 +111,7 @@ public class TaskService {
             throw new InvalidUserException("Invalid user");
         }
         if (!isNull(newTask.getParentId()) && parent.isEmpty()) {
-            throw new TaskNotFoundException("Invalid Parent ID");
+            throw new TaskMissingDataException("Invalid Parent ID");
         }
 
         TasksEntity task = new TasksEntity();
@@ -174,7 +175,7 @@ public class TaskService {
         try {
             date = formatData.parse(updateTask.getDate());
         } catch (Exception e) {
-            throw new TaskNotFoundException("Invalid Date");
+            throw new TaskMissingDataException("Invalid Date");
         }
 
         task.setTitle(updateTask.getTitle());

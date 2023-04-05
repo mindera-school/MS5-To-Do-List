@@ -23,4 +23,16 @@ public class TasksExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity(response, HttpStatus.valueOf(404));
     }
+
+    @ExceptionHandler(value = {TaskMissingDataException.class})
+    public ResponseEntity handleTaskMissingDataException(RuntimeException e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code(21)
+                .type("task")
+                .timestamp(new Date())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity(response, HttpStatus.valueOf(400));
+    }
 }
