@@ -75,6 +75,7 @@ export default function CreateTasksContainer() {
 
   const addHandler = async () => {
     if (newTaskState.title === "") return;
+
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {

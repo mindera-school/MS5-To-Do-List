@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
+import { ErrorDisplay } from "../../ErrorDisplay";
 import {
   AddButton, AddButtonsDiv, AddDiffButton, AddModal, ButtonsContainer, CloseButton, ContainerInput, DateInput, DateTagdiv, Description, DescriptionContainer, DescriptionInput, ModalContainer, TitleInput
 } from "./style";
@@ -15,25 +16,32 @@ export default function AddTaskModal({
   const titleInput = useRef();
   const dateInput = useRef();
   const descriptionInput = useRef();
+  const [error, setError] = useState("");
   const addValue = (type) => {
-    dispatch({
-      type: type, value: {
-        title: titleInput.current.value,
-        description: descriptionInput.current.value,
-        date: dateInput.current.value.replaceAll("-", "/")
-      }
-    });
-    titleInput.current.value = "";
-    descriptionInput.current.value = "";
-    dateInput.current.value = "";
+    const title = titleInput.current.value;
+    const date = dateInput.current.value;
+
+    if (title === "") {
+      setError("Title must not be empty");
+      return;
+    }
+
+    if (date !== "" && Date.parse(date) < Date.now()) {
+      setError("choose a valid date");
+      return;
+    }
   };
 
   return (
     <AddModal display={modalVisible}>
-      <CloseButton onClick={closeHandler}>
+      <CloseButton onClick={() => {
+        closeHandler();
+        setError("");
+      }}>
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
       <ModalContainer>
+        <ErrorDisplay error={error}>{error}</ErrorDisplay>
         <TitleInput ref={titleInput} type="text" placeholder="Task Title" />
         <ContainerInput>
           <DateTagdiv>
