@@ -120,6 +120,7 @@ export default function TaskPreview({
   };
 
   const handleStart = useCallback((event, info) => {
+    console.log(info.x);
     if (event.target.toString() === "[object HTMLDivElement]") {
       isDragging.current = false;
     }
@@ -130,17 +131,19 @@ export default function TaskPreview({
   }, []);
 
   const handleStop = useCallback((event, info) => {
-    console.log(info);
+    const swipeLength = window.innerWidth * 0.35;
+    console.log(swipeLength);
+    console.log(info.x);
     event.preventDefault();
     if (isDragging === true) {
       isDragging.current = false;
       return;
     }
-    if (info.x >= 450) {
+    if (info.x >= swipeLength) {
       setIsDone(id, isDone ? false : true);
       checkColor();
     }
-    if (info.x <= -450) {
+    if (info.x <= -swipeLength) {
       deleteTask(id, event, deleteTaskFromContext, currentUser);
     }
     isDragging.current = false;
