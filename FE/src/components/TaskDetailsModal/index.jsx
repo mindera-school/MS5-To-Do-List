@@ -20,13 +20,14 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
 	const [subtaskTitle, setSubtaskTitle] = useState("");
 	const [subtaskDate, setSubtaskDate] = useState("");
+	const teupai = useTaskListContext();
 
 	function saveSubtask() {
 		const data = {
 			title: subtaskTitle,
 			description: "",
-			date: subtaskDate,
-			userId: currentUser,
+			date: subtaskDate.replaceAll("-", "/"),
+			userId: currentUser.userId,
 			parentId: task.taskId,
 			//dps colocar aqui a posição no array de subtasks
 			position: 0
@@ -48,15 +49,16 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 						...data,
 						taskId: Date.now().toString(36)
 					});
-				} else {
-					addChildren(task.taskId, {
-						...data,
-						taskId: r.id
-					});
 				}
+				addChildren(task.taskId, {
+					...data,
+					taskId: r.id
+				});
+
 				if (r === undefined) {
 					console.log("Couldn't add subtask");
 				}
+				console.log(teupai.subtasksList);
 			})
 			.catch(console.log("Couldn't connect"));
 
