@@ -8,6 +8,8 @@ import { Container } from "./style";
 export default function CreateTasksContainer() {
   const [modalVisible, setModalVisible] = useState("none");
   const tasksList = useTaskListContext();
+  const [tagsList, setTagsList] = useState([
+  ]);
   const user = useAppContext();
   const handler = () =>
     setModalVisible(modalVisible === "none" ? "block" : "none");
@@ -18,7 +20,8 @@ export default function CreateTasksContainer() {
     userId: user.currentUser === null ? null : user.currentUser?.userId,
     parentId: null,
     position: 0,
-    taskId: null
+    taskId: null,
+    tags: tagsList
   };
 
   const reducer = (state, { type, value }) => {
@@ -31,7 +34,8 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          tags: tagsList
         };
       case "last":
         return {
@@ -41,7 +45,8 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          tags: tagsList
         };
       case "random":
         return {
@@ -51,7 +56,8 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          tags: tagsList
         };
       case "set":
         return {
@@ -66,7 +72,8 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          tags: tagsList
         };
     }
   };
@@ -85,7 +92,7 @@ export default function CreateTasksContainer() {
           date: newTaskState.date,
           title: newTaskState.title,
           description: newTaskState.description,
-          userId: newTaskState.taskId
+          userId: newTaskState.taskId,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -100,12 +107,14 @@ export default function CreateTasksContainer() {
 
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
+            setTagsList([]);
           }
         })
         .catch(() => console.error("Error task not created"));
     } else {
       //Guest Mode
       tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
+      setTagsList([]);
     }
   };
 
@@ -130,6 +139,8 @@ export default function CreateTasksContainer() {
         newTask={newTask}
         addHandler={addHandler}
         dispatch={dispatch}
+        tagsList={tagsList}
+        setTagsList={setTagsList}
       />
       <Overlay
         handler={handler}
@@ -152,7 +163,6 @@ function compareObjs(obj1, obj2) {
 }
 
 function updateTaskList(taskList, task) {
-  console.log(taskList);
   if (task.position === 0) {
     return [task, ...taskList];
   }
