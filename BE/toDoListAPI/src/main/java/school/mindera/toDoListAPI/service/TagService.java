@@ -9,6 +9,8 @@ import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TaskTagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
+import school.mindera.toDoListAPI.exceptions.comments.CommentNotFoundException;
+import school.mindera.toDoListAPI.exceptions.tags.TagNotFoundException;
 import school.mindera.toDoListAPI.model.DTONewTag;
 import school.mindera.toDoListAPI.model.DTOTag;
 import school.mindera.toDoListAPI.repositories.TagsRepository;
@@ -40,14 +42,14 @@ public class TagService {
         Optional<TasksEntity> task = tasksRepository.findById(newTag.getTaskId());
 
         if (task.isEmpty()){
-            return ResponseEntity.notFound().build();
+            throw new TagNotFoundException("Invalid task on create");
         }
         if (verifierTag.isPresent()){
             associateTask(task.get(),verifierTag.get());
             return ResponseEntity.ok(new DTOTag(verifierTag.get().getTagId(),verifierTag.get().getName(),verifierTag.get().getColor()));
         }
         if(user.isEmpty()){
-            return ResponseEntity.badRequest().build();
+            throw new TagNotFoundException("Invalid User on create");
         }
 
         TagsEntity tag = new TagsEntity();
@@ -78,7 +80,7 @@ public class TagService {
 
     public ResponseEntity<List<DTOTag>> getUserTags(Integer userId){
         if (!usersRepository.existsById(userId)){
-            return ResponseEntity.badRequest().build();
+            throw new TagNotFoundException("Invalid user");
         }
 
         List<TagsEntity> temp = tagsRepository.findTagsByUserId(userId);
@@ -93,7 +95,7 @@ public class TagService {
 
        Optional<TasksEntity> task = tasksRepository.findById(taskId);
        if (task.isEmpty()){
-           return ResponseEntity.badRequest().build();
+           throw new TagNotFoundException("Invalid task");
        }
        List<TagsEntity> tagsE = task.get().getTags();
        List<DTOTag> tags = new ArrayList<>();
