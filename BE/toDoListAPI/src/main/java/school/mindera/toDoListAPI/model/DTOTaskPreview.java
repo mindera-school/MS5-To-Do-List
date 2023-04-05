@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
+import school.mindera.toDoListAPI.exceptions.tasks.TaskMissingDataException;
+import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,7 +36,7 @@ public class DTOTaskPreview {
         try {
             expiredDate = formatDate.parse(date).after(new Date());
         }catch (Exception e){
-            throw new InvalidTaskException("Invalid Date");
+            throw new TaskMissingDataException("Invalid Date");
         }
         return expiredDate;
     }
