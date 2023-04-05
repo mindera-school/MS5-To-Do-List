@@ -80,7 +80,7 @@ public class TagService {
 
     public ResponseEntity<List<DTOTag>> getUserTags(Integer userId){
         if (!usersRepository.existsById(userId)){
-            throw new TagNotFoundException("invalid user");
+            throw new TagNotFoundException("Invalid user");
         }
 
         List<TagsEntity> temp = tagsRepository.findTagsByUserId(userId);
