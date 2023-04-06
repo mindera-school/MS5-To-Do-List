@@ -10,7 +10,11 @@ import { AiOutlineCalendar } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
-import { AppContext, TaskListContext } from "../../context.js";
+import {
+  AppContext,
+  TaskListContext,
+  useTaskListContext,
+} from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
@@ -77,6 +81,18 @@ export default function TaskPreview({
   const [showChildren, setShowChildren] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
+  const tasksList = useTaskListContext();
+
+  useEffect(() => {
+    tasksList.setTaskList(
+      tasksList.list.map((task) => {
+        if (task.taskId === id) {
+          task.isFavorite = isThisFav;
+        }
+        return task;
+      })
+    );
+  }, [isThisFav]);
 
   useEffect(() => {
     setPadding("3px 15px");
