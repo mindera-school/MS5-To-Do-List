@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { BiMove } from "react-icons/bi";
 import { useAppContext, useTaskListContext } from "../../context";
@@ -6,7 +6,9 @@ import TaskPreview from "../TaskPreview";
 
 //Injects every object task preview coming from the user state list of tasks into a Task Preview component
 export default function TaskList() {
+  const taskListContext = useTaskListContext();
   const taskList = useTaskListContext().list;
+  const displayedTaskList = useTaskListContext().displayedList;
   const updateTaskList = useTaskListContext().setTaskList;
   const currentUser = useAppContext().currentUser;
 
@@ -88,7 +90,9 @@ export default function TaskList() {
             {...providedDroppable.droppableProps}
             ref={providedDroppable.innerRef}
           >
-            {allTasksComps}
+            {
+            allTasksComps
+            }
             {providedDroppable.placeholder}
           </div>
         )}
