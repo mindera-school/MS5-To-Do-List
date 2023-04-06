@@ -112,7 +112,15 @@ export default function TagsContainer({
   const handler = () => {
     if (tagsList.length >= 3) return;
     setIsButtonDisabled(true);
-    setTagsList([...tagsList, { name: "", input: true }]);
+    setTagsList([
+      ...tagsList,
+      {
+        name: "",
+        taskId: taskId,
+        userID: user.currentUser.userId,
+        input: true,
+      },
+    ]);
   };
 
   return (
