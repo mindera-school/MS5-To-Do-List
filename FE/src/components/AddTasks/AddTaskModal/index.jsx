@@ -8,9 +8,7 @@ import {
 
 export default function AddTaskModal({
   closeHandler,
-  addHandler,
   modalVisible,
-  newTask,
   dispatch,
 }) {
   const titleInput = useRef();
@@ -30,6 +28,14 @@ export default function AddTaskModal({
       setError("Choose a valid date");
       return;
     }
+    dispatch({
+      type: type,
+      value: {
+        title: title,
+        date: date,
+        description: descriptionInput.current.value
+      }
+    });
   };
 
   return (
