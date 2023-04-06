@@ -78,6 +78,7 @@ export default function AddTaskModal({
               tagsList={tagsList}
               setTagsList={setTagsList}
               editMode={editMode}
+              display={true}
             />
           </DateTagdiv>
         </ContainerInput>

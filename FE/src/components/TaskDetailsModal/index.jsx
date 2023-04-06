@@ -49,6 +49,7 @@ export default function TaskDetailsModal({
 
   function manageClose() {
     setIsOverlayVisible(isOverlayVisible ? false : true);
+    setIsEditing(false);
     setDisplay(false);
   }
 
