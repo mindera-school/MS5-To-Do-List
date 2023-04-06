@@ -12,8 +12,15 @@ export const useCreateAppContext = () => {
   });
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    setAppState({ ...appState, user: user });
-    console.log(appState);
+
+    if (user === null) return;
+
+    if (user.expireTime < Date.now()) {
+      localStorage.setItem("user", null);
+      return;
+    }
+
+    setAppState({ menuType: "logged", currentUser: user });
   }, []);
   const setMenuType = useCallback((type) => {
     setAppState((oldState) => ({
@@ -23,6 +30,7 @@ export const useCreateAppContext = () => {
   }, []);
 
   const setCurrentUser = useCallback((user) => {
+    localStorage.setItem("user", user === null ? null : JSON.stringify({ ...user, expireTime: Date.now() + 172800000 }));
     setAppState((oldState) => ({
       ...oldState,
       currentUser: user,
