@@ -12,6 +12,7 @@ import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.comments.CommentNotFoundException;
 import school.mindera.toDoListAPI.exceptions.tags.TagAlreadyInUseException;
 import school.mindera.toDoListAPI.exceptions.tags.TagNotFoundException;
+import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.model.Converter;
 import school.mindera.toDoListAPI.model.DTONewTag;
@@ -41,23 +42,21 @@ public class TagService {
         checkToAssociateTags(newTag);
 
         List<DTONewTag> toCreate = new ArrayList<>();
-        List<TasksEntity> toCreateTask = new ArrayList<>();
         List<TagsEntity> toSaveTags = new ArrayList<>();
-        List<TasksEntity> tasksSaved = new ArrayList<>();
+        Optional<TasksEntity> task = tasksRepository.findById(newTag.get(0).getTaskId());
+
+        if (task.isEmpty()) {
+            throw new TagNotFoundException("Invalid task on create Tag");
+        }
 
         newTag.forEach((e) -> {
             Optional<UsersEntity> user = usersRepository.findById(e.getUserId());
             Optional<TagsEntity> verifierTag = tagsRepository.findByNameAndUserId(e.getName(), e.getUserId());
-            Optional<TasksEntity> task = tasksRepository.findById(e.getTaskId());
 
-            if (task.isEmpty()) {
-                throw new TagNotFoundException("Invalid task on create Tag");
-            }
             if (user.isEmpty()) {
                 throw new TagNotFoundException("Invalid User on create Tag");
             }
             if (verifierTag.isEmpty()) {
-                toCreateTask.add(task.get());
                 toCreate.add(e);
                 return;
             }
@@ -65,12 +64,10 @@ public class TagService {
             TagsEntity tag = verifierTag.get();
 
             toSaveTags.add(tag);
-            tasksSaved.add(task.get());
         });
 
-        tasksSaved.addAll(toCreateTask);
         toSaveTags.addAll(createNewTags(toCreate));
-        associateTasks(tasksSaved, toSaveTags);
+        associateTasks(task.get(), toSaveTags);
         List<DTOTag> savedTags = Converter.toDTOTags(toSaveTags);
 
         return ResponseEntity.ok(savedTags);
@@ -107,12 +104,12 @@ public class TagService {
         });
     }
 
-    public void associateTasks(List<TasksEntity> tasks, List<TagsEntity> tags) {
+    public void associateTasks(TasksEntity task, List<TagsEntity> tags) {
         List<TaskTagsEntity> savedTaskTags = new ArrayList<>();
 
         for (int i = 0; i < tags.size(); i++) {
             TaskTagsEntity taskTags = new TaskTagsEntity();
-            taskTags.setTask(tasks.get(i));
+            taskTags.setTask(task);
             taskTags.setTag(tags.get(i));
 
             if (taskTagsRepository.exists(Example.of(taskTags))) {
@@ -153,4 +150,66 @@ public class TagService {
     public void removeTag(Integer taskId, Integer tagId) {
         taskTagsRepository.deleteByTaskAndTagId(taskId, tagId);
     }
+
+    public ResponseEntity<List<DTOTag>> updateTags(Integer taskId, List<DTONewTag> tagsToUpdate) {
+        Optional<TasksEntity> task = tasksRepository.findById(taskId);
+
+        if (task.isEmpty()) {
+            throw new TagNotFoundException("Task is not valid");
+        }
+
+        List<TagsEntity> taskTags = task.get().getTags();
+
+        if (tagsToUpdate.isEmpty()) {
+            taskTags.forEach((e) -> taskTagsRepository.deleteByTaskAndTagId(taskId, e.getTagId()));
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+
+        checkToAssociateTags(tagsToUpdate);
+
+        List<DTONewTag> toCreate = new ArrayList<>();
+        List<TagsEntity> toKeep = new ArrayList<>();
+        List<Integer> toDelete = new ArrayList<>();
+
+        List<TagsEntity> updatedTags = new ArrayList<>();
+
+        tagsToUpdate.forEach((e) -> {
+            DTONewTag tagDTO = new DTONewTag(e.getName(), e.getColor(), e.getUserId(), taskId);
+            boolean found = false;
+
+            for (TagsEntity taskTag : taskTags) {
+                if (e.getName().equalsIgnoreCase(taskTag.getName())) {
+                    toKeep.add(taskTag);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                toCreate.add(tagDTO);
+            }
+        });
+
+        taskTags.forEach((e) -> {
+            boolean found = false;
+            for (DTONewTag newTag : tagsToUpdate) {
+                if (newTag.getName().equalsIgnoreCase(e.getName())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                toDelete.add(e.getTagId());
+            }
+        });
+
+        toDelete.forEach((e) -> taskTagsRepository.deleteByTaskAndTagId(taskId, e));
+        List<TagsEntity> createdNewTags = createNewTags(toCreate);
+        associateTasks(task.get(), createdNewTags);
+        updatedTags.addAll(toKeep);
+        updatedTags.addAll(createdNewTags);
+
+        List<DTOTag> savedTags = Converter.toDTOTags(updatedTags);
+        return ResponseEntity.ok(savedTags);
+    }
+
 }
