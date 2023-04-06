@@ -271,7 +271,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 
 function sendTags(tags) {
   fetch("http://localhost:8086/todo/tags/v1", {
-    method: "PATCH",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
