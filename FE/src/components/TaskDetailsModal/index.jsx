@@ -27,11 +27,19 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 			title: subtaskTitle,
 			description: "",
 			date: subtaskDate.replaceAll("-", "/"),
-			userId: currentUser.userId,
+			userId: currentUser === null ? null : currentUser.userId,
 			parentId: task.taskId,
 			//dps colocar aqui a posição no array de subtasks
 			position: 0
 		};
+
+		if (currentUser === null) {
+			addChildren(task.taskId, {
+				...data,
+				taskId: Date.now().toString(36)
+			});
+			return;
+		}
 
 		fetch("http://localhost:8086/todo/tasks/v1", {
 			method: "POST",
@@ -44,12 +52,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 		})
 			.then(r => r.json())
 			.then(r => {
-				if (currentUser === null) {
-					addChildren(task.taskId, {
-						...data,
-						taskId: Date.now().toString(36)
-					});
-				}
+				console.log(data);
 				addChildren(task.taskId, {
 					...data,
 					taskId: r.id

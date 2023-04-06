@@ -82,9 +82,12 @@ export default function TaskPreview({
       setTask({});
       return;
     }
-    fetch(fullTaskURL)
-      .then((r) => r.json())
-      .then((r) => setTask(r));
+
+    if (currentUser !== null) {
+      fetch(fullTaskURL)
+        .then((r) => r.json())
+        .then((r) => setTask(r));
+    }
   }, [isDetailVis, fullTaskURL]);
 
   useEffect(() => {
@@ -156,12 +159,14 @@ export default function TaskPreview({
     if (isParent === false) {
       return;
     }
-    fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
-      .then(r => r.json())
-      .then(r => addSubstaskList({
-        id,
-        subtasks: r
-      }));
+    if (currentUser !== null) {
+      fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
+        .then(r => r.json())
+        .then(r => addSubstaskList({
+          id,
+          subtasks: r
+        }));
+    }
   }, [id, isParent]);
 
   const getChevron = () => {
