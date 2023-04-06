@@ -36,4 +36,9 @@ public class TagController {
     public void removeTag(@PathVariable Integer taskId,@PathVariable Integer tagId){
         tagService.removeTag(taskId,tagId);
     }
+
+    @PutMapping("/v1/{taskId}")
+    public ResponseEntity<List<DTOTag>> updateTags(@PathVariable Integer taskId, @RequestBody List<DTONewTag> newTags){
+        return tagService.updateTags(taskId, newTags);
+    }
 }
