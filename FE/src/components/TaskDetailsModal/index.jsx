@@ -20,7 +20,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
 	const [subtaskTitle, setSubtaskTitle] = useState("");
 	const [subtaskDate, setSubtaskDate] = useState("");
-	const teupai = useTaskListContext();
+	const teupai = useTaskListContext().list;
 
 	function saveSubtask() {
 		const data = {
@@ -52,7 +52,6 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 		})
 			.then(r => r.json())
 			.then(r => {
-				console.log(data);
 				addChildren(task.taskId, {
 					...data,
 					taskId: r.id
@@ -61,7 +60,6 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 				if (r === undefined) {
 					console.log("Couldn't add subtask");
 				}
-				console.log(teupai.subtasksList);
 			})
 			.catch(console.log("Couldn't connect"));
 

@@ -72,6 +72,7 @@ export default function TaskPreview({
   const [padding, setPadding] = useState(false);
   const taskChildren = useContext(TaskListContext).getChildrenById(id);
   const [showChildren, setShowChildren] = useState(false);
+  const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
 
   useEffect(() => {
     setPadding("3px 15px");
@@ -87,6 +88,8 @@ export default function TaskPreview({
       fetch(fullTaskURL)
         .then((r) => r.json())
         .then((r) => setTask(r));
+    } else {
+      setTask(returnTaskById(id));
     }
   }, [isDetailVis, fullTaskURL]);
 
@@ -166,7 +169,13 @@ export default function TaskPreview({
           id,
           subtasks: r
         }));
+    } else {
+      addSubstaskList({
+        id,
+        subtasks: []
+      });
     }
+
   }, [id, isParent]);
 
   const getChevron = () => {
@@ -176,12 +185,6 @@ export default function TaskPreview({
       </SubtasksBtns>;
     }
   };
-
-  useEffect(() => {
-    if (isDragging === true) {
-      setShowChildren(false);
-    }
-  }, [isDragging]);
 
   const getChildren = () => {
     if (taskChildren === undefined) {
