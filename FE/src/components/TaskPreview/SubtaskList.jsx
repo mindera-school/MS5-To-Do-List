@@ -24,7 +24,7 @@ function SubtaskList({ list, show }) {
 		setStateList(list);
 	}, [list]);
 
-	const subtasks = stateList.map((e, index) => {
+	const subtasks = stateList?.map((e, index) => {
 		return (<Draggable key={e.taskId} draggableId={e.taskId.toString()} index={index}>
 			{(providedDraggable) => (
 				<div
@@ -39,6 +39,7 @@ function SubtaskList({ list, show }) {
 						isFavorite={e.isFavorite}
 						position={e.position}
 						tagsListUrl={e.tagsURL}
+						parentId={e.parentId}
 						isParent={false}
 						fullTaskURL={e.fullTaskURL}
 						dragger={

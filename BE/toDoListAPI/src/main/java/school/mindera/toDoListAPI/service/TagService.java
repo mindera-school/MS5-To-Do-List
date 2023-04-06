@@ -100,7 +100,7 @@ public class TagService {
 
     public void checkToAssociateTags(List<DTONewTag> tags) {
         Set<String> set = new HashSet<>();
-        tags.foreach((tag) -> {
+        tags.forEach((tag) -> {
             if (!set.add(tag.getName())) {
                 throw new TagAlreadyInUseException("Cannot add similar or duplicate tags. Tag name: " + tag.getName());
             }
