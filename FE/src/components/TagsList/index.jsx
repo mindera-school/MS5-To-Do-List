@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useTaskListContext } from "../../context.js";
+import { useAppContext } from "../../context.js";
 import Tag from "../Tag/index.jsx";
 import { Container, AddTagButton, TempTag, CloseTag, TagInput } from "./style";
 import { GrFormClose } from "react-icons/gr";
 
-export default function TagsContainer({ tagsList, setTagsList, editMode }) {
+export default function TagsContainer({
+  tagsList,
+  setTagsList,
+  editMode,
+  taskId,
+}) {
   const [tagsColors, setTagsColors] = useState([
     "red",
     "green",
@@ -15,6 +20,7 @@ export default function TagsContainer({ tagsList, setTagsList, editMode }) {
   const [inputValue, setInputValue] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [isCloseButtonDisabled, setIsCloseButtonDisabled] = useState(false);
+  const user = useAppContext();
 
   useEffect(() => {
     if (editMode === true) {
@@ -51,6 +57,8 @@ export default function TagsContainer({ tagsList, setTagsList, editMode }) {
       {
         name: inputValue,
         color: newTagColor,
+        taskId: taskId,
+        userId: user.currentUser?.userId,
       },
     ]);
     setIsButtonDisabled(false);
@@ -73,7 +81,10 @@ export default function TagsContainer({ tagsList, setTagsList, editMode }) {
             onKeyDown={handleInputKeyDown}
             maxLength={12}
           />
-          <CloseTag onClick={() => deleteTag(i)} disabled={isCloseButtonDisabled}>
+          <CloseTag
+            onClick={() => deleteTag(i)}
+            disabled={isCloseButtonDisabled}
+          >
             <GrFormClose size={14} color="white" />
           </CloseTag>
         </TempTag>
@@ -87,7 +98,10 @@ export default function TagsContainer({ tagsList, setTagsList, editMode }) {
         height={"20px"}
         width={"75px"}
         displayed={
-          <CloseTag onClick={() => deleteTag(i)} disabled={isCloseButtonDisabled}>
+          <CloseTag
+            onClick={() => deleteTag(i)}
+            disabled={isCloseButtonDisabled}
+          >
             <GrFormClose size={14} color="white" />
           </CloseTag>
         }

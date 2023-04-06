@@ -49,7 +49,6 @@ export default function TaskList() {
     });
     updateTaskList(updatedPositionTasks);
   }
-
   let allTasksComps = useTaskListContext().displayedList?.map((e, index) => {
     return (
       <Draggable key={e.taskId} draggableId={e.taskId.toString()} index={index}>

@@ -142,7 +142,10 @@ function TaskDetailsModal({ task, display, setDisplay }) {
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(data),
-    }).then(sendTags(data.tags));
+    }).then(() => {
+      task.tags.forEach((tag) => (tag.tagId = task.tags[tag.tagId]));
+      sendTags(data.tags);
+    });
   };
 
   return (
@@ -240,6 +243,7 @@ function TaskDetailsModal({ task, display, setDisplay }) {
                   tagsList={tagsList}
                   setTagsList={setTagsList}
                   editMode={editMode}
+                  taskId={task.taskId}
                 />
               </CustomLine>
             </TaskInfo>

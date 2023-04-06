@@ -90,7 +90,7 @@ export default function CreateTasksContainer() {
         date: newTaskState.date,
         title: newTaskState.title,
         description: newTaskState.description,
-        userId: newTaskState.userId
+        userId: newTaskState.userId,
       };
 
       await fetch("http://localhost:8086/todo/tasks/v1", {
@@ -101,12 +101,14 @@ export default function CreateTasksContainer() {
         body: JSON.stringify(data),
         redirect: "follow",
         referrerPolicy: "no-referrer",
-
       })
         .then((r) => r.json())
         .then((r) => {
           if (compareObjs(newTaskState, r)) {
-            sendTags(newTaskState.tags);
+            newTaskState.tags.forEach(
+              (tag) => (tag.tagId = newTaskState.tags[tag.tagId])
+            );
+            sendTags(newTaskState.tags, r.taskId);
             dispatch({ type: "set", value: r });
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
@@ -116,6 +118,7 @@ export default function CreateTasksContainer() {
         .catch(() => console.error("Error task not created"));
     } else {
       //Guest Mode
+      newTaskState.tags.forEach((tag) => (tag.taskId = newTaskState.taskId));
       tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
       setTagsList([]);
     }
@@ -154,10 +157,12 @@ export default function CreateTasksContainer() {
 }
 
 function compareObjs(obj1, obj2) {
-  return obj1.title === obj2.title &&
+  return (
+    obj1.title === obj2.title &&
     obj2.date === obj1.date &&
     obj1.position === obj2.position &&
-    obj1.ParentId === obj2.ParentId;
+    obj1.ParentId === obj2.ParentId
+  );
 }
 
 function updateTaskList(taskList, task) {
@@ -172,7 +177,8 @@ function updateTaskList(taskList, task) {
   return [...temp];
 }
 
-function sendTags(tags) {
+function sendTags(tags, taskId) {
+  tags.forEach((tag) => (tag.taskId = taskId));
   fetch("http://localhost:8086/todo/tags/v1", {
     method: "POST",
     headers: {
