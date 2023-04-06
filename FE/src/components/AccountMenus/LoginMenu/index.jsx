@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
+import { GrFormClose } from "react-icons/gr";
+import { MdError, MdSignalWifiStatusbarNotConnected } from "react-icons/md";
 import { useAppContext } from "../../../context";
-import { LoginDiv, UserImg } from "./styled-components";
+import { CloseWarningBtn, ConnectWarning, IconHolder, LoginBtn, LoginContent, LoginDiv, LoginWarning, LoginWarningText, RegisterBtn, UserImg, WarningContent, WarningText } from "./styled-components";
 
-async function sendLoginInfo(data, logger) {
+async function sendLoginInfo(data, logger, setConnect, setLoginError) {
   if (data.username === "" || data.password === "") {
     return console.log("Data is empty");
   }
@@ -20,8 +22,14 @@ async function sendLoginInfo(data, logger) {
     body: JSON.stringify(data),
   })
     .then((r) => r.json())
-    .then((r) => logger(r))
-    .catch((r) => console.log(r));
+    .then((r) => {
+      if (typeof r.userId === "number") {
+        logger(r);
+      }
+      setLoginError(true);
+      setTimeout(() => setLoginError(false), 2000);
+    })
+    .catch((r) => setConnect(true));
 }
 
 function createSendObj(username, password) {
@@ -33,17 +41,23 @@ export const LoginMenu = () => {
   const [passwordContent, setPasswordContent] = useState("");
   const setUser = useAppContext().setCurrentUser;
   const setMenuType = useAppContext().setMenuType;
+  const [connectWarning, setConnect] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   return (
     <LoginDiv>
-      <button onClick={() => setMenuType("register")}>
+      <RegisterBtn onClick={() => setMenuType("register")}>
         Sign Up
         <FiUserPlus size={25} />
-      </button>
+      </RegisterBtn>
       <UserImg>
         <FaRegUser size={80} />
       </UserImg>
-      <div>
+      <LoginWarning open={loginError}>
+        <MdError size={50} color={"red"}></MdError>
+        <LoginWarningText>We could not sign you in. Please check your credentials and try again!</LoginWarningText>
+      </LoginWarning>
+      <LoginContent>
         <label>
           <span>Username:</span>
           <input
@@ -62,14 +76,28 @@ export const LoginMenu = () => {
             }}
           />
         </label>
-      </div>
-      <button
+      </LoginContent>
+      <LoginBtn
         onClick={() =>
-          sendLoginInfo(createSendObj(userContent, passwordContent), setUser)
+          sendLoginInfo(createSendObj(userContent, passwordContent), setUser, setConnect, setLoginError)
         }
       >
         Login
-      </button>
+      </LoginBtn>
+      <ConnectWarning show={connectWarning}>
+        <CloseWarningBtn onClick={() => setConnect(false)}>
+          <GrFormClose size={35} />
+        </CloseWarningBtn>
+        <WarningContent>
+          <IconHolder>
+            <MdSignalWifiStatusbarNotConnected size={50} color="red" />
+          </IconHolder>
+          <WarningText>
+            Network connection seems to be offline.
+            Please check your connectivity.
+          </WarningText>
+        </WarningContent>
+      </ConnectWarning>
     </LoginDiv>
   );
 };
