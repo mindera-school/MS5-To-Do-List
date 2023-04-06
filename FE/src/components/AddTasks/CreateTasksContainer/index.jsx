@@ -18,7 +18,7 @@ export default function CreateTasksContainer() {
     userId: user.currentUser === null ? null : user.currentUser?.userId,
     parentId: null,
     position: 0,
-    taskId: null
+    taskId: null,
   };
 
   const reducer = (state, { type, value }) => {
@@ -31,7 +31,9 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          isDone: false,
+          isFavorite: false,
         };
       case "last":
         return {
@@ -41,7 +43,9 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          isDone: false,
+          isFavorite: false,
         };
       case "random":
         return {
@@ -51,7 +55,9 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          isDone: false,
+          isFavorite: false,
         };
       case "set":
         return {
@@ -66,7 +72,9 @@ export default function CreateTasksContainer() {
           title: value.title,
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
-          taskId: Date.now().toString(36)
+          taskId: Date.now().toString(36),
+          isDone: false,
+          isFavorite: false,
         };
     }
   };
@@ -84,7 +92,9 @@ export default function CreateTasksContainer() {
         date: newTaskState.date,
         title: newTaskState.title,
         description: newTaskState.description,
-        userId: newTaskState.userId
+        userId: newTaskState.userId,
+        isDone: false,
+        isFavorite: false,
       };
 
       await fetch("http://localhost:8086/todo/tasks/v1", {
@@ -141,10 +151,12 @@ export default function CreateTasksContainer() {
 }
 
 function compareObjs(obj1, obj2) {
-  return obj1.title === obj2.title &&
+  return (
+    obj1.title === obj2.title &&
     obj2.date === obj1.date &&
     obj1.position === obj2.position &&
-    obj1.ParentId === obj2.ParentId;
+    obj1.ParentId === obj2.ParentId
+  );
 }
 
 function updateTaskList(taskList, task) {

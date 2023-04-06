@@ -30,7 +30,16 @@ export default function App() {
   }, [currentUser]);
 
   useEffect(() => {
-    tasksListContext.setDisplayedTaskList(tasksListContext.list);
+    const organizedList = [...tasksListContext.list].sort((a, b) => {
+      if (a.isFavorite && !b.isFavorite) {
+        return -1;
+      }
+      if (!a.isFavorite && b.isFavorite) {
+        return 1;
+      }
+      return 0;
+    });
+    tasksListContext.setDisplayedTaskList(organizedList);
   }, [tasksListContext.list]);
   return (
     <>
