@@ -8,8 +8,7 @@ import { Container } from "./style";
 export default function CreateTasksContainer() {
   const [modalVisible, setModalVisible] = useState("none");
   const tasksList = useTaskListContext();
-  const [tagsList, setTagsList] = useState([
-  ]);
+  const [tagsList, setTagsList] = useState([]);
   const user = useAppContext();
   const handler = () =>
     setModalVisible(modalVisible === "none" ? "block" : "none");
@@ -21,7 +20,7 @@ export default function CreateTasksContainer() {
     parentId: null,
     position: 0,
     taskId: null,
-    tags: tagsList
+    tags: tagsList,
   };
 
   const reducer = (state, { type, value }) => {
@@ -35,7 +34,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
-          tags: tagsList
+          tags: tagsList,
         };
       case "last":
         return {
@@ -46,7 +45,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
-          tags: tagsList
+          tags: tagsList,
         };
       case "random":
         return {
@@ -57,7 +56,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
-          tags: tagsList
+          tags: tagsList,
         };
       case "set":
         return {
@@ -73,7 +72,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
-          tags: tagsList
+          tags: tagsList,
         };
     }
   };
@@ -96,23 +95,19 @@ export default function CreateTasksContainer() {
 
       await fetch("http://localhost:8086/todo/tasks/v1", {
         method: "POST",
-        body: JSON.stringify({
-          position: newTaskState.position,
-          date: newTaskState.date,
-          title: newTaskState.title,
-          description: newTaskState.description,
-          userId: newTaskState.taskId,
-        }),
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
         redirect: "follow",
         referrerPolicy: "no-referrer",
+
       })
         .then((r) => r.json())
         .then((r) => {
           if (compareObjs(newTaskState, r)) {
+            sendTags(newTaskState.tags);
+            dispatch({ type: "set", value: r });
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
             setTagsList([]);
@@ -175,4 +170,16 @@ function updateTaskList(taskList, task) {
   const temp = taskList;
   temp.splice(task.position, 0, task);
   return [...temp];
+}
+
+function sendTags(tags) {
+  fetch("http://localhost:8086/todo/tags/v1", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ tags }),
+  });
 }

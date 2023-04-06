@@ -1,4 +1,3 @@
-
 import TagsContainer from "../../TagsList";
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
@@ -30,6 +29,7 @@ export default function AddTaskModal({
   tagsList,
   setTagsList,
 }) {
+  const [editMode, setEditMode] = useState(true);
   const titleInput = useRef();
   const dateInput = useRef();
   const descriptionInput = useRef();
@@ -51,10 +51,12 @@ export default function AddTaskModal({
 
   return (
     <AddModal display={modalVisible}>
-      <CloseButton onClick={() => {
-        closeHandler();
-        setError("");
-      }}>
+      <CloseButton
+        onClick={() => {
+          closeHandler();
+          setError("");
+        }}
+      >
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
       <ModalContainer>
@@ -66,7 +68,11 @@ export default function AddTaskModal({
           </DateTagdiv>
           <DateTagdiv>
             Tags:
-            <TagsContainer tagsList={tagsList} setTagsList={setTagsList} />
+            <TagsContainer
+              tagsList={tagsList}
+              setTagsList={setTagsList}
+              editMode={editMode}
+            />
           </DateTagdiv>
         </ContainerInput>
         <DescriptionContainer>

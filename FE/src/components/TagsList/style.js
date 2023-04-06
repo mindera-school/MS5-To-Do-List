@@ -23,6 +23,28 @@ export const AddTagButton = styled.button`
   }
 `;
 
+export const TagInput = styled.input`
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: inherit;
+`;
+
+export const CloseTag = styled.button`
+  position: absolute;
+  padding: 0;
+  top: 0;
+  right: 0;
+  height: 15px;
+  width: 15px;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  border-radius: 50px;
+  display: none;
+`;
+
+
 export const TempTag = styled.div`
   position: relative;
   display: flex;
@@ -38,24 +60,7 @@ export const TempTag = styled.div`
   background-color: ${(props) => props.tagColor};
   outline: none;
   border: none;
-`;
-
-export const TagInput = styled.input`
-border: none;
-outline: none;
-width: 100%;
-background-color: inherit;
-`;
-
-export const CloseTag = styled.button`
-  position: absolute;
-  padding: 0;
-  top: 0;
-  right: 0;
-  height: 15px;
-  width: 15px;
-  border: none;
-  background-color: inherit;
-  cursor: pointer;
-  border-radius: 50px;
+  &:hover ${CloseTag} {
+    display: block;
+  }
 `;

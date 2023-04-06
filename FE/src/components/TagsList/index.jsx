@@ -4,7 +4,7 @@ import Tag from "../Tag/index.jsx";
 import { Container, AddTagButton, TempTag, CloseTag, TagInput } from "./style";
 import { GrFormClose } from "react-icons/gr";
 
-export default function TagsContainer({ tagsList, setTagsList }) {
+export default function TagsContainer({ tagsList, setTagsList, editMode }) {
   const [tagsColors, setTagsColors] = useState([
     "red",
     "green",
@@ -14,7 +14,17 @@ export default function TagsContainer({ tagsList, setTagsList }) {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const [toDelete, setToDelete] = useState("");
+  const [isCloseButtonDisabled, setIsCloseButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    if (editMode === true) {
+      setIsButtonDisabled(false);
+      setIsCloseButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+      setIsCloseButtonDisabled(true);
+    }
+  }, [editMode]);
 
   useEffect(() => {
     setTagsColors(shuffleArray(tagsColors));
@@ -54,7 +64,7 @@ export default function TagsContainer({ tagsList, setTagsList }) {
   const renderList = tagsList?.map((e, i) => {
     const color = e.color ?? tagsColors[i % tagsColors.length];
     if (e.input === true) {
-        e.color = color;
+      e.color = color;
       return (
         <TempTag key={i} tagColor={color}>
           <TagInput
@@ -63,7 +73,7 @@ export default function TagsContainer({ tagsList, setTagsList }) {
             onKeyDown={handleInputKeyDown}
             maxLength={12}
           />
-          <CloseTag onClick={() => deleteTag(i)}>
+          <CloseTag onClick={() => deleteTag(i)} disabled={isCloseButtonDisabled}>
             <GrFormClose size={14} color="white" />
           </CloseTag>
         </TempTag>
@@ -77,7 +87,7 @@ export default function TagsContainer({ tagsList, setTagsList }) {
         height={"20px"}
         width={"75px"}
         displayed={
-          <CloseTag onClick={() => deleteTag(i)}>
+          <CloseTag onClick={() => deleteTag(i)} disabled={isCloseButtonDisabled}>
             <GrFormClose size={14} color="white" />
           </CloseTag>
         }

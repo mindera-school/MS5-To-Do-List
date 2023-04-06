@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CloseTag } from "../TagsList/style.js";
 
 export const StyledTag = styled.button`
   position: relative;
@@ -15,4 +16,7 @@ export const StyledTag = styled.button`
   background-color: ${(props) => props.tagColor};
   outline: none;
   border: none;
+  &:hover ${CloseTag} {
+    display: block;
+  }
 `;
