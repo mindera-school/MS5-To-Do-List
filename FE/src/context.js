@@ -54,7 +54,6 @@ export const useCreateTaskListContext = () => {
   });
 
   const addChildrenToTask = useCallback((parentId, children) => {
-    console.log(parentId, children);
     const updatedList = taskListState.subtasksList.map(e => {
       if (e.id === parentId) {
         return {
@@ -120,7 +119,6 @@ export const useCreateTaskListContext = () => {
 
   const updateTask = useCallback((id, updatedTask) => {
     const newList = taskListState.list.map(e => {
-      console.log(id, e.taskId);
       if (e.taskId === id) {
         return {
           ...e,
