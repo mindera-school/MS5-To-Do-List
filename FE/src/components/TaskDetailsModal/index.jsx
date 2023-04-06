@@ -25,10 +25,15 @@ import {
   Wrapper,
 } from "./styles";
 
-function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing  }) {
+export default function TaskDetailsModal({
+  task,
+  display,
+  setDisplay,
+  isEditing,
+  setIsEditing,
+}) {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [taskComments, setTaskComments] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [date, setDate] = useState(task.date);
   const [description, setDescription] = useState(task.description);
@@ -58,41 +63,36 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing  
       position: 0,
     };
 
-    if (currentUser === null) {
+  if (currentUser === null) {
+    addChildren(task.taskId, {
+      ...data,
+      taskId: Date.now().toString(36),
+    });
+    return;
+  }
+
+  fetch("http://localhost:8086/todo/tasks/v1", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  })
+    .then((r) => r.json())
+    .then((r) => {
       addChildren(task.taskId, {
         ...data,
-        taskId: Date.now().toString(36),
+        taskId: r.id,
       });
-      return;
-    }
 
-    fetch("http://localhost:8086/todo/tasks/v1", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-      redirect: "follow",
-      referrerPolicy: "no-referrer",
+      if (r === undefined) {
+        console.log("Couldn't add subtask");
+      }
     })
-      .then((r) => r.json())
-      .then((r) => {
-        addChildren(task.taskId, {
-          ...data,
-          taskId: r.id,
-        });
-
-        if (r === undefined) {
-          console.log("Couldn't add subtask");
-        }
-      })
-      .catch(console.log("Couldn't connect"));
-
-	function manageClose() {
-		setIsOverlayVisible(isOverlayVisible ? false : true);
-		setDisplay(false);
-		setIsEditing(false);
-	}
+    .catch(console.log("Couldn't connect"));
+  }
 
   useEffect(() => {
     if (tagsList === undefined) {
@@ -282,5 +282,3 @@ function sendTags(tags) {
     body: JSON.stringify({ tags }),
   });
 }
-
-export default TaskDetailsModal;

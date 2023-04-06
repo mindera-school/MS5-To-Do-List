@@ -117,7 +117,7 @@ export default function TagsContainer({
       {
         name: "",
         taskId: taskId,
-        userID: user.currentUser.userId,
+        userID: user.currentUser?.userId,
         input: true,
       },
     ]);
