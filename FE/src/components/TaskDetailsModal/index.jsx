@@ -25,7 +25,7 @@ import {
   Wrapper,
 } from "./styles";
 
-function TaskDetailsModal({ task, display, setDisplay }) {
+function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing  }) {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [taskComments, setTaskComments] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -88,9 +88,11 @@ function TaskDetailsModal({ task, display, setDisplay }) {
       })
       .catch(console.log("Couldn't connect"));
 
-    setSubtaskDate("");
-    setSubtaskTitle("");
-  }
+	function manageClose() {
+		setIsOverlayVisible(isOverlayVisible ? false : true);
+		setDisplay(false);
+		setIsEditing(false);
+	}
 
   useEffect(() => {
     if (tagsList === undefined) {
