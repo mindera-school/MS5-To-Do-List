@@ -35,6 +35,8 @@ export default function CreateTasksContainer() {
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
           tags: tagsList,
+          isDone: false,
+          isFavorite: false,
         };
       case "last":
         return {
@@ -46,6 +48,8 @@ export default function CreateTasksContainer() {
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
           tags: tagsList,
+          isDone: false,
+          isFavorite: false,
         };
       case "random":
         return {
@@ -57,6 +61,8 @@ export default function CreateTasksContainer() {
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
           tags: tagsList,
+          isDone: false,
+          isFavorite: false,
         };
       case "set":
         return {
@@ -73,6 +79,8 @@ export default function CreateTasksContainer() {
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
           tags: tagsList,
+          isDone: false,
+          isFavorite: false,
         };
     }
   };
@@ -91,6 +99,9 @@ export default function CreateTasksContainer() {
         title: newTaskState.title,
         description: newTaskState.description,
         userId: newTaskState.userId,
+        tags: tagsList,
+        isDone: false,
+        isFavorite: false,
       };
 
       await fetch("http://localhost:8086/todo/tasks/v1", {
