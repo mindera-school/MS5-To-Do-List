@@ -8,7 +8,8 @@ import { CloseWarningBtn, ConnectWarning, IconHolder, LoginBtn, LoginContent, Lo
 
 async function sendLoginInfo(data, logger, setConnect, setLoginError) {
   if (data.username === "" || data.password === "") {
-    return console.log("Data is empty");
+    console.log("Data is empty");
+    return;
   }
 
   const headers = new Headers();
