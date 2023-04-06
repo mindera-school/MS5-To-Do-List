@@ -17,6 +17,6 @@ export const StyledTag = styled.button`
   outline: none;
   border: none;
   &:hover ${CloseTag} {
-    display: block;
+    display: ${(props) => props.display === true ? "block" : "none"};
   }
 `;

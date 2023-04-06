@@ -8,6 +8,7 @@ export const Container = styled.div`
 
 export const AddTagButton = styled.button`
   cursor: pointer;
+  display: ${(props) => (props.display ? "block" : "none")};
   border: none;
   outline: none;
   background-color: inherit;
@@ -43,7 +44,6 @@ export const CloseTag = styled.button`
   border-radius: 50px;
   display: none;
 `;
-
 
 export const TempTag = styled.div`
   position: relative;

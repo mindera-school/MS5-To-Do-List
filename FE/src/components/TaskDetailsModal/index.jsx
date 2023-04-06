@@ -246,6 +246,7 @@ export default function TaskDetailsModal({
                   setTagsList={setTagsList}
                   editMode={editMode}
                   taskId={task.taskId}
+                  display={editMode}
                 />
               </CustomLine>
             </TaskInfo>

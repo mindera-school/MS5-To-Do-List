@@ -9,6 +9,7 @@ export default function TagsContainer({
   setTagsList,
   editMode,
   taskId,
+  display,
 }) {
   const [tagsColors, setTagsColors] = useState([
     "red",
@@ -51,6 +52,9 @@ export default function TagsContainer({
   };
 
   const handleButtonClick = () => {
+    if (inputValue === "") {
+      return;
+    }
     const newTagColor = tagsList[tagsList.length - 1].color;
     setTagsList((prevTagsList) => [
       ...prevTagsList.slice(0, -1),
@@ -97,6 +101,7 @@ export default function TagsContainer({
         color={color}
         height={"20px"}
         width={"75px"}
+        display={display}
         displayed={
           <CloseTag
             onClick={() => deleteTag(i)}
@@ -126,7 +131,11 @@ export default function TagsContainer({
   return (
     <Container>
       {renderList}
-      <AddTagButton onClick={() => handler()} disabled={isButtonDisabled}>
+      <AddTagButton
+        onClick={() => handler()}
+        disabled={isButtonDisabled}
+        display={display}
+      >
         + Add Tag
       </AddTagButton>
     </Container>
