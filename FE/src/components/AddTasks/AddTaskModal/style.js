@@ -93,6 +93,7 @@ export const DateTagdiv = styled.div`
 `;
 
 export const DateInput = styled.input`
+  position: relative;
   margin-left: 10px;
   border-radius: 50px;
   height: 38px;
@@ -101,15 +102,24 @@ export const DateInput = styled.input`
   line-height: 23px;
   letter-spacing: 0em;
   text-align: left;
+  width: 26%;
 
-  padding: 4px;
+  padding: 7px;
   background-color: ${inputColor};
   display: flex;
-  text-align: center;
+  text-indent: 4px;
   box-sizing: border-box;
   color: white;
   border: none;
   outline: none;
+
+  ::-webkit-calendar-picker-indicator {
+    position: absolute;
+    right: 5%;
+    top: 20%;
+    cursor: pointer;
+    filter: invert(100%);
+}
 `;
 
 export const DescriptionContainer = styled.div`

@@ -5,16 +5,6 @@ export const AppContext = createContext({});
 
 export const useAppContext = () => useContext(AppContext);
 
-const mockUser = {
-  userId: 1,
-  profileImage: null,
-  firstName: "Adan",
-  lastName: "Oliveira",
-  username: "gorillaz",
-  email: "adank69@gmail.com",
-  tasksPreviewsURL: "https://todo/tasks/user/1",
-};
-
 export const useCreateAppContext = () => {
   const [appState, setAppState] = useState({
     menuType: "login",
@@ -52,6 +42,57 @@ export const useCreateTaskListContext = () => {
   const [taskListState, setTaskListState] = useState({
     list: [],
     displayedList: [],
+    subtasksList: []
+  });
+
+  const getGuestTaskbyId = useCallback((givenId) => {
+    return taskListState.list.find(e => e.taskId === givenId);
+  });
+
+  const getChildrenById = useCallback((parentId) => {
+    return taskListState.subtasksList.find(e => e.id === parentId);
+  });
+
+  const addChildrenToTask = useCallback((parentId, children) => {
+    const updatedList = taskListState.subtasksList.map(e => {
+      if (e.id === parentId) {
+        return {
+          id: e.id,
+          subtasks: [
+            ...e.subtasks,
+            {
+              ...children,
+              isFavorite: false,
+              isDone: false,
+              tags: [],
+              expired: false,
+            }
+          ]
+        };
+      }
+      return e;
+    });
+
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: updatedList
+    }));
+  });
+
+  const addSubtasksList = useCallback((newList) => {
+    const tempArray = [...taskListState.subtasksList, newList];
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: tempArray
+    }));
+  });
+
+  const deleteSubtask = useCallback((subtaskId) => {
+    const updatedList = taskListState.subtasksList.filter(e => e.taskId !== subtaskId);
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: updatedList,
+    }));
   });
 
   const setTaskList = useCallback((newList) => {
@@ -78,7 +119,6 @@ export const useCreateTaskListContext = () => {
 
   const updateTask = useCallback((id, updatedTask) => {
     const newList = taskListState.list.map(e => {
-      console.log(id, e.taskId);
       if (e.taskId === id) {
         return {
           ...e,
@@ -114,9 +154,15 @@ export const useCreateTaskListContext = () => {
   return {
     ...taskListState,
     setTaskList,
+    addSubtasksList,
     deleteTaskFromContext,
+    deleteSubtask,
     setDisplayedTaskList,
+    getGuestTaskbyId,
     setTaskDoneState,
-    updateTask
+    updateTask,
+    getChildrenById,
+    addChildrenToTask,
+
   };
 };

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { RiArrowGoBackLine } from "react-icons/ri";
 import { useAppContext } from "../../../context";
+import { ErrorDisplay } from "../../ErrorDisplay";
 import { UserImg } from "../LoginMenu/styled-components.js";
-import { ErrorDisplay, GoBackBtn, PasswordDetails, RegisterContainer, RegisterForm } from "./styles.js";
+import { GoBackBtn, PasswordDetails, RegisterContainer, RegisterForm } from "./styles.js";
 
 function checkUserValidaty(user) {
 	const { email, firstName, lastName, username, password } = user;
