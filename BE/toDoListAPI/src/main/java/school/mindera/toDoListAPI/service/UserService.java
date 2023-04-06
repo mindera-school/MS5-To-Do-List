@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.exceptions.user.UserAlreadyExistsException;
+import school.mindera.toDoListAPI.exceptions.user.UserWrongCredentials;
 import school.mindera.toDoListAPI.model.DTOChangeImg;
 import school.mindera.toDoListAPI.model.DTOLoggedUser;
 import school.mindera.toDoListAPI.model.DTOLogin;
@@ -26,7 +27,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public DTOLoggedUser register(DTORegister register) {
+    public ResponseEntity<DTOLoggedUser> register(DTORegister register) {
         if (usersRepository.existsByUsername(register.getUsername())){
             throw new UserAlreadyExistsException("this username is already been used");
         }
@@ -52,7 +53,7 @@ public class UserService {
         loggedUser.setGroupsURL("/groups/" + savedUser.getUserId());
         loggedUser.setTasksPreviewsURL("/task-previews/" + savedUser.getUserId());
 
-        return loggedUser;
+        return ResponseEntity.ok(loggedUser);
     }
 
     public ResponseEntity<DTOLoggedUser> logIn(DTOLogin login) {
@@ -72,7 +73,7 @@ public class UserService {
                 return ResponseEntity.ok(loggedUser);
             }
         }
-        return ResponseEntity.notFound().build();
+        throw new UserWrongCredentials("Wrong Credentials");
     }
 
     public void changeUserProfileImg(Integer userId, DTOChangeImg changeImg){

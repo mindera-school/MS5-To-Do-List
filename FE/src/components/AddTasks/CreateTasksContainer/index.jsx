@@ -82,10 +82,19 @@ export default function CreateTasksContainer() {
 
   const addHandler = async () => {
     if (newTaskState.title === "") return;
+
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
-      await fetch("http://localhost:8086/todo/tasks/new-task", {
+      const data = {
+        position: newTaskState.position,
+        date: newTaskState.date,
+        title: newTaskState.title,
+        description: newTaskState.description,
+        userId: newTaskState.userId
+      };
+
+      await fetch("http://localhost:8086/todo/tasks/v1", {
         method: "POST",
         body: JSON.stringify({
           position: newTaskState.position,
@@ -97,14 +106,13 @@ export default function CreateTasksContainer() {
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(data),
         redirect: "follow",
         referrerPolicy: "no-referrer",
       })
         .then((r) => r.json())
         .then((r) => {
           if (compareObjs(newTaskState, r)) {
-            dispatch({ type: "set", value: r });
-
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
             setTagsList([]);
@@ -151,15 +159,10 @@ export default function CreateTasksContainer() {
 }
 
 function compareObjs(obj1, obj2) {
-  if (
-    obj1.title === obj2.title &&
-    obj2.date.includes(obj1.date) &&
+  return obj1.title === obj2.title &&
+    obj2.date === obj1.date &&
     obj1.position === obj2.position &&
-    obj1.ParentId === obj2.ParentId
-  ) {
-    return true;
-  }
-  return false;
+    obj1.ParentId === obj2.ParentId;
 }
 
 function updateTaskList(taskList, task) {

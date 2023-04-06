@@ -5,7 +5,7 @@ import { useAppContext, useTaskListContext } from "../../context.js";
 import TaskTagsList from "../TaskTagsList";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
-import { BoxHeader, CustomLine, DateInput, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, TagsContainer, TaskDescInput, TaskInfo, Wrapper } from "./styles";
+import { BoxHeader, CustomLabel, CustomLine, DateInput, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, SaveBtn, SubtaskFormBox, SubtaskInput, TagsContainer, TaskDescInput, TaskInfo, Wrapper } from "./styles";
 
 function TaskDetailsModal({ task, display, setDisplay }) {
 	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
@@ -16,8 +16,56 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 	const [description, setDescription] = useState(task.description);
 	const currentUser = useAppContext().currentUser;
 	const updateTask = useTaskListContext().updateTask;
-	const taskList = useTaskListContext().list;
+	const addChildren = useTaskListContext().addChildrenToTask;
+	const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
+	const [subtaskTitle, setSubtaskTitle] = useState("");
+	const [subtaskDate, setSubtaskDate] = useState("");
+	const teupai = useTaskListContext().list;
 
+	function saveSubtask() {
+		const data = {
+			title: subtaskTitle,
+			description: "",
+			date: subtaskDate.replaceAll("-", "/"),
+			userId: currentUser === null ? null : currentUser.userId,
+			parentId: task.taskId,
+			//dps colocar aqui a posição no array de subtasks
+			position: 0
+		};
+
+		if (currentUser === null) {
+			addChildren(task.taskId, {
+				...data,
+				taskId: Date.now().toString(36)
+			});
+			return;
+		}
+
+		fetch("http://localhost:8086/todo/tasks/v1", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+		})
+			.then(r => r.json())
+			.then(r => {
+				addChildren(task.taskId, {
+					...data,
+					taskId: r.id
+				});
+
+				if (r === undefined) {
+					console.log("Couldn't add subtask");
+				}
+			})
+			.catch(console.log("Couldn't connect"));
+
+		setSubtaskDate("");
+		setSubtaskTitle("");
+	}
 
 	function manageClose() {
 		setIsOverlayVisible(isOverlayVisible ? false : true);
@@ -88,8 +136,24 @@ function TaskDetailsModal({ task, display, setDisplay }) {
 						<InnerTitle readOnly={isEditing ? false : true} value={title} onChange={(e) => setTitle(e.target.value)}></InnerTitle>
 						<OptionTitles>
 							<span>Add Sub Task</span>
-							<button><IoIosAddCircleOutline color="white" size={20} /></button>
+							<button><IoIosAddCircleOutline color="white" size={20} onClick={() => setIsCreateSubOpen(isCreateSubOpen ? false : true)} /></button>
 						</OptionTitles>
+						<SubtaskFormBox opened={isCreateSubOpen}>
+							<CustomLabel>
+								<span>Title of Subtask</span>
+								<SubtaskInput value={subtaskTitle} onChange={(e) => setSubtaskTitle(e.target.value)}></SubtaskInput>
+							</CustomLabel>
+							<CustomLabel>
+								<span>Due Date</span>
+								<input type={"date"} value={subtaskDate} onChange={(e) => setSubtaskDate(e.target.value)}></input>
+							</CustomLabel>
+							<SaveBtn onClick={() => {
+								setIsCreateSubOpen(false);
+								saveSubtask();
+							}}>
+								<BiSave size={25} color={"white"} />
+							</SaveBtn>
+						</SubtaskFormBox>
 					</InnerHeader>
 					<TaskInfo>
 						<CustomLine>

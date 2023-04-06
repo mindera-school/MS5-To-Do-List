@@ -115,3 +115,16 @@ export const GoBackBtn = styled.button`
 	}
 `;
 
+export const PasswordDetails = styled.ul`
+	margin: 0;
+	color: white;
+	transition: height 0.8s;
+	height: ${({ isDisplayed }) => isDisplayed ? "30%" : 0};
+	overflow-y: hidden;
+	position: relative;
+	top: -5%;
+	left: -15%;
+`;
+
+
+

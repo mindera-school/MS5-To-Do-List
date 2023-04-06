@@ -1,11 +1,11 @@
 package school.mindera.toDoListAPI.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
-import school.mindera.toDoListAPI.exceptions.InvalidTaskException;
+import school.mindera.toDoListAPI.exceptions.comments.CommentNotFoundException;
+import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
 import school.mindera.toDoListAPI.model.Converter;
 import school.mindera.toDoListAPI.model.DTOComment;
 import school.mindera.toDoListAPI.model.DTONewComment;
@@ -15,7 +15,6 @@ import school.mindera.toDoListAPI.repositories.TasksRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CommentService {
@@ -31,7 +30,7 @@ public class CommentService {
         Optional<TasksEntity> task = tasksRepository.findById(taskId);
 
         if(task.isEmpty()){
-            throw new InvalidTaskException("Invalid Task");
+            throw new CommentNotFoundException("Task is not valid!");
         }
 
         List<CommentsEntity> comments = task.get().getComments();
@@ -51,7 +50,7 @@ public class CommentService {
         Optional<TasksEntity> task = tasksRepository.findById(newComment.getTaskId());
 
         if (task.isEmpty()){
-            throw new InvalidTaskException("Invalid task");
+            throw new TaskNotFoundException("Invalid Task");
         }
         CommentsEntity commentsEntity = new CommentsEntity();
         commentsEntity.setTaskId(task.get());

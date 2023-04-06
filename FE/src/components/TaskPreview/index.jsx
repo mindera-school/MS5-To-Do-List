@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
+import { FiChevronDown } from "react-icons/fi";
 import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
 import { AppContext, TaskListContext } from "../../context.js";
@@ -20,10 +21,10 @@ import {
   ExtendDiv,
   NameAndDone,
   StyledFavHeart,
-  StyledTaskPreview,
-  TaskDetailsBtn,
+  StyledTaskPreview, SubtasksBtns, TaskDetailsBtn,
   VerticalLine
 } from "./styled-components";
+import SubtaskList from "./SubtaskList";
 
 const deleteTask = (id, e, deleteTaskContext, currentUser) => {
   e.stopPropagation();
@@ -55,17 +56,23 @@ export default function TaskPreview({
   isFavorite,
   fullTaskURL,
   dragger,
+  parentId,
+  isParent
 }) {
   const [isThisFav, setIsThisFav] = useState(isFavorite);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
-  const deleteTaskFromContext =
-    useContext(TaskListContext).deleteTaskFromContext;
+  const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
   const currentUser = useContext(AppContext).currentUser;
   const setIsDone = useContext(TaskListContext).setTaskDoneState;
+  const deleteSubtask = useContext(TaskListContext).deleteSubtask;
+  const addSubstaskList = useContext(TaskListContext).addSubtasksList;
   const isDragging = useRef(null);
   const [borderColor, setBorderColor] = useState("none");
   const [padding, setPadding] = useState(false);
+  const taskChildren = useContext(TaskListContext).getChildrenById(id);
+  const [showChildren, setShowChildren] = useState(false);
+  const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
 
   useEffect(() => {
     setPadding("3px 15px");
@@ -76,26 +83,15 @@ export default function TaskPreview({
       setTask({});
       return;
     }
-    fetch(fullTaskURL)
-      .then((r) => r.json())
-      .then((r) => setTask(r));
-  }, [isDetailVis, fullTaskURL]);
 
-  const handleStop = useCallback((event, info) => {
-    event.preventDefault();
-    if (isDragging === true) {
-      isDragging.current = false;
-      if (info.x >= 450) {
-        setIsDone(id, isDone ? false : true);
-        checkColor();
-      }
-      if (info.x <= -450) {
-        deleteTask(id, event, deleteTaskFromContext, currentUser);
-      }
+    if (currentUser !== null) {
+      fetch(fullTaskURL)
+        .then((r) => r.json())
+        .then((r) => setTask(r));
+    } else {
+      setTask(returnTaskById(id));
     }
-  },
-    [currentUser, deleteTaskFromContext, id, setIsDone]
-  );
+  }, [isDetailVis, fullTaskURL]);
 
   useEffect(() => {
     if (!isDone) {
@@ -141,9 +137,61 @@ export default function TaskPreview({
     }
   }, []);
 
+  const handleStop = useCallback((event, info) => {
+    const swipeLength = window.innerWidth * 0.35;
+    event.preventDefault();
+    if (isDragging === true) {
+      isDragging.current = false;
+      return;
+    }
+    if (info.x >= swipeLength) {
+      setIsDone(id, isDone ? false : true);
+      checkColor();
+    }
+    if (info.x <= -swipeLength) {
+      deleteTask(id, event, deleteTaskFromContext, currentUser);
+    }
+    isDragging.current = false;
+  }, [currentUser, deleteTaskFromContext, id, setIsDone]);
+
   const handleDrag = useCallback(() => {
     isDragging.current = true;
   }, []);
+
+  useEffect(() => {
+    if (isParent === false) {
+      return;
+    }
+    if (currentUser !== null) {
+      fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
+        .then(r => r.json())
+        .then(r => addSubstaskList({
+          id,
+          subtasks: r
+        }));
+    } else {
+      addSubstaskList({
+        id,
+        subtasks: []
+      });
+    }
+
+  }, [id, isParent]);
+
+  const getChevron = () => {
+    if (isParent && taskChildren?.subtasks?.length >= 1) {
+      return <SubtasksBtns show={showChildren} onClick={() => setShowChildren(showChildren ? false : true)}>
+        <FiChevronDown size={25} />
+      </SubtasksBtns>;
+    }
+  };
+
+  const getChildren = () => {
+    if (taskChildren === undefined) {
+      return;
+    }
+    return <SubtaskList list={taskChildren.subtasks} show={showChildren} />;
+  };
 
   return (
     <>
@@ -157,7 +205,7 @@ export default function TaskPreview({
         onDrag={handleDrag}
       >
         <div className="handle">
-          <StyledTaskPreview border={borderColor} padding={padding}>
+          <StyledTaskPreview isParent={isParent} border={borderColor} padding={padding}>
             <StyledFavHeart
               isFilled={isThisFav}
               onClick={() => setIsThisFav(isThisFav ? false : true)}
@@ -181,12 +229,14 @@ export default function TaskPreview({
               <AiOutlineCalendar size={20} color="white" />
               <h4>{dueDate}</h4>
             </DateContainer>
+            {getChevron()}
             <DraggerContainer isDragDisabled={true}>{dragger}</DraggerContainer>
             <VerticalLine></VerticalLine>
             <EdgeButtonsContainer>
               <DeleteBtn
                 onClick={(e) => {
-                  deleteTask(id, e, deleteTaskFromContext, currentUser);
+                  const deleteMethod = parentId === null ? deleteTaskFromContext : deleteSubtask;
+                  deleteTask(id, e, deleteMethod, currentUser);
                 }}
               >
                 <SlClose size={20} />
@@ -198,6 +248,9 @@ export default function TaskPreview({
           </StyledTaskPreview>
         </div>
       </Draggable>
+      {
+        getChildren()
+      }
       <TaskDetailsModal
         task={task}
         display={isDetailVis}
