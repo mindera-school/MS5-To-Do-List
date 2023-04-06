@@ -27,7 +27,7 @@ export default function AddTaskModal({
     }
 
     if (date !== "" && Date.parse(date) < Date.now()) {
-      setError("choose a valid date");
+      setError("Choose a valid date");
       return;
     }
   };
