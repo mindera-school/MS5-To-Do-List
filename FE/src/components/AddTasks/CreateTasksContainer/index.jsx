@@ -118,6 +118,7 @@ export default function CreateTasksContainer() {
       //Guest Mode
       tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
     }
+    
   };
 
   useEffect(() => {

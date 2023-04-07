@@ -15,6 +15,11 @@ export default function AddTaskModal({
   const dateInput = useRef();
   const descriptionInput = useRef();
   const [error, setError] = useState("");
+  const reset =() => {
+    titleInput.current.value = "";
+    dateInput.current.value = "";
+    descriptionInput.current.value = "";
+  };
   const addValue = (type) => {
     const title = titleInput.current.value;
     const date = dateInput.current.value;
@@ -67,18 +72,21 @@ export default function AddTaskModal({
             <AddDiffButton
               onClick={() => {
                 addValue("first");
+                reset();
               }}>
               Add first
             </AddDiffButton>
             <AddDiffButton
               onClick={() => {
                 addValue("");
+                reset();
               }}>
               Add last
             </AddDiffButton>
             <AddDiffButton
               onClick={() => {
                 addValue("random");
+                reset();
               }}>
               Add random
             </AddDiffButton>
@@ -86,6 +94,7 @@ export default function AddTaskModal({
           <AddButton
             onClick={() => {
               addValue("");
+              reset();
             }}
           >
             Add Task
