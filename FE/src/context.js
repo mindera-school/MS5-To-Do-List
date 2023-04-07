@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { accountMenuMap } from "./configs/accountMenu.jsx";
 
 export const AppContext = createContext({});
@@ -10,7 +10,18 @@ export const useCreateAppContext = () => {
     menuType: "login",
     currentUser: null,
   });
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
 
+    if (user === null) return;
+
+    if (user.expireTime < Date.now()) {
+      localStorage.setItem("user", null);
+      return;
+    }
+
+    setAppState({ menuType: "logged", currentUser: user });
+  }, []);
   const setMenuType = useCallback((type) => {
     setAppState((oldState) => ({
       ...oldState,
@@ -19,6 +30,7 @@ export const useCreateAppContext = () => {
   }, []);
 
   const setCurrentUser = useCallback((user) => {
+    localStorage.setItem("user", user === null ? null : JSON.stringify({ ...user, expireTime: Date.now() + 172800000 }));
     setAppState((oldState) => ({
       ...oldState,
       currentUser: user,
