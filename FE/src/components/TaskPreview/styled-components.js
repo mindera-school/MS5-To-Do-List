@@ -37,12 +37,13 @@ const heartbeatAnim = keyframes`
 
 export const StyledFavHeart = styled.button`
   --size: 25px;
-  margin: 30px 10px 0px 0px;
+  margin: 30px 20px 0px 0px;
   position: relative;
   width: var(--size);
   height: calc(var(--size) * 0.3);
   border: none;
   background-color: transparent;
+  transform: translate(0,-50%);
   cursor: pointer;
 
   ${(props) =>
@@ -62,7 +63,7 @@ export const StyledFavHeart = styled.button`
     border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
     transform: rotate(-45deg);
     transform-origin: 0 100%;
-    background-color: ${(props) => (props.isFilled ? "red" : "black")};
+    background-color: ${(props) => (props.isFilled ? "red" : props.theme.fontColor)};
   }
 
   &:after {
@@ -77,16 +78,16 @@ export const StyledTaskPreview = styled.div`
   position: relative;
   width: 690px;
   height: 80px;
-  background-color: #8d99ae;
+  background-color: ${({ theme }) => (theme.taskColor)};
   border: ${(props) => props.border};
-  border-radius: 30px;
-  box-sizing: border - box;
+  border-radius: 15px;
+  box-sizing: border-box;
   margin: ${({ isParent }) => (isParent ? "15px" : "0")};
   padding: ${(props) => props.padding};
-  color: $tasks - font - color;
   font-family: Roboto;
-  color: white;
-  transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")})
+  color: ${({ theme }) => (theme.fontColor)};
+  transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")});
+  box-shadow: 10px 10px 13px -3px rgba(0,0,0,0.75);
 `;
 
 export const NameAndDone = styled.div`
@@ -103,7 +104,7 @@ export const NameAndDone = styled.div`
 `;
 
 export const VerticalLine = styled.div`
-  background-color: white;
+  background-color: ${({ theme }) => (theme.fontColor)};
   width: 1px;
   height: 75%;
   align-self: center;
@@ -117,6 +118,7 @@ export const ExtendDiv = styled.div`
 export const DateContainer = styled.div`
   display: flex;
   width: 200px;
+  color: ${({ theme }) => (theme.fontColor)};
   margin-right: 25px;
   align-items: center;
 `;

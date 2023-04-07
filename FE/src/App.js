@@ -1,21 +1,21 @@
 import React, { useEffect } from "react";
 import CreateTasksContainer from "./components/AddTasks/CreateTasksContainer";
 import Header from "./components/Header";
-import TaskList from "./components/TaskList";
 import LeftMenu from "./components/LeftMenu";
+import TaskList from "./components/TaskList";
 import {
   AppContext,
-  TaskListContext,
-  useCreateAppContext,
-  useCreateTaskListContext,
+  TaskListContext, useAppContext, useCreateAppContext,
+  useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import { GlobalStyle, Main, CentralDiv, LateralDiv } from "./GlobalStyles";
+import { CentralDiv, GlobalStyle, LateralDiv, Main } from "./GlobalStyles";
 
 export default function App() {
   const tasksListContext = useCreateTaskListContext();
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
+  const currentContext = useAppContext();
 
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function App() {
     <>
       <AppContext.Provider value={appContext}>
         <TaskListContext.Provider value={tasksListContext}>
-          <GlobalStyle />
+          <GlobalStyle theme={appContext.themeMode} />
           <Header tasksList={tasksListContext} />
           <Main>
             <LateralDiv>

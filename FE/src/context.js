@@ -10,7 +10,7 @@ export const useCreateAppContext = () => {
   const [appState, setAppState] = useState({
     menuType: "login",
     currentUser: null,
-    themeMode: themesMap["darkMode"]
+    themeMode: themesMap["lightMode"]
   });
 
   const setTheme = useCallback((theme) => {
