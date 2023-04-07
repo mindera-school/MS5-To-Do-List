@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import Switch from "@mui/material/Switch";
+import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
 import { GrFormClose } from "react-icons/gr";
 import { MdError, MdSignalWifiStatusbarNotConnected } from "react-icons/md";
 import { useAppContext } from "../../../context";
-import { CloseWarningBtn, ConnectWarning, IconHolder, LoginBtn, LoginContent, LoginDiv, LoginWarning, LoginWarningText, RegisterBtn, UserImg, WarningContent, WarningText } from "./styled-components";
+import { CloseWarningBtn, ConnectWarning, IconHolder, LoginBtn, LoginContent, LoginDiv, LoginWarning, LoginWarningText, RegisterBtn, ThemeSwitchHolder, UserImg, WarningContent, WarningText } from "./styled-components";
 
 async function sendLoginInfo(data, logger, setConnect, setLoginError) {
   if (data.username === "" || data.password === "") {
@@ -37,6 +38,10 @@ function createSendObj(username, password) {
   return { username, password };
 }
 
+const getCurrentMode = (theme) => {
+  return theme.primaryColor === "white" ? false : true;
+};
+
 export const LoginMenu = () => {
   const [userContent, setUserContent] = useState("");
   const [passwordContent, setPasswordContent] = useState("");
@@ -44,21 +49,28 @@ export const LoginMenu = () => {
   const setMenuType = useAppContext().setMenuType;
   const [connectWarning, setConnect] = useState(false);
   const [loginError, setLoginError] = useState(false);
+  const theme = useAppContext().themeMode;
+  const setTheme = useAppContext().setTheme;
+  const [darkMode, setDarkMode] = useState(getCurrentMode(theme));
 
+
+  useEffect(() => {
+    darkMode ? setTheme("darkMode") : setTheme("lightMode");
+  }, [darkMode]);
   return (
-    <LoginDiv>
-      <RegisterBtn onClick={() => setMenuType("register")}>
+    <LoginDiv theme={theme}>
+      <RegisterBtn theme={theme} onClick={() => setMenuType("register")}>
         Sign Up
         <FiUserPlus size={25} />
       </RegisterBtn>
-      <UserImg>
+      <UserImg theme={theme}>
         <FaRegUser size={80} />
       </UserImg>
       <LoginWarning open={loginError}>
         <MdError size={50} color={"red"}></MdError>
         <LoginWarningText>We could not sign you in. Please check your credentials and try again!</LoginWarningText>
       </LoginWarning>
-      <LoginContent>
+      <LoginContent theme={theme}>
         <label>
           <span>Username:</span>
           <input
@@ -79,6 +91,7 @@ export const LoginMenu = () => {
         </label>
       </LoginContent>
       <LoginBtn
+        theme={theme}
         onClick={() =>
           sendLoginInfo(createSendObj(userContent, passwordContent), setUser, setConnect, setLoginError)
         }
@@ -99,7 +112,10 @@ export const LoginMenu = () => {
           </WarningText>
         </WarningContent>
       </ConnectWarning>
-      
+      <ThemeSwitchHolder theme={theme}>
+        <label>Dark Mode</label>
+        <Switch value={darkMode} onChange={() => setDarkMode(darkMode ? false : true)}></Switch>
+      </ThemeSwitchHolder>
     </LoginDiv>
   );
 };

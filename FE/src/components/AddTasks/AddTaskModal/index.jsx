@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
+import { useAppContext } from "../../../context";
 import { ErrorDisplay } from "../../ErrorDisplay";
 import {
   AddButton, AddButtonsDiv, AddDiffButton, AddModal, ButtonsContainer, CloseButton, ContainerInput, DateInput, DateTagdiv, Description, DescriptionContainer, DescriptionInput, ModalContainer, TitleInput
@@ -15,6 +16,7 @@ export default function AddTaskModal({
   const dateInput = useRef();
   const descriptionInput = useRef();
   const [error, setError] = useState("");
+  const theme = useAppContext().themeMode;
   const addValue = (type) => {
     const title = titleInput.current.value;
     const date = dateInput.current.value;
@@ -39,44 +41,48 @@ export default function AddTaskModal({
   };
 
   return (
-    <AddModal display={modalVisible}>
-      <CloseButton onClick={() => {
+    <AddModal theme={theme} display={modalVisible}>
+      <CloseButton theme={theme} onClick={() => {
         closeHandler();
         setError("");
       }}>
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
-      <ModalContainer>
+      <ModalContainer theme={theme}>
         <ErrorDisplay error={error}>{error}</ErrorDisplay>
-        <TitleInput ref={titleInput} type="text" placeholder="Task Title" />
+        <TitleInput theme={theme} ref={titleInput} type="text" placeholder="Task Title" />
         <ContainerInput>
-          <DateTagdiv>
+          <DateTagdiv theme={theme}>
             End Date: <DateInput ref={dateInput} type="date" />
           </DateTagdiv>
-          <DateTagdiv>Tags:</DateTagdiv>
+          <DateTagdiv theme={theme}>Tags:</DateTagdiv>
         </ContainerInput>
-        <DescriptionContainer>
-          <Description>Description</Description>
+        <DescriptionContainer theme={theme}>
+          <Description theme={theme}>Description</Description>
           <DescriptionInput
+            theme={theme}
             ref={descriptionInput}
             placeholder="Write your task description here"
           />
         </DescriptionContainer>
-        <ButtonsContainer>
-          <AddButtonsDiv>
+        <ButtonsContainer theme={theme}>
+          <AddButtonsDiv theme={theme}>
             <AddDiffButton
+              theme={theme}
               onClick={() => {
                 addValue("first");
               }}>
               Add first
             </AddDiffButton>
             <AddDiffButton
+              theme={theme}
               onClick={() => {
                 addValue("");
               }}>
               Add last
             </AddDiffButton>
             <AddDiffButton
+              theme={theme}
               onClick={() => {
                 addValue("random");
               }}>
@@ -84,6 +90,7 @@ export default function AddTaskModal({
             </AddDiffButton>
           </AddButtonsDiv>
           <AddButton
+            theme={theme}
             onClick={() => {
               addValue("");
             }}

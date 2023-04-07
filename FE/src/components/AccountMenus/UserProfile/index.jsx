@@ -1,25 +1,39 @@
-import React from "react";
+import Switch from "@mui/material/Switch";
+import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useAppContext } from "../../../context.js";
-import { UserImg } from "../LoginMenu/styled-components";
+import { ThemeSwitchHolder, UserImg } from "../LoginMenu/styled-components";
 import { StatsHolder, UserProfileContainer, VerticalLine } from "./styles.js";
+
 
 function getUserImage(image) {
 	return image === null ? <FaRegUser size="80px" /> : <img src={image} alt="User chosen profile" />;
 }
 
+const getCurrentMode = (theme) => {
+	return theme.primaryColor === "white" ? false : true;
+};
+
 export const UserProfile = () => {
 	const currentUser = useAppContext().currentUser;
 	const setUser = useAppContext().setCurrentUser;
 	const setMenuType = useAppContext().setMenuType;
+	const theme = useAppContext().themeMode;
+	const setTheme = useAppContext().setTheme;
+	const [darkMode, setDarkMode] = useState(getCurrentMode(theme));
+
+
+	useEffect(() => {
+		darkMode ? setTheme("darkMode") : setTheme("lightMode");
+	}, [darkMode]);
 
 	return <>
 		<UserProfileContainer>
 			<button onClick={() => {
 				setUser(null);
 			}}><FiLogOut size={30} /></button>
-			<UserImg>
+			<UserImg theme={theme}>
 				{getUserImage(currentUser.profileImage)}
 			</UserImg>
 			<h3>{`${currentUser.firstName} ${currentUser.lastName}`}</h3>
@@ -35,6 +49,10 @@ export const UserProfile = () => {
 				</div>
 
 			</StatsHolder>
+			<ThemeSwitchHolder theme={theme}>
+				<label>Dark Mode</label>
+				<Switch value={darkMode} onChange={() => setDarkMode(darkMode ? false : true)}></Switch>
+			</ThemeSwitchHolder>
 		</UserProfileContainer>
 	</>;
 };

@@ -11,7 +11,6 @@ export const slideIn = keyframes`
     opacity: 1;
   }
 `;
-const inputColor = "#17425E";
 
 export const AddModal = styled.div`
   position: absolute;
@@ -19,7 +18,7 @@ export const AddModal = styled.div`
   margin-top: 20px;
   width: 780px;
   height: 600px;
-  background-color: #8d99ae;
+  background-color: ${({ theme }) => (theme.taskColor)};
   z-index: 1;
   border-radius: 50px;
   display: ${(props) => props.display};
@@ -30,7 +29,6 @@ export const AddModal = styled.div`
   box-sizing: border-box;
   z-index: 4;
   animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-
 `;
 
 export const ModalContainer = styled.div`
@@ -58,13 +56,13 @@ export const TitleInput = styled.input`
   height: 50px;
   border-radius: 50px;
   padding: 15px;
-  background-color: ${inputColor};
+  background-color:  ${({ theme }) => (theme.editInputBg)};
   display: flex;
   text-align: center;
   box-sizing: border-box;
   font-weight: 400;
   font-size: 25px;
-  color: white;
+  color: ${({ theme }) => (theme.menuFontColor)};
   border: none;
   outline: none;
 
@@ -84,7 +82,7 @@ export const ContainerInput = styled.div`
 `;
 
 export const DateTagdiv = styled.div`
-  color: white;
+  color: ${({ theme }) => (theme.fontColor)};
   font-size: 20px;
   font-weight: 300;
   line-height: 23px;
@@ -105,11 +103,11 @@ export const DateInput = styled.input`
   width: 26%;
 
   padding: 7px;
-  background-color: ${inputColor};
+  background-color: ${({ theme }) => (theme.inputColor)};
   display: flex;
   text-indent: 4px;
   box-sizing: border-box;
-  color: white;
+  color: ${({ theme }) => (theme.fontColor)};
   border: none;
   outline: none;
 
@@ -134,18 +132,18 @@ export const Description = styled.p`
   line-height: 29px;
   letter-spacing: 0em;
   text-align: left;
-  color: white;
+  color: ${({ theme }) => (theme.fontColor)};
 `;
 
 export const DescriptionInput = styled.textarea`
   border-radius: 20px;
-  background-color: ${inputColor};
+  background-color: ${({ theme }) => (theme.editInputBg)};
   display: flex;
   flex-wrap: wrap;
   line-height: 1.1;
   box-sizing: border-box;
   padding: 15px;
-  color: white;
+  color: ${({ theme }) => (theme.menuFontColor)};
   border: none;
   outline: none;
   width: 100%;
@@ -157,7 +155,7 @@ export const DescriptionInput = styled.textarea`
   text-align: left;
 
   ::placeholder {
-    color: white;
+    color: ${({ theme }) => (theme.menuFontColor)};
   }
 `;
 
@@ -182,7 +180,7 @@ export const AddDiffButton = styled.button`
   outline: none;
   border: 1px solid white;
   margin: 0 5px;
-  color: white;
+  color:  ${({ theme }) => (theme.fontColor)};
   cursor: pointer;
   transition: 0.4s;
   &:hover {
@@ -191,7 +189,7 @@ export const AddDiffButton = styled.button`
 `;
 
 export const AddButton = styled.button`
-  color: white;
+  color: ${({ theme }) => (theme.fontColor)};
   border-radius: 20px;
   outline: none;
   border: none;

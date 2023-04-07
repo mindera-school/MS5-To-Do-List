@@ -7,7 +7,7 @@ export const InputSearchBar = styled.div`
 `;
 
 export const SearchInput = styled.input`
-  background-color: #8d99ae;
+  background-color: ${({ theme }) => (theme.inputColor)};
   border-radius: 50px;
   border: 0;
   height: 40px;
@@ -16,11 +16,11 @@ export const SearchInput = styled.input`
   padding-left: 10px;
   font-weight: 400;
   font-size: 20px;
-  color: white;
+  color: ${({ theme }) => (theme.fontColor)};
   padding-right: 45px;
 
   ::placeholder {
-    color: white;
+    color: ${({ theme }) => (theme.fontColor)};
   }
 `;
 

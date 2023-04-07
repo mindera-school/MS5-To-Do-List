@@ -4,7 +4,7 @@ export const Container = styled.div`
   height: 820px;
   width: 238px;
   border-radius: 30px;
-  background: #17425e;
+  background: ${({ theme }) => (theme.secondaryColor)};
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -77,7 +77,7 @@ export const Buttons = styled.button`
   margin-bottom: 15px;
   border: 0;
   border-radius: 10px;
-  background: #1a4d6f;
+  background: ${({ theme }) => (theme.buttonBg)};
   color: white;
   box-shadow: 0px 4px 4px 0px #00000040;
   transition: 0.5s;

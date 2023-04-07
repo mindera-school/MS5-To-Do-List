@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const UserProfileContainer = styled.div`
 	width: 100%;
-	height: 90%;
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -29,11 +29,6 @@ export const UserProfileContainer = styled.div`
 		margin-top: 8px;
 		font-size: 18px;
 	}
-
-	div {
-		position: relative;
-		text-align: center;
-	}
 `;
 
 export const StatsHolder = styled.div`
@@ -44,6 +39,10 @@ export const StatsHolder = styled.div`
 	margin-top: 30px;
 	margin-left: 40px;
 	font-size: 16px;
+	div {
+		position: relative;
+		text-align: center;
+	}
 `;
 
 export const VerticalLine = styled.div`
