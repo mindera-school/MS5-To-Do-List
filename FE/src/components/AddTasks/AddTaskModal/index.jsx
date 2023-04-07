@@ -1,16 +1,33 @@
+import TagsContainer from "../../TagsList";
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
 import { ErrorDisplay } from "../../ErrorDisplay";
 import {
-  AddButton, AddButtonsDiv, AddDiffButton, AddModal, ButtonsContainer, CloseButton, ContainerInput, DateInput, DateTagdiv, Description, DescriptionContainer, DescriptionInput, ModalContainer, TitleInput
+  AddButton,
+  AddButtonsDiv,
+  AddDiffButton,
+  AddModal,
+  ButtonsContainer,
+  CloseButton,
+  ContainerInput,
+  DateInput,
+  DateTagdiv,
+  Description,
+  DescriptionContainer,
+  DescriptionInput,
+  ModalContainer,
+  TitleInput,
 } from "./style";
 
 export default function AddTaskModal({
   closeHandler,
   modalVisible,
   dispatch,
+  tagsList,
+  setTagsList,
 }) {
+  const [editMode, setEditMode] = useState(true);
   const titleInput = useRef();
   const dateInput = useRef();
   const descriptionInput = useRef();
@@ -45,10 +62,12 @@ export default function AddTaskModal({
 
   return (
     <AddModal display={modalVisible}>
-      <CloseButton onClick={() => {
-        closeHandler();
-        setError("");
-      }}>
+      <CloseButton
+        onClick={() => {
+          closeHandler();
+          setError("");
+        }}
+      >
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
       <ModalContainer>
@@ -58,7 +77,15 @@ export default function AddTaskModal({
           <DateTagdiv>
             End Date: <DateInput ref={dateInput} type="date" />
           </DateTagdiv>
-          <DateTagdiv>Tags:</DateTagdiv>
+          <DateTagdiv>
+            Tags:
+            <TagsContainer
+              tagsList={tagsList}
+              setTagsList={setTagsList}
+              editMode={editMode}
+              display={true}
+            />
+          </DateTagdiv>
         </ContainerInput>
         <DescriptionContainer>
           <Description>Description</Description>
@@ -81,6 +108,7 @@ export default function AddTaskModal({
                 addValue("");
                 reset();
               }}>
+
               Add last
             </AddDiffButton>
             <AddDiffButton
@@ -102,6 +130,6 @@ export default function AddTaskModal({
           </AddButton>
         </ButtonsContainer>
       </ModalContainer>
-    </AddModal >
+    </AddModal>
   );
 }

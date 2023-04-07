@@ -8,6 +8,7 @@ import { Container } from "./style";
 export default function CreateTasksContainer() {
   const [modalVisible, setModalVisible] = useState("none");
   const tasksList = useTaskListContext();
+  const [tagsList, setTagsList] = useState([]);
   const user = useAppContext();
   const handler = () =>
     setModalVisible(modalVisible === "none" ? "block" : "none");
@@ -19,6 +20,7 @@ export default function CreateTasksContainer() {
     parentId: null,
     position: 0,
     taskId: null,
+    tags: tagsList,
   };
 
   const reducer = (state, { type, value }) => {
@@ -32,6 +34,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
+          tags: tagsList,
           isDone: false,
           isFavorite: false,
         };
@@ -44,6 +47,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
+          tags: tagsList,
           isDone: false,
           isFavorite: false,
         };
@@ -56,6 +60,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
+          tags: tagsList,
           isDone: false,
           isFavorite: false,
         };
@@ -73,6 +78,7 @@ export default function CreateTasksContainer() {
           description: value.description,
           userId: user.currentUser === null ? null : user.currentUser?.userId,
           taskId: Date.now().toString(36),
+          tags: tagsList,
           isDone: false,
           isFavorite: false,
         };
@@ -93,6 +99,7 @@ export default function CreateTasksContainer() {
         title: newTaskState.title,
         description: newTaskState.description,
         userId: newTaskState.userId,
+        tags: tagsList,
         isDone: false,
         isFavorite: false,
       };
@@ -109,14 +116,22 @@ export default function CreateTasksContainer() {
         .then((r) => r.json())
         .then((r) => {
           if (compareObjs(newTaskState, r)) {
+            newTaskState.tags.forEach(
+              (tag) => (tag.tagId = newTaskState.tags[tag.tagId])
+            );
+            sendTags(newTaskState.tags, r.taskId);
+            dispatch({ type: "set", value: r });
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
+            setTagsList([]);
           }
         })
         .catch(() => console.error("Error task not created"));
     } else {
       //Guest Mode
+      newTaskState.tags.forEach((tag) => (tag.taskId = newTaskState.taskId));
       tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
+      setTagsList([]);
     }
     
   };
@@ -142,6 +157,8 @@ export default function CreateTasksContainer() {
         newTask={newTask}
         addHandler={addHandler}
         dispatch={dispatch}
+        tagsList={tagsList}
+        setTagsList={setTagsList}
       />
       <Overlay
         handler={handler}
@@ -170,4 +187,17 @@ function updateTaskList(taskList, task) {
   const temp = taskList;
   temp.splice(task.position, 0, task);
   return [...temp];
+}
+
+function sendTags(tags, taskId) {
+  tags.forEach((tag) => (tag.taskId = taskId));
+  fetch("http://localhost:8086/todo/tags/v1", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ tags }),
+  });
 }
