@@ -21,7 +21,7 @@ export default function App() {
   useEffect(() => {
     if (currentUser === null) {
       tasksListContext.setTaskList(JSON.parse(localStorage.getItem("taskList")));
-      console.log(tasksListContext.list);
+      tasksListContext.setSubTaskList(JSON.parse(localStorage.getItem("subTasks")));
       return;
     }
     taskFetcher(currentUser.userId).then((res) =>
@@ -43,6 +43,7 @@ export default function App() {
     tasksListContext.setDisplayedTaskList(organizedList);
     if (currentUser === null) {
       localStorage.setItem("taskList", JSON.stringify(tasksListContext.list));
+      localStorage.setItem("subTasks", JSON.stringify(tasksListContext.subtasksList));
     }
   }, [tasksListContext.list]);
   return (

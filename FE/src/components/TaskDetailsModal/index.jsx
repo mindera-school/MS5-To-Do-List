@@ -19,7 +19,7 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 	const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
 	const [subtaskTitle, setSubtaskTitle] = useState("");
 	const [subtaskDate, setSubtaskDate] = useState("");
-	const teupai = useTaskListContext().list;
+	const taskList = useTaskListContext().list;
 
 	function saveSubtask() {
 		const data = {
