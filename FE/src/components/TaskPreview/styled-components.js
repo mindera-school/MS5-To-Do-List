@@ -87,7 +87,6 @@ export const StyledTaskPreview = styled.div`
   font-family: Roboto;
   color: ${({ theme }) => (theme.fontColor)};
   transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")});
-  box-shadow: 10px 10px 13px -3px rgba(0,0,0,0.75);
 `;
 
 export const NameAndDone = styled.div`

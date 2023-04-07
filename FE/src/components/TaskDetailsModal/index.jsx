@@ -20,6 +20,7 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 	const [subtaskTitle, setSubtaskTitle] = useState("");
 	const [subtaskDate, setSubtaskDate] = useState("");
 	const teupai = useTaskListContext().list;
+	const theme = useAppContext().themeMode;
 
 	function saveSubtask() {
 		const data = {
@@ -114,8 +115,8 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 
 	return <>
 		<Wrapper onClick={manageClose} display={display}>
-			<OuterBox onClick={(e) => e.stopPropagation()}>
-				<BoxHeader>
+			<OuterBox theme={theme} onClick={(e) => e.stopPropagation()}>
+				<BoxHeader theme={theme}>
 					<button onClick={manageClose}><IoMdClose size={25} /></button>
 					<button onClick={() => {
 						if (isEditing) {
@@ -131,23 +132,23 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 						{isEditing ? <BiSave size={25} /> : <BiEdit size={25}></BiEdit>}
 					</button>
 				</BoxHeader>
-				<InnerBox>
-					<InnerHeader>
-						<InnerTitle readOnly={isEditing ? false : true} value={title} onChange={(e) => setTitle(e.target.value)}></InnerTitle>
-						<OptionTitles>
+				<InnerBox theme={theme}>
+					<InnerHeader theme={theme}>
+						<InnerTitle theme={theme} readOnly={isEditing ? false : true} value={title} onChange={(e) => setTitle(e.target.value)}></InnerTitle>
+						<OptionTitles theme={theme}>
 							<span>Add Sub Task</span>
 							<button><IoIosAddCircleOutline color="white" size={20} onClick={() => setIsCreateSubOpen(isCreateSubOpen ? false : true)} /></button>
 						</OptionTitles>
-						<SubtaskFormBox opened={isCreateSubOpen}>
-							<CustomLabel>
+						<SubtaskFormBox theme={theme} opened={isCreateSubOpen}>
+							<CustomLabel theme={theme}>
 								<span>Title of Subtask</span>
 								<SubtaskInput value={subtaskTitle} onChange={(e) => setSubtaskTitle(e.target.value)}></SubtaskInput>
 							</CustomLabel>
-							<CustomLabel>
+							<CustomLabel theme={theme}>
 								<span>Due Date</span>
 								<input type={"date"} value={subtaskDate} onChange={(e) => setSubtaskDate(e.target.value)}></input>
 							</CustomLabel>
-							<SaveBtn onClick={() => {
+							<SaveBtn theme={theme} onClick={() => {
 								setIsCreateSubOpen(false);
 								saveSubtask();
 							}}>
@@ -155,33 +156,33 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 							</SaveBtn>
 						</SubtaskFormBox>
 					</InnerHeader>
-					<TaskInfo>
-						<CustomLine>
+					<TaskInfo theme={theme}>
+						<CustomLine theme={theme}>
 							<span>Sub Tasks:</span>
 							<span>0</span>
 						</CustomLine>
-						<CustomLine>
+						<CustomLine theme={theme}>
 							<span>Status:</span>
 							<span>{task.isDone ? "Completed" : "Still to do"}</span>
 						</CustomLine>
-						<CustomLine>
+						<CustomLine theme={theme}>
 							<span>End Date:</span>
-							<DateInput readOnly={isEditing ? false : true}><input type="date" readOnly={isEditing ? false : true} value={date} onChange={(e) => setDate(e.target.value)}></input></DateInput>
+							<DateInput theme={theme} readOnly={isEditing ? false : true}><input type="date" readOnly={isEditing ? false : true} value={date} onChange={(e) => setDate(e.target.value)}></input></DateInput>
 						</CustomLine>
-						<CustomLine>
+						<CustomLine theme={theme}>
 							<span>Tags:</span>
 							<TagsContainer><TaskTagsList listUrl={task.tagsURL} /><button>+ Add tag</button></TagsContainer>
 						</CustomLine>
 					</TaskInfo>
 					<HorizontalLine />
-					<DescriptionContainer>
+					<DescriptionContainer theme={theme}>
 						<h2>Description</h2>
-						<TaskDescInput readOnly={isEditing ? false : true} value={description} onChange={(e) => setDescription(e.target.value)}></TaskDescInput>
+						<TaskDescInput theme={theme} readOnly={isEditing ? false : true} value={description} onChange={(e) => setDescription(e.target.value)}></TaskDescInput>
 					</DescriptionContainer>
 					<HorizontalLine />
-					<CommentBox comments={taskComments} ></CommentBox>
+					<CommentBox theme={theme} comments={taskComments} ></CommentBox>
 				</InnerBox>
-				<AddCommentForm taskId={task.taskId} updateComments={updateTaskComments}></AddCommentForm>
+				<AddCommentForm theme={theme} taskId={task.taskId} updateComments={updateTaskComments}></AddCommentForm>
 			</OuterBox>
 		</Wrapper>
 	</>;

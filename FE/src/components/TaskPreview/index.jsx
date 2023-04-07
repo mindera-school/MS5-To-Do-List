@@ -138,7 +138,7 @@ export default function TaskPreview({
     if (borderColor === "none") {
       setBorderColor("3px solid green");
       setPadding("0 12px");
-    } else if (borderColor === "3px solid red") {
+    } else if (borderColor === "3px solid #CF6679") {
       setPadding("0 12px");
       setBorderColor("3px solid green");
     } else {
