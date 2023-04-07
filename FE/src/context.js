@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useState } from "react";
 import { accountMenuMap } from "./configs/accountMenu.jsx";
+import { themesMap } from "./configs/themes";
 
 export const AppContext = createContext({});
 
@@ -9,7 +10,15 @@ export const useCreateAppContext = () => {
   const [appState, setAppState] = useState({
     menuType: "login",
     currentUser: null,
+    themeMode: themesMap["lightMode"]
   });
+
+  const setTheme = useCallback((theme) => {
+    setAppState((oldState) => ({
+      ...oldState,
+      menuType: themesMap[theme],
+    }));
+  }, []);
 
   const setMenuType = useCallback((type) => {
     setAppState((oldState) => ({
@@ -30,6 +39,7 @@ export const useCreateAppContext = () => {
     ...appState,
     setMenuType,
     setCurrentUser,
+    setTheme
   };
 };
 

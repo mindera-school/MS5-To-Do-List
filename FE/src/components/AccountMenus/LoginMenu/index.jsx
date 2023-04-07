@@ -99,6 +99,7 @@ export const LoginMenu = () => {
           </WarningText>
         </WarningContent>
       </ConnectWarning>
+      
     </LoginDiv>
   );
 };

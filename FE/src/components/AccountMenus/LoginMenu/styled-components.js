@@ -194,3 +194,4 @@ export const LoginWarningText = styled.h5`
 	color: red;
 	margin-left: 10px;
 `;
+
