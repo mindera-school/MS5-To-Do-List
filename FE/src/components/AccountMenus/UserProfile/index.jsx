@@ -23,10 +23,7 @@ export const UserProfile = () => {
 
   useEffect(() => {
     if (taskList.length !== 0) {
-      let counter = 0;
-      taskList.forEach((task) => {
-        if (task.isDone === true) counter++;
-      });
+      let counter = taskList.filter((task) => task.isDone).length
       setTasksDone(counter);
       setTasksIsNotDone(taskList.length);
       return;
