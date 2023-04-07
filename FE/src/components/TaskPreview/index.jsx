@@ -268,7 +268,7 @@ export default function TaskPreview({
                 />
                 <h3>{title}</h3>
               </NameAndDone>
-              <TaskTagsList theme={theme} listUrl={tagsListUrl}></TaskTagsList>
+              <TaskTagsList theme={theme} id={id}></TaskTagsList>
             </div>
             <ExtendDiv></ExtendDiv>
             <DateContainer theme={theme}>

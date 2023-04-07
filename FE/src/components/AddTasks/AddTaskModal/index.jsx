@@ -1,22 +1,44 @@
+import TagsContainer from "../../TagsList";
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
 import { useAppContext } from "../../../context";
 import { ErrorDisplay } from "../../ErrorDisplay";
 import {
-  AddButton, AddButtonsDiv, AddDiffButton, AddModal, ButtonsContainer, CloseButton, ContainerInput, DateInput, DateTagdiv, Description, DescriptionContainer, DescriptionInput, ModalContainer, TitleInput
+  AddButton,
+  AddButtonsDiv,
+  AddDiffButton,
+  AddModal,
+  ButtonsContainer,
+  CloseButton,
+  ContainerInput,
+  DateInput,
+  DateTagdiv,
+  Description,
+  DescriptionContainer,
+  DescriptionInput,
+  ModalContainer,
+  TitleInput,
 } from "./style";
 
 export default function AddTaskModal({
   closeHandler,
   modalVisible,
   dispatch,
+  tagsList,
+  setTagsList,
 }) {
+  const [editMode, setEditMode] = useState(true);
   const titleInput = useRef();
   const dateInput = useRef();
   const descriptionInput = useRef();
   const [error, setError] = useState("");
   const theme = useAppContext().themeMode;
+  const reset =() => {
+    titleInput.current.value = "";
+    dateInput.current.value = "";
+    descriptionInput.current.value = "";
+  };
   const addValue = (type) => {
     const title = titleInput.current.value;
     const date = dateInput.current.value;
@@ -55,7 +77,15 @@ export default function AddTaskModal({
           <DateTagdiv theme={theme}>
             End Date: <DateInput ref={dateInput} type="date" />
           </DateTagdiv>
-          <DateTagdiv theme={theme}>Tags:</DateTagdiv>
+          <DateTagdiv theme={theme}>
+            Tags:
+            <TagsContainer
+              tagsList={tagsList}
+              setTagsList={setTagsList}
+              editMode={editMode}
+              display={true}
+            />
+          </DateTagdiv>
         </ContainerInput>
         <DescriptionContainer theme={theme}>
           <Description theme={theme}>Description</Description>
@@ -71,6 +101,7 @@ export default function AddTaskModal({
               theme={theme}
               onClick={() => {
                 addValue("first");
+                reset();
               }}>
               Add first
             </AddDiffButton>
@@ -78,13 +109,16 @@ export default function AddTaskModal({
               theme={theme}
               onClick={() => {
                 addValue("");
+                reset();
               }}>
+
               Add last
             </AddDiffButton>
             <AddDiffButton
               theme={theme}
               onClick={() => {
                 addValue("random");
+                reset();
               }}>
               Add random
             </AddDiffButton>
@@ -93,6 +127,7 @@ export default function AddTaskModal({
             theme={theme}
             onClick={() => {
               addValue("");
+              reset();
             }}
           >
             Add Task
@@ -100,6 +135,6 @@ export default function AddTaskModal({
           </AddButton>
         </ButtonsContainer>
       </ModalContainer>
-    </AddModal >
+    </AddModal>
   );
 }

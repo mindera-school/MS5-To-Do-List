@@ -127,6 +127,13 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
+    const setSubTaskList = useCallback((newSubTaskList) => {
+    setTaskListState((oldState) => ({
+      ...oldState,
+      subtasksList: newSubTaskList,
+    }));
+  });
+
   const updateTask = useCallback((id, updatedTask) => {
     const newList = taskListState.list.map(e => {
       if (e.taskId === id) {
@@ -173,6 +180,6 @@ export const useCreateTaskListContext = () => {
     updateTask,
     getChildrenById,
     addChildrenToTask,
-
+    setSubTaskList
   };
 };

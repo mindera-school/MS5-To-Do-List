@@ -20,7 +20,8 @@ export default function App() {
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
     if (currentUser === null) {
-      tasksListContext.setTaskList([]);
+      tasksListContext.setTaskList(JSON.parse(localStorage.getItem("taskList")));
+      tasksListContext.setSubTaskList(JSON.parse(localStorage.getItem("subTasks")));
       return;
     }
     taskFetcher(currentUser.userId).then((res) =>
@@ -40,6 +41,10 @@ export default function App() {
       return 0;
     });
     tasksListContext.setDisplayedTaskList(organizedList);
+    if (currentUser === null) {
+      localStorage.setItem("taskList", JSON.stringify(tasksListContext.list));
+      localStorage.setItem("subTasks", JSON.stringify(tasksListContext.subtasksList));
+    }
   }, [tasksListContext.list]);
   return (
     <>

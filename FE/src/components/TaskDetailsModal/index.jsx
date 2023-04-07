@@ -2,116 +2,161 @@ import React, { useEffect, useState } from "react";
 import { BiEdit, BiSave } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import { useAppContext, useTaskListContext } from "../../context.js";
-import TaskTagsList from "../TaskTagsList";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
-import { BoxHeader, CustomLabel, CustomLine, DateInput, DescriptionContainer, HorizontalLine, InnerBox, InnerHeader, InnerTitle, OptionTitles, OuterBox, SaveBtn, SubtaskFormBox, SubtaskInput, TagsContainer, TaskDescInput, TaskInfo, Wrapper } from "./styles";
+import taskFetcher from "../../fetchers/fetchTasks.js";
+import TagsContainer from "../TagsList/index.jsx";
+import {
+  BoxHeader,
+  CustomLabel,
+  CustomLine,
+  DateInput,
+  DescriptionContainer,
+  HorizontalLine,
+  InnerBox,
+  InnerHeader,
+  InnerTitle,
+  OptionTitles,
+  OuterBox,
+  SaveBtn,
+  SubtaskFormBox,
+  SubtaskInput,
+  TaskDescInput,
+  TaskInfo,
+  Wrapper,
+} from "./styles";
 
-function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }) {
-	const [isOverlayVisible, setIsOverlayVisible] = useState(false);
-	const [taskComments, setTaskComments] = useState([]);
-	const [title, setTitle] = useState(task.title);
-	const [date, setDate] = useState(task.date);
-	const [description, setDescription] = useState(task.description);
-	const currentUser = useAppContext().currentUser;
-	const updateTask = useTaskListContext().updateTask;
-	const addChildren = useTaskListContext().addChildrenToTask;
-	const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
-	const [subtaskTitle, setSubtaskTitle] = useState("");
-	const [subtaskDate, setSubtaskDate] = useState("");
-	const teupai = useTaskListContext().list;
+export default function TaskDetailsModal({
+  task,
+  display,
+  setDisplay,
+  isEditing,
+  setIsEditing,
+}) {
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
+  const [taskComments, setTaskComments] = useState([]);
+  const [title, setTitle] = useState(task.title);
+  const [date, setDate] = useState(task.date);
+  const [description, setDescription] = useState(task.description);
+  const currentUser = useAppContext().currentUser;
+  const updateTask = useTaskListContext().updateTask;
+  const addChildren = useTaskListContext().addChildrenToTask;
+  const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
+  const [subtaskTitle, setSubtaskTitle] = useState("");
+  const [subtaskDate, setSubtaskDate] = useState("");
+  const taskList = useTaskListContext().list;
 	const theme = useAppContext().themeMode;
+  const tasksListContext = useTaskListContext();
+  const [tagsList, setTagsList] = useState();
+  const [editMode, setEditMode] = useState(false);
 
-	function saveSubtask() {
-		const data = {
-			title: subtaskTitle,
-			description: "",
-			date: subtaskDate.replaceAll("-", "/"),
-			userId: currentUser === null ? null : currentUser.userId,
-			parentId: task.taskId,
-			//dps colocar aqui a posição no array de subtasks
-			position: 0
-		};
 
-		if (currentUser === null) {
-			addChildren(task.taskId, {
-				...data,
-				taskId: Date.now().toString(36)
-			});
-			return;
-		}
+  function manageClose() {
+    setIsOverlayVisible(isOverlayVisible ? false : true);
+    setIsEditing(false);
+    setDisplay(false);
+  }
 
-		fetch("http://localhost:8086/todo/tasks/v1", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-		})
-			.then(r => r.json())
-			.then(r => {
-				addChildren(task.taskId, {
-					...data,
-					taskId: r.id
-				});
+  function saveSubtask() {
+    const data = {
+      title: subtaskTitle,
+      description: "",
+      date: subtaskDate.replaceAll("-", "/"),
+      userId: currentUser === null ? null : currentUser.userId,
+      parentId: task.taskId,
+      //dps colocar aqui a posição no array de subtasks
+      position: 0,
+    };
 
-				if (r === undefined) {
-					console.log("Couldn't add subtask");
-				}
-			})
-			.catch(console.log("Couldn't connect"));
+  if (currentUser === null) {
+    addChildren(task.taskId, {
+      ...data,
+      taskId: Date.now().toString(36),
+    });
+    return;
+  }
 
-		setSubtaskDate("");
-		setSubtaskTitle("");
-	}
+  fetch("http://localhost:8086/todo/tasks/v1", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+  })
+    .then((r) => r.json())
+    .then((r) => {
+      addChildren(task.taskId, {
+        ...data,
+        taskId: r.id,
+      });
 
-	function manageClose() {
-		setIsOverlayVisible(isOverlayVisible ? false : true);
-		setDisplay(false);
-		setIsEditing(false);
-	}
+      if (r === undefined) {
+        console.log("Couldn't add subtask");
+      }
+    })
+    .catch(console.log("Couldn't connect"));
+  }
 
-	const updateTaskComments = (newComment) => {
-		const newElement = { description: newComment };
-		setTaskComments([...taskComments, newElement]);
-	};
+  useEffect(() => {
+    if (tagsList === undefined) {
+      setTagsList(task.tags);
+      return;
+    }
+    task.tags = tagsList;
+  }, [tagsList, setTagsList, task.tags]);
 
-	useEffect(() => {
-		setTitle(task.title);
-		setDate(task.date);
-		setDescription(task.description);
-		if (display === true && task.commentsURL !== undefined) {
-			fetch(task.commentsURL)
-				.then(r => r.json())
-				.then(r => setTaskComments(r));
-		}
-	}, [task.commentsURL, display, task]);
+  useEffect(() => {
+    setEditMode(isEditing ? true : false);
+  }, [isEditing]);
 
-	const createDataObj = () => {
-		return {
-			taskId: task.taskId,
-			title: title,
-			description: description,
-			isDone: task.isDone,
-			date: date,
-			isFavorite: task.isFavorite,
-			disabled: false
-		};
-	};
+  const updateTaskComments = (newComment) => {
+    const newElement = { description: newComment };
+    setTaskComments([...taskComments, newElement]);
+  };
 
-	const saveEdition = (data) => {
-		fetch(`http://localhost:8086/todo/tasks/v1/${task.taskId}`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			redirect: "follow",
-			referrerPolicy: "no-referrer",
-			body: JSON.stringify(data)
-		});
-	};
+  useEffect(() => {
+    setTitle(task.title);
+    setDate(task.date);
+    setDescription(task.description);
+    if (display === true && task.commentsURL !== undefined) {
+      fetch(task.commentsURL)
+        .then((r) => r.json())
+        .then((r) => setTaskComments(r));
+    }
+  }, [task.commentsURL, display, task]);
+
+  const createDataObj = () => {
+    return {
+      taskId: task.taskId,
+      title: title,
+      description: description,
+      isDone: task.isDone,
+      date: date,
+      isFavorite: task.isFavorite,
+      disabled: false,
+      tags: task.tags,
+    };
+  };
+
+  const saveEdition = (data) => {
+    fetch(`http://localhost:8086/todo/tasks/v1/${task.taskId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      redirect: "follow",
+      referrerPolicy: "no-referrer",
+      body: JSON.stringify(data),
+    }).then(() => {
+      task.tags.forEach((tag) => (tag.tagId = task.tags[tag.tagId]));
+      sendTags(data.tags);
+    });
+    taskFetcher(currentUser.userId).then((res) =>
+    tasksListContext.setTaskList(res)
+  );
+  };
 
 	return <>
 		<Wrapper onClick={manageClose} display={display}>
@@ -188,4 +233,14 @@ function TaskDetailsModal({ task, display, setDisplay, isEditing, setIsEditing }
 	</>;
 }
 
-export default TaskDetailsModal;
+function sendTags(tags) {
+  fetch("http://localhost:8086/todo/tags/v1", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    redirect: "follow",
+    referrerPolicy: "no-referrer",
+    body: JSON.stringify({ tags }),
+  });
+}
