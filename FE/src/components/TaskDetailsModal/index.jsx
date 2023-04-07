@@ -4,6 +4,7 @@ import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import { useAppContext, useTaskListContext } from "../../context.js";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
+import taskFetcher from "../../fetchers/fetchTasks.js";
 import TagsContainer from "../TagsList/index.jsx";
 import {
   BoxHeader,
@@ -44,8 +45,10 @@ export default function TaskDetailsModal({
   const [subtaskTitle, setSubtaskTitle] = useState("");
   const [subtaskDate, setSubtaskDate] = useState("");
   const taskList = useTaskListContext().list;
+  const tasksListContext = useTaskListContext();
   const [tagsList, setTagsList] = useState();
   const [editMode, setEditMode] = useState(false);
+
 
   function manageClose() {
     setIsOverlayVisible(isOverlayVisible ? false : true);
@@ -149,6 +152,9 @@ export default function TaskDetailsModal({
       task.tags.forEach((tag) => (tag.tagId = task.tags[tag.tagId]));
       sendTags(data.tags);
     });
+    taskFetcher(currentUser.userId).then((res) =>
+    tasksListContext.setTaskList(res)
+  );
   };
 
   return (
