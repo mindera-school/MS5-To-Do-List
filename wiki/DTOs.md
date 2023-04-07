@@ -324,6 +324,27 @@
 ```
 
 </details>
+<details>
+<summary>UPDATE TAG</summary>
+
+## Request
+
+**Endpoint:** `PUT` http://localhost:8086/todo/tags/v1/{taskId}
+
+**Body:**
+
+```json
+[
+  {
+    "name": "string",
+    "color": "string",
+    "userId": "integer",
+    "taskId": "integer"
+  }
+]
+```
+
+</details>
 
 <details>
 <summary>ERROR CODES</summary>
@@ -722,6 +743,26 @@
 
 ```json
 {}
+```
+
+</details>
+<details>
+<summary>UPDATE TAG</summary>
+
+## Request
+
+**Endpoint:** `PUT` http://localhost:8086/todo/tags/v1/{taskId}
+
+**Body:**
+
+```json
+[
+  {
+    "tagId": "integer",
+    "name": "string",
+    "color": "string"
+  }
+]
 ```
 
 </details>
