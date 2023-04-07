@@ -133,6 +133,7 @@ export default function CreateTasksContainer() {
       tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
       setTagsList([]);
     }
+    
   };
 
   useEffect(() => {
