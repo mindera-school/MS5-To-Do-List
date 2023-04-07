@@ -12,6 +12,7 @@ export default function TaskList() {
   const updateTaskList = useTaskListContext().setTaskList;
   const currentUser = useAppContext().currentUser;
 
+
   function createPatchDTO(updatedList) {
     return updatedList.map((e) => {
       return {
@@ -69,6 +70,7 @@ export default function TaskList() {
               tagsListUrl={e.tagsURL}
               parentId={e.parentId}
               isParent={true}
+              tags={e.tags}
               fullTaskURL={e.fullTaskURL}
               dragger={
                 <div {...providedDraggable.dragHandleProps}>

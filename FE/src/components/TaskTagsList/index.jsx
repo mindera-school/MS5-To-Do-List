@@ -6,7 +6,7 @@ import { useTaskListContext } from "../../context";
 import { StylesTaskTagsList } from "./styled-components.js";
 
 //Creates a div to hold every tag that corresponds to the task it's fathered by
-export default function TaskTagsList({ listUrl, id }) {
+export default function TaskTagsList({ id }) {
   const tasksList = useTaskListContext();
   const list = tasksList.list;
   const [tagList, setTagList] = useState([]);
@@ -19,7 +19,7 @@ export default function TaskTagsList({ listUrl, id }) {
         setTagList(e.tags);
       }
     });
-  }, [id]);
+  }, [id, list]);
 
   useEffect(() => {
     if (selectedTag) {
@@ -32,6 +32,7 @@ export default function TaskTagsList({ listUrl, id }) {
       tasksList.setDisplayedTaskList(list);
     }
   }, [selectedTag, list]);
+
 
   allTags = tagList?.map((e, i) => {
     return (
