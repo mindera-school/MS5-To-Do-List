@@ -1,11 +1,11 @@
 import Switch from "@mui/material/Switch";
 import React, { useEffect, useState } from "react";
+import { BsFillMoonFill, BsSunFill } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useAppContext, useTaskListContext } from "../../../context.js";
 import { ThemeSwitchHolder, UserImg } from "../LoginMenu/styled-components";
 import { StatsHolder, UserProfileContainer, VerticalLine } from "./styles.js";
-
 
 function getUserImage(image) {
   return image === null ? (
@@ -69,7 +69,7 @@ export const UserProfile = () => {
           </div>
         </StatsHolder>
         <ThemeSwitchHolder theme={theme}>
-          <label>Dark Mode</label>
+          {darkMode ? <label>Dark Mode<BsFillMoonFill /></label> : <label><BsSunFill />Light Mode</label>}
           <Switch value={darkMode} onChange={() => setDarkMode(darkMode ? false : true)}></Switch>
         </ThemeSwitchHolder>
       </UserProfileContainer>
