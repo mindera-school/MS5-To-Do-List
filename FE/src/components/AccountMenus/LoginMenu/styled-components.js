@@ -1,5 +1,31 @@
 import styled, { keyframes } from "styled-components";
 
+export const slideLeftAnim = keyframes`
+	0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+export const slideRightAnim = keyframes`
+	0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
 export const contentAppearAnim = keyframes`
 	0% {
 		opacity: 0;
@@ -203,8 +229,11 @@ export const ThemeSwitchHolder = styled.div`
 	justify-self: flex-end;
 	align-items: center;
 	color: ${({ theme }) => (theme.menuFontColor)};
+	width: fit-content;
 	label {
-		width: 100%;
+		width: fit-content;
 		height: fit-content;
+		display: flex;
+		flex-direction: row;
 	}
 `;

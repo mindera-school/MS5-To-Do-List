@@ -1,5 +1,6 @@
 import Switch from "@mui/material/Switch";
 import React, { useEffect, useState } from "react";
+import { BsFillMoonFill, BsSunFill } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
 import { GrFormClose } from "react-icons/gr";
@@ -113,7 +114,7 @@ export const LoginMenu = () => {
         </WarningContent>
       </ConnectWarning>
       <ThemeSwitchHolder theme={theme}>
-        <label>Dark Mode</label>
+        {darkMode ? <label>Dark Mode<BsFillMoonFill /></label> : <label><BsSunFill />Light Mode</label>}
         <Switch value={darkMode} onChange={() => setDarkMode(darkMode ? false : true)}></Switch>
       </ThemeSwitchHolder>
     </LoginDiv>
