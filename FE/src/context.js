@@ -129,7 +129,7 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
-    const setSubTaskList = useCallback((newSubTaskList) => {
+  const setSubTaskList = useCallback((newSubTaskList) => {
     setTaskListState((oldState) => ({
       ...oldState,
       subtasksList: newSubTaskList,
