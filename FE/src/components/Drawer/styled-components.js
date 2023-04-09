@@ -8,7 +8,7 @@ export const StyledDrawer = styled.div`
   height: 100vh;
   width: 390px; 
   transform: translate(${({ display }) => display ? "0" : "100%"});
-  background-color: #17425e;
+  background-color: ${({ theme }) => (theme.secondaryColor)};
   z-index: 5;
   transition: width 0.4s;
   overflow-x: hidden;
@@ -18,6 +18,7 @@ export const StyledDrawer = styled.div`
 
 export const CloseButton = styled.button`
   background-color: transparent;
+  color: ${({ theme }) => (theme.menuFontColor)};
   border: none;
   cursor: pointer;
   transition: transform 0.4s;

@@ -32,11 +32,11 @@ export const OuterBox = styled.div`
 	width: 812px;
 	box-sizing: border-box;
 	border-radius: 30px;
-	background-color: #8D99AE;
+	background-color: ${({ theme }) => theme.taskColor};
 	z-index: 2;
 	animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	padding: 15px;
-	color: white;
+	color: ${({ theme }) => theme.fontColor};
 `;
 
 export const BoxHeader = styled.div`
@@ -45,12 +45,12 @@ export const BoxHeader = styled.div`
 	align-items: center;
 	width: 100%;
 	height: fit-content;
-	color: white;
+	color: ${({ theme }) => theme.fontColor};
 
 	button {
 		background-color: transparent;
 		border: none;
-		color: white;
+		${({ theme }) => theme.fontColor};
 		cursor: pointer;
 	}
 `;
@@ -64,14 +64,14 @@ export const InnerHeader = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	color: white;
+	color: ${({ theme }) => theme.fontColor};
 	width: 100%;
 	box-sizing: border-box;
 `;
 
 export const InnerTitle = styled.input`
 	font-size: 40px;
-	color: white;
+	color: ${({ readOnly, theme }) => readOnly ? theme.fontColor : "white"};
 	text-decoration: underline;
 	background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
 	border: ${({ readOnly }) => readOnly ? "none" : "white 2px solid"};
@@ -79,7 +79,7 @@ export const InnerTitle = styled.input`
 	padding-left: 10px;
 	outline: none;
 	::placeholder {
-		color: white;
+		color: ${({ theme }) => theme.fontColor};
 	}
 `;
 
@@ -88,7 +88,7 @@ export const OptionTitles = styled.h4`
 	justify-content: space-between;
 	align-items: center;
 	font-size: 15px;
-	color: white;
+	${({ theme }) => theme.fontColor};
 	width: 135px;
 	button {
 		cursor: pointer;
@@ -104,7 +104,7 @@ export const TaskInfo = styled.div`
 	flex-direction: column;
 	height: 120px;
 	width: 100%;
-	color: white;
+	${({ theme }) => theme.fontColor};
 	box-sizing: border-box;
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 `;
@@ -123,7 +123,6 @@ export const DescriptionContainer = styled.div`
 	overflow-y: scroll;
 	width: 100%;
 	height: 180px;
-	color: white;
 	padding-bottom: 20px;
 	h2,
 	h5 {
@@ -142,8 +141,6 @@ export const CommentContainer = styled.div`
 	height: 150px;
 	width: 100%;
 	overflow-y: scroll;
-	color: white;
-
 `;
 
 export const Comment = styled.span`
@@ -152,8 +149,8 @@ export const Comment = styled.span`
 	align-items: center;
 	height: 50px;
 	font-size: 15px;
-	background-color: #D9D9D9;
-	color: black;
+	background-color: ${({ theme }) => theme.searchBarBg};
+	color: ${({ theme }) => theme.fontColor};
 	margin-bottom: 8px;
 	box-sizing: border-box;
 	padding: 8px 0px 8px 8px;
@@ -163,7 +160,7 @@ export const Comment = styled.span`
 export const CommentInput = styled.input`
 	width: 270px;
 	border-radius: 5px;
-	background-color: #D9D9D9;
+	background-color: ${({ theme }) => theme.searchBarBg};
 	border: none;
 	height: 34px;
 	padding-left: 15px;
@@ -174,7 +171,7 @@ export const CommentInput = styled.input`
 export const CommentButton = styled.button`
 	background-color: transparent;
 	border: none;
-	color: white;
+	color: ${({ theme }) => theme.fontColor};
 	cursor: pointer;
 `;
 
@@ -188,7 +185,7 @@ export const TagsContainer = styled.span`
 	button {
 		background-color: transparent;
 		border: none;
-		color: white;
+		color: ${({ theme }) => theme.searchBarBg};
 		cursor: pointer;
 	}
 `;
@@ -205,18 +202,19 @@ export const CustomLine = styled.div`
 `;
 
 export const TaskDescInput = styled.textarea`
-	background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
+	background-color: ${(props) => props.readOnly ? "transparent" : "#2C5BA1"};
 	border: ${({ readOnly }) => readOnly ? "none" : "white 2px solid"};
 	border-radius: 10px;
 	height: 100%;
 	font-size: 18px;
-	color: white;
+	color: ${({ readOnly, theme }) => readOnly ? theme.fontColor : "white"};
 	padding: 15px;
 	overflow-y: scroll;
 	outline: none;
 `;
 
 export const DateInput = styled.div`
+	color: ${({ theme }) => theme.menuFontColor};
 	border: ${({ readOnly }) => readOnly ? "none" : "2px white solid"};
 	border-radius: 5px;
 	*,
@@ -228,9 +226,7 @@ export const DateInput = styled.div`
 	}
 	input[type="date"]{
 		background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
-		
-		font-family: "Roboto Mono",monospace;
-		color: #ffffff;
+		color: ${({ theme }) => theme.fontColor};
 		font-size: 18px;
 		border: none;
 		outline: none;
@@ -261,6 +257,7 @@ export const SubtaskFormBox = styled.div`
 	transition: max-height 0.4s;
 	border-radius: 5px;
 	overflow: hidden;
+	color: ${({ theme }) => theme.menuFontColor};
 `;
 
 export const SubtaskInput = styled.input`

@@ -2,6 +2,7 @@ import TagsContainer from "../../TagsList";
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
+import { useAppContext } from "../../../context";
 import { ErrorDisplay } from "../../ErrorDisplay";
 import {
   AddButton,
@@ -32,6 +33,7 @@ export default function AddTaskModal({
   const dateInput = useRef();
   const descriptionInput = useRef();
   const [error, setError] = useState("");
+  const theme = useAppContext().themeMode;
   const reset =() => {
     titleInput.current.value = "";
     dateInput.current.value = "";
@@ -61,23 +63,21 @@ export default function AddTaskModal({
   };
 
   return (
-    <AddModal display={modalVisible}>
-      <CloseButton
-        onClick={() => {
-          closeHandler();
-          setError("");
-        }}
-      >
+    <AddModal theme={theme} display={modalVisible}>
+      <CloseButton theme={theme} onClick={() => {
+        closeHandler();
+        setError("");
+      }}>
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
-      <ModalContainer>
+      <ModalContainer theme={theme}>
         <ErrorDisplay error={error}>{error}</ErrorDisplay>
-        <TitleInput ref={titleInput} type="text" placeholder="Task Title" />
+        <TitleInput theme={theme} ref={titleInput} type="text" placeholder="Task Title" />
         <ContainerInput>
-          <DateTagdiv>
+          <DateTagdiv theme={theme}>
             End Date: <DateInput ref={dateInput} type="date" />
           </DateTagdiv>
-          <DateTagdiv>
+          <DateTagdiv theme={theme}>
             Tags:
             <TagsContainer
               tagsList={tagsList}
@@ -87,16 +87,18 @@ export default function AddTaskModal({
             />
           </DateTagdiv>
         </ContainerInput>
-        <DescriptionContainer>
-          <Description>Description</Description>
+        <DescriptionContainer theme={theme}>
+          <Description theme={theme}>Description</Description>
           <DescriptionInput
+            theme={theme}
             ref={descriptionInput}
             placeholder="Write your task description here"
           />
         </DescriptionContainer>
-        <ButtonsContainer>
-          <AddButtonsDiv>
+        <ButtonsContainer theme={theme}>
+          <AddButtonsDiv theme={theme}>
             <AddDiffButton
+              theme={theme}
               onClick={() => {
                 addValue("first");
                 reset();
@@ -104,6 +106,7 @@ export default function AddTaskModal({
               Add first
             </AddDiffButton>
             <AddDiffButton
+              theme={theme}
               onClick={() => {
                 addValue("");
                 reset();
@@ -112,6 +115,7 @@ export default function AddTaskModal({
               Add last
             </AddDiffButton>
             <AddDiffButton
+              theme={theme}
               onClick={() => {
                 addValue("random");
                 reset();
@@ -120,6 +124,7 @@ export default function AddTaskModal({
             </AddDiffButton>
           </AddButtonsDiv>
           <AddButton
+            theme={theme}
             onClick={() => {
               addValue("");
               reset();

@@ -9,6 +9,7 @@ export default function LeftMenu() {
   const list = tasksList.list;
   const [tags, setTags] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
+  const theme = useAppContext().themeMode;
 
   useEffect(() => {
     if (user.currentUser === null) {
@@ -106,22 +107,22 @@ export default function LeftMenu() {
   };
 
   return (
-    <Container>
-      <Titles>Filter</Titles>
-      <TagsBox>{showTags()}</TagsBox>
-      <Titles>Remove</Titles>
-      <ButtonsBox>
-        <Buttons onClick={removeAll}>Remove All</Buttons>
-        <Buttons onClick={removeFirst}>Remove First</Buttons>
-        <Buttons onClick={removeLast}>Remove Last</Buttons>
-        <Buttons onClick={removeRandom}>Remove Random</Buttons>
-        <Buttons onClick={removeDuplicates}>Remove Duplicates</Buttons>
+    <Container theme={theme}>
+      <Titles theme={theme}>Filter</Titles>
+      <TagsBox theme={theme}>{showTags()}</TagsBox>
+      <Titles theme={theme}>Remove</Titles>
+      <ButtonsBox theme={theme}>
+        <Buttons theme={theme} onClick={removeAll}>Remove All</Buttons>
+        <Buttons theme={theme} onClick={removeFirst}>Remove First</Buttons>
+        <Buttons theme={theme} onClick={removeLast}>Remove Last</Buttons>
+        <Buttons theme={theme} onClick={removeRandom}>Remove Random</Buttons>
+        <Buttons theme={theme} onClick={removeDuplicates}>Remove Duplicates</Buttons>
       </ButtonsBox>
       <Titles>Sort</Titles>
-      <ButtonsBox>
-        <Buttons onClick={randomize}>Randomize</Buttons>
-        <Buttons onClick={alphabetically}>Alphabetically</Buttons>
-        <Buttons onClick={notAlphabetically}>Not Alphabetically</Buttons>
+      <ButtonsBox theme={theme}>
+        <Buttons theme={theme} onClick={randomize}>Randomize</Buttons>
+        <Buttons theme={theme} onClick={alphabetically}>Alphabetically</Buttons>
+        <Buttons theme={theme} onClick={notAlphabetically}>Not Alphabetically</Buttons>
       </ButtonsBox>
     </Container>
   );

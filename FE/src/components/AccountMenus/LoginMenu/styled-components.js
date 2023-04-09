@@ -1,5 +1,31 @@
 import styled, { keyframes } from "styled-components";
 
+export const slideLeftAnim = keyframes`
+	0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+export const slideRightAnim = keyframes`
+	0% {
+    -webkit-transform: translateX(1000px);
+            transform: translateX(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
 export const contentAppearAnim = keyframes`
 	0% {
 		opacity: 0;
@@ -56,7 +82,7 @@ export const wobbleAnim = keyframes`
 export const RegisterBtn = styled.button`
 	background-color: transparent;
 		border: none;
-		color: #8D99AE;
+		color: ${({ theme }) => (theme.terciaryColor)};
 		display: flex;
 		align-items: center;
 		position: absolute;
@@ -75,7 +101,7 @@ export const LoginContent = styled.form`
 		align-items: center;
 		width: 100%;
 		margin-top: 30px;
-		color: white;
+		color: ${({ theme }) => (theme.menuFontColor)};
 		height: 160px;
 `;
 
@@ -103,7 +129,7 @@ export const LoginDiv = styled.div`
 			padding-left: 10px;
 			outline: none;
 			font-size: 16px;
-			background-color: #8D99AE;
+			background-color: ${({ theme }) => (theme.inputColor)};
 			margin-top: 6px;
 		}
 	}
@@ -114,8 +140,8 @@ export const LoginBtn = styled.button`
 		width: 85px;
 		height: 30px;
 		font-size: 20px;
-		color: white;
-		background-color: #8D99AE;
+		color: ${({ theme }) => (theme.fontColor)};
+		background-color: ${({ theme }) => (theme.terciaryColor)};
 		border: none;
 		border-radius: 5px;
 		cursor: pointer;
@@ -136,7 +162,7 @@ export const UserImg = styled.div`
 	align-items: center;
 	justify-content:center;
 	border-radius:50%;
-	background-color: #8D99AE;
+	background-color: ${({ theme }) => (theme.terciaryColor)};
 	margin-bottom: 10px;
 	animation: ${contentAppearAnim} 0.6s ease;
 `;
@@ -193,4 +219,21 @@ export const LoginWarning = styled.div`
 export const LoginWarningText = styled.h5`
 	color: red;
 	margin-left: 10px;
+`;
+
+export const ThemeSwitchHolder = styled.div`
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	bottom: 5%;
+	justify-self: flex-end;
+	align-items: center;
+	color: ${({ theme }) => (theme.menuFontColor)};
+	width: fit-content;
+	label {
+		width: fit-content;
+		height: fit-content;
+		display: flex;
+		flex-direction: row;
+	}
 `;

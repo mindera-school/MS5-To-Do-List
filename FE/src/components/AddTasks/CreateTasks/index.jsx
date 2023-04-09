@@ -1,12 +1,14 @@
 import React from "react";
-import { CreateTasksButton } from "./style";
 import { MdOutlineAddBox } from "react-icons/md";
+import { useAppContext } from "../../../context";
+import { CreateTasksButton } from "./style";
 
 export default function CreateTasks({ openHandler }) {
+  const theme = useAppContext().themeMode;
   return (
-    <CreateTasksButton onClick={openHandler}>
+    <CreateTasksButton theme={theme} onClick={openHandler}>
       Add Task
-      <MdOutlineAddBox color="black" />
+      <MdOutlineAddBox />
     </CreateTasksButton>
   );
 }

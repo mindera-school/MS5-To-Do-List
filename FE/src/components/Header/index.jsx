@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
+import { useAppContext, useTaskListContext } from "../../context";
 import AccountMenuContainer from "../AccountMenus/MenuContainer";
 import Overlay from "../Overlay";
 import SearchBar from "../SearchBar";
-import { useTaskListContext } from "../../context";
 import { AccountMenuBtn, LeftDummy, StyledHeader } from "./styled-component";
 
 export default function Header() {
@@ -11,6 +11,7 @@ export default function Header() {
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const tasksList = useTaskListContext();
+  const theme = useAppContext().themeMode;
 
   useEffect(() => {
     search(inputValue, tasksList);
@@ -27,14 +28,15 @@ export default function Header() {
   };
 
   return (
-    <StyledHeader>
+    <StyledHeader theme={theme}>
       <LeftDummy></LeftDummy>
-      <SearchBar inputValue={inputValue} setInputValue={setInputValue} />
+      <SearchBar theme={theme} inputValue={inputValue} setInputValue={setInputValue} />
       <AccountMenuContainer
+        theme={theme}
         rightSideHandler={rightSideHandler}
         rightTabVisible={rightTabVisible}
       />
-      <AccountMenuBtn onClick={rightSideHandler}>
+      <AccountMenuBtn onClick={rightSideHandler} theme={theme}>
         <FaRegUser size={20} />
       </AccountMenuBtn>
       <Overlay handler={overlayClickHandler} display={isOverlayVisible} />

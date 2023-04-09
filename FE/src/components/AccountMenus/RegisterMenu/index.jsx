@@ -35,6 +35,7 @@ export const RegisterMenu = () => {
 	const [password, setPassword] = useState("");
 	const [pDetailsVisibility, setPDetailsVisibility] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const theme = useAppContext().themeMode;
 
 	async function sendRegisterInfo(data) {
 		// in the future should open error modal
@@ -69,13 +70,13 @@ export const RegisterMenu = () => {
 	}, [password]);
 
 	return <>
-		<RegisterContainer>
-			<GoBackBtn onClick={() => changeMenuType("login")} ><RiArrowGoBackLine size={30} /></GoBackBtn>
-			<UserImg>
+		<RegisterContainer theme={theme}>
+			<GoBackBtn theme={theme} onClick={() => changeMenuType("login")} ><RiArrowGoBackLine size={30} /></GoBackBtn>
+			<UserImg theme={theme}>
 				<FaRegUser size={80} />
 			</UserImg>
-			<RegisterForm>
-				<ErrorDisplay error={errorMessage}>{errorMessage}</ErrorDisplay>
+			<RegisterForm theme={theme}>
+				<ErrorDisplay theme={theme} error={errorMessage}>{errorMessage}</ErrorDisplay>
 				<label>
 					<span>Email:</span>
 					<input type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -96,7 +97,7 @@ export const RegisterMenu = () => {
 					<span>Password:</span>
 					<input type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} onSelect={() => setPDetailsVisibility(true)} />
 				</label>
-				<PasswordDetails isDisplayed={pDetailsVisibility}>
+				<PasswordDetails theme={theme} isDisplayed={pDetailsVisibility}>
 					<h4>Password must include:</h4>
 					<li>Between 4 and 8 characters</li>
 					<li>One upper case letter</li>

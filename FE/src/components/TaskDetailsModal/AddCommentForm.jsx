@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BiCommentAdd } from "react-icons/bi";
+import { useAppContext } from "../../context";
 import { CenteredForm, CommentButton, CommentInput } from "./styles";
 
 
@@ -23,14 +24,14 @@ function sendComment(comment, taskId) {
 	});
 }
 
-// Missing Add comment Post
 function AddCommentForm({ taskId, updateComments }) {
 	const [inputContent, setInputContent] = useState("");
+	const theme = useAppContext().themeMode;
 
 	return (
-		<CenteredForm>
-			<CommentInput value={inputContent} onChange={(e) => { setInputContent(e.target.value); }} />
-			<CommentButton onClick={(e) => {
+		<CenteredForm theme={theme}>
+			<CommentInput theme={theme} value={inputContent} onChange={(e) => { setInputContent(e.target.value); }} />
+			<CommentButton theme={theme} onClick={(e) => {
 				e.preventDefault();
 				updateComments(inputContent);
 				sendComment(inputContent, taskId);
