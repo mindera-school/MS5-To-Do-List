@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -12,8 +12,7 @@ import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
 import {
   AppContext,
-  TaskListContext,
-  useTaskListContext,
+  TaskListContext, useAppContext, useTaskListContext
 } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
@@ -28,7 +27,7 @@ import {
   StyledTaskPreview,
   SubtasksBtns,
   TaskDetailsBtn,
-  VerticalLine,
+  VerticalLine
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
@@ -82,6 +81,7 @@ export default function TaskPreview({
   const [isEditing, setIsEditing] = useState(false);
   const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
   const tasksList = useTaskListContext();
+  const theme = useAppContext().themeMode;
 
   useEffect(() => {
     tasksList.setTaskList(
@@ -138,7 +138,7 @@ export default function TaskPreview({
     if (borderColor === "none") {
       setBorderColor("3px solid green");
       setPadding("0 12px");
-    } else if (borderColor === "3px solid red") {
+    } else if (borderColor === "3px solid #CF6679") {
       setPadding("0 12px");
       setBorderColor("3px solid green");
     } else {
@@ -244,16 +244,20 @@ export default function TaskPreview({
           }}
         >
           <StyledTaskPreview
+            theme={theme}
             isParent={isParent}
             border={borderColor}
             padding={padding}
           >
             <StyledFavHeart
+              theme={theme}
               isFilled={isThisFav}
               onClick={() => setIsThisFav(isThisFav ? false : true)}
             ></StyledFavHeart>
             <div>
-              <NameAndDone>
+              <NameAndDone
+                theme={theme}
+              >
                 <input
                   checked={isDone}
                   onChange={() => {
@@ -264,18 +268,19 @@ export default function TaskPreview({
                 />
                 <h3>{title}</h3>
               </NameAndDone>
-              <TaskTagsList id={id}></TaskTagsList>
+              <TaskTagsList theme={theme} id={id}></TaskTagsList>
             </div>
             <ExtendDiv></ExtendDiv>
-            <DateContainer>
-              <AiOutlineCalendar size={20} color="white" />
+            <DateContainer theme={theme}>
+              <AiOutlineCalendar size={20} />
               <h4>{dueDate}</h4>
             </DateContainer>
             {getChevron()}
-            <DraggerContainer isDragDisabled={true}>{dragger}</DraggerContainer>
-            <VerticalLine></VerticalLine>
+            <DraggerContainer theme={theme} isDragDisabled={true}>{dragger}</DraggerContainer>
+            <VerticalLine theme={theme}></VerticalLine>
             <EdgeButtonsContainer>
               <DeleteBtn
+                theme={theme}
                 onClick={(e) => {
                   const deleteMethod =
                     parentId === null ? deleteTaskFromContext : deleteSubtask;
@@ -284,7 +289,7 @@ export default function TaskPreview({
               >
                 <SlClose size={20} />
               </DeleteBtn>
-              <TaskDetailsBtn onClick={() => setIsDetailVis(true)}>
+              <TaskDetailsBtn theme={theme} onClick={() => setIsDetailVis(true)}>
                 <MdOpenInFull size={20} color="black" />
               </TaskDetailsBtn>
             </EdgeButtonsContainer>

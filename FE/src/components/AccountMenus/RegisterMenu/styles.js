@@ -58,7 +58,6 @@ export const RegisterForm = styled.form`
 	width: 100%;
 	align-items: center;
 	margin-top: 20px;
-
 	animation: ${contentAppearAnim} 0.6s ease-in;
 
 	label {
@@ -78,7 +77,7 @@ export const RegisterForm = styled.form`
 			padding-left: 10px;
 			outline: none;
 			font-size: 16px;
-			background-color: #8D99AE;
+			background-color: ${({ theme }) => (theme.inputColor)};
 			margin-top: 6px;
 		}
 	}
@@ -87,8 +86,8 @@ export const RegisterForm = styled.form`
 		width: 85px;
 		height: 30px;
 		font-size: 20px;
-		color: white;
-		background-color: #8D99AE;
+		color: ${({ theme }) => (theme.fontColor)};
+		background-color: ${({ theme }) => (theme.terciaryColor)};
 		border: none;
 		border-radius: 5px;
 		cursor: pointer;
@@ -103,7 +102,7 @@ export const RegisterForm = styled.form`
 
 export const GoBackBtn = styled.button`
 	position: absolute;
-	color: #8D99AE;
+	color: ${({ theme }) => (theme.terciaryColor)};
 	border: none;
 	background-color: transparent;
 	top: 20px;
@@ -117,7 +116,7 @@ export const GoBackBtn = styled.button`
 
 export const PasswordDetails = styled.ul`
 	margin: 0;
-	color: white;
+	color: ${({ theme }) => (theme.menuFontColor)};
 	transition: height 0.8s;
 	height: ${({ isDisplayed }) => isDisplayed ? "30%" : 0};
 	overflow-y: hidden;

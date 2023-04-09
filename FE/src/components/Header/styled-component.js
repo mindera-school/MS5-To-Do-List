@@ -17,13 +17,13 @@ export const StyledHeader = styled.div`
   align-items: center;
   width: 100%;
   padding: 13px 0;
-  background-color: #17425e;
+  background-color: ${({ theme }) => (theme.secondaryColor)};
   margin-bottom: 10px;
 `;
 
 export const AccountMenuBtn = styled.button`
   border: none;
-  background-color: #8d99ae;
+  background-color: ${({ theme }) => (theme.inputColor)};
   justify-self: flex-end;
   align-self: center;
   border-radius: 50%;

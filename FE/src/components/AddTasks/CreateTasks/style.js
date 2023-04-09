@@ -6,11 +6,11 @@ export const CreateTasksButton = styled.button`
   width: 158px;
   font-weight: 400;
   font-size: 20px;
-  color: white;
-  background-color: #8d99ae;
+  color: ${({ theme }) => (theme.fontColor)};
+  background-color: ${({ theme }) => (theme.inputColor)};
   cursor: pointer;
   border-radius: 50px;
-  border: none;
+  border: 2px solid black;
   display: flex;
   justify-content: space-between;
   align-items: center;

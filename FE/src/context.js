@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { accountMenuMap } from "./configs/accountMenu.jsx";
+import { themesMap } from "./configs/themes";
 
 export const AppContext = createContext({});
 
@@ -9,7 +10,16 @@ export const useCreateAppContext = () => {
   const [appState, setAppState] = useState({
     menuType: "login",
     currentUser: null,
+    themeMode: themesMap["lightMode"]
   });
+
+  const setTheme = useCallback((theme) => {
+    setAppState((oldState) => ({
+      ...oldState,
+      themeMode: themesMap[theme],
+    }));
+  }, []);
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
 
@@ -22,6 +32,7 @@ export const useCreateAppContext = () => {
 
     setAppState({ menuType: "logged", currentUser: user });
   }, []);
+
   const setMenuType = useCallback((type) => {
     setAppState((oldState) => ({
       ...oldState,
@@ -42,6 +53,7 @@ export const useCreateAppContext = () => {
     ...appState,
     setMenuType,
     setCurrentUser,
+    setTheme
   };
 };
 
@@ -129,7 +141,7 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
-    const setSubTaskList = useCallback((newSubTaskList) => {
+  const setSubTaskList = useCallback((newSubTaskList) => {
     setTaskListState((oldState) => ({
       ...oldState,
       subtasksList: newSubTaskList,
