@@ -16,6 +16,9 @@ function getUserImage(image) {
 }
 
 const getCurrentMode = (theme) => {
+  if (theme === undefined) {
+    return false;
+  }
   return theme.primaryColor === "white" ? false : true;
 };
 

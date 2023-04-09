@@ -5,7 +5,7 @@ import LeftMenu from "./components/LeftMenu";
 import TaskList from "./components/TaskList";
 import {
   AppContext,
-  TaskListContext, useAppContext, useCreateAppContext,
+  TaskListContext, useCreateAppContext,
   useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
@@ -15,7 +15,7 @@ export default function App() {
   const tasksListContext = useCreateTaskListContext();
   const appContext = useCreateAppContext();
   const currentUser = appContext.currentUser;
-  const currentContext = useAppContext();
+  const theme = appContext.themeMode || { primaryColor: "white" };
 
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
@@ -24,6 +24,7 @@ export default function App() {
       tasksListContext.setSubTaskList(JSON.parse(localStorage.getItem("subTasks")));
       return;
     }
+
     taskFetcher(currentUser.userId).then((res) =>
       tasksListContext.setTaskList(res)
     );
@@ -31,7 +32,7 @@ export default function App() {
   }, [currentUser]);
 
   useEffect(() => {
-    const organizedList = [...tasksListContext.list].sort((a, b) => {
+    const organizedList = [...tasksListContext.list]?.sort((a, b) => {
       if (a.isFavorite && !b.isFavorite) {
         return -1;
       }
@@ -40,17 +41,18 @@ export default function App() {
       }
       return 0;
     });
-    tasksListContext.setDisplayedTaskList(organizedList);
+    tasksListContext?.setDisplayedTaskList(organizedList);
     if (currentUser === null) {
       localStorage.setItem("taskList", JSON.stringify(tasksListContext.list));
       localStorage.setItem("subTasks", JSON.stringify(tasksListContext.subtasksList));
     }
   }, [tasksListContext.list]);
+
   return (
     <>
       <AppContext.Provider value={appContext}>
         <TaskListContext.Provider value={tasksListContext}>
-          <GlobalStyle theme={appContext.themeMode} />
+          <GlobalStyle theme={theme} />
           <Header tasksList={tasksListContext} />
           <Main>
             <LateralDiv>

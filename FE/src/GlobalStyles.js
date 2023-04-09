@@ -1,7 +1,6 @@
 import styled, { createGlobalStyle } from "styled-components";
 import Roboto from "./font/Roboto-Regular.ttf";
 
-
 export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Roboto';
