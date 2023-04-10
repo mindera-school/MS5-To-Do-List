@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { BiMove } from "react-icons/bi";
 import { useAppContext, useTaskListContext } from "../../context";
@@ -11,7 +11,6 @@ export default function TaskList() {
   const displayedTaskList = useTaskListContext().displayedList;
   const updateTaskList = useTaskListContext().setTaskList;
   const currentUser = useAppContext().currentUser;
-
 
   function createPatchDTO(updatedList) {
     return updatedList.map((e) => {
@@ -52,6 +51,7 @@ export default function TaskList() {
     });
     updateTaskList(updatedPositionTasks);
   }
+
   let allTasksComps = useTaskListContext().displayedList?.map((e, index) => {
     return (
       <Draggable key={e.taskId} draggableId={e.taskId.toString()} index={index}>
@@ -83,6 +83,7 @@ export default function TaskList() {
       </Draggable>
     );
   });
+
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="taskList">
@@ -93,7 +94,7 @@ export default function TaskList() {
             ref={providedDroppable.innerRef}
           >
             {
-            allTasksComps
+              allTasksComps
             }
             {providedDroppable.placeholder}
           </div>

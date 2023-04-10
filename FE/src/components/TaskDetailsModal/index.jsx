@@ -33,9 +33,6 @@ export default function TaskDetailsModal({
   isEditing,
   setIsEditing
 }) {
-
-
-
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [taskComments, setTaskComments] = useState([]);
   const currentUser = useAppContext().currentUser;
