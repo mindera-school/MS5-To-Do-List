@@ -67,7 +67,6 @@ export default function TaskList() {
               dueDate={e.date?.replaceAll("/", "-")}
               isFavorite={e.isFavorite}
               position={e.position}
-              tagsListUrl={e.tagsURL}
               parentId={e.parentId}
               isParent={true}
               tags={e.tags}

@@ -28,6 +28,7 @@ import {
 
 export default function TaskDetailsModal({
   task,
+  tags,
   setTask,
   display,
   setDisplay,
@@ -58,7 +59,10 @@ export default function TaskDetailsModal({
     setDisplay(false);
   }
   function saveSubtask() {
-    console.log(subtaskDate);
+    if (subtaskTitle === "") {
+      return;
+    }
+
     const data = {
       title: subtaskTitle,
       description: "",
@@ -68,7 +72,6 @@ export default function TaskDetailsModal({
       //dps colocar aqui a posição no array de subtasks
       position: 0,
     };
-    console.log(data);
 
     if (currentUser === null) {
       addChildren(task.taskId, {
@@ -102,11 +105,11 @@ export default function TaskDetailsModal({
   }
   useEffect(() => {
     if (tagsList === undefined) {
-      setTagsList(task.tags);
+      setTagsList(tags);
       return;
     }
     task.tags = tagsList;
-  }, [tagsList, setTagsList, task.tags]);
+  }, [tagsList, setTagsList, tags]);
 
   useEffect(() => {
     setEditMode(isEditing ? true : false);
@@ -148,17 +151,17 @@ export default function TaskDetailsModal({
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(data),
-    })
-      .then(() => {
-        setTask({ ...task, tags: tagsList });
-        tagsList.forEach((tag) => (tag.tagId = task.tags[tag.tagId]));
-        sendTags(task.tags, setTagsList, task);
-      })
-      .then(
-        taskFetcher(currentUser.userId).then((res) =>
-          tasksListContext.setTaskList(res)
-        )
+    }).then(() => {
+      setTask({ ...task, tags: tagsList });
+      tagsList.forEach((tag) => (tag.tagId = tags[tag.tagId]));
+      sendTags(tags, setTagsList, task);
+      tasksListContext.setTaskList(
+        updateTaskList(tasksListContext.list, {
+          ...tasksListContext.getGuestTaskbyId(task.taskId),
+          tags: task.tags,
+        })
       );
+    });
   };
 
   return (
@@ -210,6 +213,7 @@ export default function TaskDetailsModal({
                 <CustomLabel theme={theme}>
                   <span>Title of Subtask</span>
                   <SubtaskInput
+                    maxLength={12}
                     value={subtaskTitle}
                     onChange={(e) => setSubtaskTitle(e.target.value)}
                   ></SubtaskInput>
@@ -299,4 +303,10 @@ function sendTags(tags, setTagsList, task) {
     referrerPolicy: "no-referrer",
   });
   setTagsList(tags);
+}
+
+function updateTaskList(taskList, task) {
+  const newList = [...taskList];
+  newList[task.position] = task;
+  return newList;
 }

@@ -59,6 +59,7 @@ const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
 //TaskPreview template that will be generated for each task through the TaskList component
 export default function TaskPreview({
   id,
+  tags,
   title,
   dueDate,
   isDone,
@@ -232,7 +233,6 @@ export default function TaskPreview({
     }
     return <SubtaskList list={taskChildren.subtasks} show={showChildren} />;
   };
-
   return (
     <>
       <Draggable
@@ -311,6 +311,7 @@ export default function TaskPreview({
       <TaskDetailsModal
         id={id}
         task={task}
+        tags={tags}
         setTask={setTask}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
