@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 820px;
+  height: 85vh;
   width: 238px;
   border-radius: 30px;
   background: ${({ theme }) => (theme.secondaryColor)};
@@ -9,6 +9,8 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: fixed;
+  left: 2%;
 `;
 
 export const Tags = styled.button`
