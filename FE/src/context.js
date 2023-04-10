@@ -70,7 +70,19 @@ export const useCreateTaskListContext = () => {
   });
 
   const getGuestTaskbyId = useCallback((givenId) => {
-    return taskListState.list.find(e => e.taskId === givenId);
+    return taskListState.list.find(e => {
+      return e.taskId === givenId;
+    });
+  });
+
+  const getGuestSubtaskbyId = useCallback((givenId) => {
+    for (let i = 0; i < taskListState.subtasksList.length; i++) {
+      for (let j = 0; j < taskListState.subtasksList[i].subtasks.length; j++) {
+        if (taskListState.subtasksList[i].subtasks[j].taskId === givenId) {
+          return taskListState.subtasksList[i].subtasks[j];
+        }
+      }
+    }
   });
 
   const getChildrenById = useCallback((parentId) => {
@@ -111,8 +123,25 @@ export const useCreateTaskListContext = () => {
     }));
   });
 
-  const deleteSubtask = useCallback((subtaskId) => {
-    const updatedList = taskListState.subtasksList.filter(e => e.taskId !== subtaskId);
+  const deleteSubtask = useCallback((parentId, givenId) => {
+    let parentTask = taskListState.subtasksList.find(e => e.id === parentId);
+
+    if (parentTask === undefined) {
+      return;
+    }
+
+    parentTask = {
+      id: parentId,
+      subtasks: parentTask.subtasks.filter(e => e.taskId !== givenId)
+    };
+
+    const updatedList = taskListState.subtasksList.map(e => {
+      if (e.id === parentId) {
+        return parentTask;
+      }
+      return e;
+    });
+
     setTaskListState((oldState) => ({
       ...oldState,
       subtasksList: updatedList,
@@ -194,6 +223,7 @@ export const useCreateTaskListContext = () => {
     updateTask,
     getChildrenById,
     addChildrenToTask,
-    setSubTaskList
+    setSubTaskList,
+    getGuestSubtaskbyId
   };
 };

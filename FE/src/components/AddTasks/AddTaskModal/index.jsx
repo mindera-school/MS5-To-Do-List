@@ -1,9 +1,9 @@
-import TagsContainer from "../../TagsList";
 import React, { useRef, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { MdOutlineAddBox } from "react-icons/md";
 import { useAppContext } from "../../../context";
 import { ErrorDisplay } from "../../ErrorDisplay";
+import TagsContainer from "../../TagsList";
 import {
   AddButton,
   AddButtonsDiv,
@@ -18,7 +18,7 @@ import {
   DescriptionContainer,
   DescriptionInput,
   ModalContainer,
-  TitleInput,
+  TitleInput
 } from "./style";
 
 export default function AddTaskModal({
@@ -34,7 +34,8 @@ export default function AddTaskModal({
   const descriptionInput = useRef();
   const [error, setError] = useState("");
   const theme = useAppContext().themeMode;
-  const reset =() => {
+
+  const reset = () => {
     titleInput.current.value = "";
     dateInput.current.value = "";
     descriptionInput.current.value = "";
@@ -52,6 +53,7 @@ export default function AddTaskModal({
       setError("Choose a valid date");
       return;
     }
+
     dispatch({
       type: type,
       value: {

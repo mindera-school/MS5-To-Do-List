@@ -31,25 +31,26 @@ export default function TaskDetailsModal({
   display,
   setDisplay,
   isEditing,
-  setIsEditing,
+  setIsEditing
 }) {
+
+
+
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [taskComments, setTaskComments] = useState([]);
-  const [title, setTitle] = useState(task.title);
-  const [date, setDate] = useState(task.date);
-  const [description, setDescription] = useState(task.description);
   const currentUser = useAppContext().currentUser;
   const updateTask = useTaskListContext().updateTask;
   const addChildren = useTaskListContext().addChildrenToTask;
   const [isCreateSubOpen, setIsCreateSubOpen] = useState(false);
   const [subtaskTitle, setSubtaskTitle] = useState("");
   const [subtaskDate, setSubtaskDate] = useState("");
-  const taskList = useTaskListContext().list;
   const theme = useAppContext().themeMode;
   const tasksListContext = useTaskListContext();
   const [tagsList, setTagsList] = useState();
   const [editMode, setEditMode] = useState(false);
-
+  const [title, setTitle] = useState(task.title);
+  const [date, setDate] = useState(task.date);
+  const [description, setDescription] = useState(task.description);
 
   function manageClose() {
     setIsOverlayVisible(isOverlayVisible ? false : true);

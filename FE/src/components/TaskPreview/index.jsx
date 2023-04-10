@@ -31,7 +31,7 @@ import {
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
-const deleteTask = (id, e, deleteTaskContext, currentUser) => {
+const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
   e.stopPropagation();
   if (currentUser !== null) {
     try {
@@ -47,6 +47,9 @@ const deleteTask = (id, e, deleteTaskContext, currentUser) => {
       console.error("Unable to delete");
     }
   } else {
+    if (parentId !== null) {
+      deleteTaskContext(parentId, id);
+    }
     deleteTaskContext(id);
   }
 };
@@ -67,8 +70,7 @@ export default function TaskPreview({
   const [isThisFav, setIsThisFav] = useState(isFavorite);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
-  const deleteTaskFromContext =
-    useContext(TaskListContext).deleteTaskFromContext;
+  const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
   const currentUser = useContext(AppContext).currentUser;
   const setIsDone = useContext(TaskListContext).setTaskDoneState;
   const deleteSubtask = useContext(TaskListContext).deleteSubtask;
@@ -80,8 +82,28 @@ export default function TaskPreview({
   const [showChildren, setShowChildren] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
+  const returnSubtaskById = useContext(TaskListContext).getGuestSubtaskbyId;
   const tasksList = useTaskListContext();
   const theme = useAppContext().themeMode;
+
+  useEffect(() => {
+    if (!isDetailVis) {
+      setTask({});
+      return;
+    }
+
+    if (currentUser !== null) {
+      fetch(fullTaskURL)
+        .then((r) => r.json())
+        .then((r) => setTask(r));
+    } else {
+      setTask(returnTaskById(id));
+      if (task.taskId === undefined) {
+        setTask(returnSubtaskById(id));
+      }
+    }
+  }, [isDetailVis, fullTaskURL]);
+
 
   useEffect(() => {
     tasksList.setTaskList(
@@ -98,20 +120,6 @@ export default function TaskPreview({
     setPadding("3px 15px");
   }, []);
 
-  useEffect(() => {
-    if (!isDetailVis) {
-      setTask({});
-      return;
-    }
-
-    if (currentUser !== null) {
-      fetch(fullTaskURL)
-        .then((r) => r.json())
-        .then((r) => setTask(r));
-    } else {
-      setTask(returnTaskById(id));
-    }
-  }, [isDetailVis, fullTaskURL]);
 
   useEffect(() => {
     if (!isDone) {
@@ -284,7 +292,7 @@ export default function TaskPreview({
                 onClick={(e) => {
                   const deleteMethod =
                     parentId === null ? deleteTaskFromContext : deleteSubtask;
-                  deleteTask(id, e, deleteMethod, currentUser);
+                  deleteTask(id, e, deleteMethod, currentUser, parentId);
                 }}
               >
                 <SlClose size={20} />
@@ -298,6 +306,7 @@ export default function TaskPreview({
       </Draggable>
       {getChildren()}
       <TaskDetailsModal
+        id={id}
         task={task}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
