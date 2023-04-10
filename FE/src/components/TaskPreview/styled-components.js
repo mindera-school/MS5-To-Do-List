@@ -93,6 +93,7 @@ export const NameAndDone = styled.div`
   display: flex;
   align-items: center;
   height: 40px;
+  width: 150px;
   margin: 10px 0px 0px 0px;
     h3 {
     margin-left: 5px;
