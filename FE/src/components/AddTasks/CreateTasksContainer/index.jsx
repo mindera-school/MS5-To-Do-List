@@ -90,12 +90,22 @@ export default function CreateTasksContainer() {
   const addHandler = async () => {
     if (newTaskState.title === "") return;
 
+    // setTagsList(
+    //   tagsList.map((tag) => {
+    //     if (tag.input) {
+    //       console.log(tag.input);
+    //       return tag;
+    //     }
+    //   })
+    // );
+
+    console.log(tagsList);
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
       const data = {
         position: newTaskState.position,
-        date: newTaskState.date,
+        date: newTaskState.date?.replaceAll("-", "/"),
         title: newTaskState.title,
         description: newTaskState.description,
         userId: newTaskState.userId,
@@ -119,10 +129,10 @@ export default function CreateTasksContainer() {
             newTaskState.tags.forEach(
               (tag) => (tag.tagId = newTaskState.tags[tag.tagId])
             );
-            sendTags(newTaskState.tags, r.taskId);
-            dispatch({ type: "set", value: r });
+            sendTags(newTaskState.tags, r.taskId, setTagsList);
             //Add task locally
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
+            //Reset state
             setTagsList([]);
           }
         })
@@ -133,7 +143,6 @@ export default function CreateTasksContainer() {
       tasksList.setTaskList(updateTaskList(tasksList.list, newTaskState));
       setTagsList([]);
     }
-    
   };
 
   useEffect(() => {
@@ -189,7 +198,7 @@ function updateTaskList(taskList, task) {
   return [...temp];
 }
 
-function sendTags(tags, taskId) {
+function sendTags(tags, taskId, setTagsList) {
   tags.forEach((tag) => (tag.taskId = taskId));
   fetch("http://localhost:8086/todo/tags/v1", {
     method: "POST",
@@ -198,6 +207,7 @@ function sendTags(tags, taskId) {
     },
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify({ tags }),
+    body: JSON.stringify(tags),
   });
+  setTagsList(tags);
 }

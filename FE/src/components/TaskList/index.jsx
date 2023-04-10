@@ -12,7 +12,6 @@ export default function TaskList() {
   const updateTaskList = useTaskListContext().setTaskList;
   const currentUser = useAppContext().currentUser;
 
-
   function createPatchDTO(updatedList) {
     return updatedList.map((e) => {
       return {
@@ -22,6 +21,8 @@ export default function TaskList() {
       };
     });
   }
+
+  console.log(taskList);
 
   useEffect(() => {
     const sendData = setTimeout(() => {
@@ -64,7 +65,7 @@ export default function TaskList() {
               id={e.taskId}
               title={e.title}
               isDone={e.isDone}
-              dueDate={e.date}
+              dueDate={e.date?.replaceAll("/", "-")}
               isFavorite={e.isFavorite}
               position={e.position}
               tagsListUrl={e.tagsURL}
@@ -92,9 +93,7 @@ export default function TaskList() {
             {...providedDroppable.droppableProps}
             ref={providedDroppable.innerRef}
           >
-            {
-            allTasksComps
-            }
+            {allTasksComps}
             {providedDroppable.placeholder}
           </div>
         )}
