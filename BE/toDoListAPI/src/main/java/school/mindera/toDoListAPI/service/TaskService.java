@@ -95,9 +95,13 @@ public class TaskService {
             return ResponseEntity.ok(new ArrayList<>());
         }
 
+        List<TasksEntity> filteredTasks = subTasks.get().stream()
+                .filter(e -> !e.isDisabled())
+                .toList();
+
         List<DTOTaskPreview> dtos = new ArrayList<>();
 
-        subTasks.get().forEach(subTask -> {
+        filteredTasks.forEach(subTask -> {
             DTOTaskPreview dto = Converter.toDTOTaskPreview(subTask);
             dtos.add(dto);
         });

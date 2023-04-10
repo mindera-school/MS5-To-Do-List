@@ -58,15 +58,17 @@ export default function TaskDetailsModal({
     setDisplay(false);
   }
   function saveSubtask() {
+    console.log(subtaskDate);
     const data = {
       title: subtaskTitle,
       description: "",
-      date: subtaskDate?.replaceAll("-", "/"),
+      date: subtaskDate === "" ? null : subtaskDate.replaceAll("-", "/"),
       userId: currentUser === null ? null : currentUser.userId,
       parentId: task.taskId,
       //dps colocar aqui a posição no array de subtasks
       position: 0,
     };
+    console.log(data);
 
     if (currentUser === null) {
       addChildren(task.taskId, {
@@ -131,7 +133,7 @@ export default function TaskDetailsModal({
       title: title,
       description: description,
       isDone: task.isDone,
-      date: task === null ? null : task.date.replaceAll("-", "/"),
+      date: task.date === null ? null : task.date.replaceAll("-", "/"),
       isFavorite: task.isFavorite,
       disabled: false,
     };

@@ -43,6 +43,12 @@ public class TagService {
 
         List<DTONewTag> toCreate = new ArrayList<>();
         List<TagsEntity> toSaveTags = new ArrayList<>();
+
+        if(newTag.size() == 0) {
+            // Isto devia ser uma exception
+            return ResponseEntity.ok(new ArrayList<>());
+        }
+
         Optional<TasksEntity> task = tasksRepository.findById(newTag.get(0).getTaskId());
 
         if (task.isEmpty()) {
