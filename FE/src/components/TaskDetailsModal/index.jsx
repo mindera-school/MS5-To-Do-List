@@ -180,7 +180,7 @@ export default function TaskDetailsModal({
         </BoxHeader>
         <InnerBox theme={theme}>
           <InnerHeader theme={theme}>
-            <InnerTitle theme={theme} readOnly={isEditing ? false : true} value={title} onChange={(e) => setTitle(e.target.value)}></InnerTitle>
+            <InnerTitle theme={theme} maxLength={12} readOnly={isEditing ? false : true} value={title} onChange={(e) => setTitle(e.target.value)}></InnerTitle>
             <OptionTitles theme={theme}>
               <span>Add Sub Task</span>
               <button><IoIosAddCircleOutline color="white" size={20} onClick={() => setIsCreateSubOpen(isCreateSubOpen ? false : true)} /></button>
