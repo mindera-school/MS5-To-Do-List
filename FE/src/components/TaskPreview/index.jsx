@@ -61,7 +61,6 @@ export default function TaskPreview({
   id,
   title,
   dueDate,
-  tagsListUrl,
   isDone,
   isFavorite,
   fullTaskURL,
@@ -100,11 +99,11 @@ export default function TaskPreview({
         .then((r) => r.json())
         .then((r) => setTask(r));
     } else {
-      setTask(returnTaskById(id));
-      if (task.taskId === undefined) {
-        setTask(returnSubtaskById(id));
-      }
+
+      parentId === null ? setTask(returnTaskById(id)) : setTask(returnSubtaskById(id));
+
     }
+
   }, [isDetailVis, fullTaskURL]);
 
   useEffect(() => {
