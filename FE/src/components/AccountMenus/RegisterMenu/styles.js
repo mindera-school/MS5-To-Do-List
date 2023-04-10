@@ -70,7 +70,7 @@ export const RegisterForm = styled.form`
 		font-size: 20px;
 		color: white;
 		input {
-			color: white;
+			color: ${({ theme }) => (theme.fontColor)};
 			height: 40px;
 			border-radius: 20px;
 			border: none;
