@@ -5,7 +5,8 @@ import LeftMenu from "./components/LeftMenu";
 import TaskList from "./components/TaskList";
 import {
   AppContext,
-  TaskListContext, useCreateAppContext,
+  TaskListContext,
+  useCreateAppContext,
   useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
@@ -20,6 +21,12 @@ export default function App() {
   //The rest of the structure is built down from here fully autonomously to fetch the tasks
   useEffect(() => {
     if (currentUser === null) {
+      if (JSON.parse(localStorage.getItem("taskList")) === null) {
+        localStorage.setItem("taskList", JSON.stringify([]));
+      }
+      if (JSON.parse(localStorage.getItem("subTasks")) === null) {
+        localStorage.setItem("subTasks", JSON.stringify([]));
+      }
       tasksListContext.setTaskList(JSON.parse(localStorage.getItem("taskList")));
       tasksListContext.setSubTaskList(JSON.parse(localStorage.getItem("subTasks")));
       return;
