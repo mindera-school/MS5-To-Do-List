@@ -74,7 +74,7 @@ export default function AddTaskModal({
       </CloseButton>
       <ModalContainer theme={theme}>
         <ErrorDisplay error={error}>{error}</ErrorDisplay>
-        <TitleInput theme={theme} ref={titleInput} type="text" placeholder="Task Title" />
+        <TitleInput theme={theme} ref={titleInput} maxLength={12} type="text" placeholder="Task Title" />
         <ContainerInput>
           <DateTagdiv theme={theme}>
             End Date: <DateInput ref={dateInput} type="date" />

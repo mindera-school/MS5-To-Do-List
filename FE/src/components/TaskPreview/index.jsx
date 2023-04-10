@@ -145,7 +145,7 @@ export default function TaskPreview({
     if (borderColor === "none") {
       setBorderColor("3px solid green");
       setPadding("0 12px");
-    } else if (borderColor === "3px solid #CF6679") {
+    } else if (borderColor === "3px solid red") {
       setPadding("0 12px");
       setBorderColor("3px solid green");
     } else {
@@ -154,7 +154,7 @@ export default function TaskPreview({
     }
   };
 
-  const handleStart = useCallback((event, info) => {
+  const handleStart = useCallback((event) => {
     if (event.target.toString() === "[object HTMLDivElement]") {
       isDragging.current = false;
     }
@@ -266,7 +266,7 @@ export default function TaskPreview({
                 theme={theme}
               >
                 <input
-                  checked={isDone}
+                  maxLength={12}
                   onChange={() => {
                     setIsDone(id, isDone ? false : true);
                     checkColor();
