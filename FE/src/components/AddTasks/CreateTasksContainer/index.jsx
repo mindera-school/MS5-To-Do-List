@@ -93,13 +93,11 @@ export default function CreateTasksContainer() {
     // setTagsList(
     //   tagsList.map((tag) => {
     //     if (tag.input) {
-    //       console.log(tag.input);
     //       return tag;
     //     }
     //   })
     // );
 
-    console.log(tagsList);
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
@@ -109,7 +107,6 @@ export default function CreateTasksContainer() {
         title: newTaskState.title,
         description: newTaskState.description,
         userId: newTaskState.userId,
-        tags: tagsList,
         isDone: false,
         isFavorite: false,
       };
@@ -131,6 +128,7 @@ export default function CreateTasksContainer() {
             );
             sendTags(newTaskState.tags, r.taskId, setTagsList);
             //Add task locally
+            r.tags = tagsList;
             tasksList.setTaskList(updateTaskList(tasksList.list, r));
             //Reset state
             setTagsList([]);

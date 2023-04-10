@@ -28,6 +28,7 @@ import {
 
 export default function TaskDetailsModal({
   task,
+  setTask,
   display,
   setDisplay,
   isEditing,
@@ -46,7 +47,9 @@ export default function TaskDetailsModal({
   const [tagsList, setTagsList] = useState();
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(task.title);
-  const [date, setDate] = useState(task.date);
+  const [date, setDate] = useState(
+    task.date === null ? null : task.date?.replaceAll("/", "-")
+  );
   const [description, setDescription] = useState(task.description);
 
   function manageClose() {
@@ -54,7 +57,6 @@ export default function TaskDetailsModal({
     setIsEditing(false);
     setDisplay(false);
   }
-
   function saveSubtask() {
     const data = {
       title: subtaskTitle,
@@ -115,7 +117,7 @@ export default function TaskDetailsModal({
 
   useEffect(() => {
     setTitle(task.title);
-    setDate(task.date?.replaceAll("/", "-"));
+    setDate(task.date === null ? null : task.date?.replaceAll("/", "-"));
     setDescription(task.description);
     if (display === true && task.commentsURL !== undefined) {
       fetch(task.commentsURL)
@@ -126,14 +128,12 @@ export default function TaskDetailsModal({
 
   const createDataObj = () => {
     return {
-      taskId: task.taskId,
       title: title,
       description: description,
       isDone: task.isDone,
-      date: date,
+      date: task === null ? null : task.date.replaceAll("-", "/"),
       isFavorite: task.isFavorite,
       disabled: false,
-      tags: task.tags,
     };
   };
 
@@ -146,14 +146,17 @@ export default function TaskDetailsModal({
       redirect: "follow",
       referrerPolicy: "no-referrer",
       body: JSON.stringify(data),
-    }).then(() => {
-      task.tags.forEach((tag) => (tag.tagId = task.tags[tag.tagId]));
-      sendTags(data.tags, setTagsList);
-      console.log(data.tags);
-    });
-    taskFetcher(currentUser.userId).then((res) =>
-      tasksListContext.setTaskList(res)
-    );
+    })
+      .then(() => {
+        setTask({ ...task, tags: tagsList });
+        tagsList.forEach((tag) => (tag.tagId = task.tags[tag.tagId]));
+        sendTags(task.tags, setTagsList, task);
+      })
+      .then(
+        taskFetcher(currentUser.userId).then((res) =>
+          tasksListContext.setTaskList(res)
+        )
+      );
   };
 
   return (
@@ -283,15 +286,15 @@ export default function TaskDetailsModal({
   );
 }
 
-function sendTags(tags, setTagsList) {
-  fetch("http://localhost:8086/todo/tags/v1", {
+function sendTags(tags, setTagsList, task) {
+  fetch(`http://localhost:8086/todo/tags/v1/${task.taskId}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(tags),
     redirect: "follow",
     referrerPolicy: "no-referrer",
-    body: JSON.stringify(tags),
   });
   setTagsList(tags);
 }

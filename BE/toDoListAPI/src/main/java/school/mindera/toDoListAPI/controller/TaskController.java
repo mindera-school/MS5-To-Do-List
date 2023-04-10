@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.service.TaskService;
 import school.mindera.toDoListAPI.model.*;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/todo/tasks")
@@ -43,8 +44,27 @@ public class TaskController {
         return taskService.updateTask(taskId, updatedTask);
     }
 
+    @PatchMapping("/v1/delete/{taskId}")
+    public ResponseEntity<Object> disableTask(@PathVariable Integer taskId){
+        return taskService.disabledTask(taskId);
+    }
+
     @PatchMapping("/v1/change-position")
     public ResponseEntity<List<DTOUpdatePosition>> updateTaskPosition(@RequestBody List<DTOUpdatePosition> updatedTasks){
         return taskService.updatePosition(updatedTasks);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

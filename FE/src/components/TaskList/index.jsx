@@ -22,8 +22,6 @@ export default function TaskList() {
     });
   }
 
-  console.log(taskList);
-
   useEffect(() => {
     const sendData = setTimeout(() => {
       const data = createPatchDTO(taskList);

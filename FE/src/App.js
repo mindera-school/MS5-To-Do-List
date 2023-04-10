@@ -7,7 +7,7 @@ import {
   AppContext,
   TaskListContext,
   useCreateAppContext,
-  useCreateTaskListContext
+  useCreateTaskListContext,
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
 import { CentralDiv, GlobalStyle, LateralDiv, Main } from "./GlobalStyles";
@@ -27,8 +27,12 @@ export default function App() {
       if (JSON.parse(localStorage.getItem("subTasks")) === null) {
         localStorage.setItem("subTasks", JSON.stringify([]));
       }
-      tasksListContext.setTaskList(JSON.parse(localStorage.getItem("taskList")));
-      tasksListContext.setSubTaskList(JSON.parse(localStorage.getItem("subTasks")));
+      tasksListContext.setTaskList(
+        JSON.parse(localStorage.getItem("taskList"))
+      );
+      tasksListContext.setSubTaskList(
+        JSON.parse(localStorage.getItem("subTasks"))
+      );
       return;
     }
 
@@ -51,7 +55,10 @@ export default function App() {
     tasksListContext?.setDisplayedTaskList(organizedList);
     if (currentUser === null) {
       localStorage.setItem("taskList", JSON.stringify(tasksListContext.list));
-      localStorage.setItem("subTasks", JSON.stringify(tasksListContext.subtasksList));
+      localStorage.setItem(
+        "subTasks",
+        JSON.stringify(tasksListContext.subtasksList)
+      );
     }
   }, [tasksListContext.list]);
 

@@ -311,6 +311,7 @@ export default function TaskPreview({
       <TaskDetailsModal
         id={id}
         task={task}
+        setTask={setTask}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
         isEditing={isEditing}

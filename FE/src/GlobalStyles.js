@@ -41,7 +41,7 @@ export const CentralDiv = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  overflow: visible;
+  overflow-y: auto;
   flex: 3;
   height: 100vh;
   z-index: 2;
