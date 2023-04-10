@@ -70,7 +70,7 @@ export const RegisterForm = styled.form`
 		font-size: 20px;
 		color: white;
 		input {
-			color: white;
+			color: ${({ theme }) => (theme.fontColor)};
 			height: 40px;
 			border-radius: 20px;
 			border: none;
@@ -125,5 +125,15 @@ export const PasswordDetails = styled.ul`
 	left: -15%;
 `;
 
-
-
+export const SuccessMessage = styled.div`
+	max-height: ${({ open }) => (open ? "500px" : "0px")};
+	width: 100%;
+	background: rgba(4, 218, 4, 0.59);
+	color: black;
+	transition: max-height 0.5s;
+	padding: ${({ open }) => (open ? "15px" : "0px")};
+	width: 100%;
+	display: flex;
+	justify-content:center;
+	overflow: hidden;
+`;

@@ -17,9 +17,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${({ theme }) => (theme.primaryColor)};
     margin: 0;
-    overflow: hidden;
     max-width: 100vw;
     overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   #root { 

@@ -4,7 +4,7 @@ import { RiArrowGoBackLine } from "react-icons/ri";
 import { useAppContext } from "../../../context";
 import { ErrorDisplay } from "../../ErrorDisplay";
 import { UserImg } from "../LoginMenu/styled-components.js";
-import { GoBackBtn, PasswordDetails, RegisterContainer, RegisterForm } from "./styles.js";
+import { GoBackBtn, PasswordDetails, RegisterContainer, RegisterForm, SuccessMessage } from "./styles.js";
 
 function checkUserValidaty(user) {
 	const { email, firstName, lastName, username, password } = user;
@@ -35,6 +35,7 @@ export const RegisterMenu = () => {
 	const [password, setPassword] = useState("");
 	const [pDetailsVisibility, setPDetailsVisibility] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [isSuccess, setIsSuccess] = useState(false);
 	const theme = useAppContext().themeMode;
 
 	async function sendRegisterInfo(data) {
@@ -60,7 +61,15 @@ export const RegisterMenu = () => {
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(data),
 		})
-			.then(r => r.json())
+			.then(r => {
+				if (r.userId !== undefined) {
+					setIsSuccess(true);
+					setTimeout(() => {
+						setIsSuccess(false);
+						changeMenuType("login");
+					}, 3000);
+				}
+			})
 			.catch(r => console.log(r));
 	}
 	useEffect(() => {
@@ -69,12 +78,14 @@ export const RegisterMenu = () => {
 		return () => clearTimeout(closePDetails);
 	}, [password]);
 
+
 	return <>
 		<RegisterContainer theme={theme}>
 			<GoBackBtn theme={theme} onClick={() => changeMenuType("login")} ><RiArrowGoBackLine size={30} /></GoBackBtn>
 			<UserImg theme={theme}>
 				<FaRegUser size={80} />
 			</UserImg>
+			<SuccessMessage open={isSuccess}><label>Account created with success</label></SuccessMessage>
 			<RegisterForm theme={theme}>
 				<ErrorDisplay theme={theme} error={errorMessage}>{errorMessage}</ErrorDisplay>
 				<label>
