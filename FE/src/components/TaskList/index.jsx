@@ -85,21 +85,23 @@ export default function TaskList() {
   });
 
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="taskList">
-        {(providedDroppable) => (
-          <div
-            className="tasksList"
-            {...providedDroppable.droppableProps}
-            ref={providedDroppable.innerRef}
-          >
-            {
-              allTasksComps
-            }
-            {providedDroppable.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </DragDropContext>
+    <TaskList>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="taskList">
+          {(providedDroppable) => (
+            <div
+              className="tasksList"
+              {...providedDroppable.droppableProps}
+              ref={providedDroppable.innerRef}
+            >
+              {
+                allTasksComps
+              }
+              {providedDroppable.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </TaskList>
   );
 }
