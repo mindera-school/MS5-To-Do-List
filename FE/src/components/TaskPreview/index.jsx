@@ -96,7 +96,9 @@ export default function TaskPreview({
         .then((r) => r.json())
         .then((r) => setTask(r));
     } else {
+
       parentId === null ? setTask(returnTaskById(id)) : setTask(returnSubtaskById(id));
+
     }
 
   }, [isDetailVis, fullTaskURL]);
