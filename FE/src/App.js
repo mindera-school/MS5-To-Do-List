@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import CreateTasksContainer from "./components/AddTasks/CreateTasksContainer";
 import Header from "./components/Header";
 import LeftMenu from "./components/LeftMenu";
-import LeftMenu from "./components/LeftMenu";
 import TaskList from "./components/TaskList";
 import {
   AppContext,
