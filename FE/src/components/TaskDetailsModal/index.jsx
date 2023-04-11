@@ -45,7 +45,7 @@ export default function TaskDetailsModal({
   const [subtaskDate, setSubtaskDate] = useState("");
   const theme = useAppContext().themeMode;
   const tasksListContext = useTaskListContext();
-  const [tagsList, setTagsList] = useState();
+  const [tagsList, setTagsList] = useState(tags);
   const [editMode, setEditMode] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [date, setDate] = useState(
@@ -103,13 +103,10 @@ export default function TaskDetailsModal({
       })
       .catch(console.log("Couldn't connect"));
   }
+
   useEffect(() => {
-    if (tagsList === undefined) {
-      setTagsList(tags);
-      return;
-    }
-    task.tags = tagsList;
-  }, [tagsList, setTagsList, tags]);
+    setTagsList(tags);
+  }, [tags]);
 
   useEffect(() => {
     setEditMode(isEditing ? true : false);
@@ -153,12 +150,12 @@ export default function TaskDetailsModal({
       body: JSON.stringify(data),
     }).then(() => {
       setTask({ ...task, tags: tagsList });
-      tagsList.forEach((tag) => (tag.tagId = tags[tag.tagId]));
       sendTags(tags, setTagsList, task);
+      tagsList.forEach((tag) => (tag.tagId = tags[tag.tagId]));
       tasksListContext.setTaskList(
         updateTaskList(tasksListContext.list, {
           ...tasksListContext.getGuestTaskbyId(task.taskId),
-          tags: task.tags,
+          tags: tagsList,
         })
       );
     });
