@@ -58,6 +58,7 @@ export default function TaskDetailsModal({
     setIsEditing(false);
     setDisplay(false);
   }
+
   function saveSubtask() {
     if (subtaskTitle === "") {
       return;
@@ -95,8 +96,8 @@ export default function TaskDetailsModal({
         addChildren(task.taskId, {
           ...data,
           taskId: r.id,
+          fullTaskURL: r.fullTaskURL,
         });
-
         if (r === undefined) {
           console.log("Couldn't add subtask");
         }

@@ -43,7 +43,14 @@ const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
           "Content-type": "application/json",
         },
       }).then((r) => {
-        r.ok ? deleteTaskContext(id) : console.log("Couldn't connect!");
+        if (r.ok) {
+          if (parentId !== null) {
+            deleteTaskContext(parentId, id);
+          }
+          deleteTaskContext(id);
+        } else {
+          console.log("Couldn't connect!");
+        }
       });
     } catch (exception) {
       console.error("Unable to delete");
@@ -104,7 +111,7 @@ export default function TaskPreview({
         ? setTask(returnTaskById(id))
         : setTask(returnSubtaskById(id));
     }
-  }, [isDetailVis, fullTaskURL]);
+  }, [isDetailVis, fullTaskURL, id]);
 
   useEffect(() => {
     tasksList.setTaskList(
