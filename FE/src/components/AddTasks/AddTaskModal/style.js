@@ -16,7 +16,7 @@ export const AddModal = styled.div`
   position: absolute;
   top: 30px;
   margin-top: 20px;
-  width: 780px;
+  min-width: 780px;
   height: 600px;
   background-color: ${({ theme }) => (theme.taskColor)};
   z-index: 1;
