@@ -15,10 +15,7 @@ import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 
@@ -58,7 +55,7 @@ public class TaskService {
         });
 
 
-        return ResponseEntity.ok(tasks);
+        return ResponseEntity.ok(sortByPosition(tasks));
     }
 
     public ResponseEntity<DTOTaskDetails> getTaskDetails(Integer taskId, Integer userId) {
@@ -106,7 +103,7 @@ public class TaskService {
             dtos.add(dto);
         });
 
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(sortByPosition(dtos));
     }
 
     public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {
@@ -235,5 +232,11 @@ public class TaskService {
         task.setPosition(updateTask.getPosition());
 
         return task;
+    }
+
+    private List<DTOTaskPreview> sortByPosition(List<DTOTaskPreview> tasksToSort){
+        return tasksToSort.stream()
+                .sorted(Comparator.comparingInt(DTOTaskPreview::getPosition))
+                .toList();
     }
 }

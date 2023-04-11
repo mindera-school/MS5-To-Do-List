@@ -178,7 +178,12 @@ export default function TaskDetailsModal({
                   if (currentUser !== null) {
                     saveEdition(updatedTask);
                   }
-                  updateTask(id, updatedTask);
+                  tasksListContext.setTaskList(
+                    updateTaskList(tasksListContext.list, {
+                      ...tasksListContext.getGuestTaskbyId(task.taskId),
+                      tags: tagsList,
+                    })
+                  );
                 }
                 setIsEditing(isEditing ? false : true);
               }}
