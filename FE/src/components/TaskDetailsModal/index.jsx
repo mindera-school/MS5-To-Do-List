@@ -150,7 +150,7 @@ export default function TaskDetailsModal({
       body: JSON.stringify(data),
     }).then(() => {
       setTask({ ...task, tags: tagsList });
-      sendTags(tags, setTagsList, task);
+      sendTags(tagsList, setTagsList, task);
       tagsList.forEach((tag) => (tag.tagId = tags[tag.tagId]));
       tasksListContext.setTaskList(
         updateTaskList(tasksListContext.list, {
