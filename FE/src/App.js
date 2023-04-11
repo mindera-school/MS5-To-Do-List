@@ -62,7 +62,6 @@ export default function App() {
     }
   }, [tasksListContext.list]);
 
-  console.log(tasksListContext.list);
   return (
     <>
       <AppContext.Provider value={appContext}>
