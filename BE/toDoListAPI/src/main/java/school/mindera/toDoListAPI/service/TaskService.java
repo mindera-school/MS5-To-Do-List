@@ -2,8 +2,10 @@ package school.mindera.toDoListAPI.service;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
+import school.mindera.toDoListAPI.exceptions.tags.TagNotFoundException;
 import school.mindera.toDoListAPI.exceptions.tasks.InvalidTaskException;
 import school.mindera.toDoListAPI.exceptions.tasks.TaskMissingDataException;
 import school.mindera.toDoListAPI.exceptions.tasks.TaskNotFoundException;
@@ -13,10 +15,7 @@ import school.mindera.toDoListAPI.repositories.TasksRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 
@@ -39,11 +38,24 @@ public class TaskService {
 
         List<DTOTaskPreview> tasks = user.get().getTasks()
                 .stream()
+                .filter(task -> !task.isDisabled())
                 .map(Converter::toDTOTaskPreview)
                 .filter(task -> isNull(task.getParentId()))
                 .toList();
 
-        return ResponseEntity.ok(tasks);
+        tasks.forEach((e) -> {
+            Optional<TasksEntity> task = tasksRepository.findById(e.getTaskId());
+            if (task.isEmpty()) {
+                throw new TagNotFoundException("Invalid task");
+            }
+            List<TagsEntity> tagsE = task.get().getTags();
+            List<DTOTag> tags = new ArrayList<>();
+            tagsE.forEach(f -> tags.add(new DTOTag(f.getTagId(), f.getName(), f.getColor())));
+            e.setTags(tags);
+        });
+
+
+        return ResponseEntity.ok(sortByPosition(tasks));
     }
 
     public ResponseEntity<DTOTaskDetails> getTaskDetails(Integer taskId, Integer userId) {
@@ -80,14 +92,18 @@ public class TaskService {
             return ResponseEntity.ok(new ArrayList<>());
         }
 
+        List<TasksEntity> filteredTasks = subTasks.get().stream()
+                .filter(e -> !e.isDisabled())
+                .toList();
+
         List<DTOTaskPreview> dtos = new ArrayList<>();
 
-        subTasks.get().forEach(subTask -> {
+        filteredTasks.forEach(subTask -> {
             DTOTaskPreview dto = Converter.toDTOTaskPreview(subTask);
             dtos.add(dto);
         });
 
-        return ResponseEntity.ok(dtos);
+        return ResponseEntity.ok(sortByPosition(dtos));
     }
 
     public ResponseEntity<DTOTaskPreview> addTask(DTONewTask newTask) {
@@ -97,7 +113,7 @@ public class TaskService {
 
         SimpleDateFormat formatData = new SimpleDateFormat("yyyy/MM/dd");
         Date date = null;
-        if(!isNull(newTask.getDate())) {
+        if (!isNull(newTask.getDate())) {
             try {
                 date = formatData.parse(newTask.getDate());
             } catch (Exception e) {
@@ -146,13 +162,26 @@ public class TaskService {
         return ResponseEntity.ok(Converter.toDTOUpdateTask(updatedTask));
     }
 
+    public ResponseEntity<Object> disabledTask(Integer taskId) {
+        Optional<TasksEntity> task = tasksRepository.findById(taskId);
+
+        if (task.isEmpty()) {
+            throw new TaskNotFoundException("Invalid Task");
+        }
+
+        task.get().setDisabled(true);
+        tasksRepository.save(task.get());
+
+        return ResponseEntity.ok().build();
+    }
+
     public ResponseEntity<List<DTOUpdatePosition>> updatePosition(List<DTOUpdatePosition> updateTasks) {
         List<TasksEntity> updatedTasks = new ArrayList<>();
 
         updateTasks.forEach((task) -> {
             Optional<TasksEntity> dataBaseTask = tasksRepository.findById(task.getTaskId());
 
-            if(dataBaseTask.isEmpty()){
+            if (dataBaseTask.isEmpty()) {
                 throw new TaskNotFoundException("Invalid Task");
             }
 
@@ -170,13 +199,15 @@ public class TaskService {
         return ResponseEntity.ok(updatedTasksDTOs);
     }
 
-    private TasksEntity setTaskUpdate(TasksEntity task, DTOUpdateTask updateTask){
+    private TasksEntity setTaskUpdate(TasksEntity task, DTOUpdateTask updateTask) {
         SimpleDateFormat formatData = new SimpleDateFormat("yyyy/MM/dd");
-        Date date;
-        try {
-            date = formatData.parse(updateTask.getDate());
-        } catch (Exception e) {
-            throw new TaskMissingDataException("Invalid Date");
+        Date date = null;
+        if (!isNull(updateTask.getDate())) {
+            try {
+                date = formatData.parse(updateTask.getDate());
+            } catch (Exception e) {
+                throw new TaskMissingDataException("Invalid Date");
+            }
         }
 
         task.setTitle(updateTask.getTitle());
@@ -184,23 +215,28 @@ public class TaskService {
         task.setDone(updateTask.getIsDone());
         task.setEndDate(date);
         task.setFavorite(updateTask.getIsFavorite());
-        task.setDisabled(updateTask.getDisabled());
 
         return task;
     }
 
-    private TasksEntity setTaskPosition(TasksEntity task, DTOUpdatePosition updateTask){
-        if(!isNull(updateTask.getParentId())) {
+    private TasksEntity setTaskPosition(TasksEntity task, DTOUpdatePosition updateTask) {
+        if (!isNull(updateTask.getParentId())) {
             Optional<TasksEntity> parent = tasksRepository.findById(updateTask.getParentId());
             if (parent.isEmpty()) {
                 throw new InvalidTaskException("Invalid Parent ID");
             }
             task.setParentId(parent.get());
-        }else {
+        } else {
             task.setParentId(null);
         }
         task.setPosition(updateTask.getPosition());
 
         return task;
+    }
+
+    private List<DTOTaskPreview> sortByPosition(List<DTOTaskPreview> tasksToSort){
+        return tasksToSort.stream()
+                .sorted(Comparator.comparingInt(DTOTaskPreview::getPosition))
+                .toList();
     }
 }

@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -12,7 +12,9 @@ import { MdOpenInFull } from "react-icons/md";
 import { SlClose } from "react-icons/sl";
 import {
   AppContext,
-  TaskListContext, useAppContext, useTaskListContext
+  TaskListContext,
+  useAppContext,
+  useTaskListContext,
 } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
@@ -27,7 +29,7 @@ import {
   StyledTaskPreview,
   SubtasksBtns,
   TaskDetailsBtn,
-  VerticalLine
+  VerticalLine,
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
@@ -35,13 +37,20 @@ const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
   e.stopPropagation();
   if (currentUser !== null) {
     try {
-      fetch(`http://localhost:8086/todo/tasks/delete/${id}`, {
+      fetch(`http://localhost:8086/todo/tasks/v1/delete/${id}`, {
         method: "PATCH",
         headers: {
           "Content-type": "application/json",
         },
       }).then((r) => {
-        r.ok ? deleteTaskContext(id) : console.log("Couldn't connect!");
+        if (r.ok) {
+          if (parentId !== null) {
+            deleteTaskContext(parentId, id);
+          }
+          deleteTaskContext(id);
+        } else {
+          console.log("Couldn't connect!");
+        }
       });
     } catch (exception) {
       console.error("Unable to delete");
@@ -57,6 +66,7 @@ const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
 //TaskPreview template that will be generated for each task through the TaskList component
 export default function TaskPreview({
   id,
+  tags,
   title,
   dueDate,
   isDone,
@@ -69,7 +79,8 @@ export default function TaskPreview({
   const [isThisFav, setIsThisFav] = useState(isFavorite);
   const [isDetailVis, setIsDetailVis] = useState(false);
   const [task, setTask] = useState({});
-  const deleteTaskFromContext = useContext(TaskListContext).deleteTaskFromContext;
+  const deleteTaskFromContext =
+    useContext(TaskListContext).deleteTaskFromContext;
   const currentUser = useContext(AppContext).currentUser;
   const setIsDone = useContext(TaskListContext).setTaskDoneState;
   const deleteSubtask = useContext(TaskListContext).deleteSubtask;
@@ -96,13 +107,11 @@ export default function TaskPreview({
         .then((r) => r.json())
         .then((r) => setTask(r));
     } else {
-
-      parentId === null ? setTask(returnTaskById(id)) : setTask(returnSubtaskById(id));
-
+      parentId === null
+        ? setTask(returnTaskById(id))
+        : setTask(returnSubtaskById(id));
     }
-
-  }, [isDetailVis, fullTaskURL]);
-
+  }, [isDetailVis, fullTaskURL, id]);
 
   useEffect(() => {
     tasksList.setTaskList(
@@ -118,7 +127,6 @@ export default function TaskPreview({
   useEffect(() => {
     setPadding("3px 15px");
   }, []);
-
 
   useEffect(() => {
     if (!isDone) {
@@ -231,7 +239,6 @@ export default function TaskPreview({
     }
     return <SubtaskList list={taskChildren.subtasks} show={showChildren} />;
   };
-
   return (
     <>
       <Draggable
@@ -262,9 +269,7 @@ export default function TaskPreview({
               onClick={() => setIsThisFav(isThisFav ? false : true)}
             ></StyledFavHeart>
             <div>
-              <NameAndDone
-                theme={theme}
-              >
+              <NameAndDone theme={theme}>
                 <input
                   maxLength={12}
                   onChange={() => {
@@ -283,7 +288,9 @@ export default function TaskPreview({
               <h4>{dueDate}</h4>
             </DateContainer>
             {getChevron()}
-            <DraggerContainer theme={theme} isDragDisabled={true}>{dragger}</DraggerContainer>
+            <DraggerContainer theme={theme} isDragDisabled={true}>
+              {dragger}
+            </DraggerContainer>
             <VerticalLine theme={theme}></VerticalLine>
             <EdgeButtonsContainer>
               <DeleteBtn
@@ -296,7 +303,10 @@ export default function TaskPreview({
               >
                 <SlClose size={20} />
               </DeleteBtn>
-              <TaskDetailsBtn theme={theme} onClick={() => setIsDetailVis(true)}>
+              <TaskDetailsBtn
+                theme={theme}
+                onClick={() => setIsDetailVis(true)}
+              >
                 <MdOpenInFull size={20} color="black" />
               </TaskDetailsBtn>
             </EdgeButtonsContainer>
@@ -307,6 +317,8 @@ export default function TaskPreview({
       <TaskDetailsModal
         id={id}
         task={task}
+        tags={tags}
+        setTask={setTask}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
         isEditing={isEditing}

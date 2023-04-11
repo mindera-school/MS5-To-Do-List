@@ -33,7 +33,6 @@ export default function TaskTagsList({ id }) {
     }
   }, [selectedTag, list]);
 
-
   allTags = tagList?.map((e, i) => {
     return (
       <Tag

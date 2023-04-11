@@ -12,10 +12,10 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 public class Converter {
-    public static DTOTaskPreview toDTOTaskPreview(TasksEntity task){
+    public static DTOTaskPreview toDTOTaskPreview(TasksEntity task) {
         Integer parentId = null;
 
-        if (task.getParentId() !=  null){
+        if (task.getParentId() != null) {
             parentId = task.getParentId().getTaskId();
         }
 
@@ -24,7 +24,7 @@ public class Converter {
         preview.setTitle(task.getTitle());
 
         String date = null;
-        if(!isNull(task.getEndDate())) {
+        if (!isNull(task.getEndDate())) {
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
             date = formatDate.format(task.getEndDate());
         }
@@ -39,7 +39,7 @@ public class Converter {
         return preview;
     }
 
-    public static List<DTOTag> toDTOTags(List<TagsEntity> tags){
+    public static List<DTOTag> toDTOTags(List<TagsEntity> tags) {
         List<DTOTag> convertedTags = new ArrayList<>();
 
         tags.forEach((e) -> {
@@ -49,10 +49,10 @@ public class Converter {
         return convertedTags;
     }
 
-    public static DTOTaskDetails toDTOTaskDetails(TasksEntity task){
+    public static DTOTaskDetails toDTOTaskDetails(TasksEntity task) {
         Integer parentId = null;
 
-        if (task.getParentId() !=  null){
+        if (task.getParentId() != null) {
             parentId = task.getParentId().getTaskId();
         }
 
@@ -61,7 +61,7 @@ public class Converter {
         taskDetails.setTitle(task.getTitle());
 
         String date = null;
-        if(!isNull(task.getEndDate())) {
+        if (!isNull(task.getEndDate())) {
             SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
             date = formatDate.format(task.getEndDate());
         }
@@ -78,7 +78,7 @@ public class Converter {
         return taskDetails;
     }
 
-    public static DTOUpdateTask toDTOUpdateTask(TasksEntity task){
+    public static DTOUpdateTask toDTOUpdateTask(TasksEntity task) {
         DTOUpdateTask taskDTO = new DTOUpdateTask();
 
         taskDTO.setTitle(task.getTitle());
@@ -86,14 +86,13 @@ public class Converter {
         taskDTO.setIsDone(task.isDone());
 
         SimpleDateFormat formatDate = new SimpleDateFormat("yyyy/MM/dd");
-        taskDTO.setDate(formatDate.format(task.getEndDate()));
+        taskDTO.setDate(!isNull(task.getEndDate()) ? formatDate.format(task.getEndDate()) : null );
         taskDTO.setIsFavorite(task.isFavorite());
-        taskDTO.setDisabled(task.isDisabled());
 
         return taskDTO;
     }
 
-    public static DTOUpdatePosition toDTOUpdatePosition(TasksEntity task){
+    public static DTOUpdatePosition toDTOUpdatePosition(TasksEntity task) {
         DTOUpdatePosition taskDTO = new DTOUpdatePosition();
 
         taskDTO.setTaskId(task.getTaskId());
@@ -103,17 +102,17 @@ public class Converter {
         return taskDTO;
     }
 
-    public static List<DTOTag> toDTOTagList(List<TagsEntity> tagsEntities){
-        if (tagsEntities == null){
+    public static List<DTOTag> toDTOTagList(List<TagsEntity> tagsEntities) {
+        if (tagsEntities == null) {
             return new ArrayList<>();
         }
 
         List<DTOTag> tags = new ArrayList<>();
-        tagsEntities.forEach(e-> new DTOTag(e.getTagId(),e.getName(),e.getColor()));
+        tagsEntities.forEach(e -> new DTOTag(e.getTagId(), e.getName(), e.getColor()));
         return tags;
     }
 
-    public static DTOComment toDTOComment(CommentsEntity commentEntity){
+    public static DTOComment toDTOComment(CommentsEntity commentEntity) {
         DTOComment comment = new DTOComment();
         comment.setCommentId(commentEntity.getCommentId());
         comment.setDescription(commentEntity.getDescription());

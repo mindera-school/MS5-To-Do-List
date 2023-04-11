@@ -64,10 +64,9 @@ export default function TaskList() {
               id={e.taskId}
               title={e.title}
               isDone={e.isDone}
-              dueDate={e.date}
+              dueDate={e.date?.replaceAll("/", "-")}
               isFavorite={e.isFavorite}
               position={e.position}
-              tagsListUrl={e.tagsURL}
               parentId={e.parentId}
               isParent={true}
               tags={e.tags}
@@ -93,9 +92,7 @@ export default function TaskList() {
             {...providedDroppable.droppableProps}
             ref={providedDroppable.innerRef}
           >
-            {
-              allTasksComps
-            }
+            {allTasksComps}
             {providedDroppable.placeholder}
           </div>
         )}

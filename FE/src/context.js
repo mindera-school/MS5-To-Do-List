@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { accountMenuMap } from "./configs/accountMenu.jsx";
 import { themesMap } from "./configs/themes";
 
@@ -10,7 +16,7 @@ export const useCreateAppContext = () => {
   const [appState, setAppState] = useState({
     menuType: "login",
     currentUser: null,
-    themeMode: themesMap["lightMode"]
+    themeMode: themesMap["lightMode"],
   });
 
   const setTheme = useCallback((theme) => {
@@ -41,7 +47,12 @@ export const useCreateAppContext = () => {
   }, []);
 
   const setCurrentUser = useCallback((user) => {
-    localStorage.setItem("user", user === null ? null : JSON.stringify({ ...user, expireTime: Date.now() + 172800000 }));
+    localStorage.setItem(
+      "user",
+      user === null
+        ? null
+        : JSON.stringify({ ...user, expireTime: Date.now() + 172800000 })
+    );
     setAppState((oldState) => ({
       ...oldState,
       currentUser: user,
@@ -53,7 +64,7 @@ export const useCreateAppContext = () => {
     ...appState,
     setMenuType,
     setCurrentUser,
-    setTheme
+    setTheme,
   };
 };
 
@@ -66,11 +77,16 @@ export const useCreateTaskListContext = () => {
   const [taskListState, setTaskListState] = useState({
     list: [],
     displayedList: [],
-    subtasksList: []
+    subtasksList: [],
+  });
+
+  const getTagsbyId = useCallback((givenId) => {
+    const task = taskListState.list.find((e) => e.taskId === givenId);
+    return task.tags;
   });
 
   const getGuestTaskbyId = useCallback((givenId) => {
-    return taskListState.list.find(e => {
+    return taskListState.list.find((e) => {
       return e.taskId === givenId;
     });
   });
@@ -86,11 +102,11 @@ export const useCreateTaskListContext = () => {
   });
 
   const getChildrenById = useCallback((parentId) => {
-    return taskListState.subtasksList.find(e => e.id === parentId);
+    return taskListState.subtasksList.find((e) => e.id === parentId);
   });
 
   const addChildrenToTask = useCallback((parentId, children) => {
-    const updatedList = taskListState.subtasksList.map(e => {
+    const updatedList = taskListState.subtasksList.map((e) => {
       if (e.id === parentId) {
         return {
           id: e.id,
@@ -102,8 +118,8 @@ export const useCreateTaskListContext = () => {
               isDone: false,
               tags: [],
               expired: false,
-            }
-          ]
+            },
+          ],
         };
       }
       return e;
@@ -111,7 +127,7 @@ export const useCreateTaskListContext = () => {
 
     setTaskListState((oldState) => ({
       ...oldState,
-      subtasksList: updatedList
+      subtasksList: updatedList,
     }));
   });
 
@@ -119,12 +135,12 @@ export const useCreateTaskListContext = () => {
     const tempArray = [...taskListState.subtasksList, newList];
     setTaskListState((oldState) => ({
       ...oldState,
-      subtasksList: tempArray
+      subtasksList: tempArray,
     }));
   });
 
   const deleteSubtask = useCallback((parentId, givenId) => {
-    let parentTask = taskListState.subtasksList.find(e => e.id === parentId);
+    let parentTask = taskListState.subtasksList.find((e) => e.id === parentId);
 
     if (parentTask === undefined) {
       return;
@@ -132,10 +148,10 @@ export const useCreateTaskListContext = () => {
 
     parentTask = {
       id: parentId,
-      subtasks: parentTask.subtasks.filter(e => e.taskId !== givenId)
+      subtasks: parentTask.subtasks.filter((e) => e.taskId !== givenId),
     };
 
-    const updatedList = taskListState.subtasksList.map(e => {
+    const updatedList = taskListState.subtasksList.map((e) => {
       if (e.id === parentId) {
         return parentTask;
       }
@@ -156,7 +172,7 @@ export const useCreateTaskListContext = () => {
   });
 
   const deleteTaskFromContext = useCallback((taskId) => {
-    const updatedList = taskListState.list.filter(e => e.taskId !== taskId);
+    const updatedList = taskListState.list.filter((e) => e.taskId !== taskId);
     setTaskListState((oldState) => ({
       ...oldState,
       list: updatedList,
@@ -178,11 +194,11 @@ export const useCreateTaskListContext = () => {
   });
 
   const updateTask = useCallback((id, updatedTask) => {
-    const newList = taskListState.list.map(e => {
+    const newList = taskListState.list.map((e) => {
       if (e.taskId === id) {
         return {
           ...e,
-          ...updatedTask
+          ...updatedTask,
         };
       }
       return e;
@@ -190,16 +206,16 @@ export const useCreateTaskListContext = () => {
 
     setTaskListState((oldState) => ({
       ...oldState,
-      list: newList
+      list: newList,
     }));
   });
 
   const setTaskDoneState = useCallback((id, state) => {
-    const newList = taskListState.list.map(e => {
+    const newList = taskListState.list.map((e) => {
       if (e.taskId === id) {
         return {
           ...e,
-          isDone: state
+          isDone: state,
         };
       }
       return e;
@@ -207,7 +223,7 @@ export const useCreateTaskListContext = () => {
 
     setTaskListState((oldState) => ({
       ...oldState,
-      list: newList
+      list: newList,
     }));
   });
 
@@ -224,6 +240,7 @@ export const useCreateTaskListContext = () => {
     getChildrenById,
     addChildrenToTask,
     setSubTaskList,
-    getGuestSubtaskbyId
+    getGuestSubtaskbyId,
+    getTagsbyId,
   };
 };
