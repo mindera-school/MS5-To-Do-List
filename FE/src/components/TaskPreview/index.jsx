@@ -281,6 +281,7 @@ export default function TaskPreview({
               theme={theme}
               isFilled={isThisFav}
               onClick={() => setIsThisFav(isThisFav ? false : true)}
+              type="button"
             ></StyledFavHeart>
             <div>
               <NameAndDone theme={theme}>
@@ -321,6 +322,7 @@ export default function TaskPreview({
               <TaskDetailsBtn
                 theme={theme}
                 onClick={() => setIsDetailVis(true)}
+                type="button"
               >
                 <MdOpenInFull size={20} color="black" />
               </TaskDetailsBtn>

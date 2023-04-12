@@ -19,7 +19,7 @@ export const AddModal = styled.div`
   min-width: 780px;
   height: 600px;
   background-color: ${({ theme }) => (theme.taskColor)};
-  z-index: 1;
+  z-index: 99;
   border-radius: 50px;
   display: ${(props) => props.display};
   flex-direction: column;
@@ -27,7 +27,6 @@ export const AddModal = styled.div`
   align-items: center;
   padding: 50px;
   box-sizing: border-box;
-  z-index: 4;
   animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 `;
 

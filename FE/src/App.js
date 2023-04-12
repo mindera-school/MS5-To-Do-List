@@ -10,7 +10,7 @@ import {
   useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import { CentralDiv, GlobalStyle, LateralDiv, Main } from "./GlobalStyles";
+import { CentralDiv, GlobalStyle, LateralDiv, Main, TaskListContainer } from "./GlobalStyles";
 
 export default function App() {
   const appContext = useCreateAppContext();
@@ -74,9 +74,11 @@ export default function App() {
             </LateralDiv>
             <CentralDiv>
               <CreateTasksContainer />
-              <TaskList />
+              <TaskListContainer theme={theme}>
+                <TaskList />
+              </TaskListContainer>
             </CentralDiv>
-            <LateralDiv />
+            <LateralDiv dummy={true} />
           </Main>
         </TaskListContext.Provider>
       </AppContext.Provider>

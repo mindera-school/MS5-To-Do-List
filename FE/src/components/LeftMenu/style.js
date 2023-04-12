@@ -9,8 +9,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: fixed;
-  left: 2%;
+  z-index: 0;
+
+  @media (max-width: 1180px) {
+      overflow-y: scroll;
+      width: 60vw;
+      height: fit-content;
+  }
 `;
 
 export const Tags = styled.button`
@@ -67,6 +72,10 @@ export const ButtonsBox = styled.div`
   height: 100%;
   flex: 1;
   box-sizing: border-box;
+   @media (max-width: 1180px) {
+      overflow-y: scroll;
+      width: 60%
+  }
 `;
 
 export const Buttons = styled.button`
