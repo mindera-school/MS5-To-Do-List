@@ -88,6 +88,7 @@ export default function CreateTasksContainer() {
   const [newTaskState, dispatch] = useReducer(reducer, newTask);
 
   const addHandler = async () => {
+
     if (newTaskState.title === "") return;
 
     // setTagsList(
@@ -109,7 +110,9 @@ export default function CreateTasksContainer() {
         userId: newTaskState.userId,
         isDone: false,
         isFavorite: false,
+        parentId: newTaskState.parentId
       };
+
 
       await fetch("http://localhost:8086/todo/tasks/v1", {
         method: "POST",
@@ -122,7 +125,7 @@ export default function CreateTasksContainer() {
       })
         .then((r) => r.json())
         .then((r) => {
-          if (compareObjs(newTaskState, r)) {
+          if (compareObjs(data, r)) {
             newTaskState.tags.forEach(
               (tag) => (tag.tagId = newTaskState.tags[tag.tagId])
             );
