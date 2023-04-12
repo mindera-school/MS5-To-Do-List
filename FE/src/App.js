@@ -7,14 +7,14 @@ import {
   AppContext,
   TaskListContext,
   useCreateAppContext,
-  useCreateTaskListContext,
+  useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
 import { CentralDiv, GlobalStyle, LateralDiv, Main } from "./GlobalStyles";
 
 export default function App() {
-  const tasksListContext = useCreateTaskListContext();
   const appContext = useCreateAppContext();
+  const tasksListContext = useCreateTaskListContext(appContext);
   const currentUser = appContext.currentUser;
   const theme = appContext.themeMode || { primaryColor: "white" };
 

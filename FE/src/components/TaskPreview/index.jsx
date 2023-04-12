@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -14,7 +14,7 @@ import {
   AppContext,
   TaskListContext,
   useAppContext,
-  useTaskListContext,
+  useTaskListContext
 } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
@@ -29,7 +29,7 @@ import {
   StyledTaskPreview,
   SubtasksBtns,
   TaskDetailsBtn,
-  VerticalLine,
+  VerticalLine
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
@@ -88,13 +88,31 @@ export default function TaskPreview({
   const isDragging = useRef(null);
   const [borderColor, setBorderColor] = useState("none");
   const [padding, setPadding] = useState(false);
-  const taskChildren = useContext(TaskListContext).getChildrenById(id);
+  const localChildren = useContext(TaskListContext).getChildrenById(id);
+  const [taskChildren, setTaskChildren] = useState();
   const [showChildren, setShowChildren] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
   const returnSubtaskById = useContext(TaskListContext).getGuestSubtaskbyId;
   const tasksList = useTaskListContext();
   const theme = useAppContext().themeMode;
+
+  useEffect(() => {
+    if (currentUser === null) {
+      setTaskChildren(localChildren);
+    } else {
+      fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
+        .then(r => r.json())
+        .then(r => setTaskChildren({
+          id,
+          subtasks: r
+        }));
+    }
+    if (taskChildren === undefined) {
+      return;
+    }
+  }, [currentUser, localChildren]);
+
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -233,12 +251,8 @@ export default function TaskPreview({
     }
   };
 
-  const getChildren = () => {
-    if (taskChildren === undefined) {
-      return;
-    }
-    return <SubtaskList list={taskChildren.subtasks} show={showChildren} />;
-  };
+
+
   return (
     <>
       <Draggable
@@ -313,7 +327,7 @@ export default function TaskPreview({
           </StyledTaskPreview>
         </div>
       </Draggable>
-      {getChildren()}
+      <SubtaskList list={taskChildren?.subtasks} show={showChildren} />
       <TaskDetailsModal
         id={id}
         task={task}
