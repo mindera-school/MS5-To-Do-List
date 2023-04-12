@@ -3,7 +3,7 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
+  useState
 } from "react";
 import { accountMenuMap } from "./configs/accountMenu.jsx";
 import { themesMap } from "./configs/themes";
@@ -73,7 +73,9 @@ export const TaskListContext = createContext({});
 
 export const useTaskListContext = () => useContext(TaskListContext);
 
-export const useCreateTaskListContext = () => {
+export const useCreateTaskListContext = (appContext) => {
+  const { currentUser } = appContext;
+
   const [taskListState, setTaskListState] = useState({
     list: [],
     displayedList: [],
@@ -226,6 +228,12 @@ export const useCreateTaskListContext = () => {
       list: newList,
     }));
   });
+
+  useEffect(() => {
+    if (currentUser === null) {
+      localStorage.setItem("subTasks", JSON.stringify(taskListState.subtasksList));
+    }
+  }, [taskListState.subtasksList, currentUser]);
 
   return {
     ...taskListState,
