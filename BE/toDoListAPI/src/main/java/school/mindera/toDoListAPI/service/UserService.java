@@ -41,6 +41,7 @@ public class UserService {
         newUser.setFirstName(register.getFirstName());
         newUser.setLastName(register.getLastName());
         newUser.setEmail(register.getEmail());
+        newUser.setTries(0);
 
         UsersEntity savedUser = usersRepository.save(newUser);
 
@@ -61,6 +62,9 @@ public class UserService {
 
         if (optionalUser.isPresent()) {
             UsersEntity user = optionalUser.get();
+            if (user.getTries() >= 5){
+                throw new RuntimeException("user locked");
+            }
             if (passwordEncoder.matches(login.getPassword(),user.getPassword())) {
                 DTOLoggedUser loggedUser = new DTOLoggedUser();
                 loggedUser.setUserId(user.getUserId());
@@ -72,6 +76,7 @@ public class UserService {
                 loggedUser.setTasksPreviewsURL("/task-previews/" + user.getUserId());
                 return ResponseEntity.ok(loggedUser);
             }
+            user.setTries(user.getTries() + 1);
         }
         throw new UserWrongCredentials("Wrong Credentials");
     }

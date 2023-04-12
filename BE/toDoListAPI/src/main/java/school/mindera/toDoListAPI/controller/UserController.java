@@ -1,12 +1,9 @@
 package school.mindera.toDoListAPI.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.service.UserService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/todo/users")
@@ -32,8 +29,13 @@ public class UserController {
         userService.changeUserProfileImg(userId, changeImg);
     }
 
-    @PatchMapping("/forgot_password")
-    public void forgotPassword(@RequestBody DTOForgotPassword newPassword) {
+    @PatchMapping("/reset-password")
+    public void forgotPassword(@RequestBody DTOChangePassword newPassword) {
         // Nice to Have
+    }
+
+    @PostMapping("forgot-password/{userId}")
+    public void forgotPassword(@PathVariable Integer userId){
+
     }
 }

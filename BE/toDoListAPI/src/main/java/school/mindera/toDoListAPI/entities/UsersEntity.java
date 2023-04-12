@@ -37,6 +37,9 @@ public class UsersEntity {
     @Column()
     private String profileImage;
 
+    @Column()
+    private Integer tries;
+
     @OneToMany(mappedBy = "userId")
     private List<UsersEntity> groups;
 
