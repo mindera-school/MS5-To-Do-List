@@ -36,6 +36,10 @@ const heartbeatAnim = keyframes`
 `;
 
 export const StyledFavHeart = styled.button`
+  @media (max-width: 425px) {
+    --size: 20px;
+    transform: translate(0,-200%);
+  }
   --size: 25px;
   margin: 30px 20px 0px 0px;
   position: relative;
@@ -87,6 +91,12 @@ export const StyledTaskPreview = styled.div`
   font-family: Roboto;
   color: ${({ theme }) => (theme.fontColor)};
   transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")});
+
+  @media (max-width: 425px) {
+    width: 80vw;
+    height: 7vh;
+    aling-items: center;
+}
 `;
 
 export const NameAndDone = styled.div`
@@ -101,6 +111,11 @@ export const NameAndDone = styled.div`
     input {
     cursor: pointer;
   }
+
+   @media (max-width: 425px) {
+    width: 90px;
+    font-size: 14px;
+}
 `;
 
 export const VerticalLine = styled.div`
@@ -121,6 +136,12 @@ export const DateContainer = styled.div`
   color: ${({ theme }) => (theme.fontColor)};
   margin-right: 25px;
   align-items: center;
+  
+  @media (max-width: 425px) {
+    width: 120px;
+    font-size: 12px;
+    margin-right:10px;
+  }
 `;
 
 export const TaskDetailsBtn = styled.button`
@@ -129,6 +150,10 @@ export const TaskDetailsBtn = styled.button`
   border: none;
   margin-left: 15px;
   cursor: pointer;
+
+  @media (max-width: 425px) {
+    margin-left: 0px;
+  }
 `;
 
 export const DeleteBtn = styled.button`
@@ -143,11 +168,18 @@ export const EdgeButtonsContainer = styled.div`
   justify-content: space - around;
   width: 120px;
   padding: 15px;
+
+  @media (max-width: 425px) {
+    padding: 6px;
+  }
 `;
 
 export const DraggerContainer = styled.div`
   margin-right: 15px;
   align-self: center;
+  @media (max-width: 425px) {
+    margin-right: 5px;
+  }
 `;
 
 export const SubtasksBtns = styled.button`

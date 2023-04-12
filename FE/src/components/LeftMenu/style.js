@@ -58,10 +58,14 @@ export const TagsBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 200px;
+  min-height: 200px;
   width: 100%;
   background-color: inherit;
   overflow: auto;
+
+   @media (max-width: 1180px) {
+    min-height: 50px;
+  }
 `;
 
 export const ButtonsBox = styled.div`
@@ -72,9 +76,10 @@ export const ButtonsBox = styled.div`
   height: 100%;
   flex: 1;
   box-sizing: border-box;
-   @media (max-width: 1180px) {
+
+  @media (max-width: 1180px) {
       overflow-y: scroll;
-      width: 60%
+      width: 80%
   }
 `;
 
@@ -96,5 +101,9 @@ export const Buttons = styled.button`
 
   &:hover {
     scale: 1.05;
+  }
+
+  @media (max-width: 425px) {
+    width: 100%;
   }
 `;

@@ -19,6 +19,10 @@ export const StyledHeader = styled.div`
   padding: 13px 0;
   background-color: ${({ theme }) => (theme.secondaryColor)};
   margin-bottom: 10px;
+
+  @media (max-width: 1180px) {
+      padding: 5px 0;
+    }
 `;
 
 export const AccountMenuBtn = styled.button`
@@ -40,6 +44,11 @@ export const AccountMenuBtn = styled.button`
   &:active {
     background-color: #4b566a;
   }
+
+  @media (max-width: 1180px) {
+      min-height: 35px;
+      min-width: 35px;
+    }
 `;
 
 export const LeftDummy = styled.div`

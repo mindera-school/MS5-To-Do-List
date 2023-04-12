@@ -6,6 +6,13 @@ export const TaskListContainer = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   width: 750px;
+  @media (max-width: 425px) {
+    width: 90vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
   
 ::-webkit-scrollbar {
   -webkit-appearance: none;

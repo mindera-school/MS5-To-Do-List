@@ -4,6 +4,11 @@ export const Container = styled.div`
   background-color: inherit;
   margin-left: 50px;
   display: flex;
+
+  @media (max-width: 425px) {
+      flex-wrap: wrap;
+      width: 200px;
+  }
 `;
 
 export const AddTagButton = styled.button`
@@ -22,6 +27,7 @@ export const AddTagButton = styled.button`
   &:hover {
     scale: 1.05;
   }
+  
 `;
 
 export const TagInput = styled.input`
