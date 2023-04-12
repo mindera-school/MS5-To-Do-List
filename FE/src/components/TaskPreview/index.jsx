@@ -147,7 +147,7 @@ export default function TaskPreview({
         return;
       }
     }
-  }, [isDone]);
+  }, [borderColor, dueDate, isDone]);
 
   const checkColor = () => {
     if (borderColor === "none") {
@@ -277,6 +277,7 @@ export default function TaskPreview({
                     checkColor();
                   }}
                   type="checkbox"
+                  checked={isDone}
                 />
                 <h3>{title}</h3>
               </NameAndDone>

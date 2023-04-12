@@ -116,7 +116,6 @@ export const DateInput = styled.input`
     right: 5%;
     top: 20%;
     cursor: pointer;
-    filter: invert(100%);
 }
 `;
 

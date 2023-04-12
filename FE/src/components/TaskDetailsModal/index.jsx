@@ -175,6 +175,7 @@ export default function TaskDetailsModal({
                 if (isEditing) {
                   const updatedTask = createDataObj();
                   const id = task.taskId;
+                  task.date = date;
                   if (currentUser !== null) {
                     saveEdition(updatedTask);
                   }
@@ -256,7 +257,9 @@ export default function TaskDetailsModal({
                     type="date"
                     readOnly={isEditing ? false : true}
                     value={date}
-                    onChange={(e) => setDate(e.target.value)}
+                    onChange={(e) => {
+                      setDate(e.target.value);
+                    }}
                   ></input>
                 </DateInput>
               </CustomLine>

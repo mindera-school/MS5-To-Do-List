@@ -18,7 +18,7 @@ import {
   DescriptionContainer,
   DescriptionInput,
   ModalContainer,
-  TitleInput
+  TitleInput,
 } from "./style";
 
 export default function AddTaskModal({
@@ -59,22 +59,31 @@ export default function AddTaskModal({
       value: {
         title: title,
         date: date,
-        description: descriptionInput.current.value
-      }
+        description: descriptionInput.current.value,
+      },
     });
   };
 
   return (
     <AddModal theme={theme} display={modalVisible}>
-      <CloseButton theme={theme} onClick={() => {
-        closeHandler();
-        setError("");
-      }}>
+      <CloseButton
+        theme={theme}
+        onClick={() => {
+          closeHandler();
+          setError("");
+        }}
+      >
         <AiOutlineClose color="white" size={24} />
       </CloseButton>
       <ModalContainer theme={theme}>
         <ErrorDisplay error={error}>{error}</ErrorDisplay>
-        <TitleInput theme={theme} ref={titleInput} maxLength={12} type="text" placeholder="Task Title" />
+        <TitleInput
+          theme={theme}
+          ref={titleInput}
+          maxLength={12}
+          type="text"
+          placeholder="Task Title"
+        />
         <ContainerInput>
           <DateTagdiv theme={theme}>
             End Date: <DateInput ref={dateInput} type="date" />
@@ -104,7 +113,8 @@ export default function AddTaskModal({
               onClick={() => {
                 addValue("first");
                 reset();
-              }}>
+              }}
+            >
               Add first
             </AddDiffButton>
             <AddDiffButton
@@ -112,8 +122,8 @@ export default function AddTaskModal({
               onClick={() => {
                 addValue("");
                 reset();
-              }}>
-
+              }}
+            >
               Add last
             </AddDiffButton>
             <AddDiffButton
@@ -121,7 +131,8 @@ export default function AddTaskModal({
               onClick={() => {
                 addValue("random");
                 reset();
-              }}>
+              }}
+            >
               Add random
             </AddDiffButton>
           </AddButtonsDiv>
