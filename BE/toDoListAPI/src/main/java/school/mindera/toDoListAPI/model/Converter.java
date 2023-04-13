@@ -3,6 +3,7 @@ package school.mindera.toDoListAPI.model;
 import school.mindera.toDoListAPI.entities.CommentsEntity;
 import school.mindera.toDoListAPI.entities.TagsEntity;
 import school.mindera.toDoListAPI.entities.TasksEntity;
+import school.mindera.toDoListAPI.entities.UsersEntity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -119,5 +120,20 @@ public class Converter {
         comment.setTaskId(commentEntity.getTaskId().getTaskId());
 
         return comment;
+    }
+
+    public static DTOLoggedUser toDTOLogged(UsersEntity user){
+        DTOLoggedUser loggedUser = DTOLoggedUser
+                .builder()
+                .userId(user.getUserId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .profileImage(user.getProfileImage())
+                .tasksPreviewsURL("http://localhost:8086/todo/tasks/preview/" + user.getUserId())
+                .build();
+
+        return loggedUser;
     }
 }
