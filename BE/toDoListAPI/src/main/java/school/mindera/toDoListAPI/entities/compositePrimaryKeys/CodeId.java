@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
