@@ -41,4 +41,9 @@ public class UserController {
     public ResponseEntity<Object> forgotPassword(@RequestBody DTOChangePasswordEmail accountEmail) {
         return emailSenderService.sendEmail(accountEmail);
     }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<DTOLoggedUser> editUser(@PathVariable Integer userId, @RequestBody DTOEditUser newInfo){
+        return userService.editUserInfo(userId, newInfo);
+    }
 }
