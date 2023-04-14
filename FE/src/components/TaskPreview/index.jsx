@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from "react";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -14,10 +14,11 @@ import {
   AppContext,
   TaskListContext,
   useAppContext,
-  useTaskListContext
+  useTaskListContext,
 } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
+import Popconfirm from "../Popconfirm/index.jsx";
 import {
   DateContainer,
   DeleteBtn,
@@ -29,12 +30,11 @@ import {
   StyledTaskPreview,
   SubtasksBtns,
   TaskDetailsBtn,
-  VerticalLine
+  VerticalLine,
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
-const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
-  e.stopPropagation();
+const deleteTask = (id, deleteTaskContext, currentUser, parentId) => {
   if (currentUser !== null) {
     try {
       fetch(`http://localhost:8086/todo/tasks/v1/delete/${id}`, {
@@ -92,6 +92,8 @@ export default function TaskPreview({
   const [taskChildren, setTaskChildren] = useState();
   const [showChildren, setShowChildren] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [sureToDeleteDisplay, setSureToDeleteDisplay] = useState("none");
+  const [deleteVerification, setDeleteVerification] = useState(null);
   const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
   const returnSubtaskById = useContext(TaskListContext).getGuestSubtaskbyId;
   const tasksList = useTaskListContext();
@@ -102,17 +104,18 @@ export default function TaskPreview({
       setTaskChildren(localChildren);
     } else {
       fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
-        .then(r => r.json())
-        .then(r => setTaskChildren({
-          id,
-          subtasks: r
-        }));
+        .then((r) => r.json())
+        .then((r) =>
+          setTaskChildren({
+            id,
+            subtasks: r,
+          })
+        );
     }
     if (taskChildren === undefined) {
       return;
     }
   }, [currentUser, localChildren]);
-
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -165,7 +168,7 @@ export default function TaskPreview({
         return;
       }
     }
-  }, [borderColor, dueDate, isDone]);
+  }, [dueDate, isDone]);
 
   const checkColor = () => {
     if (borderColor === "none") {
@@ -251,7 +254,17 @@ export default function TaskPreview({
     }
   };
 
-
+  useEffect(() => {
+    if (deleteVerification === true) {
+      const deleteMethod =
+        parentId === null ? deleteTaskFromContext : deleteSubtask;
+      deleteTask(id, deleteMethod, currentUser, parentId);
+      setDeleteVerification(null);
+    } else if (deleteVerification === false) {
+      setSureToDeleteDisplay("none");
+      setDeleteVerification(null);
+    }
+  }, [deleteVerification]);
 
   return (
     <>
@@ -310,14 +323,19 @@ export default function TaskPreview({
             <EdgeButtonsContainer>
               <DeleteBtn
                 theme={theme}
-                onClick={(e) => {
-                  const deleteMethod =
-                    parentId === null ? deleteTaskFromContext : deleteSubtask;
-                  deleteTask(id, e, deleteMethod, currentUser, parentId);
+                onClick={() => {
+                  setSureToDeleteDisplay("block");
                 }}
               >
                 <SlClose size={20} />
               </DeleteBtn>
+              <Popconfirm
+                message="Delete task?"
+                display={sureToDeleteDisplay}
+                right="50px"
+                top="65%"
+                setVerification={setDeleteVerification}
+              ></Popconfirm>
               <TaskDetailsBtn
                 theme={theme}
                 onClick={() => setIsDetailVis(true)}
@@ -333,7 +351,7 @@ export default function TaskPreview({
         id={id}
         task={task}
         tags={tags}
-        setTask={setTask}
+        c={setTask}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
         isEditing={isEditing}
