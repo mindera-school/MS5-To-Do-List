@@ -43,7 +43,7 @@ export const StyledFavHeart = styled.button`
   height: calc(var(--size) * 0.3);
   border: none;
   background-color: transparent;
-  transform: translate(0,-50%);
+  transform: translate(0, -50%);
   cursor: pointer;
 
   ${(props) =>
@@ -63,7 +63,8 @@ export const StyledFavHeart = styled.button`
     border-radius: calc(var(--size) * 0.55) calc(var(--size) * 0.55) 0 0;
     transform: rotate(-45deg);
     transform-origin: 0 100%;
-    background-color: ${(props) => (props.isFilled ? "red" : props.theme.fontColor)};
+    background-color: ${(props) =>
+      props.isFilled ? "red" : props.theme.fontColor};
   }
 
   &:after {
@@ -78,14 +79,14 @@ export const StyledTaskPreview = styled.div`
   position: relative;
   width: 690px;
   height: 80px;
-  background-color: ${({ theme }) => (theme.taskColor)};
+  background-color: ${({ theme }) => theme.taskColor};
   border: ${(props) => props.border};
   border-radius: 15px;
   box-sizing: border-box;
   margin: ${({ isParent }) => (isParent ? "15px" : "0")};
   padding: ${(props) => props.padding};
   font-family: Roboto;
-  color: ${({ theme }) => (theme.fontColor)};
+  color: ${({ theme }) => theme.fontColor};
   transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")});
 `;
 
@@ -95,16 +96,16 @@ export const NameAndDone = styled.div`
   height: 40px;
   width: 150px;
   margin: 10px 0px 0px 0px;
-    h3 {
+  h3 {
     margin-left: 5px;
   }
-    input {
+  input {
     cursor: pointer;
   }
 `;
 
 export const VerticalLine = styled.div`
-  background-color: ${({ theme }) => (theme.fontColor)};
+  background-color: ${({ theme }) => theme.fontColor};
   width: 1px;
   height: 75%;
   align-self: center;
@@ -118,7 +119,7 @@ export const ExtendDiv = styled.div`
 export const DateContainer = styled.div`
   display: flex;
   width: 200px;
-  color: ${({ theme }) => (theme.fontColor)};
+  color: ${({ theme }) => theme.fontColor};
   margin-right: 25px;
   align-items: center;
 `;
@@ -139,6 +140,7 @@ export const DeleteBtn = styled.button`
 `;
 
 export const EdgeButtonsContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: space - around;
   width: 120px;
