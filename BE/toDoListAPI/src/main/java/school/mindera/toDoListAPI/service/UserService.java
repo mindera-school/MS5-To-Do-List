@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.exceptions.user.UserAlreadyExistsException;
+import school.mindera.toDoListAPI.exceptions.user.UserLockedException;
 import school.mindera.toDoListAPI.exceptions.user.UserWrongCredentials;
 import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
@@ -60,7 +61,7 @@ public class UserService {
         if (optionalUser.isPresent()) {
             UsersEntity user = optionalUser.get();
             if (user.getTries() >= 5){
-                throw new RuntimeException("user locked");
+                throw new UserLockedException("Too many tries!!!");
             }
             if (passwordEncoder.matches(login.getPassword(),user.getPassword())) {
                 DTOLoggedUser loggedUser = new DTOLoggedUser();
@@ -69,10 +70,13 @@ public class UserService {
                 loggedUser.setFirstName(user.getFirstName());
                 loggedUser.setLastName(user.getLastName());
                 loggedUser.setEmail(user.getEmail());
+                user.setTries(0);
                 loggedUser.setTasksPreviewsURL("/task-previews/" + user.getUserId());
+                usersRepository.save(user);
                 return ResponseEntity.ok(loggedUser);
             }
             user.setTries(user.getTries() + 1);
+            usersRepository.save(user);
         }
         throw new UserWrongCredentials("Wrong Credentials");
     }

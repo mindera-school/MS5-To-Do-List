@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
+import static java.util.Objects.isNull;
+
 @Service
 public class CodesService {
 
@@ -25,6 +27,10 @@ public class CodesService {
     }
 
     public String createNewChangePasswordAttempt(String email){
+        if(isNull(email)){
+            throw new EmailNotFoundException("Email can not be null!");
+        }
+
         String token = CodeGenerator.generateToken();
 
         Optional<UsersEntity> user = usersRepository.findByEmail(email);
