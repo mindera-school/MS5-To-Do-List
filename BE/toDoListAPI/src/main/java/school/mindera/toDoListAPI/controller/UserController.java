@@ -3,15 +3,18 @@ package school.mindera.toDoListAPI.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import school.mindera.toDoListAPI.model.*;
+import school.mindera.toDoListAPI.service.emailhandler.EmailSenderService;
 import school.mindera.toDoListAPI.service.UserService;
 
 @RestController
 @RequestMapping("/todo/users")
 public class UserController {
     private final UserService userService;
+    private final EmailSenderService emailSenderService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, EmailSenderService emailSenderService) {
         this.userService = userService;
+        this.emailSenderService = emailSenderService;
     }
 
     @PostMapping("/login")
@@ -34,8 +37,8 @@ public class UserController {
         // Nice to Have
     }
 
-    @PostMapping("forgot-password/{userId}")
-    public void forgotPassword(@PathVariable Integer userId){
-
+    @PostMapping("forgot-password")
+    public ResponseEntity<Object> forgotPassword(@RequestBody DTOChangePasswordEmail accountEmail) {
+        return emailSenderService.sendEmail(accountEmail);
     }
 }
