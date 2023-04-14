@@ -36,8 +36,6 @@ public class UserController {
     public void forgotPassword(@RequestBody DTOForgotPassword newPassword) {
         // Nice to Have
     }
-<<<<<<< Updated upstream
-=======
 
     @PostMapping("forgot-password/{userId}")
     public void forgotPassword(@PathVariable Integer userId){
@@ -48,5 +46,4 @@ public class UserController {
     public ResponseEntity<DTOLoggedUser> editUser(@PathVariable Integer userId, @RequestBody DTOEditUser newInfo){
         return userService.editUserInfo(userId, newInfo);
     }
->>>>>>> Stashed changes
 }
