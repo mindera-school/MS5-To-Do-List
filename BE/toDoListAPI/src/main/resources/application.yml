@@ -6,10 +6,21 @@ spring:
     url: jdbc:${TYPE}://${HOST}:${PORT}/${NAME}
     username: ${USER}
     password: ${PASSWORD}
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: 'smtp.gmail.com'
+    username: ${TODO-EMAIL}
+    password: ${EMAIL-CODE}
+    port: '587'
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:
