@@ -1,9 +1,6 @@
 package school.mindera.toDoListAPI.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class DTOLoggedUser {
     private Integer userId;
     private String firstName;
@@ -18,6 +16,5 @@ public class DTOLoggedUser {
     private String profileImage;
     private String username;
     private String email;
-    private String groupsURL;
     private String tasksPreviewsURL;
 }
