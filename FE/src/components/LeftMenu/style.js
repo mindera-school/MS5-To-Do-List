@@ -112,6 +112,9 @@ export const Buttons = styled.button`
 `;
 
 export const MobileOpenBtn = styled.button`
+    @media (min-width: 1081px) {
+      display: none;
+    }
     border-radius: 5px 5px 0px 0px;
     height: 40px;
     width: 100%;

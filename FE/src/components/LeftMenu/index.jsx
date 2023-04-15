@@ -97,15 +97,21 @@ export default function LeftMenu() {
   const randomize = () => {
     tasksList.setTaskList([...list].sort(() => Math.random() - 0.5));
   };
+
   const alphabetically = () => {
     tasksList.setTaskList(
       [...list].sort((a, b) => a.title.localeCompare(b.title))
     );
   };
+
   const notAlphabetically = () => {
     tasksList.setTaskList(
       [...list].sort((a, b) => b.title.localeCompare(a.title))
     );
+  };
+
+  const isMobile = () => {
+    console.log(window.innerHeight);
   };
 
   return (

@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState
 } from "react";
+import ClickNHold from "react-click-n-hold";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
@@ -97,21 +98,6 @@ export default function TaskPreview({
   const returnSubtaskById = useContext(TaskListContext).getGuestSubtaskbyId;
   const tasksList = useTaskListContext();
   const theme = useAppContext().themeMode;
-  const [longTouch, setLongTouch] = useState(false);
-
-  useEffect(() => {
-    const openDetails = () => {
-      setTimeout(() => {
-        if (longTouch === true) {
-          setTimeout(() => {
-            setIsDetailVis(true);
-          }, 1000);
-        }
-      }, 1000);
-    };
-    openDetails();
-    return clearTimeout(openDetails);
-  }, [longTouch]);
 
   useEffect(() => {
     if (currentUser === null) {
@@ -272,7 +258,13 @@ export default function TaskPreview({
     }
   };
 
-
+  const timedDetailOpen = (e, enough) => {
+    console.log(enough);
+    if (window.innerWidth > 1080 || enough === false) {
+      return;
+    }
+    setIsDetailVis(true);
+  };
 
   return (
     <>
@@ -285,83 +277,82 @@ export default function TaskPreview({
         onStop={handleStop}
         onDrag={handleDrag}
       >
-        <div
-          className="handle"
-          onTouchStart={
-            () => { setLongTouch(true); }
-          }
-          onTouchEnd={
-            () => { setLongTouch(false); }
-          }
-          onDoubleClick={() => {
-            setIsDetailVis(true);
-            setIsEditing(true);
-          }}
+        <ClickNHold
+          time={1}
+          onEnd={timedDetailOpen}
         >
-          <StyledTaskPreview
-            theme={theme}
-            isParent={isParent}
-            border={borderColor}
-            padding={padding}
+          <div
+            className="handle"
+            onDoubleClick={() => {
+              setIsDetailVis(true);
+              setIsEditing(true);
+            }}
           >
-            <StyledFavHeart
+            <StyledTaskPreview
               theme={theme}
-              isFilled={isThisFav}
-              onTouchStart={() => {
-                setIsThisFav(isThisFav ? false : true);
-              }}
-              onClick={() => {
-                setIsThisFav(isThisFav ? false : true);
-              }}
-              type="button"
-            ></StyledFavHeart>
-            <CustomDiv>
-              <NameAndDone theme={theme}>
-                <input
-                  maxLength={12}
-
-                  onChange={() => {
-                    setIsDone(id, isDone ? false : true);
-                    checkColor();
-                  }}
-                  type="checkbox"
-                  checked={isDone}
-                />
-                <h3>{title}</h3>
-              </NameAndDone>
-              <TaskTagsList theme={theme} id={id}></TaskTagsList>
-            </CustomDiv>
-            <ExtendDiv></ExtendDiv>
-            <DateContainer theme={theme}>
-              <AiOutlineCalendar size={20} />
-              <h4>{dueDate}</h4>
-            </DateContainer>
-            {getChevron()}
-            <DraggerContainer theme={theme} isDragDisabled={true}>
-              {dragger}
-            </DraggerContainer>
-            <VerticalLine theme={theme}></VerticalLine>
-            <EdgeButtonsContainer>
-              <DeleteBtn
+              isParent={isParent}
+              border={borderColor}
+              padding={padding}
+            >
+              <StyledFavHeart
                 theme={theme}
-                onClick={(e) => {
-                  const deleteMethod =
-                    parentId === null ? deleteTaskFromContext : deleteSubtask;
-                  deleteTask(id, e, deleteMethod, currentUser, parentId);
+                isFilled={isThisFav}
+                onTouchStart={() => {
+                  setIsThisFav(isThisFav ? false : true);
                 }}
-              >
-                <SlClose size={20} />
-              </DeleteBtn>
-              <TaskDetailsBtn
-                theme={theme}
-                onClick={() => setIsDetailVis(true)}
+                onClick={() => {
+                  setIsThisFav(isThisFav ? false : true);
+                }}
                 type="button"
-              >
-                <MdOpenInFull size={20} color="black" />
-              </TaskDetailsBtn>
-            </EdgeButtonsContainer>
-          </StyledTaskPreview>
-        </div>
+              ></StyledFavHeart>
+              <CustomDiv>
+                <NameAndDone theme={theme}>
+                  <input
+                    maxLength={12}
+
+                    onChange={() => {
+                      setIsDone(id, isDone ? false : true);
+                      checkColor();
+                    }}
+                    type="checkbox"
+                    checked={isDone}
+                  />
+                  <h3>{title}</h3>
+                </NameAndDone>
+                <TaskTagsList theme={theme} id={id}></TaskTagsList>
+              </CustomDiv>
+              <ExtendDiv></ExtendDiv>
+              <DateContainer theme={theme}>
+                <AiOutlineCalendar size={20} />
+                <h4>{dueDate}</h4>
+              </DateContainer>
+              {getChevron()}
+              <DraggerContainer theme={theme} isDragDisabled={true}>
+                {dragger}
+              </DraggerContainer>
+              <VerticalLine theme={theme}></VerticalLine>
+              <EdgeButtonsContainer>
+                <DeleteBtn
+                  theme={theme}
+                  onClick={(e) => {
+                    const deleteMethod =
+                      parentId === null ? deleteTaskFromContext : deleteSubtask;
+                    deleteTask(id, e, deleteMethod, currentUser, parentId);
+                  }}
+                >
+                  <SlClose size={20} />
+                </DeleteBtn>
+                <TaskDetailsBtn
+                  theme={theme}
+                  onClick={() => setIsDetailVis(true)}
+                  type="button"
+                >
+                  <MdOpenInFull size={20} color="black" />
+                </TaskDetailsBtn>
+              </EdgeButtonsContainer>
+            </StyledTaskPreview>
+          </div>
+        </ClickNHold>
       </Draggable>
       <SubtaskList list={taskChildren?.subtasks} show={showChildren} />
       <TaskDetailsModal
