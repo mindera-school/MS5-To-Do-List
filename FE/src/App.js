@@ -68,13 +68,13 @@ export default function App() {
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle theme={theme} />
           <Header tasksList={tasksListContext} />
-          <Main>
+          <Main className="main">
             <LateralDiv>
               <LeftMenu />
             </LateralDiv>
-            <CentralDiv>
+            <CentralDiv className="central">
               <CreateTasksContainer />
-              <TaskListContainer theme={theme}>
+              <TaskListContainer className="tasklistcont" theme={theme}>
                 <TaskList />
               </TaskListContainer>
             </CentralDiv>

@@ -17,6 +17,7 @@ export const StyledDrawer = styled.div`
 
   @media (max-width: 425px) {
       width: 100vw;
+      z-index: 99;
     }
 
   @media (max-width: 1180px) {

@@ -38,7 +38,8 @@ const heartbeatAnim = keyframes`
 export const StyledFavHeart = styled.button`
   @media (max-width: 425px) {
     --size: 20px;
-    transform: translate(0,-200%);
+    transform: translate(0,2vh);
+    z-index:6;
   }
   --size: 25px;
   margin: 30px 20px 0px 0px;
@@ -94,7 +95,7 @@ export const StyledTaskPreview = styled.div`
 
   @media (max-width: 425px) {
     width: 80vw;
-    height: 7vh;
+    height: 120px;
     aling-items: center;
 }
 `;
@@ -113,8 +114,9 @@ export const NameAndDone = styled.div`
   }
 
    @media (max-width: 425px) {
-    width: 90px;
+    width: fit-content;
     font-size: 14px;
+    margin: 0px;
 }
 `;
 
@@ -123,11 +125,19 @@ export const VerticalLine = styled.div`
   width: 1px;
   height: 75%;
   align-self: center;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const ExtendDiv = styled.div`
   height: 100%;
   width: 170px;
+
+  @media (max-width: 425px) {
+    width: 10px;
+  }
 `;
 
 export const DateContainer = styled.div`
@@ -138,7 +148,7 @@ export const DateContainer = styled.div`
   align-items: center;
   
   @media (max-width: 425px) {
-    width: 120px;
+    width: 220px;
     font-size: 12px;
     margin-right:10px;
   }
@@ -152,7 +162,7 @@ export const TaskDetailsBtn = styled.button`
   cursor: pointer;
 
   @media (max-width: 425px) {
-    margin-left: 0px;
+    display: none;
   }
 `;
 
@@ -161,6 +171,10 @@ export const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+   @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const EdgeButtonsContainer = styled.div`
@@ -170,7 +184,7 @@ export const EdgeButtonsContainer = styled.div`
   padding: 15px;
 
   @media (max-width: 425px) {
-    padding: 6px;
+    display: none;
   }
 `;
 
@@ -197,4 +211,10 @@ export const SubtasksList = styled.div`
   max-height: ${({ show }) => (show ? "500px" : "0px")};
   overflow-y: hidden;
   transition: max-height 0.7s ease-in;
+`;
+
+export const CustomDiv = styled.div`
+  @media (max-width: 425px) {
+    width: fit-content;
+  }
 `;

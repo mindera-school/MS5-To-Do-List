@@ -6,11 +6,11 @@ export const TaskListContainer = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   width: 750px;
+  
   @media (max-width: 425px) {
     width: 90vw;
-    height: 7vh;
+    height: 10vh;
     display: flex;
-    align-items: center;
     justify-content: center;
 }
   
@@ -26,12 +26,13 @@ export const TaskListContainer = styled.div`
 
 @media (max-width: 1180px) {
   overflow-y: scroll;
-  height: 80vh;
+  height: 77vh;
 }
 
 `;
 
 export const GlobalStyle = createGlobalStyle`
+  
   @font-face {
     font-family: 'Roboto';
     src: url(${Roboto});
@@ -51,10 +52,6 @@ export const GlobalStyle = createGlobalStyle`
     max-width: 100vw;
     overflow-x: hidden;
     overflow-y: hidden;
-
-    @media (max-width: 1180px) {
-      overflow-y: scroll;
-    }
   }
 
   #root { 
@@ -72,6 +69,7 @@ export const Main = styled.div`
 
    @media (max-width: 1180px) {
     flex-direction: column-reverse;
+    height: fit-content;
   }
 `;
 
@@ -86,7 +84,7 @@ export const CentralDiv = styled.div`
   
   @media (max-width: 1180px) {
     margin-bottom: 30px;
-    height: 30px;
+    height: fit-content;
   }
 `;
 
@@ -96,7 +94,7 @@ export const LateralDiv = styled.div`
   width: 100%;
   flex: 1;
   height: 100vh;
-  z-index: 0;
+  z-index: 50;
 
   @media (max-width: 1180px) {
     display: ${({ dummy }) => (dummy ? "none" : "flex")};

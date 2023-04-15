@@ -19,6 +19,7 @@ import {
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import {
+  CustomDiv,
   DateContainer,
   DeleteBtn,
   DraggerContainer,
@@ -96,6 +97,21 @@ export default function TaskPreview({
   const returnSubtaskById = useContext(TaskListContext).getGuestSubtaskbyId;
   const tasksList = useTaskListContext();
   const theme = useAppContext().themeMode;
+  const [longTouch, setLongTouch] = useState(false);
+
+  useEffect(() => {
+    const openDetails = () => {
+      setTimeout(() => {
+        if (longTouch === true) {
+          setTimeout(() => {
+            setIsDetailVis(true);
+          }, 1000);
+        }
+      }, 1000);
+    };
+    openDetails();
+    return clearTimeout(openDetails);
+  }, [longTouch]);
 
   useEffect(() => {
     if (currentUser === null) {
@@ -181,9 +197,14 @@ export default function TaskPreview({
   };
 
   const handleStart = useCallback((event) => {
+    if (event.srcElement.toString() === "[object HTMLButtonElement]" || event.srcElement.toString() === "[object HTMLInputElement]") {
+      return;
+    }
+
     if (event.target.toString() === "[object HTMLDivElement]") {
       isDragging.current = false;
     }
+
     if (
       event.target.toString() === "[object SVGPathElement]" ||
       event.target.toString() === "[object SVGSVGElement]"
@@ -266,6 +287,12 @@ export default function TaskPreview({
       >
         <div
           className="handle"
+          onTouchStart={
+            () => { setLongTouch(true); }
+          }
+          onTouchEnd={
+            () => { setLongTouch(false); }
+          }
           onDoubleClick={() => {
             setIsDetailVis(true);
             setIsEditing(true);
@@ -280,13 +307,19 @@ export default function TaskPreview({
             <StyledFavHeart
               theme={theme}
               isFilled={isThisFav}
-              onClick={() => setIsThisFav(isThisFav ? false : true)}
+              onTouchStart={() => {
+                setIsThisFav(isThisFav ? false : true);
+              }}
+              onClick={() => {
+                setIsThisFav(isThisFav ? false : true);
+              }}
               type="button"
             ></StyledFavHeart>
-            <div>
+            <CustomDiv>
               <NameAndDone theme={theme}>
                 <input
                   maxLength={12}
+
                   onChange={() => {
                     setIsDone(id, isDone ? false : true);
                     checkColor();
@@ -297,7 +330,7 @@ export default function TaskPreview({
                 <h3>{title}</h3>
               </NameAndDone>
               <TaskTagsList theme={theme} id={id}></TaskTagsList>
-            </div>
+            </CustomDiv>
             <ExtendDiv></ExtendDiv>
             <DateContainer theme={theme}>
               <AiOutlineCalendar size={20} />

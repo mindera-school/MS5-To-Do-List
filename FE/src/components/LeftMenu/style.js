@@ -15,6 +15,9 @@ export const Container = styled.div`
       overflow-y: scroll;
       width: 60vw;
       height: fit-content;
+      width: 90%;
+      transform: translate(${({ open }) => open ? "0,-80vh" : "0"});
+      transition: transform 0.5s;
   }
 `;
 
@@ -106,4 +109,15 @@ export const Buttons = styled.button`
   @media (max-width: 425px) {
     width: 100%;
   }
+`;
+
+export const MobileOpenBtn = styled.button`
+    border-radius: 5px 5px 0px 0px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: white;
+    transform: rotate(${({ open }) => open ? "180deg" : "0deg"});
+    transition: transform 0.5s 0.5s;
 `;
