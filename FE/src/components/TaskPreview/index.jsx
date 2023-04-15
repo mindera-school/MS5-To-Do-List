@@ -259,7 +259,6 @@ export default function TaskPreview({
   };
 
   const timedDetailOpen = (e, enough) => {
-    console.log(enough);
     if (window.innerWidth > 1080 || enough === false) {
       return;
     }
@@ -309,7 +308,10 @@ export default function TaskPreview({
                 <NameAndDone theme={theme}>
                   <input
                     maxLength={12}
-
+                    onTouchStart={() => {
+                      setIsDone(id, isDone ? false : true);
+                      checkColor();
+                    }}
                     onChange={() => {
                       setIsDone(id, isDone ? false : true);
                       checkColor();

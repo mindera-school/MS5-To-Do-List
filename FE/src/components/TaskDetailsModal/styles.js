@@ -37,6 +37,9 @@ export const OuterBox = styled.div`
 	animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	padding: 15px;
 	color: ${({ theme }) => theme.fontColor};
+	 @media (max-width: 425px) {
+		width: 400px;
+  	}
 `;
 
 export const BoxHeader = styled.div`
