@@ -4,7 +4,7 @@ export const StylesTaskTagsList = styled.div`
     display:flex;
 
     @media (max-width: 425px) {
-    width: 130%;
+    width: 120%;
     flex-wrap: wrap;  
 }   
 `;
