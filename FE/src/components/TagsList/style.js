@@ -29,7 +29,7 @@ export const AddTagButton = styled.button`
   }
   
   @media (max-width: 425px) {
-    position: absolute;
+    position: ${({ onDetail }) => (onDetail ? "absolute" : "static")};
     bottom: 64%;   	
   }
   

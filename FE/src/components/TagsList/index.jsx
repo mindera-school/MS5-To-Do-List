@@ -136,6 +136,7 @@ export default function TagsContainer({
         onClick={() => handler()}
         disabled={isButtonDisabled}
         display={display}
+        onDetail={onDetail}
       >
         + Add Tag
       </AddTagButton>
