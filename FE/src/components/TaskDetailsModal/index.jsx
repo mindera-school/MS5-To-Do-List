@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BiEdit, BiSave } from "react-icons/bi";
 import { IoIosAddCircleOutline, IoMdClose } from "react-icons/io";
 import { useAppContext, useTaskListContext } from "../../context.js";
-import taskFetcher from "../../fetchers/fetchTasks.js";
 import TagsContainer from "../TagsList/index.jsx";
 import AddCommentForm from "./AddCommentForm";
 import CommentBox from "./CommentBox";
@@ -23,7 +22,7 @@ import {
   SubtaskInput,
   TaskDescInput,
   TaskInfo,
-  Wrapper,
+  Wrapper
 } from "./styles";
 
 export default function TaskDetailsModal({
@@ -271,6 +270,7 @@ export default function TaskDetailsModal({
                   editMode={editMode}
                   taskId={task.taskId}
                   display={editMode}
+                  onDetail={true}
                 />
               </CustomLine>
             </TaskInfo>

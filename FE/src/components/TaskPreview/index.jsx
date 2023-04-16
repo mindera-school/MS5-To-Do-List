@@ -250,6 +250,7 @@ export default function TaskPreview({
       return (
         <SubtasksBtns
           show={showChildren}
+          onTouchStart={() => setShowChildren(showChildren ? false : true)}
           onClick={() => setShowChildren(showChildren ? false : true)}
         >
           <FiChevronDown size={25} />

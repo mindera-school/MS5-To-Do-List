@@ -13,6 +13,11 @@ export const TaskListContainer = styled.div`
     display: flex;
     justify-content: center;
 }
+
+@media (max-width: 1180px) {
+  height: 77vh;
+}
+
   
 ::-webkit-scrollbar {
   -webkit-appearance: none;
@@ -22,11 +27,6 @@ export const TaskListContainer = styled.div`
   border-radius: 4px;
   background-color: rgba(0, 0, 0, .5);
   -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
-}
-
-@media (max-width: 1180px) {
-  overflow-y: scroll;
-  height: 77vh;
 }
 
 `;

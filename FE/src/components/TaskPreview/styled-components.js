@@ -82,7 +82,7 @@ export const StyledTaskPreview = styled.div`
   display: flex;
   position: relative;
   width: 690px;
-  height: 80px;
+  height: 100px;
   background-color: ${({ theme }) => (theme.taskColor)};
   border: ${(props) => props.border};
   border-radius: 15px;
@@ -211,6 +211,13 @@ export const SubtasksList = styled.div`
   max-height: ${({ show }) => (show ? "500px" : "0px")};
   overflow-y: hidden;
   transition: max-height 0.7s ease-in;
+
+  @media (max-width: 1180px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 `;
 
 export const CustomDiv = styled.div`
