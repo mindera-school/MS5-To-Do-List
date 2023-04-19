@@ -110,10 +110,6 @@ export default function LeftMenu() {
     );
   };
 
-  const isMobile = () => {
-    console.log(window.innerHeight);
-  };
-
   return (
     <Container theme={theme} open={open}>
       <MobileOpenBtn open={open} onClick={() => { setIsOpen(open ? false : true); }}>
