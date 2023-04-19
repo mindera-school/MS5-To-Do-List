@@ -59,4 +59,28 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity(response, HttpStatus.valueOf(401));
     }
+
+    @ExceptionHandler(value = {EmailNotFoundException.class})
+    public ResponseEntity handleEmailNotFound(RuntimeException e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code(13)
+                .type("user")
+                .timestamp(new Date())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity(response, HttpStatus.valueOf(404));
+    }
+
+    @ExceptionHandler(value = {UserLockedException.class})
+    public ResponseEntity handleUserLocked(RuntimeException e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code(14)
+                .type("user")
+                .timestamp(new Date())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity(response, HttpStatus.valueOf(409));
+    }
 }
