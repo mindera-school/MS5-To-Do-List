@@ -37,6 +37,9 @@ export const OuterBox = styled.div`
 	animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 	padding: 15px;
 	color: ${({ theme }) => theme.fontColor};
+	 @media (max-width: 425px) {
+		width: 380px;
+  	}
 `;
 
 export const BoxHeader = styled.div`
@@ -67,6 +70,10 @@ export const InnerHeader = styled.div`
 	color: ${({ theme }) => theme.fontColor};
 	width: 100%;
 	box-sizing: border-box;
+	
+	@media (max-width: 425px) {
+     	width: 120%;
+  	}
 `;
 
 export const InnerTitle = styled.input`
@@ -81,6 +88,10 @@ export const InnerTitle = styled.input`
 	::placeholder {
 		color: ${({ theme }) => theme.fontColor};
 	}
+
+	@media (max-width: 425px) {
+     	width: 200%;
+  	}
 `;
 
 export const OptionTitles = styled.h4`
@@ -97,6 +108,10 @@ export const OptionTitles = styled.h4`
 		border: none;
 		padding: 0px;
 	}
+
+	@media (max-width: 425px) {
+     	width: 100%;
+  	}
 `;
 
 export const TaskInfo = styled.div`
@@ -199,6 +214,15 @@ export const CustomLine = styled.div`
 		font-weight: 900;
 		color: #17425E;
 	}
+
+	@media (max-width: 425px) {
+    	span:first-of-type {
+		margin-right: 0px;
+		font-weight: 900;
+		color: #17425E;
+		}
+		width: 200%;
+  	}
 `;
 
 export const TaskDescInput = styled.textarea`
@@ -226,13 +250,17 @@ export const DateInput = styled.div`
 	}
 	input[type="date"]{
 		background-color: ${({ readOnly }) => readOnly ? "transparent" : "#2C5BA1"};
-		color: ${({ theme }) => theme.fontColor};
+		color: ${({ theme }) => theme.menuFontColor};
 		font-size: 18px;
 		border: none;
 		outline: none;
 		border-radius: 5px;
 		width: fit-content;
 		padding-left: 10px;
+
+		@media (max-width: 425px) {
+			height: 100%;
+  		}
 	}
 	::-webkit-calendar-picker-indicator{
 		background-color: #ffffff;
@@ -258,6 +286,7 @@ export const SubtaskFormBox = styled.div`
 	border-radius: 5px;
 	overflow: hidden;
 	color: ${({ theme }) => theme.menuFontColor};
+	z-index: 50;
 `;
 
 export const SubtaskInput = styled.input`
@@ -281,3 +310,4 @@ export const SaveBtn = styled.button`
 	border: none;
 	cursor: pointer;
 `;
+

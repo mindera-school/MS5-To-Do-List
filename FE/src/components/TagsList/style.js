@@ -2,8 +2,13 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   background-color: inherit;
-  margin-left: 50px;
+  margin-left: ${({ onDetail }) => (onDetail ? "10px" : "50px")};
   display: flex;
+
+  @media (max-width: 425px) {
+      flex-wrap: ${({ onDetail }) => (onDetail ? "no-wrap" : "wrap")};
+      width: 300px;
+  }
 `;
 
 export const AddTagButton = styled.button`
@@ -22,6 +27,12 @@ export const AddTagButton = styled.button`
   &:hover {
     scale: 1.05;
   }
+  
+  @media (max-width: 425px) {
+    position: ${({ onDetail }) => (onDetail ? "absolute" : "static")};
+    bottom: 64%;   	
+  }
+  
 `;
 
 export const TagInput = styled.input`

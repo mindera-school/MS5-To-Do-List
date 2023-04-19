@@ -18,7 +18,7 @@ import {
   DescriptionContainer,
   DescriptionInput,
   ModalContainer,
-  TitleInput,
+  TitleInput
 } from "./style";
 
 export default function AddTaskModal({
@@ -86,15 +86,16 @@ export default function AddTaskModal({
         />
         <ContainerInput>
           <DateTagdiv theme={theme}>
-            End Date: <DateInput ref={dateInput} type="date" />
+            <label>End Date:</label> <DateInput ref={dateInput} type="date" />
           </DateTagdiv>
           <DateTagdiv theme={theme}>
-            Tags:
+            <label>Tags:</label>
             <TagsContainer
               tagsList={tagsList}
               setTagsList={setTagsList}
               editMode={editMode}
               display={true}
+              onDetail={false}
             />
           </DateTagdiv>
         </ContainerInput>

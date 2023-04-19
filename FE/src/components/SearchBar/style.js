@@ -19,6 +19,11 @@ export const SearchInput = styled.input`
   color: ${({ theme }) => (theme.fontColor)};
   padding-right: 45px;
 
+  @media (max-width: 425px) {
+      width: 200px;
+      height: 35px;
+    }
+
   ::placeholder {
     color: ${({ theme }) => (theme.fontColor)};
   }

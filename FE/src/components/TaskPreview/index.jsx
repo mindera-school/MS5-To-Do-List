@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
+import ClickNHold from "react-click-n-hold";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
@@ -20,6 +21,7 @@ import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
 import Popconfirm from "../Popconfirm/index.jsx";
 import {
+  CustomDiv,
   DateContainer,
   DeleteBtn,
   DraggerContainer,
@@ -184,9 +186,14 @@ export default function TaskPreview({
   };
 
   const handleStart = useCallback((event) => {
+    if (event.srcElement.toString() === "[object HTMLButtonElement]" || event.srcElement.toString() === "[object HTMLInputElement]") {
+      return;
+    }
+
     if (event.target.toString() === "[object HTMLDivElement]") {
       isDragging.current = false;
     }
+
     if (
       event.target.toString() === "[object SVGPathElement]" ||
       event.target.toString() === "[object SVGSVGElement]"
@@ -246,6 +253,7 @@ export default function TaskPreview({
       return (
         <SubtasksBtns
           show={showChildren}
+          onTouchStart={() => setShowChildren(showChildren ? false : true)}
           onClick={() => setShowChildren(showChildren ? false : true)}
         >
           <FiChevronDown size={25} />
@@ -264,7 +272,12 @@ export default function TaskPreview({
       setSureToDeleteDisplay("none");
       setDeleteVerification(null);
     }
-  }, [deleteVerification]);
+  }, [deleteVerification]); const timedDetailOpen = (e, enough) => {
+    if (window.innerWidth > 1080 || enough === false) {
+      return;
+    }
+    setIsDetailVis(true);
+  };
 
   return (
     <>
@@ -323,7 +336,7 @@ export default function TaskPreview({
             <EdgeButtonsContainer>
               <DeleteBtn
                 theme={theme}
-                onClick={() => {
+                onClick={(e) => {
                   setSureToDeleteDisplay("block");
                 }}
               >

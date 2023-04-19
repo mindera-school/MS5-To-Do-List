@@ -19,7 +19,7 @@ export const AddModal = styled.div`
   min-width: 780px;
   height: 600px;
   background-color: ${({ theme }) => (theme.taskColor)};
-  z-index: 1;
+  z-index: 99;
   border-radius: 50px;
   display: ${(props) => props.display};
   flex-direction: column;
@@ -27,8 +27,17 @@ export const AddModal = styled.div`
   align-items: center;
   padding: 50px;
   box-sizing: border-box;
-  z-index: 4;
   animation: ${slideIn} 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+
+  @media (max-width: 425px) {
+    min-width: 360px;
+    padding: 20px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    label {
+      font-size: 15px;
+    }
+  }
 `;
 
 export const ModalContainer = styled.div`
@@ -37,6 +46,12 @@ export const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 425px) {
+    height: 100%;
+    justify-content: flex-start;
+    
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -45,7 +60,6 @@ export const CloseButton = styled.button`
   border: none;
   padding: 0;
   transition: 0.4s;
-
 
   &:hover {
     scale: 1.2;
@@ -69,6 +83,12 @@ export const TitleInput = styled.input`
   ::placeholder {
     color: white;
   }
+
+  @media (max-width: 425px) {
+    height: 35px;
+    font-size: 18px;
+    justify-self: flex-start;
+  	}
 `;
 
 export const ContainerInput = styled.div`
@@ -79,6 +99,13 @@ export const ContainerInput = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+
+  @media (max-width: 425px) {
+    padding: 5px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 160px;
+  }
 `;
 
 export const DateTagdiv = styled.div`
@@ -88,6 +115,11 @@ export const DateTagdiv = styled.div`
   line-height: 23px;
   display: flex;
   align-items: center;
+
+  @media (max-width: 425px) {
+    overflow-x: scroll;
+    height: 400px;
+  }
 `;
 
 export const DateInput = styled.input`
@@ -101,7 +133,6 @@ export const DateInput = styled.input`
   letter-spacing: 0em;
   text-align: left;
   width: 26%;
-
   padding: 7px;
   background-color: ${({ theme }) => (theme.inputColor)};
   display: flex;
@@ -117,12 +148,22 @@ export const DateInput = styled.input`
     top: 20%;
     cursor: pointer;
 }
+
+  @media (max-width: 425px) {
+    font-size: 15px;
+    width: 50%;
+    height: 25px;
+  }  
 `;
 
 export const DescriptionContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 425px) {
+      margin-bottom: 40px;
+  }
 `;
 
 export const Description = styled.p`
@@ -132,6 +173,10 @@ export const Description = styled.p`
   letter-spacing: 0em;
   text-align: left;
   color: ${({ theme }) => (theme.fontColor)};
+
+  @media (max-width: 425px) {
+      font-size: 18px;
+  }
 `;
 
 export const DescriptionInput = styled.textarea`
@@ -164,6 +209,10 @@ export const ButtonsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  
+  @media (max-width: 425px) {
+      justify-self: flex-end;
+  }
 `;
 
 export const AddButtonsDiv = styled.div`

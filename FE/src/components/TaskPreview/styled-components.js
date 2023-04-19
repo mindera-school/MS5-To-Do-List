@@ -36,6 +36,11 @@ const heartbeatAnim = keyframes`
 `;
 
 export const StyledFavHeart = styled.button`
+  @media (max-width: 425px) {
+    --size: 20px;
+    transform: translate(0,2vh);
+    z-index:6;
+  }
   --size: 25px;
   margin: 30px 20px 0px 0px;
   position: relative;
@@ -88,6 +93,12 @@ export const StyledTaskPreview = styled.div`
   font-family: Roboto;
   color: ${({ theme }) => theme.fontColor};
   transform: scale(${({ isParent }) => (isParent ? "1" : "0.85")});
+
+  @media (max-width: 425px) {
+    width: 80vw;
+    height: 120px;
+    aling-items: center;
+}
 `;
 
 export const NameAndDone = styled.div`
@@ -102,6 +113,12 @@ export const NameAndDone = styled.div`
   input {
     cursor: pointer;
   }
+
+   @media (max-width: 425px) {
+    width: fit-content;
+    font-size: 14px;
+    margin: 0px;
+}
 `;
 
 export const VerticalLine = styled.div`
@@ -109,11 +126,19 @@ export const VerticalLine = styled.div`
   width: 1px;
   height: 75%;
   align-self: center;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const ExtendDiv = styled.div`
   height: 100%;
   width: 170px;
+
+  @media (max-width: 425px) {
+    width: 10px;
+  }
 `;
 
 export const DateContainer = styled.div`
@@ -122,6 +147,12 @@ export const DateContainer = styled.div`
   color: ${({ theme }) => theme.fontColor};
   margin-right: 25px;
   align-items: center;
+  
+  @media (max-width: 425px) {
+    width: 220px;
+    font-size: 12px;
+    margin-right:10px;
+  }
 `;
 
 export const TaskDetailsBtn = styled.button`
@@ -130,6 +161,10 @@ export const TaskDetailsBtn = styled.button`
   border: none;
   margin-left: 15px;
   cursor: pointer;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const DeleteBtn = styled.button`
@@ -137,6 +172,10 @@ export const DeleteBtn = styled.button`
   background-color: transparent;
   border: none;
   cursor: pointer;
+
+   @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const EdgeButtonsContainer = styled.div`
@@ -145,11 +184,18 @@ export const EdgeButtonsContainer = styled.div`
   justify-content: space - around;
   width: 120px;
   padding: 15px;
+
+  @media (max-width: 425px) {
+    display: none;
+  }
 `;
 
 export const DraggerContainer = styled.div`
   margin-right: 15px;
   align-self: center;
+  @media (max-width: 425px) {
+    margin-right: 5px;
+  }
 `;
 
 export const SubtasksBtns = styled.button`
@@ -167,4 +213,17 @@ export const SubtasksList = styled.div`
   max-height: ${({ show }) => (show ? "500px" : "0px")};
   overflow-y: hidden;
   transition: max-height 0.7s ease-in;
+
+  @media (max-width: 1180px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+`;
+
+export const CustomDiv = styled.div`
+  @media (max-width: 425px) {
+    width: fit-content;
+  }
 `;

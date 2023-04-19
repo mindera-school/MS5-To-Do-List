@@ -19,4 +19,10 @@ export const StyledTag = styled.button`
   &:hover ${CloseTag} {
     display: ${(props) => props.display === true ? "block" : "none"};
   }
+
+  @media (max-width: 425px) {
+    padding: 0 10px;
+    min-width: 12px;
+    font-size: 12px;
+  }
 `;

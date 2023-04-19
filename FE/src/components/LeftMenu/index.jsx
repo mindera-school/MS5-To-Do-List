@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { BsChevronBarUp } from "react-icons/bs";
 import { useAppContext, useTaskListContext } from "../../context";
 import tagFetcher from "../../fetchers/fetchTags";
-import { Buttons, ButtonsBox, Container, Tags, TagsBox, Titles } from "./style";
+import { Buttons, ButtonsBox, Container, MobileOpenBtn, Tags, TagsBox, Titles } from "./style";
 
 export default function LeftMenu() {
   const tasksList = useTaskListContext();
@@ -10,6 +11,7 @@ export default function LeftMenu() {
   const [tags, setTags] = useState([]);
   const [selectedTag, setSelectedTag] = useState(null);
   const theme = useAppContext().themeMode;
+  const [open, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (user.currentUser === null) {
@@ -95,11 +97,13 @@ export default function LeftMenu() {
   const randomize = () => {
     tasksList.setTaskList([...list].sort(() => Math.random() - 0.5));
   };
+
   const alphabetically = () => {
     tasksList.setTaskList(
       [...list].sort((a, b) => a.title.localeCompare(b.title))
     );
   };
+
   const notAlphabetically = () => {
     tasksList.setTaskList(
       [...list].sort((a, b) => b.title.localeCompare(a.title))
@@ -107,7 +111,10 @@ export default function LeftMenu() {
   };
 
   return (
-    <Container theme={theme}>
+    <Container theme={theme} open={open}>
+      <MobileOpenBtn open={open} onClick={() => { setIsOpen(open ? false : true); }}>
+        <BsChevronBarUp size={30} />
+      </MobileOpenBtn>
       <Titles theme={theme}>Filter</Titles>
       <TagsBox theme={theme}>{showTags()}</TagsBox>
       <Titles theme={theme}>Remove</Titles>

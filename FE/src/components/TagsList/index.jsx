@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { GrFormClose } from "react-icons/gr";
 import { useAppContext } from "../../context.js";
 import Tag from "../Tag/index.jsx";
-import { Container, AddTagButton, TempTag, CloseTag, TagInput } from "./style";
-import { GrFormClose } from "react-icons/gr";
+import { AddTagButton, CloseTag, Container, TagInput, TempTag } from "./style";
 
 export default function TagsContainer({
   tagsList,
@@ -10,6 +10,7 @@ export default function TagsContainer({
   editMode,
   taskId,
   display,
+  onDetail
 }) {
   const [tagsColors, setTagsColors] = useState([
     "red",
@@ -129,12 +130,13 @@ export default function TagsContainer({
   };
 
   return (
-    <Container>
+    <Container onDetail={onDetail}>
       {renderList}
       <AddTagButton
         onClick={() => handler()}
         disabled={isButtonDisabled}
         display={display}
+        onDetail={onDetail}
       >
         + Add Tag
       </AddTagButton>

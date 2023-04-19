@@ -14,6 +14,15 @@ export const StyledDrawer = styled.div`
   overflow-x: hidden;
   padding-top: 10px;
   transition: transform 0.4s ease-out;
+
+  @media (max-width: 425px) {
+      width: 100vw;
+      z-index: 99;
+    }
+
+  @media (max-width: 1180px) {
+      width: 100vw;
+    }
 `;
 
 export const CloseButton = styled.button`
