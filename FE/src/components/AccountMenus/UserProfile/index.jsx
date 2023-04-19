@@ -5,6 +5,7 @@ import { FaRegUser } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { useAppContext, useTaskListContext } from "../../../context.js";
 import { ThemeSwitchHolder, UserImg } from "../LoginMenu/styled-components";
+import Popconfirm from "../../Popconfirm/index.jsx";
 import { StatsHolder, UserProfileContainer, VerticalLine } from "./styles.js";
 
 function getUserImage(image) {
@@ -30,7 +31,8 @@ export const UserProfile = () => {
   const theme = useAppContext().themeMode;
   const setTheme = useAppContext().setTheme;
   const [darkMode, setDarkMode] = useState(getCurrentMode(theme));
-
+  const [sureToLogOutDisplay, setSureToLogOutDisplay] = useState("none");
+  const [logOutVerification, setLogOutVerification] = useState();
 
   useEffect(() => {
     darkMode ? setTheme("darkMode") : setTheme("lightMode");
@@ -48,17 +50,36 @@ export const UserProfile = () => {
     setTasksIsNotDone(0);
   }, [taskList]);
 
+  useEffect(() => {
+    if (logOutVerification === true) {
+      setUser(null);
+      setLogOutVerification(null);
+    } else if (logOutVerification === false) {
+      setSureToLogOutDisplay("none");
+      setLogOutVerification(null);
+    }
+  }, [logOutVerification]);
+
   return (
     <>
       <UserProfileContainer>
         <button
           onClick={() => {
-            setUser(null);
+            setSureToLogOutDisplay("flex");
           }}
         >
           <FiLogOut size={30} />
         </button>
-        <UserImg theme={theme}>{getUserImage(currentUser.profileImage)}</UserImg>
+        <Popconfirm
+          message="Log out?"
+          display={sureToLogOutDisplay}
+          right="18px"
+          top="52px"
+          setVerification={setLogOutVerification}
+        ></Popconfirm>
+        <UserImg theme={theme}>
+          {getUserImage(currentUser.profileImage)}
+        </UserImg>
         <h3>{`${currentUser.firstName} ${currentUser.lastName}`}</h3>
         <StatsHolder>
           <div>
@@ -72,8 +93,21 @@ export const UserProfile = () => {
           </div>
         </StatsHolder>
         <ThemeSwitchHolder theme={theme}>
-          {darkMode ? <label>Dark Mode<BsFillMoonFill /></label> : <label><BsSunFill />Light Mode</label>}
-          <Switch value={darkMode} onChange={() => setDarkMode(darkMode ? false : true)}></Switch>
+          {darkMode ? (
+            <label>
+              Dark Mode
+              <BsFillMoonFill />
+            </label>
+          ) : (
+            <label>
+              <BsSunFill />
+              Light Mode
+            </label>
+          )}
+          <Switch
+            value={darkMode}
+            onChange={() => setDarkMode(darkMode ? false : true)}
+          ></Switch>
         </ThemeSwitchHolder>
       </UserProfileContainer>
     </>

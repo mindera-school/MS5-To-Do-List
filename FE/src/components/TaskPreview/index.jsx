@@ -3,7 +3,7 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState
+  useState,
 } from "react";
 import ClickNHold from "react-click-n-hold";
 import Draggable from "react-draggable";
@@ -15,10 +15,11 @@ import {
   AppContext,
   TaskListContext,
   useAppContext,
-  useTaskListContext
+  useTaskListContext,
 } from "../../context.js";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
+import Popconfirm from "../Popconfirm/index.jsx";
 import {
   CustomDiv,
   DateContainer,
@@ -31,12 +32,11 @@ import {
   StyledTaskPreview,
   SubtasksBtns,
   TaskDetailsBtn,
-  VerticalLine
+  VerticalLine,
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
-const deleteTask = (id, e, deleteTaskContext, currentUser, parentId) => {
-  e.stopPropagation();
+const deleteTask = (id, deleteTaskContext, currentUser, parentId) => {
   if (currentUser !== null) {
     try {
       fetch(`http://localhost:8086/todo/tasks/v1/delete/${id}`, {
@@ -94,6 +94,8 @@ export default function TaskPreview({
   const [taskChildren, setTaskChildren] = useState();
   const [showChildren, setShowChildren] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [sureToDeleteDisplay, setSureToDeleteDisplay] = useState("none");
+  const [deleteVerification, setDeleteVerification] = useState(null);
   const returnTaskById = useContext(TaskListContext).getGuestTaskbyId;
   const returnSubtaskById = useContext(TaskListContext).getGuestSubtaskbyId;
   const tasksList = useTaskListContext();
@@ -104,17 +106,18 @@ export default function TaskPreview({
       setTaskChildren(localChildren);
     } else {
       fetch(`http://localhost:8086/todo/tasks/v1/${id}`)
-        .then(r => r.json())
-        .then(r => setTaskChildren({
-          id,
-          subtasks: r
-        }));
+        .then((r) => r.json())
+        .then((r) =>
+          setTaskChildren({
+            id,
+            subtasks: r,
+          })
+        );
     }
     if (taskChildren === undefined) {
       return;
     }
   }, [currentUser, localChildren]);
-
 
   useEffect(() => {
     if (!isDetailVis) {
@@ -167,7 +170,7 @@ export default function TaskPreview({
         return;
       }
     }
-  }, [borderColor, dueDate, isDone]);
+  }, [dueDate, isDone]);
 
   const checkColor = () => {
     if (borderColor === "none") {
@@ -259,7 +262,17 @@ export default function TaskPreview({
     }
   };
 
-  const timedDetailOpen = (e, enough) => {
+  useEffect(() => {
+    if (deleteVerification === true) {
+      const deleteMethod =
+        parentId === null ? deleteTaskFromContext : deleteSubtask;
+      deleteTask(id, deleteMethod, currentUser, parentId);
+      setDeleteVerification(null);
+    } else if (deleteVerification === false) {
+      setSureToDeleteDisplay("none");
+      setDeleteVerification(null);
+    }
+  }, [deleteVerification]); const timedDetailOpen = (e, enough) => {
     if (window.innerWidth > 1080 || enough === false) {
       return;
     }
@@ -277,92 +290,81 @@ export default function TaskPreview({
         onStop={handleStop}
         onDrag={handleDrag}
       >
-        <ClickNHold
-          time={1}
-          onEnd={timedDetailOpen}
+        <div
+          className="handle"
+          onDoubleClick={() => {
+            setIsDetailVis(true);
+            setIsEditing(true);
+          }}
         >
-          <div
-            className="handle"
-            onDoubleClick={() => {
-              setIsDetailVis(true);
-              setIsEditing(true);
-            }}
+          <StyledTaskPreview
+            theme={theme}
+            isParent={isParent}
+            border={borderColor}
+            padding={padding}
           >
-            <StyledTaskPreview
+            <StyledFavHeart
               theme={theme}
-              isParent={isParent}
-              border={borderColor}
-              padding={padding}
-            >
-              <StyledFavHeart
-                theme={theme}
-                isFilled={isThisFav}
-                onTouchStart={() => {
-                  setIsThisFav(isThisFav ? false : true);
-                }}
-                onClick={() => {
-                  setIsThisFav(isThisFav ? false : true);
-                }}
-                type="button"
-              ></StyledFavHeart>
-              <CustomDiv>
-                <NameAndDone theme={theme}>
-                  <input
-                    maxLength={12}
-                    onTouchStart={() => {
-                      setIsDone(id, isDone ? false : true);
-                      checkColor();
-                    }}
-                    onChange={() => {
-                      setIsDone(id, isDone ? false : true);
-                      checkColor();
-                    }}
-                    type="checkbox"
-                    checked={isDone}
-                  />
-                  <h3>{title}</h3>
-                </NameAndDone>
-                <TaskTagsList theme={theme} id={id}></TaskTagsList>
-              </CustomDiv>
-              <ExtendDiv></ExtendDiv>
-              <DateContainer theme={theme}>
-                <AiOutlineCalendar size={20} />
-                <h4>{dueDate}</h4>
-              </DateContainer>
-              {getChevron()}
-              <DraggerContainer theme={theme} isDragDisabled={true}>
-                {dragger}
-              </DraggerContainer>
-              <VerticalLine theme={theme}></VerticalLine>
-              <EdgeButtonsContainer>
-                <DeleteBtn
-                  theme={theme}
-                  onClick={(e) => {
-                    const deleteMethod =
-                      parentId === null ? deleteTaskFromContext : deleteSubtask;
-                    deleteTask(id, e, deleteMethod, currentUser, parentId);
+              isFilled={isThisFav}
+              onClick={() => setIsThisFav(isThisFav ? false : true)}
+            ></StyledFavHeart>
+            <div>
+              <NameAndDone theme={theme}>
+                <input
+                  maxLength={12}
+                  onChange={() => {
+                    setIsDone(id, isDone ? false : true);
+                    checkColor();
                   }}
-                >
-                  <SlClose size={20} />
-                </DeleteBtn>
-                <TaskDetailsBtn
-                  theme={theme}
-                  onClick={() => setIsDetailVis(true)}
-                  type="button"
-                >
-                  <MdOpenInFull size={20} color="black" />
-                </TaskDetailsBtn>
-              </EdgeButtonsContainer>
-            </StyledTaskPreview>
-          </div>
-        </ClickNHold>
+                  type="checkbox"
+                  checked={isDone}
+                />
+                <h3>{title}</h3>
+              </NameAndDone>
+              <TaskTagsList theme={theme} id={id}></TaskTagsList>
+            </div>
+            <ExtendDiv></ExtendDiv>
+            <DateContainer theme={theme}>
+              <AiOutlineCalendar size={20} />
+              <h4>{dueDate}</h4>
+            </DateContainer>
+            {getChevron()}
+            <DraggerContainer theme={theme} isDragDisabled={true}>
+              {dragger}
+            </DraggerContainer>
+            <VerticalLine theme={theme}></VerticalLine>
+            <EdgeButtonsContainer>
+              <DeleteBtn
+                theme={theme}
+                onClick={(e) => {
+                  setSureToDeleteDisplay("block");
+                }}
+              >
+                <SlClose size={20} />
+              </DeleteBtn>
+              <Popconfirm
+                message="Delete task?"
+                display={sureToDeleteDisplay}
+                right="50px"
+                top="65%"
+                setVerification={setDeleteVerification}
+              ></Popconfirm>
+              <TaskDetailsBtn
+                theme={theme}
+                onClick={() => setIsDetailVis(true)}
+              >
+                <MdOpenInFull size={20} color="black" />
+              </TaskDetailsBtn>
+            </EdgeButtonsContainer>
+          </StyledTaskPreview>
+        </div>
       </Draggable>
       <SubtaskList list={taskChildren?.subtasks} show={showChildren} />
       <TaskDetailsModal
         id={id}
         task={task}
         tags={tags}
-        setTask={setTask}
+        c={setTask}
         display={isDetailVis}
         setDisplay={setIsDetailVis}
         isEditing={isEditing}

@@ -7,12 +7,10 @@ import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.exceptions.user.UserAlreadyExistsException;
 import school.mindera.toDoListAPI.exceptions.user.UserWrongCredentials;
-import school.mindera.toDoListAPI.model.DTOChangeImg;
-import school.mindera.toDoListAPI.model.DTOLoggedUser;
-import school.mindera.toDoListAPI.model.DTOLogin;
-import school.mindera.toDoListAPI.model.DTORegister;
+import school.mindera.toDoListAPI.model.*;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -50,7 +48,6 @@ public class UserService {
         loggedUser.setFirstName(savedUser.getFirstName());
         loggedUser.setLastName(savedUser.getLastName());
         loggedUser.setEmail(savedUser.getEmail());
-        loggedUser.setGroupsURL("/groups/" + savedUser.getUserId());
         loggedUser.setTasksPreviewsURL("/task-previews/" + savedUser.getUserId());
 
         return ResponseEntity.ok(loggedUser);
@@ -68,7 +65,6 @@ public class UserService {
                 loggedUser.setFirstName(user.getFirstName());
                 loggedUser.setLastName(user.getLastName());
                 loggedUser.setEmail(user.getEmail());
-                loggedUser.setGroupsURL("/groups/" + user.getUserId());
                 loggedUser.setTasksPreviewsURL("/task-previews/" + user.getUserId());
                 return ResponseEntity.ok(loggedUser);
             }
@@ -83,8 +79,26 @@ public class UserService {
             throw new InvalidUserException("Invalid user");
         }
 
+
         user.get().setProfileImage(changeImg.getProfileImage());
 
         usersRepository.save(user.get());
+    }
+
+    public ResponseEntity<DTOLoggedUser> editUserInfo(Integer userId, DTOEditUser newInfo) {
+        Optional<UsersEntity> dbUser = usersRepository.findById(userId);
+
+        if (dbUser.isEmpty()){
+            throw new InvalidUserException("Invalid user");
+        }
+        if (!Objects.isNull(newInfo.getUsername()) && usersRepository.existsByUsername(newInfo.getUsername())){
+            throw new UserAlreadyExistsException("This username is already in use");
+        }
+
+        UsersEntity user = dbUser.get();
+        user.update(newInfo);
+        usersRepository.save(user);
+
+        return ResponseEntity.ok(Converter.toDTOLogged(user));
     }
 }

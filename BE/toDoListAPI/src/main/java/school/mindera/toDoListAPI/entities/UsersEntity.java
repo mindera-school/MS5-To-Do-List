@@ -4,8 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.logging.log4j.util.Strings;
+import school.mindera.toDoListAPI.model.DTOEditUser;
+
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -45,4 +49,11 @@ public class UsersEntity {
 
     @OneToMany(mappedBy = "tagId")
     private List<TagsEntity> tags;
+
+    public void update(DTOEditUser editUser){
+        this.setFirstName(Objects.isNull(editUser.getFirstName()) || Strings.isEmpty(editUser.getFirstName()) ? this.getFirstName() : editUser.getFirstName());
+        this.setLastName(Objects.isNull(editUser.getLastName()) || Strings.isEmpty(editUser.getFirstName()) ? this.getLastName() : editUser.getLastName());
+        this.setProfileImage(Objects.isNull(editUser.getProfileImage()) || Strings.isEmpty(editUser.getFirstName()) ? this.getProfileImage() : editUser.getProfileImage());
+        this.setUsername(Objects.isNull(editUser.getUsername()) || Strings.isEmpty(editUser.getFirstName()) ? this.getUsername() : editUser.getUsername());
+    }
 }

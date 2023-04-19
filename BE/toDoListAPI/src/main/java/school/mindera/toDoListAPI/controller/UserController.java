@@ -36,4 +36,14 @@ public class UserController {
     public void forgotPassword(@RequestBody DTOForgotPassword newPassword) {
         // Nice to Have
     }
+
+    @PostMapping("forgot-password/{userId}")
+    public void forgotPassword(@PathVariable Integer userId){
+
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<DTOLoggedUser> editUser(@PathVariable Integer userId, @RequestBody DTOEditUser newInfo){
+        return userService.editUserInfo(userId, newInfo);
+    }
 }
