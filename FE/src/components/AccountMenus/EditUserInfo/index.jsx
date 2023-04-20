@@ -76,7 +76,13 @@ export const EditUserInfo = () => {
       method: "PATCH",
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify(updatedUserInfo),
+      body: JSON.stringify({
+        username: updatedUserInfo.userName,
+        firstName: updatedUserInfo.firstName,
+        lastName: updatedUserInfo.lastName,
+        password: updatedUserInfo.newPassword,
+        currentPassword: updatedUserInfo.currentPassword,
+      })
     })
       .then((r) => r.json())
       .then((r) => {

@@ -6,7 +6,6 @@ import Drawer from "../../Drawer";
 
 export default function AccountMenuContainer({ rightTabVisible, rightSideHandler }) {
 	const menuType = useAppContext().menuType;
-	console.log(menuType);
 
 	return <>
 		<Drawer
