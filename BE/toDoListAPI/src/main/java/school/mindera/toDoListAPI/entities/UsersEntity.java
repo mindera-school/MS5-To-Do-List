@@ -56,7 +56,7 @@ public class UsersEntity {
     public void update(DTOEditUser editUser){
         this.setFirstName(Objects.isNull(editUser.getFirstName()) || Strings.isEmpty(editUser.getFirstName()) ? this.getFirstName() : editUser.getFirstName());
         this.setLastName(Objects.isNull(editUser.getLastName()) || Strings.isEmpty(editUser.getFirstName()) ? this.getLastName() : editUser.getLastName());
-        this.setProfileImage(Objects.isNull(editUser.getProfileImage()) || Strings.isEmpty(editUser.getFirstName()) ? this.getProfileImage() : editUser.getProfileImage());
         this.setUsername(Objects.isNull(editUser.getUsername()) || Strings.isEmpty(editUser.getFirstName()) ? this.getUsername() : editUser.getUsername());
+        this.setPassword(Objects.isNull(editUser.getPassword()) || Strings.isEmpty(editUser.getPassword()) ? this.getPassword() : editUser.getPassword());
     }
 }
