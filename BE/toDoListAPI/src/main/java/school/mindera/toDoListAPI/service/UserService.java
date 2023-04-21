@@ -105,6 +105,10 @@ public class UserService {
         }
 
         UsersEntity user = dbUser.get();
+        if(!passwordEncoder.matches(newInfo.getCurrentPassword(), user.getPassword())){
+            throw new UserWrongCredentials("Password is wrong!!!");
+        }
+        newInfo.setPassword(passwordEncoder.encode(newInfo.getPassword()));
         user.update(newInfo);
         usersRepository.save(user);
 
