@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Route, Routes } from "react-router";
 import {
   AppContext,
   TaskListContext,
@@ -7,6 +8,7 @@ import {
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
 import { GlobalStyle } from "./GlobalStyles";
+import ForgotPassword from "./pages/ForgotPassword";
 import Home from "./pages/Home.jsx";
 
 export default function App() {
@@ -64,7 +66,10 @@ export default function App() {
       <AppContext.Provider value={appContext}>
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle theme={theme} />
-          <Home taskListContext={tasksListContext} theme={theme}></Home>
+          <Routes path="/">
+            <Route index path="MS5-To-Do-List" element={<Home taskListContext={tasksListContext} theme={theme}></Home>} />
+            <Route path="/MS5-To-Do-List/forgot-password/:token" element={<ForgotPassword />} />
+          </Routes>
         </TaskListContext.Provider>
       </AppContext.Provider>
     </>
