@@ -1,8 +1,4 @@
 import React, { useEffect } from "react";
-import CreateTasksContainer from "./components/AddTasks/CreateTasksContainer";
-import Header from "./components/Header";
-import LeftMenu from "./components/LeftMenu";
-import TaskList from "./components/TaskList";
 import {
   AppContext,
   TaskListContext,
@@ -10,7 +6,8 @@ import {
   useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import { CentralDiv, GlobalStyle, LateralDiv, Main, TaskListContainer } from "./GlobalStyles";
+import { GlobalStyle } from "./GlobalStyles";
+import Home from "./pages/Home.jsx";
 
 export default function App() {
   const appContext = useCreateAppContext();
@@ -67,19 +64,7 @@ export default function App() {
       <AppContext.Provider value={appContext}>
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle theme={theme} />
-          <Header tasksList={tasksListContext} />
-          <Main className="main">
-            <LateralDiv>
-              <LeftMenu />
-            </LateralDiv>
-            <CentralDiv className="central">
-              <CreateTasksContainer />
-              <TaskListContainer className="tasklistcont" theme={theme}>
-                <TaskList />
-              </TaskListContainer>
-            </CentralDiv>
-            <LateralDiv dummy={true} />
-          </Main>
+          <Home taskListContext={tasksListContext} theme={theme}></Home>
         </TaskListContext.Provider>
       </AppContext.Provider>
     </>
