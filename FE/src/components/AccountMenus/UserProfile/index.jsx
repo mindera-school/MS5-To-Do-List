@@ -6,7 +6,14 @@ import { FiLogOut } from "react-icons/fi";
 import { useAppContext, useTaskListContext } from "../../../context.js";
 import { ThemeSwitchHolder, UserImg } from "../LoginMenu/styled-components";
 import Popconfirm from "../../Popconfirm/index.jsx";
-import { StatsHolder, UserProfileContainer, VerticalLine } from "./styles.js";
+import {
+  StatsHolder,
+  UserProfileContainer,
+  VerticalLine,
+  EditBtn,
+  EditBtnContainer,
+} from "./styles.js";
+import { FiEdit } from "react-icons/fi";
 
 function getUserImage(image) {
   return image === null ? (
@@ -59,7 +66,6 @@ export const UserProfile = () => {
       setLogOutVerification(null);
     }
   }, [logOutVerification]);
-
   return (
     <>
       <UserProfileContainer>
@@ -80,7 +86,12 @@ export const UserProfile = () => {
         <UserImg theme={theme}>
           {getUserImage(currentUser.profileImage)}
         </UserImg>
-        <h3>{`${currentUser.firstName} ${currentUser.lastName}`}</h3>
+        <EditBtnContainer>
+          <h3>{`${currentUser.firstName} ${currentUser.lastName}`}</h3>
+          <EditBtn onClick={() => setMenuType("editInfoUser")}>
+            <FiEdit color={theme?.inputColor} size={20} />
+          </EditBtn>
+        </EditBtnContainer>
         <StatsHolder>
           <div>
             <h3>Tasks:</h3>

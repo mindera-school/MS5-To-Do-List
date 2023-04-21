@@ -94,7 +94,7 @@ export const LateralDiv = styled.div`
   width: 100%;
   flex: 1;
   height: 100vh;
-  z-index: 50;
+  z-index: 3;
 
   @media (max-width: 1180px) {
     display: ${({ dummy }) => (dummy ? "none" : "flex")};
