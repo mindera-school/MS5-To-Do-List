@@ -59,6 +59,9 @@ export const EditUserInfo = () => {
     if (confirmPassword === "") {
       updatedInfo.confirmPassword = null;
     }
+    if (currentPassword === "") {
+      return false;
+    }
     return { ...userInfo, ...updatedInfo };
   };
 
@@ -69,6 +72,10 @@ export const EditUserInfo = () => {
       return;
     }
     const updatedUserInfo = checkObj();
+    if (updatedUserInfo === false) {
+      setErrorMessage("Password is required!	");
+      return;
+    }
     if (updatedUserInfo.newPassword !== updatedUserInfo.confirmPassword) {
       return;
     }
@@ -76,13 +83,16 @@ export const EditUserInfo = () => {
       method: "PATCH",
       redirect: "follow",
       referrerPolicy: "no-referrer",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         username: updatedUserInfo.userName,
         firstName: updatedUserInfo.firstName,
         lastName: updatedUserInfo.lastName,
         password: updatedUserInfo.newPassword,
         currentPassword: updatedUserInfo.currentPassword,
-      })
+      }),
     })
       .then((r) => r.json())
       .then((r) => {
@@ -156,11 +166,11 @@ export const EditUserInfo = () => {
         <EditLabel htmlFor="">
           <LabelName theme={theme}>Current Password</LabelName>
           <EditInput
+            required
             type="password"
             theme={theme}
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            required
           />
         </EditLabel>
         <SaveBtn onClick={(e) => handleSave(e, userInfo)}>
