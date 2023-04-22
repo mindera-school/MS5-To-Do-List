@@ -29,7 +29,7 @@ export const PasswordLabel = styled.label`
 	flex-direction: column;
 	align-items: center;
 	color: white;
-	margin: 40px 0;
+	margin: 20px 0;
 	span {
 		padding-left: 10%;
 		align-self: flex-start;
@@ -52,12 +52,23 @@ export const LabelsContainer = styled.div`
 `;
 
 export const PasswordAdvicer = styled.div`
-	background-color: rgba(0, 236, 0, 0.35);
+	background-color: #d1e7dd;
+	border: 2px solid rgb(163,207,187);
+	font-weight: 100;
 	width: 80%;
 	padding: 8px;
 	border-radius: 3px;
-	height: 15%;
-	color: white;
+	height: fit-content;
+	color: rgb(10,54,34);
+	box-sizing: border-box;
+	font-size: 15px;
+
+	h4 {
+		margin: 0 0 5px 0;
+		font-size: 16px;
+		font-weight: 500;
+		text-decoration: underline;
+	}
 `;
 
 export const SubmitButton = styled.button`
@@ -75,5 +86,9 @@ export const SubmitButton = styled.button`
 	&:hover{
 		background-color: #e9ecef;
 		transform: scale(1.05);
+	}
+
+	&:active{
+		background-color: gray;	
 	}
 `;

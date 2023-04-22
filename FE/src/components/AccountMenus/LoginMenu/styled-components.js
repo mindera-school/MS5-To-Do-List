@@ -237,3 +237,18 @@ export const ThemeSwitchHolder = styled.div`
 		flex-direction: row;
 	}
 `;
+
+export const ForgotPasswordButton = styled.button`
+	border: none;
+	background: transparent;
+	color: orange;
+	align-self: flex-end;
+	margin: 0px 35px 35px 0;
+	cursor: pointer;
+	transition: transform 0.3s;
+
+	&:hover {
+		color: white;
+		transform: scale(1.1);
+	}
+`;

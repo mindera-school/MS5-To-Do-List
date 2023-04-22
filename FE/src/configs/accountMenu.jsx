@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  LoginMenu,
+  EditUserInfo, LoginMenu,
   RegisterMenu,
-  UserProfile,
-  EditUserInfo,
+  UserProfile
 } from "../components";
+import ResetPassword from "../components/AccountMenus/ResetPassword";
 
 export const accountMenuMap = {
   login: {
@@ -23,4 +23,8 @@ export const accountMenuMap = {
     el: <EditUserInfo />,
     key: "editInfo",
   },
+  forgotPassword: {
+    el: <ResetPassword />,
+    key: "forgotPassword",
+  }
 };
