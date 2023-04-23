@@ -128,7 +128,6 @@ public class UserService {
 
         CodesEntity codeEntity = code.get();
         if (codeEntity.getExpireDate().before(new Date())) {
-            codesRepository.delete(codeEntity);
             throw new InvalidUserException("Code expired");
         }
 
