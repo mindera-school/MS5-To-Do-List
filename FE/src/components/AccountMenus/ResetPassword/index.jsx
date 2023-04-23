@@ -30,8 +30,12 @@ function ResetPassword() {
 		}, 2500);
 	};
 
+	const handleBackClick = () => {
+		setMenuType("login");
+	};
+
 	return <>
-		<GoBackBtn>
+		<GoBackBtn onClick={() => handleBackClick()}>
 			<RiArrowGoBackLine color="white" size={30}></RiArrowGoBackLine>
 		</GoBackBtn>
 		<ContentContainer>
