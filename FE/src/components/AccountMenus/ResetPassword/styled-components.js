@@ -48,7 +48,7 @@ export const EmailInput = styled.input`
 `;
 
 export const SendButton = styled.button`
-	position:relative;
+	position: relative;
 	border-radius: 100%;
 	min-height: 50px;
 	min-width: 50px;
