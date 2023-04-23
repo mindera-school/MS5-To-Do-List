@@ -11,5 +11,6 @@ public class DTOEditUser {
     String firstName;
     String lastName;
     String username;
-    String profileImage;
+    String password;
+    String currentPassword;
 }
