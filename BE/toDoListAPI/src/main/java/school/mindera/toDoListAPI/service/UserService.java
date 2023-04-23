@@ -134,6 +134,7 @@ public class UserService {
         UsersEntity user = codeEntity.getUserId();
 
         user.setPassword(passwordEncoder.encode(dtoChangePassword.getNewPassword()));
+        user.setTries(0);
         usersRepository.save(user);
 
         return ResponseEntity.ok(Converter.toDTOLogged(user));
