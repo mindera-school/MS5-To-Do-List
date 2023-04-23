@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @PatchMapping("/reset-password")
-    public void forgotPassword(@RequestBody DTOChangePassword newPassword) {
-        // Nice to Have
+    public ResponseEntity<DTOLoggedUser> forgotPassword(@RequestBody DTOChangePassword dtoChangePassword) {
+        return userService.changePassword(dtoChangePassword);
     }
 
     @PostMapping("forgot-password")

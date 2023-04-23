@@ -10,5 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DTOChangePassword {
+    private String token;
     private String newPassword;
 }

@@ -3,14 +3,17 @@ package school.mindera.toDoListAPI.service;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import school.mindera.toDoListAPI.entities.CodesEntity;
 import school.mindera.toDoListAPI.entities.UsersEntity;
 import school.mindera.toDoListAPI.exceptions.user.InvalidUserException;
 import school.mindera.toDoListAPI.exceptions.user.UserAlreadyExistsException;
 import school.mindera.toDoListAPI.exceptions.user.UserLockedException;
 import school.mindera.toDoListAPI.exceptions.user.UserWrongCredentials;
 import school.mindera.toDoListAPI.model.*;
+import school.mindera.toDoListAPI.repositories.CodesRepository;
 import school.mindera.toDoListAPI.repositories.UsersRepository;
 
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -18,12 +21,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UsersRepository usersRepository;
-
     private final PasswordEncoder passwordEncoder;
+    private final CodesRepository codesRepository;
 
-    public UserService(UsersRepository usersRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UsersRepository usersRepository, PasswordEncoder passwordEncoder, CodesRepository codesRepository) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
+        this.codesRepository = codesRepository;
     }
 
     public ResponseEntity<DTOLoggedUser> register(DTORegister register) {
@@ -110,6 +114,27 @@ public class UserService {
         }
         newInfo.setPassword(passwordEncoder.encode(newInfo.getPassword()));
         user.update(newInfo);
+        usersRepository.save(user);
+
+        return ResponseEntity.ok(Converter.toDTOLogged(user));
+    }
+
+    public ResponseEntity<DTOLoggedUser> changePassword(DTOChangePassword dtoChangePassword) {
+        Optional<CodesEntity> code = codesRepository.findCodesEntityByCodeIdCode(dtoChangePassword.getToken());
+
+        if (code.isEmpty()) {
+            throw new InvalidUserException("Invalid Token");
+        }
+
+        CodesEntity codeEntity = code.get();
+        if (codeEntity.getExpireDate().before(new Date())) {
+            throw new InvalidUserException("Code expired");
+        }
+
+        UsersEntity user = codeEntity.getUserId();
+
+        user.setPassword(passwordEncoder.encode(dtoChangePassword.getNewPassword()));
+        user.setTries(0);
         usersRepository.save(user);
 
         return ResponseEntity.ok(Converter.toDTOLogged(user));
