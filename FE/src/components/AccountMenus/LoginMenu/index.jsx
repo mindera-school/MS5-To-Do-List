@@ -6,7 +6,7 @@ import { FiUserPlus } from "react-icons/fi";
 import { GrFormClose } from "react-icons/gr";
 import { MdError, MdSignalWifiStatusbarNotConnected } from "react-icons/md";
 import { useAppContext } from "../../../context";
-import { CloseWarningBtn, ConnectWarning, IconHolder, LoginBtn, LoginContent, LoginDiv, LoginWarning, LoginWarningText, RegisterBtn, ThemeSwitchHolder, UserImg, WarningContent, WarningText } from "./styled-components";
+import { CloseWarningBtn, ConnectWarning, ForgotPasswordButton, IconHolder, LoginBtn, LoginContent, LoginDiv, LoginWarning, LoginWarningText, RegisterBtn, ThemeSwitchHolder, UserImg, WarningContent, WarningText } from "./styled-components";
 
 async function sendLoginInfo(data, logger, setConnect, setLoginError) {
   if (data.username === "" || data.password === "") {
@@ -91,6 +91,7 @@ export const LoginMenu = () => {
           />
         </label>
       </LoginContent>
+      <ForgotPasswordButton onClick={() => setMenuType("forgotPassword")}>Forgot password?</ForgotPasswordButton>
       <LoginBtn
         theme={theme}
         onClick={() =>

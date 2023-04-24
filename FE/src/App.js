@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import CreateTasksContainer from "./components/AddTasks/CreateTasksContainer";
-import Header from "./components/Header";
-import LeftMenu from "./components/LeftMenu";
-import TaskList from "./components/TaskList";
+import { Route, Routes } from "react-router";
 import {
   AppContext,
   TaskListContext,
@@ -10,7 +7,9 @@ import {
   useCreateTaskListContext
 } from "./context";
 import taskFetcher from "./fetchers/fetchTasks";
-import { CentralDiv, GlobalStyle, LateralDiv, Main, TaskListContainer } from "./GlobalStyles";
+import { GlobalStyle } from "./GlobalStyles";
+import ForgotPassword from "./pages/ForgotPassword";
+import Home from "./pages/Home.jsx";
 
 export default function App() {
   const appContext = useCreateAppContext();
@@ -67,19 +66,10 @@ export default function App() {
       <AppContext.Provider value={appContext}>
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle theme={theme} />
-          <Header tasksList={tasksListContext} />
-          <Main className="main">
-            <LateralDiv>
-              <LeftMenu />
-            </LateralDiv>
-            <CentralDiv className="central">
-              <CreateTasksContainer />
-              <TaskListContainer className="tasklistcont" theme={theme}>
-                <TaskList />
-              </TaskListContainer>
-            </CentralDiv>
-            <LateralDiv dummy={true} />
-          </Main>
+          <Routes path="/">
+            <Route index path="MS5-To-Do-List" element={<Home taskListContext={tasksListContext} theme={theme}></Home>} />
+            <Route path="/MS5-To-Do-List/forgot-password/:token" element={<ForgotPassword />} />
+          </Routes>
         </TaskListContext.Provider>
       </AppContext.Provider>
     </>
