@@ -63,3 +63,17 @@
 - Tasks marked as done will be rounded by a green border. Tasks that will be due in 48 hours will be marked with a red border.
 
 <img width="628" alt="image" src="https://user-images.githubusercontent.com/117355219/227210060-ad806095-c7ab-4589-ac73-8c9e9553fe29.png">
+
+### Forgot Password
+
+- In case you forgot your password our app offers you an easy, quick and safe way to get back on using MS5 ToDoList. For that you just need to access the account menu on the top right side of the screen and on the login page click the <i>Forgot Password?</i> link.
+
+<img width="391" alt="image" src="https://user-images.githubusercontent.com/117355219/234261373-fd8bccbe-56a1-416e-a5bb-f1168d6a2a9c.png">
+
+<img width="120" alt="image" src="https://user-images.githubusercontent.com/117355219/234261434-c988afa9-ef49-450f-97d2-62c11ad8d462.png">
+
+- Once you click the following form will be presented to you. Just put the email associated to your account and hit the send button!
+
+<img width="390" alt="image" src="https://user-images.githubusercontent.com/117355219/234261757-b28c21e8-5f99-4473-af56-6df43425a961.png">
+
+- Then check your email inbox for the email we've sent you! There you will find a link. You just need to click it and you will be taken to a page with a form where you should put your new password and then confirm it but writing it again.
