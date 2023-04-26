@@ -96,14 +96,23 @@ export const EditUserInfo = () => {
     })
       .then((r) => r.json())
       .then((r) => {
-        setUser(r);
-        setMenuType("logged");
-        setUserName("");
-        setFirstName("");
-        setLastName("");
-        setNewPassword("");
-        setConfirmPassword("");
-        setCurrentPassword("");
+        console.log(r)
+        if (r.code === 11) {
+          setErrorMessage("Username is already taken!	");
+          return;
+        } else if (r.code === 10) {
+          setErrorMessage("Wrong credentials!	");
+          return;
+        } else {
+          setUser(r);
+          setMenuType("logged");
+          setUserName("");
+          setFirstName("");
+          setLastName("");
+          setNewPassword("");
+          setConfirmPassword("");
+          setCurrentPassword("");
+        }
       })
       .catch((r) => console.error(r));
   };
