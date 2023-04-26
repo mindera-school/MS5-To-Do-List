@@ -91,20 +91,12 @@ export default function CreateTasksContainer() {
 
     if (newTaskState.title === "") return;
 
-    // setTagsList(
-    //   tagsList.map((tag) => {
-    //     if (tag.input) {
-    //       return tag;
-    //     }
-    //   })
-    // );
-
     //POST to send the Task the BE
     setModalVisible(modalVisible === "none" ? "block" : "none");
     if (user.currentUser != null) {
       const data = {
         position: newTaskState.position,
-        date: newTaskState.date?.replaceAll("-", "/"),
+        date: newTaskState.date == "" ? newTaskState.date?.replaceAll("-", "/") : null,
         title: newTaskState.title,
         description: newTaskState.description,
         userId: newTaskState.userId,
@@ -112,7 +104,6 @@ export default function CreateTasksContainer() {
         isFavorite: false,
         parentId: newTaskState.parentId
       };
-
 
       await fetch("http://localhost:8086/todo/tasks/v1", {
         method: "POST",
