@@ -18,11 +18,13 @@ public class CommentController {
         this.commentService = commentService;
     }
 
+    // Must be (" /tasks/{taskId} ")
     @GetMapping("/v1/{taskId}")
-    public ResponseEntity<List<DTOComment>> getGroups(@PathVariable Integer taskId){
+    public ResponseEntity<List<DTOComment>> getTaskComments(@PathVariable Integer taskId){
         return commentService.getComments(taskId);
     }
 
+    // Must be ("   ")
     @PostMapping("/v1")
     public ResponseEntity<DTOComment> createComment(@RequestBody DTONewComment newComment){
         return commentService.createComment(newComment);
