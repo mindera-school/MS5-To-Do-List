@@ -22,14 +22,11 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Open FE folder
-        run: cd FE
-
       - name: Install packages
-        run: npm install
+        run: cd FE && npm install
 
       - name: Run linter
-        run: npm run lint
+        run: cd FE && npm run lint
 
       - name: Run build
-        run: npm run build
+        run: cd FE && npm run build
