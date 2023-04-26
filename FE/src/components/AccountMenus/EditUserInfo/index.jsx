@@ -96,7 +96,6 @@ export const EditUserInfo = () => {
     })
       .then((r) => r.json())
       .then((r) => {
-        console.log(r)
         if (r.code === 11) {
           setErrorMessage("Username is already taken!	");
           return;
