@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAppContext } from "../context";
 import { BoxTitle, ContainerBox, ForgotPasswordForm, LabelsContainer, PasswordAdvicer, PasswordInput, PasswordLabel, SubmitButton } from "./forgotpasspage-components";
 
@@ -10,6 +10,7 @@ function ForgotPassword() {
 	const theme = useAppContext().themeMode;
 	const [firstInput, setFirstInput] = useState("");
 	const [secondInput, setSecondInput] = useState("");
+	const nav = useNavigate();
 
 	const checkPassword = (password) => {
 		const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$/;
@@ -38,7 +39,7 @@ function ForgotPassword() {
 			redirect: "follow",
 			referrerPolicy: "no-referrer",
 			body: JSON.stringify(createDTO()),
-		});
+		}).then(nav("/MS5-To-Do-List"));
 	};
 
 	return <>
