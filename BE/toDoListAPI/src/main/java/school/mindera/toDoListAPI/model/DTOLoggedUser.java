@@ -8,8 +8,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 @EqualsAndHashCode
+@Builder
 public class DTOLoggedUser {
     private Integer userId;
     private String firstName;

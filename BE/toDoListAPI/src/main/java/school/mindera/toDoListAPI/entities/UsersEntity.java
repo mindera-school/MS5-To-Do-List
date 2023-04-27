@@ -12,8 +12,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
 @Builder
+@Entity
 @Table(name = "users")
 public class UsersEntity {
 

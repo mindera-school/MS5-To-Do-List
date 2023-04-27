@@ -1,8 +1,9 @@
 {
   "name": "todolist-frontend",
   "version": "0.1.0",
-  "homepage": "https://mindera-school.github.io/MS5-To-Do-List/",
+  "homepage": ".",
   "private": true,
+
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

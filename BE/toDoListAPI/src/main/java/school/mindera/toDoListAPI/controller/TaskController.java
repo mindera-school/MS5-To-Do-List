@@ -62,17 +62,3 @@ public class TaskController {
         return taskService.updatePosition(updatedTasks);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

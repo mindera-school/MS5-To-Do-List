@@ -128,7 +128,7 @@ public class UserService {
         if (!isNull(newInfo.getPassword())) {
             newInfo.setPassword(passwordEncoder.encode(newInfo.getPassword()));
         }
-        
+
         user.update(newInfo);
         usersRepository.save(user);
 

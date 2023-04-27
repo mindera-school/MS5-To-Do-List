@@ -67,8 +67,8 @@ export default function App() {
         <TaskListContext.Provider value={tasksListContext}>
           <GlobalStyle theme={theme} />
           <Routes path="/">
-            <Route index path="MS5-To-Do-List" element={<Home taskListContext={tasksListContext} theme={theme}></Home>} />
-            <Route path="MS5-To-Do-List/forgot-password/:token" element={<ForgotPassword />} />
+            <Route index element={<Home taskListContext={tasksListContext} theme={theme}></Home>} />
+            <Route path="/MS5-To-Do-List/forgot-password/:token" element={<ForgotPassword />} />
           </Routes>
         </TaskListContext.Provider>
       </AppContext.Provider>
