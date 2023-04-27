@@ -33,7 +33,7 @@ export const EditUserInfo = () => {
     lastName,
     newPassword,
     confirmPassword,
-    currentPassword,
+    currentPassword,  
   };
 
   useEffect(() => {
