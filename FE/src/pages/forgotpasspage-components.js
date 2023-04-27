@@ -13,7 +13,7 @@ export const BoxTitle = styled.h2`
 `;
 
 export const ForgotPasswordForm = styled.form`
-	height: 500px;
+	height: 40vh;
 	width: 350px;
 	background-color: #2C5BA1;
 	border-radius: 10px;

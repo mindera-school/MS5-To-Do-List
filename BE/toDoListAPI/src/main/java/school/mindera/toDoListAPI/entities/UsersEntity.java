@@ -1,6 +1,9 @@
 package school.mindera.toDoListAPI.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.logging.log4j.util.Strings;
 import school.mindera.toDoListAPI.model.DTOEditUser;
 
@@ -13,7 +16,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Builder
 @Table(name = "users")
 public class UsersEntity {
 

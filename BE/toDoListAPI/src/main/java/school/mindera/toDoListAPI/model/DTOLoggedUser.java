@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
 public class DTOLoggedUser {
     private Integer userId;
     private String firstName;
