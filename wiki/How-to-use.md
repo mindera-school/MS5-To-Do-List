@@ -76,4 +76,10 @@
 
 <img width="390" alt="image" src="https://user-images.githubusercontent.com/117355219/234261757-b28c21e8-5f99-4473-af56-6df43425a961.png">
 
-- Then check your email inbox for the email we've sent you! There you will find a link. You just need to click it and you will be taken to a page with a form where you should put your new password and then confirm it but writing it again.
+- Then check your email inbox for the email we've sent you! There you will find a link.
+
+<img width="390" alt="image" src="https://user-images.githubusercontent.com/117355219/234814599-cbd03cf3-e91a-4d60-aaea-43f81bcd4366.png">
+
+- You just need to click it and you will be taken to a page with a form where you should put your new password and then confirm it but writing it again.
+
+<img width="390" alt="image" src="https://user-images.githubusercontent.com/117355219/234814892-bf97ffd5-aba9-4a11-902f-1d9a64d69369.png">
