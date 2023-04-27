@@ -27,13 +27,6 @@ public class UserController {
         return userService.register(register);
     }
 
-    // Must be (" /{userId} ")
-    @PatchMapping("/{userId}")
-    public ResponseEntity<DTOLoggedUser> editUser(@PathVariable Integer userId, @RequestBody DTOEditUser newInfo){
-        return userService.editUserInfo(userId, newInfo);
-    }
-
-    // Could be made in previous endpoint
     @PatchMapping("/{userId}/profile-image")
     public void changeProfileImage(@PathVariable Integer userId, @RequestBody DTOChangeImg changeImg) {
         userService.changeUserProfileImg(userId, changeImg);
@@ -44,8 +37,13 @@ public class UserController {
         return userService.changePassword(dtoChangePassword);
     }
 
-    @PostMapping("/forgot-password")
+    @PostMapping("forgot-password")
     public ResponseEntity<Object> forgotPassword(@RequestBody DTOChangePasswordEmail accountEmail) {
         return emailSenderService.sendEmail(accountEmail);
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<DTOLoggedUser> editUser(@PathVariable Integer userId, @RequestBody DTOEditUser newInfo){
+        return userService.editUserInfo(userId, newInfo);
     }
 }
