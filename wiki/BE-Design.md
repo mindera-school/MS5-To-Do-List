@@ -1,6 +1,6 @@
 # DataBase
 
-<img width="742" alt="image" src="https://user-images.githubusercontent.com/62727949/227172106-81a48395-0be8-4e81-be17-dd27beafc7ff.png">
+<img width="742" alt="image" src="https://github.com/Adan0k/images/blob/main/TODO_LIST/Captura%20de%20Tela%202023-04-27%20%C3%A0s%2014.08.12.png?raw=true">
 
 This is our DataBase that's where we store all ToDo List Data
 
@@ -37,4 +37,11 @@ The Task_tags table basically serves as a support in relating the Task and Tag t
 <img width="801" alt="image" src="https://user-images.githubusercontent.com/62727949/227175066-df44dd8b-9a7b-492a-95e6-fcbb1a8313f2.png">
 
 The Comments table has a direct relationship with the Task table, with the objective of storing the comments of a respective task.
+</details>
+
+<details>
+<summary><h2>Code</h2></summary>
+<img width="801" alt="image" src="https://github.com/Adan0k/images/blob/main/TODO_LIST/Captura%20de%20Tela%202023-04-27%20%C3%A0s%2014.10.14.png?raw=true">
+
+The code table has a direct relationship with the User table, with the objective of storing the codes for password reset.
 </details>

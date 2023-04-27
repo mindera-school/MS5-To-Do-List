@@ -41,17 +41,23 @@
 
 </details>
 <details>
-<summary>CHANGE PROFILE IMAGE</summary>
+<summary>CHANGE USER INFO</summary>
 
 ## Request
 
-**Endpoint:** `PATCH` http://localhost:8086/todo/users/{userId}/profile_image
+**Endpoint:** `PATCH` http://localhost:8086/todo/users/{userId}
 
 **Body:**
 
 ```json
 {
-  "profileImage": "string"
+  
+  "firstName": "string",
+  "lastName": "string",
+  "username": "string",
+  "password": "string",
+  "currentPassword": "string"
+
 }
 ```
 
@@ -67,6 +73,24 @@
 
 ```json
 {
+  "email": "string"
+}
+```
+
+</details>
+
+<details>
+<summary>RESET PASSWORD</summary>
+
+## Request
+
+**Endpoint:** `PATCH` http://localhost:8086/todo/users/reset-password
+
+**Body:**
+
+```json
+{
+  "token": "string",
   "newPassword": "string"
 }
 ```
