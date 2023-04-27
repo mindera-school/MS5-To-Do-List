@@ -19,7 +19,7 @@ jobs:
           java-version: '19'
 
       - name: Build with Maven
-        run: mvn --batch-mode --update-snapshots -f BE/toDoListAPI/POM.xml package
+        run: mvn --batch-mode --update-snapshots -f BE/toDoListAPI/pom.xml package
 
       - name: Run tests
         run: mvn test
