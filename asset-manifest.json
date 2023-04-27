@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/MS5-To-Do-List/static/js/main.bf9a1e2c.js",
+    "main.js": "/MS5-To-Do-List/static/js/main.aec2d7bf.js",
     "static/media/Roboto-Regular.ttf": "/MS5-To-Do-List/static/media/Roboto-Regular.f25bd05915c1a3468d3d.ttf",
     "index.html": "/MS5-To-Do-List/index.html",
-    "main.bf9a1e2c.js.map": "/MS5-To-Do-List/static/js/main.bf9a1e2c.js.map"
+    "main.aec2d7bf.js.map": "/MS5-To-Do-List/static/js/main.aec2d7bf.js.map"
   },
   "entrypoints": [
-    "static/js/main.bf9a1e2c.js"
+    "static/js/main.aec2d7bf.js"
   ]
 }
