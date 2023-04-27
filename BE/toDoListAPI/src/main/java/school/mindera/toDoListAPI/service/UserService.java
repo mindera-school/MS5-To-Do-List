@@ -30,7 +30,6 @@ public class UserService {
     // Utils on debug
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
-
     public UserService(UsersRepository usersRepository, PasswordEncoder passwordEncoder, CodesRepository codesRepository) {
         this.usersRepository = usersRepository;
         this.passwordEncoder = passwordEncoder;
