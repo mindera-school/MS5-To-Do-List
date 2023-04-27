@@ -83,4 +83,16 @@ public class UserExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity(response, HttpStatus.valueOf(409));
     }
+
+    @ExceptionHandler(value = {UsersPasswordIsInvalidException.class})
+    public ResponseEntity handleUsersPasswordIsInvalid(RuntimeException e){
+        ErrorResponse response = ErrorResponse.builder()
+                .code(15)
+                .type("user")
+                .timestamp(new Date())
+                .message(e.getMessage())
+                .build();
+
+        return new ResponseEntity(response, HttpStatus.valueOf(400));
+    }
 }
