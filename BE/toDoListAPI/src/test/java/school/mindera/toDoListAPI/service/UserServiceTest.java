@@ -171,7 +171,7 @@ public class UserServiceTest {
                 .profileImage(profileImage)
                 .tasksPreviewsURL("http://localhost:8086/todo/tasks/preview/" + userId)
                 .build();
-
+//teste
         return loggedUser;
     }
 }
