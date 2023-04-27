@@ -3,9 +3,8 @@ import React, {
   useContext,
   useEffect,
   useRef,
-  useState,
+  useState
 } from "react";
-import ClickNHold from "react-click-n-hold";
 import Draggable from "react-draggable";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { FiChevronDown } from "react-icons/fi";
@@ -15,13 +14,12 @@ import {
   AppContext,
   TaskListContext,
   useAppContext,
-  useTaskListContext,
+  useTaskListContext
 } from "../../context.js";
+import Popconfirm from "../Popconfirm/index.jsx";
 import TaskDetailsModal from "../TaskDetailsModal";
 import TaskTagsList from "../TaskTagsList";
-import Popconfirm from "../Popconfirm/index.jsx";
 import {
-  CustomDiv,
   DateContainer,
   DeleteBtn,
   DraggerContainer,
@@ -32,7 +30,7 @@ import {
   StyledTaskPreview,
   SubtasksBtns,
   TaskDetailsBtn,
-  VerticalLine,
+  VerticalLine
 } from "./styled-components";
 import SubtaskList from "./SubtaskList";
 
@@ -186,7 +184,7 @@ export default function TaskPreview({
   };
 
   const handleStart = useCallback((event) => {
-    if (event.srcElement.toString() === "[object HTMLButtonElement]" || event.srcElement.toString() === "[object HTMLInputElement]") {
+    if (event?.srcElement?.toString() === "[object HTMLButtonElement]" || event?.srcElement?.toString() === "[object HTMLInputElement]") {
       return;
     }
 
