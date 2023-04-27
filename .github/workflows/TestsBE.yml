@@ -22,4 +22,4 @@ jobs:
         run: mvn --batch-mode --update-snapshots -f BE/toDoListAPI/pom.xml package
 
       - name: Run tests
-        run: mvn test
+        run: mvn -f BE/toDoListAPI/pom.xml test
