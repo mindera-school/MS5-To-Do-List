@@ -18,6 +18,9 @@ jobs:
         with:
           java-version: '19'
 
+      - name: Change directory to the project root
+        run: cd BE/toDoListAPI
+
       - name: Build with Maven
         run: mvn clean package
 
