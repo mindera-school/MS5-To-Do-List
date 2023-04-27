@@ -18,7 +18,7 @@ public class EmailFactory {
                 "        </tr>\n" +
                 "        <tr>\n" +
                 "            <td style=\"text-align: center; padding: 20px;\">\n" +
-                "                <a href=\"http://localhost:3000/change-password/"+ token +"\" style=\"\n" +
+                "                <a href=\"http://localhost:3000/MS5-To-Do-List/forgot-password/"+ token +"\" style=\"\n" +
                 "                  display: block;\n" +
                 "                  background-color: #2c5ba1;\n" +
                 "                  border-radius: 15px;\n" +
